@@ -1,267 +1,0 @@
-TStreetFix
-v7
-r0
-t301999149.448634
-cCheck dependencies
-cProcessInfoPlistFile /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/Info.plist StreetFix-Info.plist
-cCompileXIB /Users/toericliou/Documents/StreetFix/MainWindow.xib
-cCompileXIB /Users/toericliou/Documents/StreetFix/TempView.xib
-cProcessPCH /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-bwicaqloozchudedhmgklylvcknp/StreetFix_Prefix.pch.gch StreetFix_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/main.o /Users/toericliou/Documents/StreetFix/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/StreetFixAppDelegate.o /Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/TempView.o /Users/toericliou/Documents/StreetFix/Classes/../TempView.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cLd /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/StreetFix normal i386
-cGenerateDSYMFile /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app.dSYM /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/StreetFix
-cTouch /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk
-c000000004C3BFC750000000000000132
-t1278999669
-s306
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
-c000000004BFDFE39000000000027C7D0
-t1274936889
-s2607056
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004BFDFE7C000000000029D5D0
-t1274936956
-s2741712
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
-c000000004BFDFE6E0000000000001466
-t1274936942
-s5222
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
-c000000004C0470BB00000000000009CD
-t1275359419
-s2509
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/UIKit.framework/UIKit
-c000000004C0471620000000001D47210
-t1275359586
-s30700048
-
-N/Users/toericliou/Documents/StreetFix/Classes/../TempView.m
-c000000004C4FE6C70000000000000575
-t1280304839
-s1397
-i"TempView.h"
-
-N/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.h
-c000000004C4FECAB00000000000001A9
-t1280306347
-s425
-i<UIKit/UIKit.h>
-i"TempView.h"
-
-N/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m
-c000000004C4FECAB0000000000000C91
-t1280306347
-s3217
-i"StreetFixAppDelegate.h"
-
-N/Users/toericliou/Documents/StreetFix/MainWindow.xib
-c000000004C4FE5EE0000000000002112
-t1280304622
-s8466
-
-N/Users/toericliou/Documents/StreetFix/StreetFix_Prefix.pch
-c000000004C4FE5EE00000000000000BB
-t1280304622
-s187
-i<Foundation/Foundation.h>
-i<UIKit/UIKit.h>
-
-N/Users/toericliou/Documents/StreetFix/TempView.h
-c000000004C4FE6C700000000000000C5
-t1280304839
-s197
-i<UIKit/UIKit.h>
-
-N/Users/toericliou/Documents/StreetFix/TempView.m
-c000000004C4FE6C70000000000000575
-t1280304839
-s1397
-i"TempView.h"
-
-N/Users/toericliou/Documents/StreetFix/TempView.xib
-c000000004C4FE7D10000000000003DF4
-t1280305105
-s15860
-
-N/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app
-t1280306349
-s238
-
-N/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app.dSYM
-t1280306349
-s102
-
-N/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/Info.plist
-t1280306347
-s599
-
-N/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/MainWindow.nib
-t1280306347
-s986
-
-N/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/PkgInfo
-t1280306347
-s8
-
-N/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/StreetFix
-t1280306349
-s17232
-
-N/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/TempView.nib
-t1280306347
-s963
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/StreetFix.LinkFileList
-c000000004C4FECAB000000000000018B
-t1280306347
-s395
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/StreetFixAppDelegate.o
-t1280306349
-s52592
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/TempView.o
-t1280306349
-s34328
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/main.o
-t1280306349
-s6300
-
-N/Users/toericliou/Documents/StreetFix/main.m
-c000000004C4FE5EE000000000000015A
-t1280304622
-s346
-i<UIKit/UIKit.h>
-
-N/var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-bwicaqloozchudedhmgklylvcknp/StreetFix_Prefix.pch.gch
-t1280306348
-s15232016
-
-NStreetFix-Info.plist
-c000000004C4FE5EE000000000000038D
-t1280304622
-s909
-
-CCheck dependencies
-r0
-lSLF07#2@18"Check dependencies301999147#301999147#0(0"0(0#1#0"8247620834010738688#0"0#
-
-CCompileC build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/StreetFixAppDelegate.o /Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s301999148.670354
-e301999149.179782
-r1
-xCompileC
-xbuild/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/StreetFixAppDelegate.o
-x/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-o/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m: In function '-[StreetFixAppDelegate application:]':
-o/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m:23: warning: passing argument 1 of 'setTitle:' from incompatible pointer type
-lSLF07#2@76"Compile /Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m301999148#301999149#0(269"/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m: In function '-[StreetFixAppDelegate application:]':/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m:23: warning: passing argument 1 of 'setTitle:' from incompatible pointer type1(22@64"Passing argument 1 of 'setTitle:' from incompatible pointer type301999149#122#147#0(6@68"/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m301999147#23#0#23#0#56"passing argument * of '*' from incompatible pointer type0(0#0#68"/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m8614838144#1970"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator -I/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/DerivedSources/i386 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-bwicaqloozchudedhmgklylvcknp/StreetFix_Prefix.pch -c /Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/StreetFixAppDelegate.o0#
-
-CCompileC build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/TempView.o /Users/toericliou/Documents/StreetFix/Classes/../TempView.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s301999148.671965
-e301999149.179955
-r1
-xCompileC
-xbuild/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/TempView.o
-x/Users/toericliou/Documents/StreetFix/Classes/../TempView.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@67"Compile /Users/toericliou/Documents/StreetFix/Classes/../TempView.m301999148#301999149#0(0"0(0#0#59"/Users/toericliou/Documents/StreetFix/Classes/../TempView.m8616125280#1949"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator -I/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/DerivedSources/i386 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-bwicaqloozchudedhmgklylvcknp/StreetFix_Prefix.pch -c /Users/toericliou/Documents/StreetFix/Classes/../TempView.m -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/TempView.o0#
-
-CCompileC build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/TempView.o /Users/toericliou/Documents/StreetFix/TempView.m normal i386 objective-c com.apple.compilers.gcc.4_2
-r0
-
-CCompileC build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/main.o /Users/toericliou/Documents/StreetFix/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s301999148.668808
-e301999149.179368
-r1
-xCompileC
-xbuild/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/main.o
-x/Users/toericliou/Documents/StreetFix/main.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@52"Compile /Users/toericliou/Documents/StreetFix/main.m301999148#301999149#0(0"0(0#0#44"/Users/toericliou/Documents/StreetFix/main.m8615745216#1930"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator -I/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/DerivedSources/i386 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-bwicaqloozchudedhmgklylvcknp/StreetFix_Prefix.pch -c /Users/toericliou/Documents/StreetFix/main.m -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/main.o0#
-
-CCompileXIB /Users/toericliou/Documents/StreetFix/MainWindow.xib
-s301999147.315684
-e301999147.671706
-r1
-xCompileXIB
-x/Users/toericliou/Documents/StreetFix/MainWindow.xib
-lSLF07#2@25"CompileXIB MainWindow.xib301999147#301999147#0(0"0(0#0#52"/Users/toericliou/Documents/StreetFix/MainWindow.xib8616639584#569"    cd /Users/toericliou/Documents/StreetFix    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.0    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/MainWindow.nib /Users/toericliou/Documents/StreetFix/MainWindow.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk0#
-
-CCompileXIB /Users/toericliou/Documents/StreetFix/TempView.xib
-s301999147.317353
-e301999147.685532
-r1
-xCompileXIB
-x/Users/toericliou/Documents/StreetFix/TempView.xib
-lSLF07#2@23"CompileXIB TempView.xib301999147#301999147#0(0"0(0#0#50"/Users/toericliou/Documents/StreetFix/TempView.xib8616552736#565"    cd /Users/toericliou/Documents/StreetFix    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.0    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/TempView.nib /Users/toericliou/Documents/StreetFix/TempView.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk0#
-
-CGenerateDSYMFile /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app.dSYM /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/StreetFix
-s301999149.389048
-e301999149.444908
-r1
-xGenerateDSYMFile
-x/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app.dSYM
-x/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/StreetFix
-lSLF07#2@115"GenerateDSYMFile build/Debug-iphonesimulator/StreetFix.app.dSYM build/Debug-iphonesimulator/StreetFix.app/StreetFix301999149#301999149#0(0"0(0#0#89"/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/StreetFix8616260576#386"    cd /Users/toericliou/Documents/StreetFix    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/StreetFix -o /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app.dSYM0#
-
-CLd /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/StreetFix normal i386
-s301999149.180013
-e301999149.388932
-r1
-xLd
-x/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/StreetFix
-xnormal
-xi386
-lSLF07#2@94"Link /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/StreetFix301999149#301999149#0(0"0(0#0#0"8616548960#905"    cd /Users/toericliou/Documents/StreetFix    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -L/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator -F/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator -filelist /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/Objects-normal/i386/StreetFix.LinkFileList -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -framework Foundation -framework UIKit -framework CoreGraphics -o /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/StreetFix0#
-
-CProcessInfoPlistFile /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/Info.plist StreetFix-Info.plist
-s301999147.292884
-e301999147.315587
-r1
-xProcessInfoPlistFile
-x/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/Info.plist
-xStreetFix-Info.plist
-lSLF07#2@28"Process StreetFix-Info.plist301999147#301999147#0(0"0(0#0#58"/Users/toericliou/Documents/StreetFix/StreetFix-Info.plist32651513917341812#482"    cd /Users/toericliou/Documents/StreetFix    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility StreetFix-Info.plist -genpkginfo /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app/Info.plist0#
-
-CProcessPCH /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-bwicaqloozchudedhmgklylvcknp/StreetFix_Prefix.pch.gch StreetFix_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
-s301999147.685659
-e301999148.668661
-r1
-xProcessPCH
-x/var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-bwicaqloozchudedhmgklylvcknp/StreetFix_Prefix.pch.gch
-xStreetFix_Prefix.pch
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@31"Precompile StreetFix_Prefix.pch301999147#301999148#0(0"0(0#0#58"/Users/toericliou/Documents/StreetFix/StreetFix_Prefix.pch8029755894845892608#1821"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator -I/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/DerivedSources/i386 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Debug-iphonesimulator/StreetFix.build/DerivedSources -c /Users/toericliou/Documents/StreetFix/StreetFix_Prefix.pch -o /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-bwicaqloozchudedhmgklylvcknp/StreetFix_Prefix.pch.gch0#
-
-CTouch /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app
-s301999149.444994
-e301999149.448566
-r1
-xTouch
-x/Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app
-lSLF07#2@85"Touch /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app301999149#301999149#0(0"0(0#0#0"8616049760#278"    cd /Users/toericliou/Documents/StreetFix    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/toericliou/Documents/StreetFix/build/Debug-iphonesimulator/StreetFix.app0#
-

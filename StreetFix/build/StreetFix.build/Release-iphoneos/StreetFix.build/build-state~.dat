@@ -1,522 +1,0 @@
-TStreetFix
-v7
-r0
-t302078429.849565
-cCheck dependencies
-cCpResource build/Release-iphoneos/StreetFix.app/ResourceRules.plist /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/ResourceRules.plist
-cProcessInfoPlistFile /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/Info.plist StreetFix-Info.plist
-cCompileXIB /Users/toericliou/Documents/StreetFix/MainWindow.xib
-cCompileXIB /Users/toericliou/Documents/StreetFix/CameraView.xib
-cCompileXIB /Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.xib
-cProcessPCH /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-fuznvnbobzhhomdstasjrtosymvl/StreetFix_Prefix.pch.gch StreetFix_Prefix.pch normal armv6 objective-c com.apple.compilers.gcc.4_2
-cProcessPCH /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-ddiynrjczmjoslfqnkrdwkwuotmz/StreetFix_Prefix.pch.gch StreetFix_Prefix.pch normal armv7 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/main.o /Users/toericliou/Documents/StreetFix/main.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFixAppDelegate.o /Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/CameraView.o /Users/toericliou/Documents/StreetFix/Classes/../CameraView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/PhotoPicker.o /Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/main.o /Users/toericliou/Documents/StreetFix/main.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFixAppDelegate.o /Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/CameraView.o /Users/toericliou/Documents/StreetFix/Classes/../CameraView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/PhotoPicker.o /Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-cLd /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFix normal armv6
-cLd /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFix normal armv7
-cCreateUniversalBinary /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/StreetFix normal "armv6 armv7"
-cGenerateDSYMFile /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app.dSYM /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/StreetFix
-cProcessProductPackaging "/Users/toericliou/Library/MobileDevice/Provisioning Profiles/22014FC8-4F12-405B-913B-1714E94CCDF2.mobileprovision" /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/embedded.mobileprovision
-cTouch /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app
-cProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/Entitlements.plist /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix.xcent
-cCodeSign /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app
-cValidate /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk
-c000000004C51192C0000000000000110
-t1280383276
-s272
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/Entitlements.plist
-c000000004C2A7DA700000000000001A7
-t1277853095
-s423
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/ResourceRules.plist
-c000000004C2A7DA700000000000001E5
-t1277853095
-s485
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
-c000000004BFE06FA000000000034A850
-t1274939130
-s3450960
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004BFE07D200000000003E1EB0
-t1274939346
-s4071088
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
-c000000004BFE07B10000000000001466
-t1274939313
-s5222
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
-c000000004C296E2A00000000000009CD
-t1277783594
-s2509
-
-N/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/System/Library/Frameworks/UIKit.framework/UIKit
-c000000004C296F120000000002D563E0
-t1277783826
-s47539168
-
-N/Users/toericliou/Documents/StreetFix/CameraView.h
-c000000004C51158A0000000000000162
-t1280382346
-s354
-i<UIKit/UIKit.h>
-
-N/Users/toericliou/Documents/StreetFix/CameraView.xib
-c000000004C4FF7340000000000004380
-t1280309044
-s17280
-
-N/Users/toericliou/Documents/StreetFix/Classes/../CameraView.h
-c000000004C51158A0000000000000162
-t1280382346
-s354
-i<UIKit/UIKit.h>
-
-N/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m
-c000000004C51158A0000000000000930
-t1280382346
-s2352
-i"CameraView.h"
-
-N/Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.h
-c000000004C5120A300000000000000CC
-t1280385187
-s204
-i<UIKit/UIKit.h>
-
-N/Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.m
-c000000004C511D44000000000000057E
-t1280384324
-s1406
-i"PhotoPicker.h"
-
-N/Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.xib
-c000000004C511D44000000000000185C
-t1280384324
-s6236
-
-N/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.h
-c000000004C5120A300000000000001F0
-t1280385187
-s496
-i<UIKit/UIKit.h>
-i"CameraView.h"
-i"PhotoPicker.h"
-
-N/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m
-c000000004C5120A30000000000000EEF
-t1280385187
-s3823
-i"StreetFixAppDelegate.h"
-
-N/Users/toericliou/Documents/StreetFix/MainWindow.xib
-c000000004C4FE5EE0000000000002112
-t1280304622
-s8466
-
-N/Users/toericliou/Documents/StreetFix/StreetFix_Prefix.pch
-c000000004C4FE5EE00000000000000BB
-t1280304622
-s187
-i<Foundation/Foundation.h>
-i<UIKit/UIKit.h>
-
-N/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app
-t1280385629
-s408
-
-N/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app.dSYM
-t1280385629
-s102
-
-N/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/CameraView.nib
-t1280385628
-s1340
-
-N/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/Info.plist
-t1280385627
-s717
-
-N/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/MainWindow.nib
-t1280385628
-s986
-
-N/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/PhotoPicker.nib
-t1280385628
-s764
-
-N/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/PkgInfo
-t1280385627
-s8
-
-N/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/ResourceRules.plist
-t1280385627
-s485
-
-N/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/StreetFix
-t1280385629
-s43644
-
-N/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/embedded.mobileprovision
-t1280385629
-s105184
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/CameraView.o
-t1280385629
-s43084
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/PhotoPicker.o
-t1280385629
-s34176
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFix
-t1280385629
-s19068
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFix.LinkFileList
-c000000004C51225B0000000000000201
-t1280385627
-s513
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFixAppDelegate.o
-t1280385629
-s51692
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/main.o
-t1280385629
-s6436
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/CameraView.o
-t1280385629
-s43088
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/PhotoPicker.o
-t1280385629
-s34188
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFix
-t1280385629
-s19068
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFix.LinkFileList
-c000000004C51225B0000000000000201
-t1280385627
-s513
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFixAppDelegate.o
-t1280385629
-s51684
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/main.o
-t1280385629
-s6416
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix.xcent
-t1280385629
-s394
-
-N/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/com.apple.build-tools.platform.validate
-t2
-s0
-
-N/Users/toericliou/Documents/StreetFix/main.m
-c000000004C4FE5EE000000000000015A
-t1280304622
-s346
-i<UIKit/UIKit.h>
-
-N/Users/toericliou/Library/MobileDevice/Provisioning Profiles/22014FC8-4F12-405B-913B-1714E94CCDF2.mobileprovision
-c000000004C3FFA000000000000019AE0
-t1279261184
-s105184
-
-N/var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-ddiynrjczmjoslfqnkrdwkwuotmz/StreetFix_Prefix.pch.gch
-t1280385628
-s10090032
-
-N/var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-fuznvnbobzhhomdstasjrtosymvl/StreetFix_Prefix.pch.gch
-t1280385628
-s9631280
-
-NStreetFix-Info.plist
-c000000004C5121CB0000000000000366
-t1280385483
-s870
-
-CCheck dependencies
-r0
-lSLF07#2@18"Check dependencies302078427#302078427#0(0"0(0#1#0"8639297408#0"0#
-
-CCodeSign /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app
-s302078429.420004
-e302078429.574103
-r1
-xCodeSign
-x/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app
-lSLF07#2@45"CodeSign build/Release-iphoneos/StreetFix.app302078429#302078429#0(0"0(0#0#74"/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app8594832960#657"    cd /Users/toericliou/Documents/StreetFix    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv _CODESIGN_ALLOCATE_ /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/codesign_allocate    /usr/bin/codesign -f -s "iPhone Developer: Mike Chen (C9BVEJ889Z)" --resource-rules=/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/ResourceRules.plist --entitlements /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix.xcent /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app0#
-
-CCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/CameraView.o /Users/toericliou/Documents/StreetFix/Classes/../CameraView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-s302078428.990188
-e302078429.200141
-r1
-xCompileC
-xbuild/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/CameraView.o
-x/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-o/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m: In function '-[CameraView takePhoto]':
-o/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m:53: warning: class 'CameraView' does not implement the 'UINavigationControllerDelegate' protocol
-lSLF07#2@69"Compile /Users/toericliou/Documents/StreetFix/Classes/../CameraView.m302078428#302078429#0(261"/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m: In function '-[CameraView takePhoto]':/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m:53: warning: class 'CameraView' does not implement the 'UINavigationControllerDelegate' protocol1(22@83"Class 'CameraView' does not implement the 'UINavigationControllerDelegate' protocol302078429#102#159#0(6@61"/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m302075146#53#0#53#0#45"class '*' does not implement the '*' protocol0(0#0#61"/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m8607499488#1835"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.0 -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -I/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources/armv6 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-fuznvnbobzhhomdstasjrtosymvl/StreetFix_Prefix.pch -c /Users/toericliou/Documents/StreetFix/Classes/../CameraView.m -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/CameraView.o0#
-
-CCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/PhotoPicker.o /Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-s302078428.991592
-e302078429.119949
-r1
-xCompileC
-xbuild/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/PhotoPicker.o
-x/Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.m
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@67"Compile /Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.m302078428#302078429#0(0"0(0#0#59"/Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.m8643602400#1834"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.0 -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -I/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources/armv6 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-fuznvnbobzhhomdstasjrtosymvl/StreetFix_Prefix.pch -c /Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.m -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/PhotoPicker.o0#
-
-CCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFixAppDelegate.o /Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-s302078428.988915
-e302078429.190556
-r1
-xCompileC
-xbuild/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFixAppDelegate.o
-x/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@76"Compile /Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m302078428#302078429#0(0"0(0#0#68"/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m8636961824#1852"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.0 -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -I/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources/armv6 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-fuznvnbobzhhomdstasjrtosymvl/StreetFix_Prefix.pch -c /Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFixAppDelegate.o0#
-
-CCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/main.o /Users/toericliou/Documents/StreetFix/main.m normal armv6 objective-c com.apple.compilers.gcc.4_2
-s302078428.987645
-e302078429.094383
-r1
-xCompileC
-xbuild/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/main.o
-x/Users/toericliou/Documents/StreetFix/main.m
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@52"Compile /Users/toericliou/Documents/StreetFix/main.m302078428#302078429#0(0"0(0#0#44"/Users/toericliou/Documents/StreetFix/main.m8595106048#1812"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.0 -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -I/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources/armv6 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-fuznvnbobzhhomdstasjrtosymvl/StreetFix_Prefix.pch -c /Users/toericliou/Documents/StreetFix/main.m -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/main.o0#
-
-CCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/CameraView.o /Users/toericliou/Documents/StreetFix/Classes/../CameraView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-s302078429.177607
-e302078429.339192
-r1
-xCompileC
-xbuild/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/CameraView.o
-x/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m
-xnormal
-xarmv7
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-o/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m: In function '-[CameraView takePhoto]':
-o/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m:53: warning: class 'CameraView' does not implement the 'UINavigationControllerDelegate' protocol
-lSLF07#2@69"Compile /Users/toericliou/Documents/StreetFix/Classes/../CameraView.m302078429#302078429#0(261"/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m: In function '-[CameraView takePhoto]':/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m:53: warning: class 'CameraView' does not implement the 'UINavigationControllerDelegate' protocol1(22@83"Class 'CameraView' does not implement the 'UINavigationControllerDelegate' protocol302078429#102#159#0(6@61"/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m302075146#53#0#53#0#45"class '*' does not implement the '*' protocol0(0#0#61"/Users/toericliou/Documents/StreetFix/Classes/../CameraView.m8630492000#1835"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.0 -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -I/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources/armv7 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-ddiynrjczmjoslfqnkrdwkwuotmz/StreetFix_Prefix.pch -c /Users/toericliou/Documents/StreetFix/Classes/../CameraView.m -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/CameraView.o0#
-
-CCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/PhotoPicker.o /Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-s302078429.190825
-e302078429.291356
-r1
-xCompileC
-xbuild/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/PhotoPicker.o
-x/Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.m
-xnormal
-xarmv7
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@67"Compile /Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.m302078429#302078429#0(0"0(0#0#59"/Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.m8608867200#1834"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.0 -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -I/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources/armv7 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-ddiynrjczmjoslfqnkrdwkwuotmz/StreetFix_Prefix.pch -c /Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.m -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/PhotoPicker.o0#
-
-CCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFixAppDelegate.o /Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-s302078429.120114
-e302078429.292971
-r1
-xCompileC
-xbuild/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFixAppDelegate.o
-x/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m
-xnormal
-xarmv7
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@76"Compile /Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m302078429#302078429#0(0"0(0#0#68"/Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m8640222880#1852"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.0 -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -I/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources/armv7 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-ddiynrjczmjoslfqnkrdwkwuotmz/StreetFix_Prefix.pch -c /Users/toericliou/Documents/StreetFix/Classes/StreetFixAppDelegate.m -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFixAppDelegate.o0#
-
-CCompileC build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/main.o /Users/toericliou/Documents/StreetFix/main.m normal armv7 objective-c com.apple.compilers.gcc.4_2
-s302078429.094550
-e302078429.177430
-r1
-xCompileC
-xbuild/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/main.o
-x/Users/toericliou/Documents/StreetFix/main.m
-xnormal
-xarmv7
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@52"Compile /Users/toericliou/Documents/StreetFix/main.m302078429#302078429#0(0"0(0#0#44"/Users/toericliou/Documents/StreetFix/main.m8642834240#1812"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.0 -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -I/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources/armv7 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-ddiynrjczmjoslfqnkrdwkwuotmz/StreetFix_Prefix.pch -c /Users/toericliou/Documents/StreetFix/main.m -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/main.o0#
-
-CCompileXIB /Users/toericliou/Documents/StreetFix/CameraView.xib
-s302078427.692795
-e302078428.112824
-r1
-xCompileXIB
-x/Users/toericliou/Documents/StreetFix/CameraView.xib
-lSLF07#2@25"CompileXIB CameraView.xib302078427#302078428#0(0"0(0#0#52"/Users/toericliou/Documents/StreetFix/CameraView.xib8624461728#543"    cd /Users/toericliou/Documents/StreetFix    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.0    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/CameraView.nib /Users/toericliou/Documents/StreetFix/CameraView.xib --sdk /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk0#
-
-CCompileXIB /Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.xib
-s302078427.693470
-e302078428.101134
-r1
-xCompileXIB
-x/Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.xib
-lSLF07#2@34"CompileXIB Classes/PhotoPicker.xib302078427#302078428#0(0"0(0#0#61"/Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.xib8638899648#553"    cd /Users/toericliou/Documents/StreetFix    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.0    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/PhotoPicker.nib /Users/toericliou/Documents/StreetFix/Classes/PhotoPicker.xib --sdk /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk0#
-
-CCompileXIB /Users/toericliou/Documents/StreetFix/MainWindow.xib
-s302078427.691892
-e302078428.167452
-r1
-xCompileXIB
-x/Users/toericliou/Documents/StreetFix/MainWindow.xib
-lSLF07#2@25"CompileXIB MainWindow.xib302078427#302078428#0(0"0(0#0#52"/Users/toericliou/Documents/StreetFix/MainWindow.xib8615399232#543"    cd /Users/toericliou/Documents/StreetFix    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 4.0    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/MainWindow.nib /Users/toericliou/Documents/StreetFix/MainWindow.xib --sdk /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk0#
-
-CCpResource build/Release-iphoneos/StreetFix.app/ResourceRules.plist /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/ResourceRules.plist
-s302078427.684676
-e302078427.690762
-r1
-xCpResource
-xbuild/Release-iphoneos/StreetFix.app/ResourceRules.plist
-x/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/ResourceRules.plist
-lSLF07#2@94"Copy /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/ResourceRules.plist302078427#302078427#0(0"0(0#0#89"/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/ResourceRules.plist8299624138294906880#503"    cd /Users/toericliou/Documents/StreetFix    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -strip-debug-symbols -resolve-src-symlinks /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/ResourceRules.plist /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app0#
-
-CCreateUniversalBinary /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/StreetFix normal "armv6 armv7"
-s302078429.371888
-e302078429.376260
-r1
-xCreateUniversalBinary
-x/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/StreetFix
-xnormal
-xarmv6 armv7
-lSLF07#2@89"CreateUniversalBinary build/Release-iphoneos/StreetFix.app/StreetFix normal "armv6 armv7"302078429#302078429#0(0"0(0#0#49"/Users/toericliou/Documents/StreetFix/armv6 armv78643729568#536"    cd /Users/toericliou/Documents/StreetFix    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/lipo -create /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFix /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFix -output /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/StreetFix0#
-
-CGenerateDSYMFile /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app.dSYM /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/StreetFix
-s302078429.376381
-e302078429.406514
-r1
-xGenerateDSYMFile
-x/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app.dSYM
-x/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/StreetFix
-lSLF07#2@105"GenerateDSYMFile build/Release-iphoneos/StreetFix.app.dSYM build/Release-iphoneos/StreetFix.app/StreetFix302078429#302078429#0(0"0(0#0#84"/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/StreetFix8642665408#369"    cd /Users/toericliou/Documents/StreetFix    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/StreetFix -o /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app.dSYM0#
-
-CLd /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFix normal armv6
-s302078429.200274
-e302078429.235100
-r1
-xLd
-x/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFix
-xnormal
-xarmv6
-lSLF07#2@128"Link /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFix302078429#302078429#0(0"0(0#0#0"8657223072#874"    cd /Users/toericliou/Documents/StreetFix    setenv IPHONEOS_DEPLOYMENT_TARGET 4.0    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -arch armv6 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk -L/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -F/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -filelist /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFix.LinkFileList -dead_strip -miphoneos-version-min=4.0 -framework Foundation -framework UIKit -framework CoreGraphics -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv6/StreetFix0#
-
-CLd /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFix normal armv7
-s302078429.339330
-e302078429.371739
-r1
-xLd
-x/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFix
-xnormal
-xarmv7
-lSLF07#2@128"Link /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFix302078429#302078429#0(0"0(0#0#0"8642296928#874"    cd /Users/toericliou/Documents/StreetFix    setenv IPHONEOS_DEPLOYMENT_TARGET 4.0    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -arch armv7 -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk -L/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -F/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -filelist /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFix.LinkFileList -dead_strip -miphoneos-version-min=4.0 -framework Foundation -framework UIKit -framework CoreGraphics -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/Objects-normal/armv7/StreetFix0#
-
-CProcessInfoPlistFile /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/Info.plist StreetFix-Info.plist
-s302078427.685837
-e302078427.691771
-r1
-xProcessInfoPlistFile
-x/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/Info.plist
-xStreetFix-Info.plist
-lSLF07#2@28"Process StreetFix-Info.plist302078427#302078427#0(0"0(0#0#58"/Users/toericliou/Documents/StreetFix/StreetFix-Info.plist8636261312#572"    cd /Users/toericliou/Documents/StreetFix    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility StreetFix-Info.plist -genpkginfo /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/PkgInfo -expandbuildsettings -format binary -platform iphoneos -resourcerulesfile /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/ResourceRules.plist -o /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/Info.plist0#
-
-CProcessPCH /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-ddiynrjczmjoslfqnkrdwkwuotmz/StreetFix_Prefix.pch.gch StreetFix_Prefix.pch normal armv7 objective-c com.apple.compilers.gcc.4_2
-s302078428.168718
-e302078428.978184
-r1
-xProcessPCH
-x/var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-ddiynrjczmjoslfqnkrdwkwuotmz/StreetFix_Prefix.pch.gch
-xStreetFix_Prefix.pch
-xnormal
-xarmv7
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@31"Precompile StreetFix_Prefix.pch302078428#302078428#0(0"0(0#0#58"/Users/toericliou/Documents/StreetFix/StreetFix_Prefix.pch8640506720#1707"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch armv7 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.0 -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -I/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources/armv7 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -c /Users/toericliou/Documents/StreetFix/StreetFix_Prefix.pch -o /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-ddiynrjczmjoslfqnkrdwkwuotmz/StreetFix_Prefix.pch.gch0#
-
-CProcessPCH /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-fuznvnbobzhhomdstasjrtosymvl/StreetFix_Prefix.pch.gch StreetFix_Prefix.pch normal armv6 objective-c com.apple.compilers.gcc.4_2
-s302078428.167629
-e302078428.987496
-r1
-xProcessPCH
-x/var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-fuznvnbobzhhomdstasjrtosymvl/StreetFix_Prefix.pch.gch
-xStreetFix_Prefix.pch
-xnormal
-xarmv6
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@31"Precompile StreetFix_Prefix.pch302078428#302078428#0(0"0(0#0#58"/Users/toericliou/Documents/StreetFix/StreetFix_Prefix.pch8641884704#1707"    cd /Users/toericliou/Documents/StreetFix    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch armv6 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -Os -mdynamic-no-pic -Wreturn-type -Wunused-variable -isysroot /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk -fvisibility=hidden -gdwarf-2 -mthumb -miphoneos-version-min=4.0 -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-generated-files.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-own-target-headers.hmap -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-all-target-headers.hmap -iquote /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix-project-headers.hmap -F/Users/toericliou/Documents/StreetFix/build/Release-iphoneos -I/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/include -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources/armv6 -I/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/DerivedSources -DNS_BLOCK_ASSERTIONS=1 -c /Users/toericliou/Documents/StreetFix/StreetFix_Prefix.pch -o /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/StreetFix_Prefix-fuznvnbobzhhomdstasjrtosymvl/StreetFix_Prefix.pch.gch0#
-
-CProcessProductPackaging "/Users/toericliou/Library/MobileDevice/Provisioning Profiles/22014FC8-4F12-405B-913B-1714E94CCDF2.mobileprovision" /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/embedded.mobileprovision
-s302078429.406779
-e302078429.408909
-r1
-xProcessProductPackaging
-x/Users/toericliou/Library/MobileDevice/Provisioning Profiles/22014FC8-4F12-405B-913B-1714E94CCDF2.mobileprovision
-x/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/embedded.mobileprovision
-lSLF07#2@201"ProcessProductPackaging "/Users/toericliou/Library/MobileDevice/Provisioning Profiles/22014FC8-4F12-405B-913B-1714E94CCDF2.mobileprovision" build/Release-iphoneos/StreetFix.app/embedded.mobileprovision302078429#302078429#0(0"0(0#0#99"/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/embedded.mobileprovision8640010112#430"    cd /Users/toericliou/Documents/StreetFix    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    <com.apple.tools.product-pkg-utility> "/Users/toericliou/Library/MobileDevice/Provisioning Profiles/22014FC8-4F12-405B-913B-1714E94CCDF2.mobileprovision" -o /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app/embedded.mobileprovision0#
-
-CProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/Entitlements.plist /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix.xcent
-s302078429.412091
-e302078429.419945
-r1
-xProcessProductPackaging
-x/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/Entitlements.plist
-x/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix.xcent
-lSLF07#2@183"ProcessProductPackaging /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/Entitlements.plist build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix.xcent302078429#302078429#0(0"0(0#0#108"/Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix.xcent8624789664#438"    cd /Users/toericliou/Documents/StreetFix    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    <com.apple.tools.product-pkg-utility> /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.0.sdk/Entitlements.plist -entitlements -format xml -o /Users/toericliou/Documents/StreetFix/build/StreetFix.build/Release-iphoneos/StreetFix.build/StreetFix.xcent0#
-
-CTouch /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app
-s302078429.408961
-e302078429.411953
-r1
-xTouch
-x/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app
-lSLF07#2@80"Touch /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app302078429#302078429#0(0"0(0#0#0"8636857216#266"    cd /Users/toericliou/Documents/StreetFix    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app0#
-
-CValidate /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app
-s302078429.574185
-e302078429.849503
-r1
-xValidate
-x/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app
-owarning: iPhone/iPod Touch: Info.plist: Unable to verify icon dimensions, no icon found.  You must define CFBundleIconFile, CFBundleIconFiles, or provide a default Icon.png that is 57x57 (-19013)
-oUnable to validate your application. - (null)
-o
-lSLF07#2@45"Validate build/Release-iphoneos/StreetFix.app302078429#302078429#0(243"warning: iPhone/iPod Touch: Info.plist: Unable to verify icon dimensions, no icon found.  You must define CFBundleIconFile, CFBundleIconFiles, or provide a default Icon.png that is 57x57 (-19013)Unable to validate your application. - (null)1(22@187" iPhone/iPod Touch: Info.plist: Unable to verify icon dimensions, no icon found.  You must define CFBundleIconFile, CFBundleIconFiles, or provide a default Icon.png that is 57x57 (-19013)302078429#18446744073709551615#0#0(6@0"302078429#0#0#0#0#0"0(0#0#74"/Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app8640544800#375"    cd /Users/toericliou/Documents/StreetFix    setenv PATH "/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    setenv PRODUCT_TYPE com.apple.product-type.application    /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/Validation /Users/toericliou/Documents/StreetFix/build/Release-iphoneos/StreetFix.app0#
-
