@@ -1,0 +1,18 @@
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m:15: warning: cannot find interface declaration for 'CameraView'
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m:15: error: no declaration of property 'doneButtonPressed' found in the interface
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m: In function '-[CameraView viewDidLoad]':
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m:30: error: no super class declared in @interface for 'CameraView'
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m:41: error: request for member 'navigationItem' in something not a structure or union
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m:42: error: request for member 'navigationItem' in something not a structure or union
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m: In function '-[CameraView takePhoto]':
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m:53: warning: class 'CameraView' does not implement the 'UINavigationControllerDelegate' protocol
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m:57: warning: 'CameraView' may not respond to '-presentModalViewController:animated:'
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m:57: warning: (Messages without a matching method signature
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m:57: warning: will be assumed to return 'id' and accept
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m:57: warning: '...' as arguments.)
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m: In function '-[CameraView didReceiveMemoryWarning]':
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m:73: error: no super class declared in @interface for 'CameraView'
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m: In function '-[CameraView viewDidUnload]':
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m:79: error: no super class declared in @interface for 'CameraView'
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m: In function '-[CameraView dealloc]':
+/Users/toericliou/Documents/StreetFix/Classes/../TempView.m:86: error: no super class declared in @interface for 'CameraView'

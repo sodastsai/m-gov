@@ -1,0 +1,327 @@
+// !$*UTF8*$!
+{
+	1D3623240D0F684500981E51 /* StreetFixAppDelegate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 456}}";
+			sepNavSelRange = "{491, 0}";
+			sepNavVisRange = "{0, 559}";
+			sepNavWindowFrame = "{{38, 294}, {750, 558}}";
+		};
+	};
+	1D3623250D0F684500981E51 /* StreetFixAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1965, 1716}}";
+			sepNavSelRange = "{1609, 0}";
+			sepNavVisRange = "{1732, 1564}";
+			sepNavWindowFrame = "{{15, 315}, {750, 558}}";
+		};
+	};
+	1D6058900D05DD3D006BFB54 /* StreetFix */ = {
+		activeExec = 0;
+		executables = (
+			C0959C5712001D6E00297703 /* StreetFix */,
+		);
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeExecutable = C0959C5712001D6E00297703 /* StreetFix */;
+		activeSDKPreference = iphonesimulator4.0;
+		activeTarget = 1D6058900D05DD3D006BFB54 /* StreetFix */;
+		addToTargets = (
+			1D6058900D05DD3D006BFB54 /* StreetFix */,
+		);
+		codeSenseManager = C0959C7112001D8900297703 /* Code sense */;
+		executables = (
+			C0959C5712001D6E00297703 /* StreetFix */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					993,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					953,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 302421260;
+			PBXWorkspaceStateSaveDate = 302421260;
+		};
+		perUserProjectItems = {
+			C00189C51202CE360022291C /* PBXTextBookmark */ = C00189C51202CE360022291C /* PBXTextBookmark */;
+			C02EF02C1205EC8000E14979 /* PBXTextBookmark */ = C02EF02C1205EC8000E14979 /* PBXTextBookmark */;
+			C073C81A1202D07D008C43B0 /* PBXTextBookmark */ = C073C81A1202D07D008C43B0 /* PBXTextBookmark */;
+			C073C81B1202D07D008C43B0 /* PBXTextBookmark */ = C073C81B1202D07D008C43B0 /* PBXTextBookmark */;
+			C073C81C1202D07D008C43B0 /* PBXTextBookmark */ = C073C81C1202D07D008C43B0 /* PBXTextBookmark */;
+			C073C81D1202D07D008C43B0 /* PBXTextBookmark */ = C073C81D1202D07D008C43B0 /* PBXTextBookmark */;
+			C0AD65F912015C4200061A6F /* PBXTextBookmark */ = C0AD65F912015C4200061A6F /* PBXTextBookmark */;
+			C0AD65FA12015C4200061A6F /* PBXTextBookmark */ = C0AD65FA12015C4200061A6F /* PBXTextBookmark */;
+			C0EB84DB1206971900A68FA7 /* PBXTextBookmark */ = C0EB84DB1206971900A68FA7 /* PBXTextBookmark */;
+			C0EB9CFA1202CE0A0027BFCD /* PBXTextBookmark */ = C0EB9CFA1202CE0A0027BFCD /* PBXTextBookmark */;
+			C0F79C841202C097008DE117 /* PlistBookmark */ = C0F79C841202C097008DE117 /* PlistBookmark */;
+			C0F79CED1202CB0D008DE117 /* PBXTextBookmark */ = C0F79CED1202CB0D008DE117 /* PBXTextBookmark */;
+		};
+		sourceControlManager = C0959C7012001D8900297703 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	29B97316FDCFA39411CA2CEA /* main.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 458}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 346}";
+		};
+	};
+	32CA4F630368D1EE00C91783 /* StreetFix_Prefix.pch */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 458}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 187}";
+		};
+	};
+	C00189C51202CE360022291C /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623250D0F684500981E51 /* StreetFixAppDelegate.m */;
+		name = "StreetFixAppDelegate.m: 56";
+		rLen = 0;
+		rLoc = 1609;
+		rType = 0;
+		vrLen = 1564;
+		vrLoc = 1732;
+	};
+	C02EF02C1205EC8000E14979 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C0959C8A12001E4700297703 /* CameraView.m */;
+		name = "CameraView.m: 57";
+		rLen = 0;
+		rLoc = 1864;
+		rType = 0;
+		vrLen = 1276;
+		vrLoc = 832;
+	};
+	C05744F1120154C400091CFD /* PhotoPicker.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 442}}";
+			sepNavSelRange = "{193, 0}";
+			sepNavVisRange = "{0, 297}";
+		};
+	};
+	C05744F2120154C400091CFD /* PhotoPicker.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 1456}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{525, 1020}";
+		};
+	};
+	C073C81A1202D07D008C43B0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C0F79CCA1202C7B2008DE117 /* MapView.h */;
+		name = "MapView.h: 15";
+		rLen = 0;
+		rLoc = 297;
+		rType = 0;
+		vrLen = 334;
+		vrLoc = 0;
+	};
+	C073C81B1202D07D008C43B0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C0F79CCB1202C7B2008DE117 /* MapView.m */;
+		name = "MapView.m: 37";
+		rLen = 1;
+		rLoc = 962;
+		rType = 0;
+		vrLen = 823;
+		vrLoc = 0;
+	};
+	C073C81C1202D07D008C43B0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C05744F1120154C400091CFD /* PhotoPicker.h */;
+		name = "PhotoPicker.h: 13";
+		rLen = 0;
+		rLoc = 193;
+		rType = 0;
+		vrLen = 297;
+		vrLoc = 0;
+	};
+	C073C81D1202D07D008C43B0 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C0959C8912001E4700297703 /* CameraView.h */;
+		name = "CameraView.h: 21";
+		rLen = 0;
+		rLoc = 533;
+		rType = 0;
+		vrLen = 560;
+		vrLoc = 0;
+	};
+	C0959C5712001D6E00297703 /* StreetFix */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		dylibVariantSuffix = "";
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = StreetFix;
+		savedGlobals = {
+		};
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	C0959C7012001D8900297703 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	C0959C7112001D8900297703 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	C0959C8912001E4700297703 /* CameraView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 442}}";
+			sepNavSelRange = "{533, 0}";
+			sepNavVisRange = "{0, 560}";
+			sepNavWindowFrame = "{{61, 273}, {750, 558}}";
+		};
+	};
+	C0959C8A12001E4700297703 /* CameraView.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 1313}}";
+			sepNavSelRange = "{1536, 61}";
+			sepNavVisRange = "{1358, 1081}";
+		};
+	};
+	C0AD65F912015C4200061A6F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 29B97316FDCFA39411CA2CEA /* main.m */;
+		name = "main.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 346;
+		vrLoc = 0;
+	};
+	C0AD65FA12015C4200061A6F /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 32CA4F630368D1EE00C91783 /* StreetFix_Prefix.pch */;
+		name = "StreetFix_Prefix.pch: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 187;
+		vrLoc = 0;
+	};
+	C0EB84DB1206971900A68FA7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C0959C8A12001E4700297703 /* CameraView.m */;
+		name = "CameraView.m: 52";
+		rLen = 61;
+		rLoc = 1536;
+		rType = 0;
+		vrLen = 1081;
+		vrLoc = 1358;
+	};
+	C0EB9CFA1202CE0A0027BFCD /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 1D3623240D0F684500981E51 /* StreetFixAppDelegate.h */;
+		name = "StreetFixAppDelegate.h: 20";
+		rLen = 0;
+		rLoc = 491;
+		rType = 0;
+		vrLen = 559;
+		vrLoc = 0;
+	};
+	C0F79C841202C097008DE117 /* PlistBookmark */ = {
+		isa = PlistBookmark;
+		fRef = 8D1107310486CEB800E47090 /* StreetFix-Info.plist */;
+		fallbackIsa = PBXBookmark;
+		isK = 0;
+		kPath = (
+			LSRequiresIPhoneOS,
+		);
+		name = "/Users/toericliou/Documents/StreetFix/StreetFix-Info.plist";
+		rLen = 0;
+		rLoc = 9223372036854775808;
+	};
+	C0F79CCA1202C7B2008DE117 /* MapView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 442}}";
+			sepNavSelRange = "{297, 0}";
+			sepNavVisRange = "{0, 334}";
+			sepNavWindowFrame = "{{38, 294}, {750, 558}}";
+		};
+	};
+	C0F79CCB1202C7B2008DE117 /* MapView.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1171, 806}}";
+			sepNavSelRange = "{962, 1}";
+			sepNavVisRange = "{0, 823}";
+		};
+	};
+	C0F79CED1202CB0D008DE117 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = C05744F2120154C400091CFD /* PhotoPicker.m */;
+		name = "PhotoPicker.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1020;
+		vrLoc = 525;
+	};
+}
