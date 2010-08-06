@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>files</key>
+	<dict>
+		<key>EventDetailViewController.nib</key>
+		<data>
+		YZRIoUCE/V+JRmH3lf/tWNNKkt8=
+		</data>
+		<key>Locations.momd/Locations 2.mom</key>
+		<data>
+		yuHdfn2A7qEYUvwoIMX6488iReA=
+		</data>
+		<key>Locations.momd/Locations.mom</key>
+		<data>
+		uNwcjzDmGGjKZk4vHPwYo0aBS0s=
+		</data>
+		<key>MainWindow.nib</key>
+		<data>
+		jva+MD05hv36hLu6ZRpt58xiXv8=
+		</data>
+		<key>MapViewController.nib</key>
+		<data>
+		tlfyhzYyjSS93nN0dm4e4JvaYCM=
+		</data>
+		<key>PkgInfo</key>
+		<data>
+		n57qDP4tZfLD1rCS43W0B4LQjzE=
+		</data>
+		<key>ReadMe.txt</key>
+		<data>
+		L4C3v6ikB06h8A9kMAo65NQkIs0=
+		</data>
+		<key>embedded.mobileprovision</key>
+		<data>
+		GcLLXllMDn9cJvzFHdZOvXH9VN8=
+		</data>
+		<key>free-iphoneapp-bg-couples-cycle-palmtree.png</key>
+		<data>
+		y57N9nxFZiycttWHYSYTulad6Gs=
+		</data>
+		<key>iphone-app-frame-background.png</key>
+		<data>
+		Jxp1atX1q7iKB84w6vUOq6Y8LnI=
+		</data>
+		<key>iphone-app-wallpaper-blue-waves.png</key>
+		<data>
+		mwWg2O8K683pWFf7SSzkh9HB/c0=
+		</data>
+	</dict>
+	<key>rules</key>
+	<dict>
+		<key>.*</key>
+		<true/>
+		<key>Info.plist</key>
+		<dict>
+			<key>omit</key>
+			<true/>
+			<key>weight</key>
+			<real>10</real>
+		</dict>
+		<key>ResourceRules.plist</key>
+		<dict>
+			<key>omit</key>
+			<true/>
+			<key>weight</key>
+			<real>100</real>
+		</dict>
+	</dict>
+</dict>
+</plist>
