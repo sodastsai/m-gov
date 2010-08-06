@@ -1,3 +1,0 @@
-/Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.m:138: warning: incomplete implementation of class 'EventDetailViewController'
-/Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.m:138: warning: method definition for '-clearTouches' not found
-/Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.m:138: warning: method definition for '-distanceBetweenTwoPoints:toPoint:' not found

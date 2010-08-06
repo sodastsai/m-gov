@@ -1,1074 +1,0 @@
-TLocations
-v7
-r0
-t302774773.535514
-cCheck dependencies
-cProcessInfoPlistFile /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Info.plist Info.plist
-cCompileXIB /Users/toericliou/Documents/PhotoLocations/MainWindow.xib
-cCompileXIB /Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.xib
-cCompileXIB /Users/toericliou/Documents/PhotoLocations/Classes/MapViewController.xib
-cCompileXIB /Users/toericliou/Documents/PhotoLocations/Classes/SubmitViewController.xib
-cProcessPCH /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch.gch Locations_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
-cDataModelVersionCompile /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations.momd /Users/toericliou/Documents/PhotoLocations/Locations.xcdatamodeld
-cCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/main.o /Users/toericliou/Documents/PhotoLocations/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/LocationsAppDelegate.o /Users/toericliou/Documents/PhotoLocations/Classes/LocationsAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/RootViewController.o /Users/toericliou/Documents/PhotoLocations/Classes/RootViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Event.o /Users/toericliou/Documents/PhotoLocations/Classes/Event.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/EventDetailViewController.o /Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Photo.o /Users/toericliou/Documents/PhotoLocations/Classes/Photo.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/UIImageToDataTransformer.o /Users/toericliou/Documents/PhotoLocations/Classes/UIImageToDataTransformer.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/MapViewController.o /Users/toericliou/Documents/PhotoLocations/Classes/MapViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/SubmitViewController.o /Users/toericliou/Documents/PhotoLocations/Classes/SubmitViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-cLd /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations normal i386
-cGenerateDSYMFile /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app.dSYM /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations
-cTouch /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk
-c000000004C5119460000000000000132
-t1280383302
-s306
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/CoreData.framework/CoreData
-c000000004BFDFEB400000000001CFA90
-t1274937012
-s1899152
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/CoreData.framework/Headers/CoreData.h
-c000000004BFDFEA8000000000000046B
-t1274937000
-s1131
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/CoreGraphics.framework/CoreGraphics
-c000000004BFDFE39000000000027C7D0
-t1274936889
-s2607056
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/CoreLocation.framework/CoreLocation
-c000000004BFF44C00000000000068F90
-t1275020480
-s429968
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/CoreLocation.framework/Headers/CoreLocation.h
-c000000004BFF44B600000000000001D0
-t1275020470
-s464
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/Foundation.framework/Foundation
-c000000004BFDFE7C000000000029D5D0
-t1274936956
-s2741712
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/Foundation.framework/Headers/Foundation.h
-c000000004BFDFE6E0000000000001466
-t1274936942
-s5222
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/MapKit.framework/Headers/MapKit.h
-c000000004C04724700000000000002FE
-t1275359815
-s766
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/MapKit.framework/MapKit
-c000000004C04725B0000000000160350
-t1275359835
-s1442640
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/UIKit.framework/Headers/UIKit.h
-c000000004C0470BB00000000000009CD
-t1275359419
-s2509
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/System/Library/Frameworks/UIKit.framework/UIKit
-c000000004C0471620000000001D47210
-t1275359586
-s30700048
-
-N/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk/usr/include/Availability.h
-c000000004BF4CBF90000000000001A3B
-t1274334201
-s6715
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/Event.h
-c000000004C5696C900000000000001B9
-t1280743113
-s441
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/Event.m
-c000000004C5696C90000000000000211
-t1280743113
-s529
-i"Event.h"
-i"Photo.h"
-i"UIImageToDataTransformer.h"
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.h
-c000000004C5BAFCF00000000000003A4
-t1281077199
-s932
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.m
-c000000004C5BAFCF0000000000000C68
-t1281077199
-s3176
-i"EventDetailViewController.h"
-i"Event.h"
-i"Photo.h"
-i"MapViewController.h"
-i"SubmitViewController.h"
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.xib
-c000000004C57E36E000000000000738F
-t1280828270
-s29583
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/LocationsAppDelegate.h
-c000000004C5696C90000000000000394
-t1280743113
-s916
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/LocationsAppDelegate.m
-c000000004C57E0410000000000001373
-t1280827457
-s4979
-i"LocationsAppDelegate.h"
-i"RootViewController.h"
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/MapViewController.h
-c000000004C57D3CB000000000000014B
-t1280824267
-s331
-i<UIKit/UIKit.h>
-i<MapKit/MapKit.h>
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/MapViewController.m
-c000000004C57D60300000000000007E6
-t1280824835
-s2022
-i"MapViewController.h"
-i"Event.h"
-i"Photo.h"
-i"MapViewController.h"
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/MapViewController.xib
-c000000004C5682060000000000003D59
-t1280737798
-s15705
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/Photo.h
-c000000004C57D6030000000000000192
-t1280824835
-s402
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/Photo.m
-c000000004C57D6030000000000000107
-t1280824835
-s263
-i"Photo.h"
-i"Event.h"
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/RootViewController.h
-c000000004C56973000000000000003AB
-t1280743216
-s939
-i<CoreLocation/CoreLocation.h>
-i"Photo.h"
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/RootViewController.m
-c000000004C5BC26800000000000024DD
-t1281081960
-s9437
-i"RootViewController.h"
-i"LocationsAppDelegate.h"
-i"Event.h"
-i"EventDetailViewController.h"
-i"Photo.h"
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/SubmitViewController.h
-c000000004C5910F600000000000000DE
-t1280905462
-s222
-i<UIKit/UIKit.h>
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/SubmitViewController.m
-c000000004C57E38B0000000000000598
-t1280828299
-s1432
-i"SubmitViewController.h"
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/SubmitViewController.xib
-c000000004C57E56E00000000000039AB
-t1280828782
-s14763
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/UIImageToDataTransformer.h
-c000000004C5696C900000000000000C5
-t1280743113
-s197
-
-N/Users/toericliou/Documents/PhotoLocations/Classes/UIImageToDataTransformer.m
-c000000004C5696C90000000000000202
-t1280743113
-s514
-i"UIImageToDataTransformer.h"
-
-N/Users/toericliou/Documents/PhotoLocations/Locations.xcdatamodeld
-c000000004C56AFFD00000000000000AA
-t1280749565
-s170
-
-N/Users/toericliou/Documents/PhotoLocations/Locations_Prefix.pch
-c000000004A26BD4A000000000000015C
-t1244052810
-s348
-i<Availability.h>
-i<Foundation/Foundation.h>
-i<UIKit/UIKit.h>
-i<CoreData/CoreData.h>
-
-N/Users/toericliou/Documents/PhotoLocations/MainWindow.xib
-c000000004A26BD4A0000000000001ED7
-t1244052810
-s7895
-
-N/Users/toericliou/Documents/PhotoLocations/ReadMe.txt
-c00000000000000000000000000000000
-t2
-s0
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app
-t1281081961
-s510
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app.dSYM
-t1281081961
-s102
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/EventDetailViewController.nib
-t1280828271
-s1973
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Info.plist
-t1280824604
-s582
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations
-t1281081961
-s59340
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations.momd
-t1280749565
-s170
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/MainWindow.nib
-t1280685327
-s962
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/MapViewController.nib
-t1280738825
-s1112
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/PkgInfo
-t1280824604
-s8
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/ReadMe.txt
-t1280685327
-s4166
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/SubmitViewController.nib
-t1280905463
-s764
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/free-iphoneapp-bg-couples-cycle-palmtree.png
-t1280824604
-s92342
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/iphone-app-frame-background.png
-t1280824604
-s110307
-
-N/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/iphone-app-wallpaper-blue-waves.png
-t1280824604
-s108843
-
-N/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Event.o
-t1281075904
-s10928
-
-N/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/EventDetailViewController.o
-t1281077199
-s61216
-
-N/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Locations.LinkFileList
-c000000004C5BAABF00000000000004F8
-t1281075903
-s1272
-
-N/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/LocationsAppDelegate.o
-t1281075905
-s62148
-
-N/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/MapViewController.o
-t1281075905
-s43860
-
-N/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Photo.o
-t1281075905
-s5328
-
-N/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/RootViewController.o
-t1281081961
-s77360
-
-N/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/SubmitViewController.o
-t1281075905
-s34584
-
-N/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/UIImageToDataTransformer.o
-t1281075905
-s9896
-
-N/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/main.o
-t1281075904
-s6312
-
-N/Users/toericliou/Documents/PhotoLocations/free-iphoneapp-bg-couples-cycle-palmtree.png
-c00000000000000000000000000000000
-t2
-s0
-
-N/Users/toericliou/Documents/PhotoLocations/iphone-app-frame-background.png
-c00000000000000000000000000000000
-t2
-s0
-
-N/Users/toericliou/Documents/PhotoLocations/iphone-app-wallpaper-blue-waves.png
-c00000000000000000000000000000000
-t2
-s0
-
-N/Users/toericliou/Documents/PhotoLocations/main.m
-c000000004C4A13B10000000000000A7D
-t1279923121
-s2685
-i<UIKit/UIKit.h>
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/Event.h
-c000000004C5696C900000000000001B9
-t1280743113
-s441
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/Event.m
-c000000004C5696C90000000000000211
-t1280743113
-s529
-i"Event.h"
-i"Photo.h"
-i"UIImageToDataTransformer.h"
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/EventDetailViewController.h
-c000000004C5A68B400000000000003A4
-t1280993460
-s932
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/EventDetailViewController.m
-c000000004C5A68B40000000000000C68
-t1280993460
-s3176
-i"EventDetailViewController.h"
-i"Event.h"
-i"Photo.h"
-i"MapViewController.h"
-i"SubmitViewController.h"
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/EventDetailViewController.xib
-c000000004C57E36E000000000000738F
-t1280828270
-s29583
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/LocationsAppDelegate.h
-c000000004C5696C90000000000000394
-t1280743113
-s916
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/LocationsAppDelegate.m
-c000000004C57E0410000000000001373
-t1280827457
-s4979
-i"LocationsAppDelegate.h"
-i"RootViewController.h"
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/MapViewController.h
-c000000004C57D3CB000000000000014B
-t1280824267
-s331
-i<UIKit/UIKit.h>
-i<MapKit/MapKit.h>
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/MapViewController.m
-c000000004C57D60300000000000007E6
-t1280824835
-s2022
-i"MapViewController.h"
-i"Event.h"
-i"Photo.h"
-i"MapViewController.h"
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/MapViewController.xib
-c000000004C5682060000000000003D59
-t1280737798
-s15705
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/Photo.h
-c000000004C57D6030000000000000192
-t1280824835
-s402
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/Photo.m
-c000000004C57D6030000000000000107
-t1280824835
-s263
-i"Photo.h"
-i"Event.h"
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/RootViewController.h
-c000000004C56973000000000000003AB
-t1280743216
-s939
-i<CoreLocation/CoreLocation.h>
-i"Photo.h"
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/RootViewController.m
-c000000004C57D60300000000000024D8
-t1280824835
-s9432
-i"RootViewController.h"
-i"LocationsAppDelegate.h"
-i"Event.h"
-i"EventDetailViewController.h"
-i"Photo.h"
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/SubmitViewController.h
-c000000004C5910F600000000000000DE
-t1280905462
-s222
-i<UIKit/UIKit.h>
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/SubmitViewController.m
-c000000004C57E38B0000000000000598
-t1280828299
-s1432
-i"SubmitViewController.h"
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/SubmitViewController.xib
-c000000004C57E56E00000000000039AB
-t1280828782
-s14763
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/UIImageToDataTransformer.h
-c000000004C5696C900000000000000C5
-t1280743113
-s197
-
-N/Users/toericliou/Downloads/PhotoLocations/Classes/UIImageToDataTransformer.m
-c000000004C5696C90000000000000202
-t1280743113
-s514
-i"UIImageToDataTransformer.h"
-
-N/Users/toericliou/Downloads/PhotoLocations/Locations.xcdatamodeld
-c000000004C56AFFD00000000000000AA
-t1280749565
-s170
-
-N/Users/toericliou/Downloads/PhotoLocations/Locations_Prefix.pch
-c000000004A26BD4A000000000000015C
-t1244052810
-s348
-i<Availability.h>
-i<Foundation/Foundation.h>
-i<UIKit/UIKit.h>
-i<CoreData/CoreData.h>
-
-N/Users/toericliou/Downloads/PhotoLocations/MainWindow.xib
-c000000004A26BD4A0000000000001ED7
-t1244052810
-s7895
-
-N/Users/toericliou/Downloads/PhotoLocations/One_Piece_Pirate_Flags.png
-c000000004C40152200000000000882B2
-t1279268130
-s557746
-
-N/Users/toericliou/Downloads/PhotoLocations/ReadMe.txt
-c000000004C49228E0000000000001046
-t1279861390
-s4166
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app
-t1280993461
-s510
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app.dSYM
-t1280993461
-s102
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/EventDetailViewController.nib
-t1280828271
-s1973
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Info.plist
-t1280824604
-s582
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations
-t1280993461
-s59340
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations.momd
-t1280749565
-s170
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/MainWindow.nib
-t1280685327
-s962
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/MapViewController.nib
-t1280738825
-s1112
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/One_Piece_Pirate_Flags.png
-t1280743359
-s557746
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/PkgInfo
-t1280824604
-s8
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/ReadMe.txt
-t1280685327
-s4166
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/SubmitViewController.nib
-t1280905463
-s764
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/free-iphoneapp-bg-couples-cycle-palmtree.png
-t1280824604
-s92342
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/iphone-app-frame-background.png
-t1280824604
-s110307
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/iphone-app-wallpaper-blue-waves.png
-t1280824604
-s108843
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Event.o
-t1280824836
-s10928
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/EventDetailViewController.o
-t1280993461
-s61216
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Locations.LinkFileList
-c000000004C57E3F900000000000004F8
-t1280828409
-s1272
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/LocationsAppDelegate.o
-t1280827457
-s62148
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/MapViewController.o
-t1280824836
-s43860
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Photo.o
-t1280824836
-s5328
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/RootViewController.o
-t1280993461
-s77360
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/SubmitViewController.o
-t1280905463
-s34584
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/UIImageToDataTransformer.o
-t1280743114
-s9896
-
-N/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/main.o
-t1280685328
-s6312
-
-N/Users/toericliou/Downloads/PhotoLocations/free-iphoneapp-bg-couples-cycle-palmtree.png
-c000000004C577B1E00000000000168B6
-t1280801566
-s92342
-
-N/Users/toericliou/Downloads/PhotoLocations/iphone-app-frame-background.png
-c000000004C577B36000000000001AEE3
-t1280801590
-s110307
-
-N/Users/toericliou/Downloads/PhotoLocations/iphone-app-wallpaper-blue-waves.png
-c000000004C577B2D000000000001A92B
-t1280801581
-s108843
-
-N/Users/toericliou/Downloads/PhotoLocations/main.m
-c000000004C4A13B10000000000000A7D
-t1279923121
-s2685
-i<UIKit/UIKit.h>
-
-N/var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-aiydyxflhupnqhdtibsolcmqdxlq/Locations_Prefix.pch.gch
-t1280685328
-s16097072
-
-N/var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch.gch
-t1281075904
-s16097072
-
-NInfo.plist
-c000000004C57853D0000000000000366
-t1280804157
-s870
-
-CCheck dependencies
-r0
-lSLF07#2@18"Check dependencies302774773#302774773#0(0"0(0#1#0"8643485024#0"0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Event.o /Users/toericliou/Documents/PhotoLocations/Classes/Event.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302768704.788580
-e302768704.969083
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Event.o
-x/Users/toericliou/Documents/PhotoLocations/Classes/Event.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@66"Compile /Users/toericliou/Documents/PhotoLocations/Classes/Event.m302768704#302768704#0(0"0(0#0#58"/Users/toericliou/Documents/PhotoLocations/Classes/Event.m8602596160#1995"    cd /Users/toericliou/Documents/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch -c /Users/toericliou/Documents/PhotoLocations/Classes/Event.m -o /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Event.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Event.o /Users/toericliou/Downloads/PhotoLocations/Classes/Event.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302517635.973080
-e302517636.104012
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Event.o
-x/Users/toericliou/Downloads/PhotoLocations/Classes/Event.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@66"Compile /Users/toericliou/Downloads/PhotoLocations/Classes/Event.m302517635#302517636#0(0"0(0#0#58"/Users/toericliou/Downloads/PhotoLocations/Classes/Event.m8617895936#1995"    cd /Users/toericliou/Downloads/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-aiydyxflhupnqhdtibsolcmqdxlq/Locations_Prefix.pch -c /Users/toericliou/Downloads/PhotoLocations/Classes/Event.m -o /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Event.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/EventDetailViewController.o /Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302769999.510546
-e302769999.620384
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/EventDetailViewController.o
-x/Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@86"Compile /Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.m302769999#302769999#0(0"0(0#0#78"/Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.m8613235488#2035"    cd /Users/toericliou/Documents/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch -c /Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.m -o /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/EventDetailViewController.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/EventDetailViewController.o /Users/toericliou/Downloads/PhotoLocations/Classes/EventDetailViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302686260.992129
-e302686261.107329
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/EventDetailViewController.o
-x/Users/toericliou/Downloads/PhotoLocations/Classes/EventDetailViewController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@86"Compile /Users/toericliou/Downloads/PhotoLocations/Classes/EventDetailViewController.m302686260#302686261#0(0"0(0#0#78"/Users/toericliou/Downloads/PhotoLocations/Classes/EventDetailViewController.m8605988928#2035"    cd /Users/toericliou/Downloads/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-aiydyxflhupnqhdtibsolcmqdxlq/Locations_Prefix.pch -c /Users/toericliou/Downloads/PhotoLocations/Classes/EventDetailViewController.m -o /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/EventDetailViewController.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/LocationsAppDelegate.o /Users/toericliou/Documents/PhotoLocations/Classes/LocationsAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302768704.786755
-e302768705.026082
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/LocationsAppDelegate.o
-x/Users/toericliou/Documents/PhotoLocations/Classes/LocationsAppDelegate.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@81"Compile /Users/toericliou/Documents/PhotoLocations/Classes/LocationsAppDelegate.m302768704#302768705#0(0"0(0#0#73"/Users/toericliou/Documents/PhotoLocations/Classes/LocationsAppDelegate.m8605706752#2025"    cd /Users/toericliou/Documents/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch -c /Users/toericliou/Documents/PhotoLocations/Classes/LocationsAppDelegate.m -o /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/LocationsAppDelegate.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/LocationsAppDelegate.o /Users/toericliou/Downloads/PhotoLocations/Classes/LocationsAppDelegate.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302520257.530295
-e302520257.768075
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/LocationsAppDelegate.o
-x/Users/toericliou/Downloads/PhotoLocations/Classes/LocationsAppDelegate.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@81"Compile /Users/toericliou/Downloads/PhotoLocations/Classes/LocationsAppDelegate.m302520257#302520257#0(0"0(0#0#73"/Users/toericliou/Downloads/PhotoLocations/Classes/LocationsAppDelegate.m8641138688#2025"    cd /Users/toericliou/Downloads/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-aiydyxflhupnqhdtibsolcmqdxlq/Locations_Prefix.pch -c /Users/toericliou/Downloads/PhotoLocations/Classes/LocationsAppDelegate.m -o /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/LocationsAppDelegate.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/MapViewController.o /Users/toericliou/Documents/PhotoLocations/Classes/MapViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302768705.035058
-e302768705.150387
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/MapViewController.o
-x/Users/toericliou/Documents/PhotoLocations/Classes/MapViewController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@78"Compile /Users/toericliou/Documents/PhotoLocations/Classes/MapViewController.m302768705#302768705#0(0"0(0#0#70"/Users/toericliou/Documents/PhotoLocations/Classes/MapViewController.m8599489760#2019"    cd /Users/toericliou/Documents/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch -c /Users/toericliou/Documents/PhotoLocations/Classes/MapViewController.m -o /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/MapViewController.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/MapViewController.o /Users/toericliou/Downloads/PhotoLocations/Classes/MapViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302517636.128007
-e302517636.298301
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/MapViewController.o
-x/Users/toericliou/Downloads/PhotoLocations/Classes/MapViewController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@78"Compile /Users/toericliou/Downloads/PhotoLocations/Classes/MapViewController.m302517636#302517636#0(0"0(0#0#70"/Users/toericliou/Downloads/PhotoLocations/Classes/MapViewController.m8622155328#2019"    cd /Users/toericliou/Downloads/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-aiydyxflhupnqhdtibsolcmqdxlq/Locations_Prefix.pch -c /Users/toericliou/Downloads/PhotoLocations/Classes/MapViewController.m -o /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/MapViewController.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Photo.o /Users/toericliou/Documents/PhotoLocations/Classes/Photo.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302768704.969217
-e302768705.034919
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Photo.o
-x/Users/toericliou/Documents/PhotoLocations/Classes/Photo.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@66"Compile /Users/toericliou/Documents/PhotoLocations/Classes/Photo.m302768704#302768705#0(0"0(0#0#58"/Users/toericliou/Documents/PhotoLocations/Classes/Photo.m8606197408#1995"    cd /Users/toericliou/Documents/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch -c /Users/toericliou/Documents/PhotoLocations/Classes/Photo.m -o /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Photo.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Photo.o /Users/toericliou/Downloads/PhotoLocations/Classes/Photo.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302517636.104162
-e302517636.204458
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Photo.o
-x/Users/toericliou/Downloads/PhotoLocations/Classes/Photo.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@66"Compile /Users/toericliou/Downloads/PhotoLocations/Classes/Photo.m302517636#302517636#0(0"0(0#0#58"/Users/toericliou/Downloads/PhotoLocations/Classes/Photo.m8622196896#1995"    cd /Users/toericliou/Downloads/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-aiydyxflhupnqhdtibsolcmqdxlq/Locations_Prefix.pch -c /Users/toericliou/Downloads/PhotoLocations/Classes/Photo.m -o /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Photo.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/RootViewController.o /Users/toericliou/Documents/PhotoLocations/Classes/RootViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302774761.029227
-e302774761.235760
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/RootViewController.o
-x/Users/toericliou/Documents/PhotoLocations/Classes/RootViewController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@79"Compile /Users/toericliou/Documents/PhotoLocations/Classes/RootViewController.m302774761#302774761#0(0"0(0#0#71"/Users/toericliou/Documents/PhotoLocations/Classes/RootViewController.m8661341152#2021"    cd /Users/toericliou/Documents/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch -c /Users/toericliou/Documents/PhotoLocations/Classes/RootViewController.m -o /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/RootViewController.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/RootViewController.o /Users/toericliou/Downloads/PhotoLocations/Classes/RootViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302686260.972080
-e302686261.107739
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/RootViewController.o
-x/Users/toericliou/Downloads/PhotoLocations/Classes/RootViewController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@79"Compile /Users/toericliou/Downloads/PhotoLocations/Classes/RootViewController.m302686260#302686261#0(0"0(0#0#71"/Users/toericliou/Downloads/PhotoLocations/Classes/RootViewController.m7083932847239164928#2021"    cd /Users/toericliou/Downloads/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-aiydyxflhupnqhdtibsolcmqdxlq/Locations_Prefix.pch -c /Users/toericliou/Downloads/PhotoLocations/Classes/RootViewController.m -o /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/RootViewController.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/SubmitViewController.o /Users/toericliou/Documents/PhotoLocations/Classes/SubmitViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302768705.062541
-e302768705.134568
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/SubmitViewController.o
-x/Users/toericliou/Documents/PhotoLocations/Classes/SubmitViewController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@81"Compile /Users/toericliou/Documents/PhotoLocations/Classes/SubmitViewController.m302768705#302768705#0(0"0(0#0#73"/Users/toericliou/Documents/PhotoLocations/Classes/SubmitViewController.m8604567040#2025"    cd /Users/toericliou/Documents/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch -c /Users/toericliou/Documents/PhotoLocations/Classes/SubmitViewController.m -o /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/SubmitViewController.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/SubmitViewController.o /Users/toericliou/Downloads/PhotoLocations/Classes/SubmitViewController.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302598263.048982
-e302598263.970286
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/SubmitViewController.o
-x/Users/toericliou/Downloads/PhotoLocations/Classes/SubmitViewController.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@81"Compile /Users/toericliou/Downloads/PhotoLocations/Classes/SubmitViewController.m302598263#302598263#0(0"0(0#0#73"/Users/toericliou/Downloads/PhotoLocations/Classes/SubmitViewController.m8611886688#2025"    cd /Users/toericliou/Downloads/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-aiydyxflhupnqhdtibsolcmqdxlq/Locations_Prefix.pch -c /Users/toericliou/Downloads/PhotoLocations/Classes/SubmitViewController.m -o /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/SubmitViewController.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/UIImageToDataTransformer.o /Users/toericliou/Documents/PhotoLocations/Classes/UIImageToDataTransformer.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302768705.026222
-e302768705.111131
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/UIImageToDataTransformer.o
-x/Users/toericliou/Documents/PhotoLocations/Classes/UIImageToDataTransformer.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@85"Compile /Users/toericliou/Documents/PhotoLocations/Classes/UIImageToDataTransformer.m302768705#302768705#0(0"0(0#0#77"/Users/toericliou/Documents/PhotoLocations/Classes/UIImageToDataTransformer.m8603461088#2033"    cd /Users/toericliou/Documents/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch -c /Users/toericliou/Documents/PhotoLocations/Classes/UIImageToDataTransformer.m -o /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/UIImageToDataTransformer.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/UIImageToDataTransformer.o /Users/toericliou/Downloads/PhotoLocations/Classes/UIImageToDataTransformer.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302435913.931767
-e302435914.242816
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/UIImageToDataTransformer.o
-x/Users/toericliou/Downloads/PhotoLocations/Classes/UIImageToDataTransformer.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@85"Compile /Users/toericliou/Downloads/PhotoLocations/Classes/UIImageToDataTransformer.m302435913#302435914#0(0"0(0#0#77"/Users/toericliou/Downloads/PhotoLocations/Classes/UIImageToDataTransformer.m8624322368#2033"    cd /Users/toericliou/Downloads/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-aiydyxflhupnqhdtibsolcmqdxlq/Locations_Prefix.pch -c /Users/toericliou/Downloads/PhotoLocations/Classes/UIImageToDataTransformer.m -o /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/UIImageToDataTransformer.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/main.o /Users/toericliou/Documents/PhotoLocations/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302768704.785757
-e302768704.967245
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/main.o
-x/Users/toericliou/Documents/PhotoLocations/main.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@57"Compile /Users/toericliou/Documents/PhotoLocations/main.m302768704#302768704#0(0"0(0#0#49"/Users/toericliou/Documents/PhotoLocations/main.m8596221568#1985"    cd /Users/toericliou/Documents/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch -c /Users/toericliou/Documents/PhotoLocations/main.m -o /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/main.o0#
-
-CCompileC build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/main.o /Users/toericliou/Downloads/PhotoLocations/main.m normal i386 objective-c com.apple.compilers.gcc.4_2
-s302378128.809580
-e302378128.888600
-r1
-xCompileC
-xbuild/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/main.o
-x/Users/toericliou/Downloads/PhotoLocations/main.m
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@57"Compile /Users/toericliou/Downloads/PhotoLocations/main.m302378128#302378128#0(0"0(0#0#49"/Users/toericliou/Downloads/PhotoLocations/main.m8624466272#1985"    cd /Users/toericliou/Downloads/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -include /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-aiydyxflhupnqhdtibsolcmqdxlq/Locations_Prefix.pch -c /Users/toericliou/Downloads/PhotoLocations/main.m -o /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/main.o0#
-
-CCompileXIB /Users/toericliou/Documents/PhotoLocations/Classes/EventDetailViewController.xib
-r0
-
-CCompileXIB /Users/toericliou/Documents/PhotoLocations/Classes/MapViewController.xib
-r0
-
-CCompileXIB /Users/toericliou/Documents/PhotoLocations/Classes/SubmitViewController.xib
-r0
-
-CCompileXIB /Users/toericliou/Documents/PhotoLocations/MainWindow.xib
-r0
-
-CCompileXIB /Users/toericliou/Downloads/PhotoLocations/Classes/EventDetailViewController.xib
-s302521071.270077
-e302521071.670573
-r1
-xCompileXIB
-x/Users/toericliou/Downloads/PhotoLocations/Classes/EventDetailViewController.xib
-lSLF07#2@48"CompileXIB Classes/EventDetailViewController.xib302521071#302521071#0(0"0(0#0#80"/Users/toericliou/Downloads/PhotoLocations/Classes/EventDetailViewController.xib8617916288#622"    cd /Users/toericliou/Downloads/PhotoLocations    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 3.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/EventDetailViewController.nib /Users/toericliou/Downloads/PhotoLocations/Classes/EventDetailViewController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk0#
-
-CCompileXIB /Users/toericliou/Downloads/PhotoLocations/Classes/MapViewController.xib
-s302431624.773299
-e302431625.168724
-r1
-xCompileXIB
-x/Users/toericliou/Downloads/PhotoLocations/Classes/MapViewController.xib
-lSLF07#2@40"CompileXIB Classes/MapViewController.xib302431624#302431625#0(0"0(0#0#72"/Users/toericliou/Downloads/PhotoLocations/Classes/MapViewController.xib8622954368#606"    cd /Users/toericliou/Downloads/PhotoLocations    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 3.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/MapViewController.nib /Users/toericliou/Downloads/PhotoLocations/Classes/MapViewController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk0#
-
-CCompileXIB /Users/toericliou/Downloads/PhotoLocations/Classes/SubmitViewController.xib
-s302598262.632207
-e302598263.046698
-r1
-xCompileXIB
-x/Users/toericliou/Downloads/PhotoLocations/Classes/SubmitViewController.xib
-oCouldn't open shared capabilities memory GSCapabilities (No such file or directory)
-lSLF07#2@43"CompileXIB Classes/SubmitViewController.xib302598262#302598263#0(84"Couldn't open shared capabilities memory GSCapabilities (No such file or directory)0(0#0#75"/Users/toericliou/Downloads/PhotoLocations/Classes/SubmitViewController.xib13229817833193568#612"    cd /Users/toericliou/Downloads/PhotoLocations    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 3.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/SubmitViewController.nib /Users/toericliou/Downloads/PhotoLocations/Classes/SubmitViewController.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk0#
-
-CCompileXIB /Users/toericliou/Downloads/PhotoLocations/MainWindow.xib
-s302378127.500488
-e302378127.990478
-r1
-xCompileXIB
-x/Users/toericliou/Downloads/PhotoLocations/MainWindow.xib
-lSLF07#2@25"CompileXIB MainWindow.xib302378127#302378127#0(0"0(0#0#57"/Users/toericliou/Downloads/PhotoLocations/MainWindow.xib8626098560#584"    cd /Users/toericliou/Downloads/PhotoLocations    setenv IBC_MINIMUM_COMPATIBILITY_VERSION 3.2    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/MainWindow.nib /Users/toericliou/Downloads/PhotoLocations/MainWindow.xib --sdk /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk0#
-
-CCpResource build/Debug-iphonesimulator/Locations.app/One_Piece_Pirate_Flags.png One_Piece_Pirate_Flags.png
-s302436159.280192
-e302436159.287972
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/Locations.app/One_Piece_Pirate_Flags.png
-xOne_Piece_Pirate_Flags.png
-lSLF07#2@31"Copy One_Piece_Pirate_Flags.png302436159#302436159#0(0"0(0#0#69"/Users/toericliou/Downloads/PhotoLocations/One_Piece_Pirate_Flags.png8615369920#484"    cd /Users/toericliou/Downloads/PhotoLocations    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/toericliou/Downloads/PhotoLocations/One_Piece_Pirate_Flags.png /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app0#
-
-CCpResource build/Debug-iphonesimulator/Locations.app/ReadMe.txt ReadMe.txt
-s302378127.502486
-e302378127.540304
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/Locations.app/ReadMe.txt
-xReadMe.txt
-lSLF07#2@15"Copy ReadMe.txt302378127#302378127#0(0"0(0#0#53"/Users/toericliou/Downloads/PhotoLocations/ReadMe.txt8595351936#468"    cd /Users/toericliou/Downloads/PhotoLocations    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/toericliou/Downloads/PhotoLocations/ReadMe.txt /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app0#
-
-CCpResource build/Debug-iphonesimulator/Locations.app/free-iphoneapp-bg-couples-cycle-palmtree.png free-iphoneapp-bg-couples-cycle-palmtree.png
-s302517404.521980
-e302517404.599388
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/Locations.app/free-iphoneapp-bg-couples-cycle-palmtree.png
-xfree-iphoneapp-bg-couples-cycle-palmtree.png
-lSLF07#2@49"Copy free-iphoneapp-bg-couples-cycle-palmtree.png302517404#302517404#0(0"0(0#0#87"/Users/toericliou/Downloads/PhotoLocations/free-iphoneapp-bg-couples-cycle-palmtree.png8620051904#502"    cd /Users/toericliou/Downloads/PhotoLocations    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/toericliou/Downloads/PhotoLocations/free-iphoneapp-bg-couples-cycle-palmtree.png /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app0#
-
-CCpResource build/Debug-iphonesimulator/Locations.app/iphone-app-frame-background.png iphone-app-frame-background.png
-s302517404.526707
-e302517404.599860
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/Locations.app/iphone-app-frame-background.png
-xiphone-app-frame-background.png
-lSLF07#2@36"Copy iphone-app-frame-background.png302517404#302517404#0(0"0(0#0#74"/Users/toericliou/Downloads/PhotoLocations/iphone-app-frame-background.png8619742688#489"    cd /Users/toericliou/Downloads/PhotoLocations    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/toericliou/Downloads/PhotoLocations/iphone-app-frame-background.png /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app0#
-
-CCpResource build/Debug-iphonesimulator/Locations.app/iphone-app-wallpaper-blue-waves.png iphone-app-wallpaper-blue-waves.png
-s302517404.524285
-e302517404.667473
-r1
-xCpResource
-xbuild/Debug-iphonesimulator/Locations.app/iphone-app-wallpaper-blue-waves.png
-xiphone-app-wallpaper-blue-waves.png
-lSLF07#2@40"Copy iphone-app-wallpaper-blue-waves.png302517404#302517404#0(0"0(0#0#78"/Users/toericliou/Downloads/PhotoLocations/iphone-app-wallpaper-blue-waves.png8619880320#493"    cd /Users/toericliou/Downloads/PhotoLocations    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks /Users/toericliou/Downloads/PhotoLocations/iphone-app-wallpaper-blue-waves.png /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app0#
-
-CDataModelVersionCompile /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations.momd /Users/toericliou/Documents/PhotoLocations/Locations.xcdatamodeld
-r0
-
-CDataModelVersionCompile /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations.momd /Users/toericliou/Downloads/PhotoLocations/Locations.xcdatamodeld
-s302442365.617743
-e302442365.684878
-r1
-xDataModelVersionCompile
-x/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations.momd
-x/Users/toericliou/Downloads/PhotoLocations/Locations.xcdatamodeld
-lSLF07#2@103"DataModelVersionCompile build/Debug-iphonesimulator/Locations.app/Locations.momd Locations.xcdatamodeld302442365#302442365#0(0"0(0#0#65"/Users/toericliou/Downloads/PhotoLocations/Locations.xcdatamodeld8613914208#404"    cd /Users/toericliou/Downloads/PhotoLocations    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/momc -XD_MOMC_TARGET_VERSION=10.6 /Users/toericliou/Downloads/PhotoLocations/Locations.xcdatamodeld /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations.momd0#
-
-CGenerateDSYMFile /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app.dSYM /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations
-s302774761.265917
-e302774761.287585
-r1
-xGenerateDSYMFile
-x/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app.dSYM
-x/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations
-lSLF07#2@115"GenerateDSYMFile build/Debug-iphonesimulator/Locations.app.dSYM build/Debug-iphonesimulator/Locations.app/Locations302774761#302774761#0(0"0(0#0#94"/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations8654934464#401"    cd /Users/toericliou/Documents/PhotoLocations    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations -o /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app.dSYM0#
-
-CGenerateDSYMFile /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app.dSYM /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations
-s302686261.466392
-e302686261.553142
-r1
-xGenerateDSYMFile
-x/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app.dSYM
-x/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations
-lSLF07#2@115"GenerateDSYMFile build/Debug-iphonesimulator/Locations.app.dSYM build/Debug-iphonesimulator/Locations.app/Locations302686261#302686261#0(0"0(0#0#94"/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations8599507168#401"    cd /Users/toericliou/Downloads/PhotoLocations    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/usr/bin/dsymutil /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations -o /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app.dSYM0#
-
-CLd /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations normal i386
-s302774761.235880
-e302774761.265812
-r1
-xLd
-x/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations
-xnormal
-xi386
-lSLF07#2@99"Link /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations302774761#302774761#0(0"0(0#0#0"8656257024#992"    cd /Users/toericliou/Documents/PhotoLocations    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -L/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator -F/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator -filelist /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Locations.LinkFileList -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -framework Foundation -framework UIKit -framework CoreGraphics -framework CoreData -framework CoreLocation -framework MapKit -o /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations0#
-
-CLd /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations normal i386
-s302686261.107834
-e302686261.466286
-r1
-xLd
-x/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations
-xnormal
-xi386
-lSLF07#2@99"Link /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations302686261#302686261#0(0"0(0#0#0"8606363680#992"    cd /Users/toericliou/Downloads/PhotoLocations    setenv MACOSX_DEPLOYMENT_TARGET 10.6    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -L/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator -F/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator -filelist /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Objects-normal/i386/Locations.LinkFileList -mmacosx-version-min=10.6 -Xlinker -objc_abi_version -Xlinker 2 -framework Foundation -framework UIKit -framework CoreGraphics -framework CoreData -framework CoreLocation -framework MapKit -o /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Locations0#
-
-CProcessInfoPlistFile /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Info.plist Info.plist
-r0
-
-CProcessInfoPlistFile /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Info.plist Info.plist
-s302517404.399554
-e302517404.519042
-r1
-xProcessInfoPlistFile
-x/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Info.plist
-xInfo.plist
-lSLF07#2@18"Process Info.plist302517404#302517404#0(0"0(0#0#53"/Users/toericliou/Downloads/PhotoLocations/Info.plist8617386784#487"    cd /Users/toericliou/Downloads/PhotoLocations    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    builtin-infoPlistUtility Info.plist -genpkginfo /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/PkgInfo -expandbuildsettings -format binary -platform iphonesimulator -o /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app/Info.plist0#
-
-CProcessPCH /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-aiydyxflhupnqhdtibsolcmqdxlq/Locations_Prefix.pch.gch Locations_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
-s302378128.068939
-e302378128.808301
-r1
-xProcessPCH
-x/var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-aiydyxflhupnqhdtibsolcmqdxlq/Locations_Prefix.pch.gch
-xLocations_Prefix.pch
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@31"Precompile Locations_Prefix.pch302378128#302378128#0(0"0(0#0#63"/Users/toericliou/Downloads/PhotoLocations/Locations_Prefix.pch8626937824#1871"    cd /Users/toericliou/Downloads/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Downloads/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -c /Users/toericliou/Downloads/PhotoLocations/Locations_Prefix.pch -o /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-aiydyxflhupnqhdtibsolcmqdxlq/Locations_Prefix.pch.gch0#
-
-CProcessPCH /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch.gch Locations_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
-s302768703.868176
-e302768704.785616
-r1
-xProcessPCH
-x/var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch.gch
-xLocations_Prefix.pch
-xnormal
-xi386
-xobjective-c
-xcom.apple.compilers.gcc.4_2
-lSLF07#2@31"Precompile Locations_Prefix.pch302768703#302768704#0(0"0(0#0#63"/Users/toericliou/Documents/PhotoLocations/Locations_Prefix.pch7956869308031922176#1871"    cd /Users/toericliou/Documents/PhotoLocations    setenv LANG en_US.US-ASCII    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=c99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -D__IPHONE_OS_VERSION_MIN_REQUIRED=30200 -isysroot /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator4.0.sdk -fvisibility=hidden -mmacosx-version-min=10.6 -gdwarf-2 -fobjc-abi-version=2 -fobjc-legacy-dispatch -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-generated-files.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-own-target-headers.hmap -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-all-target-headers.hmap -iquote /Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/Locations-project-headers.hmap -F/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator -I/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/include -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources/i386 -I/Users/toericliou/Documents/PhotoLocations/build/Locations.build/Debug-iphonesimulator/Locations.build/DerivedSources -c /Users/toericliou/Documents/PhotoLocations/Locations_Prefix.pch -o /var/folders/nH/nHTnRTv5HASUNbCjEkwPek+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Locations_Prefix-gwnsuzzlnxavenemzqorbqhalzoz/Locations_Prefix.pch.gch0#
-
-CTouch /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app
-s302774761.287669
-e302774761.290007
-r1
-xTouch
-x/Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app
-lSLF07#2@90"Touch /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app302774761#302774761#0(0"0(0#0#0"8648260704#288"    cd /Users/toericliou/Documents/PhotoLocations    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/toericliou/Documents/PhotoLocations/build/Debug-iphonesimulator/Locations.app0#
-
-CTouch /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app
-s302686261.553235
-e302686261.555838
-r1
-xTouch
-x/Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app
-lSLF07#2@90"Touch /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app302686261#302686261#0(0"0(0#0#0"8602970752#288"    cd /Users/toericliou/Downloads/PhotoLocations    setenv PATH "/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin:/Developer/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin"    /usr/bin/touch -c /Users/toericliou/Downloads/PhotoLocations/build/Debug-iphonesimulator/Locations.app0#
-
