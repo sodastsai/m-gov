@@ -19,19 +19,26 @@ public class getid {
 	@Path("{c1}")
 	public static String query(@PathParam("c1") String id) {
 
+		GAENode e;
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+
 		try {
-			GAENode e;
-			PersistenceManager pm = PMF.get().getPersistenceManager();
-			e = pm.getObjectById(GAENode.class,id);
+			e = pm.getObjectById(GAENode.class, id);
 			System.out.println(e.toJson());
-			return e.toJson() + "\ndone\n";
+			return e.toJson();
 
-		} catch (Exception e) {
+		} catch (Exception E) {
 			// TODO: handle exception
-//			return myQuery.query(dep, arr);
-			return "Not Found!";
-		}
+			try {
+				query.go(id);
+				e = pm.getObjectById(GAENode.class, id);
+				System.out.println(e.toJson());
+				return e.toJson() ;
 
-		// return Store(table);
+			} catch (Exception E2) {
+				return "{\"empty\":\"true\"}";
+			}
+			// return "Not Found!";
+		}
 	}
 }

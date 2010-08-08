@@ -1,17 +1,10 @@
 package ecoliving;
 
+
 import gae.GAEDateBase;
 import gae.GAENode;
 
-import java.util.regex.Pattern;
-
 import net.HtmlFilter;
-
-import org.htmlparser.filters.NodeClassFilter;
-import org.htmlparser.tags.BodyTag;
-import org.htmlparser.util.NodeList;
-import org.htmlparser.visitors.TextExtractingVisitor;
-import org.htmlparser.Parser;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -54,7 +47,9 @@ public class Test {
 				line[i + 2], 
 				line[i + 3] + " "+ line[i + 4], 
 				line[i + 5],
-				line[i + 6], 
+				line[i + 6],
+				line[i + 8],
+				null,
 				res.substring(res.indexOf("案情摘要") ));
 
 		// System.out.println(node.getKey());
