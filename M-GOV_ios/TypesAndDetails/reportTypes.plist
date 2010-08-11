@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Section0</key>
+	<dict>
+		<key>Type0</key>
+		<string>道路橋梁損壞</string>
+		<key>Type1</key>
+		<string>水溝下水道損壞</string>
+		<key>Type2</key>
+		<string>河川堤防損壞</string>
+	</dict>
+	<key>Section1</key>
+	<dict>
+		<key>Type0</key>
+		<string>公園廣場髒亂</string>
+		<key>Type1</key>
+		<string>行道樹修剪及扶正</string>
+	</dict>
+	<key>Section2</key>
+	<dict>
+		<key>Type0</key>
+		<string>廢棄物、公廁清理</string>
+		<key>Type1</key>
+		<string>道路、步道清理</string>
+		<key>Type2</key>
+		<string>水溝下水道清理</string>
+	</dict>
+	<key>Section3</key>
+	<dict>
+		<key>Type0</key>
+		<string>違規廣告物查報</string>
+		<key>Type1</key>
+		<string>競選違規旗幟移除</string>
+		<key>Type2</key>
+		<string>競選廣告張貼移除</string>
+		<key>Type3</key>
+		<string>大型或遊動競選廣告</string>
+	</dict>
+	<key>Section4</key>
+	<dict>
+		<key>Type0</key>
+		<string>交通號誌、標線修復</string>
+		<key>Type1</key>
+		<string>移除廢棄交通號誌</string>
+		<key>Type2</key>
+		<string>門牌、街道巷弄名牌維護</string>
+		<key>Type3</key>
+		<string>路燈水電損壞</string>
+		<key>Type4</key>
+		<string>通訊、瓦斯、消防設施損壞</string>
+	</dict>
+	<key>Section5</key>
+	<dict>
+		<key>Type0</key>
+		<string>路霸檢舉通報</string>
+		<key>Type1</key>
+		<string>本市綠美化地點巡查通報</string>
+		<key>Type2</key>
+		<string>其他有礙市容觀瞻事項</string>
+		<key>Type3</key>
+		<string>其他妨害公共安全事項</string>
+	</dict>
+</dict>
+</plist>
