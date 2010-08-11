@@ -99,15 +99,15 @@
 		<key>Type1</key>
 		<dict>
 			<key>Detail0</key>
-			<string>登山步道旁草木修剪扶正</string>
+			<dict/>
 			<key>Detail1</key>
-			<string>私人土地樹木影響公共安全</string>
+			<dict/>
 			<key>Detail2</key>
-			<string>產業道路旁樹木修剪扶正</string>
+			<dict/>
 			<key>Detail3</key>
-			<string>安全島、行道樹修剪扶正</string>
+			<dict/>
 			<key>Detail4</key>
-			<string>捷運站外公園行道樹修剪扶正</string>
+			<dict/>
 		</dict>
 	</dict>
 	<key>Section2</key>

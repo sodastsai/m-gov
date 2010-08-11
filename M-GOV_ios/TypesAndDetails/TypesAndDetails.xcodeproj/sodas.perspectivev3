@@ -262,10 +262,12 @@
 						<dict>
 							<key>PBXSmartGroupTreeModuleColumnWidthsKey</key>
 							<array>
-								<real>266</real>
+								<real>22</real>
+								<real>244</real>
 							</array>
 							<key>PBXSmartGroupTreeModuleColumnsKey_v4</key>
 							<array>
+								<string>SCMStatusColumn</string>
 								<string>MainColumn</string>
 							</array>
 						</dict>
@@ -282,7 +284,7 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>1</integer>
+									<integer>12</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -300,8 +302,10 @@
 						<string>{{0, 0}, {283, 898}}</string>
 						<key>GroupTreeTableConfiguration</key>
 						<array>
+							<string>SCMStatusColumn</string>
+							<real>22</real>
 							<string>MainColumn</string>
-							<real>266</real>
+							<real>244</real>
 						</array>
 						<key>RubberWindowFrame</key>
 						<string>0 119 1920 939 0 0 1920 1058 </string>
@@ -320,7 +324,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>FE96354D1212F1800035A847</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TypesAndDetailsAppDelegate.m</string>
+								<string>sodas.perspectivev3</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -328,15 +332,14 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>FE96354E1212F1800035A847</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>TypesAndDetailsAppDelegate.m</string>
+										<string>sodas.perspectivev3</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>FE9635C21212F3D00035A847</string>
+										<string>FE9636031212FF710035A847</string>
 										<key>history</key>
 										<array>
-											<string>FE9635881212F2170035A847</string>
-											<string>FE9635BE1212F2F60035A847</string>
+											<string>FE9635D61212F6420035A847</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -350,18 +353,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1632, 728}}</string>
+								<string>{{0, 0}, {1632, 682}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 119 1920 939 0 0 1920 1058 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>728pt</string>
+							<string>682pt</string>
 						</dict>
 						<dict>
 							<key>Proportion</key>
-							<string>165pt</string>
+							<string>211pt</string>
 							<key>Tabs</key>
 							<array>
 								<dict>
@@ -375,7 +378,7 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 27}, {1632, 138}}</string>
+										<string>{{10, 27}, {1632, 184}}</string>
 										<key>RubberWindowFrame</key>
 										<string>0 119 1920 939 0 0 1920 1058 </string>
 									</dict>
@@ -403,6 +406,27 @@
 									<dict>
 										<key>PBXCVSModuleFilterTypeKey</key>
 										<integer>1032</integer>
+										<key>PBXCVSModuleTreeModuleColumnData</key>
+										<dict>
+											<key>PBXCVSModuleTreeModuleColumnWidthsKey</key>
+											<array>
+												<real>1000</real>
+												<real>56</real>
+												<real>63</real>
+												<real>60</real>
+												<real>63</real>
+												<real>139</real>
+											</array>
+											<key>PBXCVSModuleTreeModuleColumnsKey</key>
+											<array>
+												<string>Name</string>
+												<string>Status</string>
+												<string>Update</string>
+												<string>Revision</string>
+												<string>Author</string>
+												<string>Date</string>
+											</array>
+										</dict>
 										<key>PBXProjectModuleGUID</key>
 										<string>1CA23EE10692099D00951B8B</string>
 										<key>PBXProjectModuleLabel</key>
@@ -411,7 +435,7 @@
 									<key>GeometryConfiguration</key>
 									<dict>
 										<key>Frame</key>
-										<string>{{10, 31}, {603, 297}}</string>
+										<string>{{10, 27}, {1632, 179}}</string>
 									</dict>
 									<key>Module</key>
 									<string>PBXCVSModule</string>
@@ -459,11 +483,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>FE9635B21212F2DF0035A847</string>
+				<string>FE9636041212FF710035A847</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>FE9635B31212F2DF0035A847</string>
+				<string>FE9636051212FF710035A847</string>
 				<string>FE96354D1212F1800035A847</string>
-				<string>FE9635B41212F2DF0035A847</string>
+				<string>FE9636061212FF710035A847</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
