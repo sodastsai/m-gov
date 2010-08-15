@@ -11,7 +11,8 @@
 
 @implementation SubmitRootViewController
 
-@synthesize eventsArray;
+@synthesize eventsArray, locationManager;
+@synthesize managedObjectContext;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -21,7 +22,7 @@
     [super viewDidLoad];
 	
 	// Configure the edit button
-	self.navigationItem.leftBarButtonItem = self.editButtonItem;
+	//self.navigationItem.leftBarButtonItem = self.editButtonItem;
 	
 	// Configure the photo button
 	UIBarButtonItem *photoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCamera target:self action:@selector(takePhoto)];
@@ -29,10 +30,39 @@
 	self.navigationItem.rightBarButtonItem = photoButton;
 	
 	
+	// Start to get the user's location.
+	[[self locationManager] startUpdatingLocation];	
+	
+	
 	//Fetch the existing photo
-	eventsArray = [[NSMutableArray alloc] init];
+	// Create a fetch request
+	NSFetchRequest *request = [[NSFetchRequest alloc] init];
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Photo" inManagedObjectContext:managedObjectContext];
+	[request setEntity:entity];
+
+	
+	// Execute the fetch -- create a mutable copy of the result.
+	NSError *error = nil;
+	NSMutableArray *mutableFetchResults = [[managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
+	if (mutableFetchResults == nil) {
+		// Handle the error.
+	}
+	
+	// Set self's events array to the mutable array, then clean up.
+	[self setEventsArray:mutableFetchResults];
+	[mutableFetchResults release];
+	[request release];
 	
 	
+	
+	
+	// Use Google API to transform Latitude & Longitude to the corresponding address  
+	NSURL *url = [[NSURL alloc] initWithString:@"http://maps.google.com/maps/api/geocode/json?latlng=25.047924,121.517081&sensor=true&language=zh-TW"];
+	NSString *str = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+	NSLog(@"%@", str);
+	
+	[url release];
+	[str release];
 }
 
 
@@ -51,19 +81,13 @@
 	
 }
 
-
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-
-	UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-	[picker dismissModalViewControllerAnimated:YES];
-	[self addEvent:image];
-}
-
-
 - (void)addEvent:(UIImage *)image {
 	
-	CGSize size = image.size;
+	Photo *tempPhoto = (Photo *)[NSEntityDescription insertNewObjectForEntityForName:@"Photo" inManagedObjectContext:managedObjectContext];
+
+	/*
+	// Create the icon on TableView
+	CGSize size = image.size;	
 	CGFloat ratio = 0;
 	if (size.width > size.height) {
 		ratio = 44.0 / size.width;
@@ -72,18 +96,48 @@
 		ratio = 44.0 / size.height;
 	}
 	CGRect rect = CGRectMake(0.0, 0.0, ratio * size.width, ratio * size.height);
-	
 	UIGraphicsBeginImageContext(rect.size);
 	[image drawInRect:rect];
 	image = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
+	*/
 	
-	[eventsArray addObject:image];
-
+	tempPhoto.image = image;
+	
+	// Get latitude & longitude
+	CLLocation *location = [locationManager location];
+	if (!location) {
+		return;
+	}
+	CLLocationCoordinate2D coordinate = [location coordinate];
+	[tempPhoto setLatitude:[NSNumber numberWithDouble:coordinate.latitude]];
+	[tempPhoto setLongitude:[NSNumber numberWithDouble:coordinate.longitude]];
+	//NSLog(@"%f, %f", coordinate.latitude, coordinate.longitude);
+	
+	MKReverseGeocoder *geocoder = [[MKReverseGeocoder alloc] initWithCoordinate:coordinate];
+	[geocoder start];
+	
+	[geocoder release];
+	
+	// Should be timestamp, but this will be constant for simulator.
+	// [event setCreationDate:[location timestamp]];
+	[tempPhoto setCreationDate:[NSDate date]];
+	
+	
+	// Commit the change.
+	NSError *error = nil;
+	if (![managedObjectContext save:&error]) {
+		// Handle the error.
+	}
+	
+	
+	[eventsArray insertObject:tempPhoto atIndex:0];
+	
 	[self.tableView reloadData];
-	//[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+	[self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 	
 }
+
 
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -91,7 +145,7 @@
 	[self.tableView reloadData];
 }
 
-/*8
+/*
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
@@ -115,6 +169,22 @@
 */
 
 
+
+#pragma mark -
+#pragma mark Photo Picker
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+	
+	UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+	[picker dismissModalViewControllerAnimated:YES];
+	[self addEvent:image];
+	
+}
+
+
+
+
+
 #pragma mark -
 #pragma mark Table view data source
 /*
@@ -132,22 +202,34 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"Load Table");
+
     static NSString *CellIdentifier = @"Cell";
 
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
     // Configure the cell...
 
-    UIImage *image = [eventsArray objectAtIndex:indexPath.row];
+    Photo *tempPhoto = [eventsArray objectAtIndex:indexPath.row];
+	//UIImage *tempImage = [eventsArray objectAtIndex:indexPath.row];
 	
-	cell.textLabel.text = @"Hello";
-	cell.imageView.image = image;
-	//NSLog(@"Load Table");
+	// Transform the NSDate to StringStyle & fill the table text.
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setTimeStyle:NSDateFormatterMediumStyle];
+	[dateFormatter setDateStyle:NSDateFormatterShortStyle];
+	cell.textLabel.text = [dateFormatter stringFromDate:tempPhoto.creationDate];
+	
+	
+	// Transform the Latitude&Longitude to address, then fill in the table text.
+	cell.detailTextLabel.text = [NSString stringWithFormat:@"%f %f" , [tempPhoto.latitude doubleValue], [tempPhoto.longitude doubleValue]];
+	
+	// Fill the table icon.
+	cell.imageView.image = tempPhoto.image;
+	
+	[dateFormatter release];
 	
     return cell;
 }
@@ -167,9 +249,22 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		// Update the array and table view.
+	
+		// Delete the managed object at the given index path.
+		NSManagedObject *eventToDelete = [eventsArray objectAtIndex:indexPath.row];
+		[managedObjectContext deleteObject:eventToDelete];
+		// Commit the change.
+		NSError *error = nil;
+		if (![managedObjectContext save:&error]) {
+			// Handle the error.
+		}
+		//[eventToDelete release];
+		
+		// Delete the element in the array and table view.
         [eventsArray removeObjectAtIndex:indexPath.row];
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+		
+		
     }  
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
@@ -210,6 +305,32 @@
 }
 
 
+
+
+#pragma mark -
+#pragma mark Location manager
+
+/**
+ Return a location manager -- create one if necessary.
+ */
+- (CLLocationManager *)locationManager {
+	
+    if (locationManager != nil) {
+		return locationManager;
+	}
+	
+	locationManager = [[CLLocationManager alloc] init];
+	[locationManager setDesiredAccuracy:kCLLocationAccuracyNearestTenMeters];
+	[locationManager setDelegate:self];
+	
+	return locationManager;
+}
+
+
+
+
+
+
 #pragma mark -
 #pragma mark Memory management
 
@@ -227,9 +348,15 @@
 
 
 - (void)dealloc {
+	[locationManager release];
+	[managedObjectContext release];
 	[eventsArray release];
     [super dealloc];
 }
+
+
+
+
 
 
 @end

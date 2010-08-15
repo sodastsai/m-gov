@@ -7,15 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
 
-
-@interface SubmitRootViewController : UITableViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate>{
+@interface SubmitRootViewController : UITableViewController <UINavigationControllerDelegate, UIImagePickerControllerDelegate, CLLocationManagerDelegate>{
 
 	NSMutableArray *eventsArray;
+	CLLocationManager *locationManager;
 	
+	NSManagedObjectContext *managedObjectContext;	    
+
 }
 
 @property (nonatomic, retain) NSMutableArray *eventsArray;
+@property (nonatomic, retain) CLLocationManager *locationManager;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;	    
 
 
 -(void) addEvent:(UIImage *)image;

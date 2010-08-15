@@ -13,9 +13,14 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		2A59604E12157ACF00FB7590 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A59604D12157ACF00FB7590 /* MapKit.framework */; };
 		2A65592612129F6B00F87E00 /* SubmitRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A65592412129F6B00F87E00 /* SubmitRootViewController.m */; };
 		2A65592712129F6B00F87E00 /* SubmitRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A65592512129F6B00F87E00 /* SubmitRootViewController.xib */; };
-		2AAEE5D71213D00800877E8F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AAEE5D61213D00800877E8F /* CoreData.framework */; };
+		2A6A55E11213DBF400010C25 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A55E01213DBF400010C25 /* Photo.m */; };
+		2A8BAF681215316C00D52AA4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8BAF671215316C00D52AA4 /* CoreLocation.framework */; };
+		2A8BAFCD1215331100D52AA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8BAFCC1215331100D52AA4 /* CoreData.framework */; };
+		2AA196F91215441A00C39017 /* UIImageToDataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA196F81215441A00C39017 /* UIImageToDataTransformer.m */; };
+		2AA1977912154DBC00C39017 /* Photo.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2AA1977812154DBC00C39017 /* Photo.xcdatamodel */; };
 		2AE8692E121294AB00426DA8 /* QueryRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE8692C121294AB00426DA8 /* QueryRootViewController.m */; };
 		2AE8692F121294AB00426DA8 /* QueryRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AE8692D121294AB00426DA8 /* QueryRootViewController.xib */; };
 /* End PBXBuildFile section */
@@ -29,10 +34,17 @@
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2A59604D12157ACF00FB7590 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2A65592312129F6B00F87E00 /* SubmitRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubmitRootViewController.h; sourceTree = "<group>"; };
 		2A65592412129F6B00F87E00 /* SubmitRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubmitRootViewController.m; sourceTree = "<group>"; };
 		2A65592512129F6B00F87E00 /* SubmitRootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = SubmitRootViewController.xib; path = Classes/SubmitRootViewController.xib; sourceTree = "<group>"; };
-		2AAEE5D61213D00800877E8F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2A6A55DF1213DBF400010C25 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		2A6A55E01213DBF400010C25 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		2A8BAF671215316C00D52AA4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		2A8BAFCC1215331100D52AA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		2AA196F71215441A00C39017 /* UIImageToDataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIImageToDataTransformer.h; path = "../../Downloads/sample code/PhotoLocations/Classes/UIImageToDataTransformer.h"; sourceTree = SOURCE_ROOT; };
+		2AA196F81215441A00C39017 /* UIImageToDataTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIImageToDataTransformer.m; path = "../../Downloads/sample code/PhotoLocations/Classes/UIImageToDataTransformer.m"; sourceTree = SOURCE_ROOT; };
+		2AA1977812154DBC00C39017 /* Photo.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = Photo.xcdatamodel; sourceTree = "<group>"; };
 		2AE8692B121294AB00426DA8 /* QueryRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryRootViewController.h; sourceTree = "<group>"; };
 		2AE8692C121294AB00426DA8 /* QueryRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryRootViewController.m; sourceTree = "<group>"; };
 		2AE8692D121294AB00426DA8 /* QueryRootViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = QueryRootViewController.xib; path = Classes/QueryRootViewController.xib; sourceTree = "<group>"; };
@@ -48,7 +60,9 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
-				2AAEE5D71213D00800877E8F /* CoreData.framework in Frameworks */,
+				2A8BAF681215316C00D52AA4 /* CoreLocation.framework in Frameworks */,
+				2A8BAFCD1215331100D52AA4 /* CoreData.framework in Frameworks */,
+				2A59604E12157ACF00FB7590 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,8 +76,12 @@
 				1D3623250D0F684500981E51 /* MGOVAppDelegate.m */,
 				2AE8692B121294AB00426DA8 /* QueryRootViewController.h */,
 				2AE8692C121294AB00426DA8 /* QueryRootViewController.m */,
+				2AA196F71215441A00C39017 /* UIImageToDataTransformer.h */,
+				2AA196F81215441A00C39017 /* UIImageToDataTransformer.m */,
 				2A65592312129F6B00F87E00 /* SubmitRootViewController.h */,
 				2A65592412129F6B00F87E00 /* SubmitRootViewController.m */,
+				2A6A55DF1213DBF400010C25 /* Photo.h */,
+				2A6A55E01213DBF400010C25 /* Photo.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -100,6 +118,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2AA1977812154DBC00C39017 /* Photo.xcdatamodel */,
 				2A65592512129F6B00F87E00 /* SubmitRootViewController.xib */,
 				2AE8692D121294AB00426DA8 /* QueryRootViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
@@ -111,10 +130,12 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2A8BAFCC1215331100D52AA4 /* CoreData.framework */,
+				2A8BAF671215316C00D52AA4 /* CoreLocation.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
-				2AAEE5D61213D00800877E8F /* CoreData.framework */,
+				2A59604D12157ACF00FB7590 /* MapKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -178,6 +199,9 @@
 				1D3623260D0F684500981E51 /* MGOVAppDelegate.m in Sources */,
 				2AE8692E121294AB00426DA8 /* QueryRootViewController.m in Sources */,
 				2A65592612129F6B00F87E00 /* SubmitRootViewController.m in Sources */,
+				2A6A55E11213DBF400010C25 /* Photo.m in Sources */,
+				2AA196F91215441A00C39017 /* UIImageToDataTransformer.m in Sources */,
+				2AA1977912154DBC00C39017 /* Photo.xcdatamodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
