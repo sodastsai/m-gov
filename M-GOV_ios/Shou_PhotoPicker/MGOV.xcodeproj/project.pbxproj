@@ -19,7 +19,7 @@
 		2A6A55E11213DBF400010C25 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A6A55E01213DBF400010C25 /* Photo.m */; };
 		2A8BAF681215316C00D52AA4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8BAF671215316C00D52AA4 /* CoreLocation.framework */; };
 		2A8BAFCD1215331100D52AA4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8BAFCC1215331100D52AA4 /* CoreData.framework */; };
-		2AA196F91215441A00C39017 /* UIImageToDataTransformer.h in Sources */ = {isa = PBXBuildFile; fileRef = 2AA196F81215441A00C39017 /* UIImageToDataTransformer.h */; };
+		2AA196F91215441A00C39017 /* UIImageToDataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AA196F81215441A00C39017 /* UIImageToDataTransformer.m */; };
 		2AA1977912154DBC00C39017 /* Photo.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = 2AA1977812154DBC00C39017 /* Photo.xcdatamodel */; };
 		2AE8692E121294AB00426DA8 /* QueryRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE8692C121294AB00426DA8 /* QueryRootViewController.m */; };
 		2AE8692F121294AB00426DA8 /* QueryRootViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AE8692D121294AB00426DA8 /* QueryRootViewController.xib */; };
@@ -43,7 +43,7 @@
 		2A8BAF671215316C00D52AA4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		2A8BAFCC1215331100D52AA4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2AA196F71215441A00C39017 /* UIImageToDataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageToDataTransformer.h; sourceTree = "<group>"; };
-		2AA196F81215441A00C39017 /* UIImageToDataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageToDataTransformer.h; sourceTree = "<group>"; };
+		2AA196F81215441A00C39017 /* UIImageToDataTransformer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageToDataTransformer.m; sourceTree = "<group>"; };
 		2AA1977812154DBC00C39017 /* Photo.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = Photo.xcdatamodel; sourceTree = "<group>"; };
 		2AE8692B121294AB00426DA8 /* QueryRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryRootViewController.h; sourceTree = "<group>"; };
 		2AE8692C121294AB00426DA8 /* QueryRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryRootViewController.m; sourceTree = "<group>"; };
@@ -77,7 +77,7 @@
 				2AE8692B121294AB00426DA8 /* QueryRootViewController.h */,
 				2AE8692C121294AB00426DA8 /* QueryRootViewController.m */,
 				2AA196F71215441A00C39017 /* UIImageToDataTransformer.h */,
-				2AA196F81215441A00C39017 /* UIImageToDataTransformer.h */,
+				2AA196F81215441A00C39017 /* UIImageToDataTransformer.m */,
 				2A65592312129F6B00F87E00 /* SubmitRootViewController.h */,
 				2A65592412129F6B00F87E00 /* SubmitRootViewController.m */,
 				2A6A55DF1213DBF400010C25 /* Photo.h */,
@@ -200,7 +200,7 @@
 				2AE8692E121294AB00426DA8 /* QueryRootViewController.m in Sources */,
 				2A65592612129F6B00F87E00 /* SubmitRootViewController.m in Sources */,
 				2A6A55E11213DBF400010C25 /* Photo.m in Sources */,
-				2AA196F91215441A00C39017 /* UIImageToDataTransformer.h in Sources */,
+				2AA196F91215441A00C39017 /* UIImageToDataTransformer.m in Sources */,
 				2AA1977912154DBC00C39017 /* Photo.xcdatamodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -212,7 +212,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: def abc (HU4T39MR82)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dian-je Tsai (52BES94NYL)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -220,7 +220,7 @@
 				GCC_PREFIX_HEADER = MGOV_Prefix.pch;
 				INFOPLIST_FILE = "MGOV-Info.plist";
 				PRODUCT_NAME = MGOV;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8C06F644-B578-42E5-B280-92C68E9A47C0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEABC31E-4D43-44BB-B889-ADCFF07F642A";
 			};
 			name = Debug;
 		};
@@ -241,11 +241,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dian-je Tsai (52BES94NYL)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEABC31E-4D43-44BB-B889-ADCFF07F642A";
 				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
