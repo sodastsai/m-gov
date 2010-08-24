@@ -13,6 +13,6 @@
 
 }
 
-- (void) addcase;
+- (void) addCase;
 
 @end
