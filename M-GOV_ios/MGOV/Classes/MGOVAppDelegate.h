@@ -7,12 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyCaseViewController.h"
+#import "QueryViewController.h"
 
 @interface MGOVAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
+	UITabBarController *tabBarController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
+@property (nonatomic, retain) UITabBarController *tabBarController;
 
 @end
 

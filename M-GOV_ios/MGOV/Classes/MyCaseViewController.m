@@ -15,14 +15,17 @@
 #pragma mark -
 #pragma mark View lifecycle
 
-/*
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+	UIBarButtonItem *addCase = [[UIBarButtonItem alloc] initWithTitle:@"新增案件" style:UIBarButtonItemStylePlain target:self action:@selector(addcase)];
+	self.navigationItem.rightBarButtonItem = addCase;
+	[addCase release];
 }
-*/
+
 
 /*
 - (void)viewWillAppear:(BOOL)animated {
@@ -52,6 +55,13 @@
 }
 */
 
+- (void) addcase {
+	
+	CaseAddViewController *caseAdd = [[CaseAddViewController alloc] init];
+	[self.navigationController pushViewController:caseAdd animated:YES];	
+	[caseAdd release];
+	
+}
 
 #pragma mark -
 #pragma mark Table view data source

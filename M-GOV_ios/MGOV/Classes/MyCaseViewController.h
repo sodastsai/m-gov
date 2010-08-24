@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "CaseAddViewController.h"
 
 @interface MyCaseViewController : UITableViewController {
 
 }
+
+- (void) addcase;
 
 @end

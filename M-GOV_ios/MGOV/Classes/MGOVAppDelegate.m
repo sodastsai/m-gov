@@ -10,7 +10,7 @@
 
 @implementation MGOVAppDelegate
 
-@synthesize window;
+@synthesize window, tabBarController;
 
 
 #pragma mark -
@@ -20,6 +20,24 @@
     
     // Override point for customization after application launch.
 	
+	tabBarController = [[UITabBarController alloc] init];
+	
+	MyCaseViewController *myCase = [[MyCaseViewController alloc] init];
+	myCase.title = @"我的案件";
+	UINavigationController *myCaseNavigation = [[UINavigationController alloc] initWithRootViewController:myCase];
+	
+	QueryViewController *query = [[QueryViewController alloc] init];
+	query.title = @"查詢";
+	UINavigationController *queryNavigation = [[UINavigationController alloc] initWithRootViewController:query];
+	
+	tabBarController.viewControllers = [NSArray arrayWithObjects:myCaseNavigation, queryNavigation, nil];
+	
+	[window addSubview:tabBarController.view];
+	
+	[query release];
+	[myCase release];
+	[queryNavigation release];
+	[myCaseNavigation release];
     [window makeKeyAndVisible];
 	
 	return YES;
@@ -75,6 +93,7 @@
 
 
 - (void)dealloc {
+	[tabBarController release];
     [window release];
     [super dealloc];
 }
