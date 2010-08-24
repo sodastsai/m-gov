@@ -8,6 +8,8 @@
 
 #import "SubmitRootViewController.h"
 #import "Photo.h"
+#import "CJSONDeserializer.h"
+
 
 @implementation SubmitRootViewController
 
@@ -54,15 +56,20 @@
 	[request release];
 	
 	
-	
+
 	
 	// Use Google API to transform Latitude & Longitude to the corresponding address  
 	NSURL *url = [[NSURL alloc] initWithString:@"http://maps.google.com/maps/api/geocode/json?latlng=25.047924,121.517081&sensor=true&language=zh-TW"];
 	NSString *str = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-	NSLog(@"%@", str);
+	//NSLog(@"%@", str);	
+	NSDictionary *dict = [str JSONValue];
+	NSLog(@"%@", [[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"formatted_address"]);
+	NSLog(@"%@", [[[[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"address_components"] objectAtIndex:1] objectForKey:@"long_name"]);
 	
 	[url release];
 	[str release];
+
+ 
 }
 
 
@@ -76,7 +83,10 @@
 	else {
 		picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 	}
-	[self presentModalViewController:picker animated:YES];
+	
+	
+	[self presentModalViewController:picker animated:NO];
+
 	[picker release];
 	
 }
@@ -160,23 +170,27 @@
     [super viewDidDisappear:animated];
 }
 */
-/*
+
 // Override to allow orientations other than the default portrait orientation.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+/*
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+	
+	[super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+
+}
 */
-
-
-
 #pragma mark -
 #pragma mark Photo Picker
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
 	
 	UIImage *image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-	[picker dismissModalViewControllerAnimated:YES];
+	[picker dismissModalViewControllerAnimated:NO];
 	[self addEvent:image];
 	
 }
