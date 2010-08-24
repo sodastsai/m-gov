@@ -15,6 +15,17 @@
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		2A258D1C1223D10400E9D057 /* MyCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A258D1A1223D10400E9D057 /* MyCaseViewController.m */; };
 		2A258D1D1223D10400E9D057 /* MyCaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A258D1B1223D10400E9D057 /* MyCaseViewController.xib */; };
+		FE4EE76F1223F68F00737028 /* reportDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76A1223F68F00737028 /* reportDetails.plist */; };
+		FE4EE7701223F68F00737028 /* reportQid.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76B1223F68F00737028 /* reportQid.plist */; };
+		FE4EE7711223F68F00737028 /* reportSecondDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76C1223F68F00737028 /* reportSecondDetails.plist */; };
+		FE4EE7721223F68F00737028 /* reportSections.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76D1223F68F00737028 /* reportSections.plist */; };
+		FE4EE7731223F68F00737028 /* reportTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76E1223F68F00737028 /* reportTypes.plist */; };
+		FE4EE77A1223F6D100737028 /* detailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7751223F6D100737028 /* detailViewController.m */; };
+		FE4EE77B1223F6D100737028 /* secondDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7771223F6D100737028 /* secondDetailViewController.m */; };
+		FE4EE77C1223F6D100737028 /* typesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7791223F6D100737028 /* typesViewController.m */; };
+		FE4EE7801223F72E00737028 /* detailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77D1223F72E00737028 /* detailViewController.xib */; };
+		FE4EE7811223F72E00737028 /* secondDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */; };
+		FE4EE7821223F72E00737028 /* typesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77F1223F72E00737028 /* typesViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +42,20 @@
 		2A258D1B1223D10400E9D057 /* MyCaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCaseViewController.xib; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MGOV_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOV_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MGOV-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MGOV-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		FE4EE76A1223F68F00737028 /* reportDetails.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportDetails.plist; sourceTree = SOURCE_ROOT; };
+		FE4EE76B1223F68F00737028 /* reportQid.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportQid.plist; sourceTree = SOURCE_ROOT; };
+		FE4EE76C1223F68F00737028 /* reportSecondDetails.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportSecondDetails.plist; sourceTree = SOURCE_ROOT; };
+		FE4EE76D1223F68F00737028 /* reportSections.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportSections.plist; sourceTree = SOURCE_ROOT; };
+		FE4EE76E1223F68F00737028 /* reportTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportTypes.plist; sourceTree = SOURCE_ROOT; };
+		FE4EE7741223F6D100737028 /* detailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = detailViewController.h; path = Classes/detailViewController.h; sourceTree = SOURCE_ROOT; };
+		FE4EE7751223F6D100737028 /* detailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = detailViewController.m; path = Classes/detailViewController.m; sourceTree = SOURCE_ROOT; };
+		FE4EE7761223F6D100737028 /* secondDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = secondDetailViewController.h; path = Classes/secondDetailViewController.h; sourceTree = SOURCE_ROOT; };
+		FE4EE7771223F6D100737028 /* secondDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = secondDetailViewController.m; path = Classes/secondDetailViewController.m; sourceTree = SOURCE_ROOT; };
+		FE4EE7781223F6D100737028 /* typesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = typesViewController.h; path = Classes/typesViewController.h; sourceTree = SOURCE_ROOT; };
+		FE4EE7791223F6D100737028 /* typesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = typesViewController.m; path = Classes/typesViewController.m; sourceTree = SOURCE_ROOT; };
+		FE4EE77D1223F72E00737028 /* detailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = detailViewController.xib; sourceTree = SOURCE_ROOT; };
+		FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = secondDetailViewController.xib; sourceTree = SOURCE_ROOT; };
+		FE4EE77F1223F72E00737028 /* typesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = typesViewController.xib; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,6 +75,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FE4EE7461223D50200737028 /* Types and Detail Selector */,
 				1D3623240D0F684500981E51 /* MGOVAppDelegate.h */,
 				1D3623250D0F684500981E51 /* MGOVAppDelegate.m */,
 				2A258D191223D10400E9D057 /* MyCaseViewController.h */,
@@ -91,6 +117,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FE4EE77D1223F72E00737028 /* detailViewController.xib */,
+				FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */,
+				FE4EE77F1223F72E00737028 /* typesViewController.xib */,
+				FE4EE75F1223F5F700737028 /* Types and Detail Strings */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				8D1107310486CEB800E47090 /* MGOV-Info.plist */,
 			);
@@ -105,6 +135,31 @@
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FE4EE7461223D50200737028 /* Types and Detail Selector */ = {
+			isa = PBXGroup;
+			children = (
+				FE4EE7741223F6D100737028 /* detailViewController.h */,
+				FE4EE7751223F6D100737028 /* detailViewController.m */,
+				FE4EE7761223F6D100737028 /* secondDetailViewController.h */,
+				FE4EE7771223F6D100737028 /* secondDetailViewController.m */,
+				FE4EE7781223F6D100737028 /* typesViewController.h */,
+				FE4EE7791223F6D100737028 /* typesViewController.m */,
+			);
+			name = "Types and Detail Selector";
+			sourceTree = "<group>";
+		};
+		FE4EE75F1223F5F700737028 /* Types and Detail Strings */ = {
+			isa = PBXGroup;
+			children = (
+				FE4EE76A1223F68F00737028 /* reportDetails.plist */,
+				FE4EE76B1223F68F00737028 /* reportQid.plist */,
+				FE4EE76C1223F68F00737028 /* reportSecondDetails.plist */,
+				FE4EE76D1223F68F00737028 /* reportSections.plist */,
+				FE4EE76E1223F68F00737028 /* reportTypes.plist */,
+			);
+			name = "Types and Detail Strings";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,6 +209,14 @@
 			files = (
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				2A258D1D1223D10400E9D057 /* MyCaseViewController.xib in Resources */,
+				FE4EE76F1223F68F00737028 /* reportDetails.plist in Resources */,
+				FE4EE7701223F68F00737028 /* reportQid.plist in Resources */,
+				FE4EE7711223F68F00737028 /* reportSecondDetails.plist in Resources */,
+				FE4EE7721223F68F00737028 /* reportSections.plist in Resources */,
+				FE4EE7731223F68F00737028 /* reportTypes.plist in Resources */,
+				FE4EE7801223F72E00737028 /* detailViewController.xib in Resources */,
+				FE4EE7811223F72E00737028 /* secondDetailViewController.xib in Resources */,
+				FE4EE7821223F72E00737028 /* typesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +230,9 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* MGOVAppDelegate.m in Sources */,
 				2A258D1C1223D10400E9D057 /* MyCaseViewController.m in Sources */,
+				FE4EE77A1223F6D100737028 /* detailViewController.m in Sources */,
+				FE4EE77B1223F6D100737028 /* secondDetailViewController.m in Sources */,
+				FE4EE77C1223F6D100737028 /* typesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,7 +243,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: def abc (HU4T39MR82)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dian-je Tsai (52BES94NYL)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -185,7 +251,7 @@
 				GCC_PREFIX_HEADER = MGOV_Prefix.pch;
 				INFOPLIST_FILE = "MGOV-Info.plist";
 				PRODUCT_NAME = MGOV;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8C06F644-B578-42E5-B280-92C68E9A47C0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEABC31E-4D43-44BB-B889-ADCFF07F642A";
 			};
 			name = Debug;
 		};
