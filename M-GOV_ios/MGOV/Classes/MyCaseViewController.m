@@ -8,9 +8,7 @@
 
 #import "MyCaseViewController.h"
 
-
 @implementation MyCaseViewController
-
 
 #pragma mark -
 #pragma mark View lifecycle

@@ -30,6 +30,9 @@
 		FE4EE7801223F72E00737028 /* detailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77D1223F72E00737028 /* detailViewController.xib */; };
 		FE4EE7811223F72E00737028 /* secondDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */; };
 		FE4EE7821223F72E00737028 /* typesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77F1223F72E00737028 /* typesViewController.xib */; };
+		FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */ = {isa = PBXBuildFile; fileRef = FED3DDE71224EA3A001D3C73 /* UserInformation.plist */; };
+		FED3DDED1224EB7F001D3C73 /* FirstTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FED3DDEB1224EB7F001D3C73 /* FirstTimeViewController.m */; };
+		FED3DDEE1224EB7F001D3C73 /* FirstTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED3DDEC1224EB7F001D3C73 /* FirstTimeViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +69,10 @@
 		FE4EE77D1223F72E00737028 /* detailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = detailViewController.xib; sourceTree = "<group>"; };
 		FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = secondDetailViewController.xib; sourceTree = "<group>"; };
 		FE4EE77F1223F72E00737028 /* typesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = typesViewController.xib; sourceTree = "<group>"; };
+		FED3DDE71224EA3A001D3C73 /* UserInformation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInformation.plist; sourceTree = "<group>"; };
+		FED3DDEA1224EB7F001D3C73 /* FirstTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTimeViewController.h; sourceTree = "<group>"; };
+		FED3DDEB1224EB7F001D3C73 /* FirstTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTimeViewController.m; sourceTree = "<group>"; };
+		FED3DDEC1224EB7F001D3C73 /* FirstTimeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FirstTimeViewController.xib; path = Classes/FirstTimeViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +92,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FED3DDE91224EB5A001D3C73 /* FirstTime Message */,
 				2A79AC301223FBCF00F140A2 /* Query Case */,
 				2A79AC2F1223FBC200F140A2 /* My Case */,
 				FE4EE7461223D50200737028 /* Types and Detail Selector */,
@@ -129,6 +137,7 @@
 				2A79AC2D1223FB9B00F140A2 /* Interface Builder */,
 				FE4EE75F1223F5F700737028 /* Types and Detail Strings */,
 				8D1107310486CEB800E47090 /* MGOV-Info.plist */,
+				FED3DDE71224EA3A001D3C73 /* UserInformation.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -146,6 +155,7 @@
 		2A79AC2D1223FB9B00F140A2 /* Interface Builder */ = {
 			isa = PBXGroup;
 			children = (
+				FED3DDEC1224EB7F001D3C73 /* FirstTimeViewController.xib */,
 				2A258D1B1223D10400E9D057 /* MyCaseViewController.xib */,
 				2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */,
 				2A79AC221223FB7C00F140A2 /* QueryViewController.xib */,
@@ -210,6 +220,15 @@
 			name = "Types and Detail Strings";
 			sourceTree = "<group>";
 		};
+		FED3DDE91224EB5A001D3C73 /* FirstTime Message */ = {
+			isa = PBXGroup;
+			children = (
+				FED3DDEA1224EB7F001D3C73 /* FirstTimeViewController.h */,
+				FED3DDEB1224EB7F001D3C73 /* FirstTimeViewController.m */,
+			);
+			name = "FirstTime Message";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -267,6 +286,8 @@
 				FE4EE7821223F72E00737028 /* typesViewController.xib in Resources */,
 				2A79AC241223FB7C00F140A2 /* CaseAddViewController.xib in Resources */,
 				2A79AC261223FB7C00F140A2 /* QueryViewController.xib in Resources */,
+				FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */,
+				FED3DDEE1224EB7F001D3C73 /* FirstTimeViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,6 +306,7 @@
 				FE4EE77C1223F6D100737028 /* typesViewController.m in Sources */,
 				2A79AC231223FB7C00F140A2 /* CaseAddViewController.m in Sources */,
 				2A79AC251223FB7C00F140A2 /* QueryViewController.m in Sources */,
+				FED3DDED1224EB7F001D3C73 /* FirstTimeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
