@@ -23,7 +23,7 @@
 
 - (void) addCase {
 	// Call the add case view
-	CaseAddViewController *caseAdder = [[CaseAddViewController alloc] init];
+	CaseAddViewController *caseAdder = [[CaseAddViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	[self.navigationController pushViewController:caseAdder animated:YES];	
 	[caseAdder release];
 }
