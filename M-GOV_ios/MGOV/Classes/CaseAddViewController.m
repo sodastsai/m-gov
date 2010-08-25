@@ -7,6 +7,7 @@
 //
 
 #import "CaseAddViewController.h"
+#import "typesViewController.h"
 
 #define kTextFieldHeight 30.0
 #define kTextFieldWidth 290.0
@@ -118,6 +119,7 @@
 	} else {
 		UITextView *descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 180)];
 		descriptionField.font = [UIFont systemFontOfSize:18.0];
+		// TODO: Set the placeholder
 		//descriptionField.text = @"請描述案件情況";
 		[cell.contentView addSubview:descriptionField];
 		[descriptionField release];
@@ -132,7 +134,11 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section==1 && indexPath.row==0) {
-		NSLog(@"HH");
+		typesViewController *typesView = [[typesViewController alloc] init];
+		typesView.title = @"請選擇案件種類";
+		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typesView];
+		[self presentModalViewController:typeAndDetailSelector animated:YES];
+		[typesView release];
 	}
 }
 
