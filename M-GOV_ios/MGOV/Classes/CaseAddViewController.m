@@ -94,40 +94,33 @@
 	
 	UITableViewCell *cell = nil;
 	
-	if (indexPath.row == 0) {
-		static NSString *Cell1Identifier = @"Cell1";
-		cell = [tableView dequeueReusableCellWithIdentifier:Cell1Identifier];
-		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Cell1Identifier] autorelease];
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		}
-		
-		if (indexPath.section == 0) {
-			// TODO: photo and lcoation
-		} else if (indexPath.section == 1) {
-			cell.textLabel.text = @"案件種類";
-			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		} else if (indexPath.section == 2) {
-			UITextField *nameField = [[UITextField alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, kTextFieldHeight)];
-			nameField.placeholder = @"請輸入您的姓名";
-			nameField.autocorrectionType = UITextAutocorrectionTypeNo;
-			[cell.contentView addSubview:nameField];
-			[nameField release];
-		} else {
-			UITextView *descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 180)];
-			descriptionField.font = [UIFont systemFontOfSize:18.0];
-			//descriptionField.text = @"請描述案件情況";
-			[cell.contentView addSubview:descriptionField];
-			[descriptionField release];
-		}
+	static NSString *Cell1Identifier = @"Cell";
+	cell = [tableView dequeueReusableCellWithIdentifier:Cell1Identifier];
+	if (cell == nil) {
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Cell1Identifier] autorelease];
+		// Default Cell Style
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
-	else {
-		static NSString *Cell2Identifier = @"Cell2";
-		cell = [tableView dequeueReusableCellWithIdentifier:Cell2Identifier];
-		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Cell2Identifier] autorelease];
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		}
+	
+	// Style by each cell
+	if (indexPath.section == 0) {
+		// TODO: photo and lcoation
+	} else if (indexPath.section == 1) {
+		cell.textLabel.text = @"請按此選擇案件種類";
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+	} else if (indexPath.section == 2) {
+		UITextField *nameField = [[UITextField alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, kTextFieldHeight)];
+		nameField.placeholder = @"請輸入您的姓名";
+		nameField.autocorrectionType = UITextAutocorrectionTypeNo;
+		[cell.contentView addSubview:nameField];
+		[nameField release];
+	} else {
+		UITextView *descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 180)];
+		descriptionField.font = [UIFont systemFontOfSize:18.0];
+		//descriptionField.text = @"請描述案件情況";
+		[cell.contentView addSubview:descriptionField];
+		[descriptionField release];
 	}
 	
 	return cell;
@@ -138,6 +131,9 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section==1 && indexPath.row==0) {
+		NSLog(@"HH");
+	}
 }
 
 
