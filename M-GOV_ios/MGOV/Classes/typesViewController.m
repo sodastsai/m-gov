@@ -12,6 +12,13 @@
 @implementation typesViewController
 
 #pragma mark -
+#pragma mark View Switch
+
+- (void)backToPreviousView {
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark -
 #pragma mark Table view data source
 
 // Customize the number of sections in the table view.
@@ -89,21 +96,21 @@
 	NSString *detailTypeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
 	NSDictionary *detailDict = [detailTypeDict objectForKey:detailTypeId];
 	
+	// Title
+	// Open the plist - First class
+	NSString *titlePath=[[NSBundle mainBundle] pathForResource:@"reportTypes" ofType:@"plist"];
+	NSDictionary *titleSectionDict=[NSDictionary dictionaryWithContentsOfFile:titlePath];
+	// Open the plist - Second class
+	NSDictionary *titleTypeDict = [titleSectionDict objectForKey:detailSectionId];
+	NSString *selectedTitle = [titleTypeDict valueForKey:detailTypeId];
+	
     if([detailDict count]){
 		// 2-level or more
 		detailViewController *details = [[detailViewController alloc] initWithNibName:@"detailViewController" bundle:nil];
 		// Record
 		details.finalSectionId = finalSectionId;
 		details.finalTypeId = finalTypeId; 
-		
-		// Title
-		// Open the plist - First class
-		NSString *path=[[NSBundle mainBundle] pathForResource:@"reportTypes" ofType:@"plist"];
-		NSDictionary *titleSectionDict=[NSDictionary dictionaryWithContentsOfFile:path];
-		// Open the plist - Second class
-		NSDictionary *titleTypeDict = [titleSectionDict objectForKey:detailSectionId];
-		
-		details.title = [titleTypeDict valueForKey:detailTypeId];
+		details.title = selectedTitle;
 				
 		// Pass the selected object to the new view controller.
 		[self.navigationController pushViewController:details animated:YES];
@@ -118,8 +125,18 @@
 		// Open the qid plist
 		NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
 		NSDictionary *sectionDict = [dict objectForKey:sectionId];
+		NSString *qid = [sectionDict valueForKey:typeId];
 		
-		// qid = [[sectionDict valueForKey:typeId] intValue];
+		// Write to plist
+		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
+		NSMutableDictionary *plistDict = [NSMutableDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
+		[plistDict setValue:selectedTitle forKey:@"submitContent"];
+		[plistDict setValue:qid forKey:@"submitQid"];
+		[plistDict setValue:@"1" forKey:@"submitReadable"];
+		[plistDict writeToFile:typeSelectorStatusPlistPathInAppDocuments atomically:YES];
+		
+		// Switch back
+		[self dismissModalViewControllerAnimated:YES];
 	}
 }
 

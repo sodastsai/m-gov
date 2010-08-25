@@ -87,8 +87,30 @@
 	NSDictionary *sectionDict = [dict objectForKey:sectionId];
 	NSDictionary *typeDict = [sectionDict objectForKey:typeId];
 	NSDictionary *detailDict = [typeDict objectForKey:detailId];
+	NSString *qid = [detailDict valueForKey:secondDetailId];
 	
-	// qid = [[detailDict valueForKey:secondDetailId] intValue];
+	// Title
+	NSString *finalSection = [NSString stringWithFormat:@"Section%d", finalSectionId];
+	NSString *finalType = [NSString stringWithFormat:@"Type%d", finalTypeId];
+	NSString *finalDetail = [NSString stringWithFormat:@"Detail%d", finalDetailId];
+	// Open the plist - First class
+	NSString *titlePath=[[NSBundle mainBundle] pathForResource:@"reportDetails" ofType:@"plist"];
+	NSDictionary *titleSectionDict=[NSDictionary dictionaryWithContentsOfFile:titlePath];
+	// Open the plist - Second class
+	NSDictionary *titleTypeDict = [titleSectionDict objectForKey:finalSection];
+	NSDictionary *titleDetailDict = [titleTypeDict objectForKey:finalType];
+	NSString *selectedTitle = [titleDetailDict valueForKey:finalDetail];
+	
+	// Write to plist
+	NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
+	NSMutableDictionary *plistDict = [NSMutableDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
+	[plistDict setValue:selectedTitle forKey:@"submitContent"];
+	[plistDict setValue:qid forKey:@"submitQid"];
+	[plistDict setValue:@"1" forKey:@"submitReadable"];
+	[plistDict writeToFile:typeSelectorStatusPlistPathInAppDocuments atomically:YES];
+	
+	// Switch back
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark -

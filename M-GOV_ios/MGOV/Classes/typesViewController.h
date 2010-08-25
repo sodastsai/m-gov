@@ -14,4 +14,6 @@
 	NSInteger finalTypeId;
 }
 
+- (void)backToPreviousView;
+
 @end

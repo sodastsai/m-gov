@@ -18,14 +18,8 @@
 #pragma mark CaseAddMethod
 
 - (BOOL)submitCase {
-	
 	[self.navigationController popViewControllerAnimated:YES];
 	return YES;
-	
-}
-
-- (void)action:(id)sender {
-	NSLog(@"UIButton was clicked");
 }
 
 #pragma mark -
@@ -77,7 +71,11 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {	
 	// Set the height according to the edit area size
     if (indexPath.section == 0) {
-		return 100;
+		if (!indexPath.row) {
+			return 200;
+		} else {
+			return 100;
+		}
 	} else if (indexPath.section == 1 ){
 		return 45;
 	} else if (indexPath.section == 2 ){
@@ -107,7 +105,14 @@
 	if (indexPath.section == 0) {
 		// TODO: photo and lcoation
 	} else if (indexPath.section == 1) {
-		cell.textLabel.text = @"請按此選擇案件種類";
+		// Check plist
+		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
+		NSDictionary *plistDict = [NSDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
+		if ( [plistDict valueForKey:@"submitReadable"] && [[plistDict valueForKey:@"Invoker"] isEqualToString:@"submit"] )
+			cell.textLabel.text = [plistDict valueForKey:@"submitContent"];
+		else
+			cell.textLabel.text = @"請按此選擇案件種類";
+		// Other style
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 	} else if (indexPath.section == 2) {
@@ -137,8 +142,20 @@
 		typesViewController *typesView = [[typesViewController alloc] init];
 		typesView.title = @"請選擇案件種類";
 		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typesView];
+		// Show the view
 		[self presentModalViewController:typeAndDetailSelector animated:YES];
+		// Add Back button
+		UIBarButtonItem *backBuuton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:typesView action:@selector(backToPreviousView)];
+		typesView.navigationItem.leftBarButtonItem = backBuuton;
+		[backBuuton release];
 		[typesView release];
+		
+		// Record to plist
+		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
+		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
+		[dict setValue:@"submit" forKey:@"Invoker"];
+		[dict setValue:0 forKey:@"submitReadable"];
+		[dict writeToFile:typeSelectorStatusPlistPathInAppDocuments atomically:YES];
 	}
 }
 

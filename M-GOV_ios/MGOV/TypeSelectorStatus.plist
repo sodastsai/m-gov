@@ -4,9 +4,17 @@
 <dict>
 	<key>Invoker</key>
 	<string></string>
-	<key>Readable</key>
+	<key>submitReadable</key>
 	<false/>
-	<key>content</key>
+	<key>submitContent</key>
 	<string></string>
+	<key>submitQid</key>
+	<integer>0</integer>
+	<key>queryReadable</key>
+	<false/>
+	<key>queryContent</key>
+	<string></string>
+	<key>queryQid</key>
+	<integer>0</integer>
 </dict>
 </plist>

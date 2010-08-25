@@ -14,7 +14,5 @@
 }
 
 - (BOOL)submitCase;
-- (void)action:(id)sender;
-
 
 @end

@@ -85,6 +85,16 @@
 	NSString *detailId = [NSString stringWithFormat:@"Detail%d", indexPath.row];
 	NSDictionary *secondDetailDict = [detailDict objectForKey:detailId];
 
+	// Title
+	// Open the plist - First class
+	NSString *titlePath=[[NSBundle mainBundle] pathForResource:@"reportDetails" ofType:@"plist"];
+	NSDictionary *titleSectionDict=[NSDictionary dictionaryWithContentsOfFile:titlePath];
+	// Open the plist - Second class
+	NSDictionary *titleTypeDict = [titleSectionDict objectForKey:sectionId];
+	// Open the plist - Third class
+	NSDictionary *titleDetailDict = [titleTypeDict objectForKey:typeId];
+	NSString *selectedTitle = [titleDetailDict valueForKey:detailId];
+	
 	if ([secondDetailDict count]) {
 		// Navigation logic may go here. Create and push another view controller.
 		secondDetailViewController *secondDetail = [[secondDetailViewController alloc] initWithNibName:@"secondDetailViewController" bundle:nil];
@@ -93,16 +103,7 @@
 		secondDetail.finalTypeId = finalTypeId;
 		secondDetail.finalDetailId = finalDetailId;
 		
-		// Title
-		// Open the plist - First class
-		NSString *path=[[NSBundle mainBundle] pathForResource:@"reportDetails" ofType:@"plist"];
-		NSDictionary *titleSectionDict=[NSDictionary dictionaryWithContentsOfFile:path];
-		// Open the plist - Second class
-		NSDictionary *titleTypeDict = [titleSectionDict objectForKey:sectionId];
-		// Open the plist - Third class
-		NSDictionary *titleDetailDict = [titleTypeDict objectForKey:typeId];
-		
-		secondDetail.title = [titleDetailDict valueForKey:detailId];
+		secondDetail.title = selectedTitle;
 		
 		// Pass the selected object to the new view controller.
 		[self.navigationController pushViewController:secondDetail animated:YES];
@@ -119,7 +120,17 @@
 		NSDictionary *sectionDict = [dict objectForKey:sectionId];
 		NSDictionary *typeDict = [sectionDict objectForKey:typeId];
 		
-		// qid = [[typeDict valueForKey:detailId] intValue];
+		NSString *qid = [typeDict valueForKey:detailId];
+		
+		// Write to plist
+		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
+		NSMutableDictionary *plistDict = [NSMutableDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
+		[plistDict setValue:selectedTitle forKey:@"submitContent"];
+		[plistDict setValue:qid forKey:@"submitQid"];
+		[plistDict setValue:@"1" forKey:@"submitReadable"];
+		[plistDict writeToFile:typeSelectorStatusPlistPathInAppDocuments atomically:YES];
+		
+		[self dismissModalViewControllerAnimated:YES];
 	}
 }
 
