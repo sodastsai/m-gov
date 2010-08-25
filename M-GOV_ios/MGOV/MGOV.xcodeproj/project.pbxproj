@@ -17,8 +17,8 @@
 		2A258D1D1223D10400E9D057 /* MyCaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A258D1B1223D10400E9D057 /* MyCaseViewController.xib */; };
 		2A79AC231223FB7C00F140A2 /* CaseAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */; };
 		2A79AC241223FB7C00F140A2 /* CaseAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */; };
-		2A79AC251223FB7C00F140A2 /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A79AC201223FB7C00F140A2 /* QueryViewController.m */; };
-		2A79AC261223FB7C00F140A2 /* QueryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A79AC221223FB7C00F140A2 /* QueryViewController.xib */; };
+		2AE786D71225600E00036DB9 /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AE786D51225600E00036DB9 /* QueryViewController.m */; };
+		2AE786D81225600E00036DB9 /* QueryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2AE786D61225600E00036DB9 /* QueryViewController.xib */; };
 		FE4EE76F1223F68F00737028 /* reportDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76A1223F68F00737028 /* reportDetails.plist */; };
 		FE4EE7701223F68F00737028 /* reportQid.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76B1223F68F00737028 /* reportQid.plist */; };
 		FE4EE7711223F68F00737028 /* reportSecondDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76C1223F68F00737028 /* reportSecondDetails.plist */; };
@@ -50,9 +50,9 @@
 		2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseAddViewController.m; sourceTree = "<group>"; };
 		2A79AC1E1223FB7C00F140A2 /* CaseAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseAddViewController.h; sourceTree = "<group>"; };
 		2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CaseAddViewController.xib; path = Classes/CaseAddViewController.xib; sourceTree = "<group>"; };
-		2A79AC201223FB7C00F140A2 /* QueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryViewController.m; sourceTree = "<group>"; };
-		2A79AC211223FB7C00F140A2 /* QueryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryViewController.h; sourceTree = "<group>"; };
-		2A79AC221223FB7C00F140A2 /* QueryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = QueryViewController.xib; path = Classes/QueryViewController.xib; sourceTree = "<group>"; };
+		2AE786D41225600E00036DB9 /* QueryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryViewController.h; sourceTree = "<group>"; };
+		2AE786D51225600E00036DB9 /* QueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryViewController.m; sourceTree = "<group>"; };
+		2AE786D61225600E00036DB9 /* QueryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = QueryViewController.xib; path = Classes/QueryViewController.xib; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* MGOV_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOV_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MGOV-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MGOV-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		FE4EE76A1223F68F00737028 /* reportDetails.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportDetails.plist; sourceTree = SOURCE_ROOT; };
@@ -157,8 +157,8 @@
 			children = (
 				FED3DDEC1224EB7F001D3C73 /* FirstTimeViewController.xib */,
 				2A258D1B1223D10400E9D057 /* MyCaseViewController.xib */,
+				2AE786D61225600E00036DB9 /* QueryViewController.xib */,
 				2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */,
-				2A79AC221223FB7C00F140A2 /* QueryViewController.xib */,
 				FE4EE77D1223F72E00737028 /* detailViewController.xib */,
 				FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */,
 				FE4EE77F1223F72E00737028 /* typesViewController.xib */,
@@ -189,8 +189,8 @@
 		2A79AC301223FBCF00F140A2 /* Query Case */ = {
 			isa = PBXGroup;
 			children = (
-				2A79AC201223FB7C00F140A2 /* QueryViewController.m */,
-				2A79AC211223FB7C00F140A2 /* QueryViewController.h */,
+				2AE786D41225600E00036DB9 /* QueryViewController.h */,
+				2AE786D51225600E00036DB9 /* QueryViewController.m */,
 			);
 			name = "Query Case";
 			sourceTree = "<group>";
@@ -285,9 +285,9 @@
 				FE4EE7811223F72E00737028 /* secondDetailViewController.xib in Resources */,
 				FE4EE7821223F72E00737028 /* typesViewController.xib in Resources */,
 				2A79AC241223FB7C00F140A2 /* CaseAddViewController.xib in Resources */,
-				2A79AC261223FB7C00F140A2 /* QueryViewController.xib in Resources */,
 				FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */,
 				FED3DDEE1224EB7F001D3C73 /* FirstTimeViewController.xib in Resources */,
+				2AE786D81225600E00036DB9 /* QueryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,8 +305,8 @@
 				FE4EE77B1223F6D100737028 /* secondDetailViewController.m in Sources */,
 				FE4EE77C1223F6D100737028 /* typesViewController.m in Sources */,
 				2A79AC231223FB7C00F140A2 /* CaseAddViewController.m in Sources */,
-				2A79AC251223FB7C00F140A2 /* QueryViewController.m in Sources */,
 				FED3DDED1224EB7F001D3C73 /* FirstTimeViewController.m in Sources */,
+				2AE786D71225600E00036DB9 /* QueryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,7 +317,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dian-je Tsai (52BES94NYL)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: def abc (HU4T39MR82)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -325,7 +325,7 @@
 				GCC_PREFIX_HEADER = MGOV_Prefix.pch;
 				INFOPLIST_FILE = "MGOV-Info.plist";
 				PRODUCT_NAME = MGOV;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEABC31E-4D43-44BB-B889-ADCFF07F642A";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8C06F644-B578-42E5-B280-92C68E9A47C0";
 			};
 			name = Debug;
 		};

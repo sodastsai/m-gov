@@ -42,7 +42,7 @@
 		UINavigationController *myCaseNavigation = [[UINavigationController alloc] initWithRootViewController:myCase];
 		
 		// Query
-		QueryViewController *query = [[QueryViewController alloc] init];
+		QueryViewController *query = [[QueryViewController alloc] initWithStyle:UITableViewStyleGrouped];
 		query.title = @"查詢";
 		UINavigationController *queryNavigation = [[UINavigationController alloc] initWithRootViewController:query];
 		
