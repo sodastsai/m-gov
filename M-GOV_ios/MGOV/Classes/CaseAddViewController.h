@@ -10,13 +10,10 @@
 
 
 @interface CaseAddViewController : UITableViewController {
-	
-	
+		
 }
 
-@property (nonatomic, retain) UITextView *descriptionField;
-
-- (BOOL) submitCase;
+- (BOOL)submitCase;
 - (void)action:(id)sender;
 
 
