@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "MyCaseViewController.h"
 #import "QueryViewController.h"
+#import "FirstTimeViewController.h"
 
 @interface MGOVAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
 	UITabBarController *tabBarController;
+	FirstTimeViewController *firstTimeView;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

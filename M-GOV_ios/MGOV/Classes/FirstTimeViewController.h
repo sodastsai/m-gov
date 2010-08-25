@@ -8,9 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-
-@interface FirstTimeViewController : UIViewController {
-
+@interface FirstTimeViewController : UIViewController <UIAlertViewDelegate> {
+	UIButton *startToUse;
+	UITextField *emailField;
+	NSString *alertRequestEmailTitle;
 }
+
+@property (nonatomic, retain) IBOutlet UIButton *startToUse;
+
+- (IBAction)requestEmail;
 
 @end
