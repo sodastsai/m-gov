@@ -18,16 +18,21 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 	
 	// Define File Path
-	NSString *plistPathInAppBundle = [[NSBundle mainBundle] pathForResource:@"UserInformation" ofType:@"plist"];
-	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
+	NSString *userInformationPlistPathInAppBundle = [[NSBundle mainBundle] pathForResource:@"UserInformation" ofType:@"plist"];
+	NSString *userInformationPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
+	NSString *typeSelectorStatusPlistPathInAppBundle = [[NSBundle mainBundle] pathForResource:@"TypeSelectorStatus" ofType:@"plist"];
+	NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
 	
 	// Copy plist file
-	if (![[NSFileManager defaultManager] fileExistsAtPath:plistPathInAppDocuments]) {
-		[[NSFileManager defaultManager] copyItemAtPath:plistPathInAppBundle toPath:plistPathInAppDocuments error:nil];
+	if (![[NSFileManager defaultManager] fileExistsAtPath:userInformationPlistPathInAppDocuments]) {
+		[[NSFileManager defaultManager] copyItemAtPath:userInformationPlistPathInAppBundle toPath:userInformationPlistPathInAppDocuments error:nil];
+	}
+	if (![[NSFileManager defaultManager] fileExistsAtPath:typeSelectorStatusPlistPathInAppDocuments]) {
+		[[NSFileManager defaultManager] copyItemAtPath:typeSelectorStatusPlistPathInAppBundle toPath:typeSelectorStatusPlistPathInAppDocuments error:nil];
 	}
 	
 	// Read plist from App's documents folder
-	NSDictionary *dictUserInformation = [NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
+	NSDictionary *dictUserInformation = [NSDictionary dictionaryWithContentsOfFile:userInformationPlistPathInAppDocuments];
 	
 	if ([dictUserInformation valueForKey:@"FirstRun"]) {
 		firstTimeView = [[FirstTimeViewController alloc] init];
