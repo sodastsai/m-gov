@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TypeSelectorDelegateProtocol.h"
 
 @interface typesViewController : UITableViewController {
 	// Record Question Type
 	NSInteger finalSectionId;
 	NSInteger finalTypeId;
+	id<TypeSelectorDelegateProtocol> delegate;
 }
 
-- (void)backToPreviousView;
+@property (nonatomic, retain) id<TypeSelectorDelegateProtocol> delegate;
 
 @end

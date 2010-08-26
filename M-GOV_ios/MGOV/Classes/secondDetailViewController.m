@@ -14,6 +14,7 @@
 @synthesize finalTypeId;
 @synthesize finalDetailId;
 @synthesize finalSecondDetailId;
+@synthesize delegate;
 
 #pragma mark -
 #pragma mark Table view data source
@@ -88,7 +89,7 @@
 	[plistDict writeToFile:typeSelectorStatusPlistPathInAppDocuments atomically:YES];
 	
 	// Switch back
-	[self dismissModalViewControllerAnimated:YES];
+	[delegate backToPreviousView];
 }
 
 #pragma mark -

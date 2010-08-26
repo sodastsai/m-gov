@@ -27,16 +27,16 @@
 			<key>Detail9</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>寬路面 8m以上</string>
+				<string>寬路面(8m以上)市區道路坑洞</string>
 				<key>SecondDetail1</key>
-				<string>一般路面</string>
+				<string>一般路面市區道路坑洞</string>
 			</dict>
 			<key>Detail10</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>寬路面 8m以上</string>
+				<string>寬路面(8m以上)市區道路坑洞</string>
 				<key>SecondDetail1</key>
-				<string>一般路面</string>
+				<string>一般路面市區道路坑洞</string>
 			</dict>
 		</dict>
 		<key>Type1</key>
@@ -48,16 +48,16 @@
 			<key>Detail2</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>寬路面 8m以上</string>
+				<string>寬路面道路側溝溝蓋損壞</string>
 				<key>SecondDetail1</key>
-				<string>一般路面</string>
+				<string>一般路面道路側溝溝蓋損壞</string>
 			</dict>
 			<key>Detail3</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>寬路面 8m以上</string>
+				<string>寬路面山區鄰里道路溝蓋損壞</string>
 				<key>SecondDetail1</key>
-				<string>一般路面</string>
+				<string>一般路面山區鄰里道路溝蓋損壞</string>
 			</dict>
 		</dict>
 		<key>Type2</key>
@@ -70,16 +70,16 @@
 			<key>Detail0</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>大型公園 (1公頃以上)</string>
+				<string>大型公園公園環境髒亂</string>
 				<key>SecondDetail1</key>
-				<string>一般公園</string>
+				<string>一般公園環境髒亂</string>
 			</dict>
 			<key>Detail1</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>大型公園 (1公頃以上)</string>
+				<string>大型公園育樂設施損壞</string>
 				<key>SecondDetail1</key>
-				<string>一般公園</string>
+				<string>一般公園育樂設施損壞</string>
 			</dict>
 			<key>Detail2</key>
 			<dict/>
@@ -312,18 +312,18 @@
 			<key>Detail6</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>台灣電力公司</string>
+				<string>台電路面人手孔蓋調整</string>
 				<key>SecondDetail1</key>
-				<string>交工處</string>
+				<string>交工處路面人手孔蓋調整</string>
 				<key>SecondDetail2</key>
-				<string>中華電信</string>
+				<string>中華電信路面人手孔蓋調整</string>
 			</dict>
 			<key>Detail7</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>雨水下水道</string>
+				<string>雨水下水道人手孔蓋調整</string>
 				<key>SecondDetail1</key>
-				<string>衛生下水道</string>
+				<string>衛生下水道人手孔蓋調整</string>
 			</dict>
 		</dict>
 		<key>Type4</key>
@@ -345,9 +345,9 @@
 			<key>Detail0</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>新案件</string>
+				<string>巷道內占用停車格(新案件)</string>
 				<key>SecondDetail1</key>
-				<string>再犯案件</string>
+				<string>巷道內占用停車格(再犯案件)</string>
 			</dict>
 			<key>Detail1</key>
 			<dict/>
@@ -368,25 +368,25 @@
 			<key>Detail2</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>附掛管路破損</string>
+				<string>WIFLY基地台附掛管路破損</string>
 				<key>SecondDetail1</key>
-				<string>周遭路面損壞</string>
+				<string>WIFLY基地台周遭路面損壞</string>
 				<key>SecondDetail2</key>
-				<string>纜線影響市容</string>
+				<string>WIFLY基地台纜線影響市容</string>
 			</dict>
 			<key>Detail3</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>藝術品損毀</string>
+				<string>公共藝術品損毀</string>
 				<key>SecondDetail1</key>
-				<string>周遭環境清潔</string>
+				<string>公共藝術品周遭環境清潔</string>
 			</dict>
 			<key>Detail4</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>線路散落地面</string>
+				<string>有線電視線路散落地面</string>
 				<key>SecondDetail1</key>
-				<string>線路散落水溝</string>
+				<string>有線電視線路散落水溝</string>
 			</dict>
 			<key>Detail5</key>
 			<dict/>

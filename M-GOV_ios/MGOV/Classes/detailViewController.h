@@ -7,16 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "TypeSelectorDelegateProtocol.h"
 
 @interface detailViewController : UITableViewController {
 	NSInteger finalSectionId;
 	NSInteger finalTypeId;
 	NSInteger finalDetailId;
+	id<TypeSelectorDelegateProtocol> delegate;
 }
 
 @property (nonatomic) NSInteger finalSectionId;
 @property (nonatomic) NSInteger finalTypeId;
 @property (nonatomic) NSInteger finalDetailId;
+@property (nonatomic, retain) id<TypeSelectorDelegateProtocol> delegate;
 
 @end

@@ -14,6 +14,7 @@
 @synthesize finalSectionId;
 @synthesize finalTypeId;
 @synthesize finalDetailId;
+@synthesize delegate;
 
 #pragma mark -
 #pragma mark Table view data source
@@ -49,6 +50,7 @@
 		
 	cell.textLabel.text = [[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] valueForKey:detailId];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	cell.textLabel.font = [UIFont boldSystemFontOfSize:18.0];
 	
     return cell;
 }
@@ -80,6 +82,7 @@
 		secondDetail.finalTypeId = finalTypeId;
 		secondDetail.finalDetailId = finalDetailId;
 		secondDetail.title = selectedTitle;
+		secondDetail.delegate = self.delegate;
 		
 		// Pass the selected object to the new view controller.
 		[self.navigationController pushViewController:secondDetail animated:YES];
@@ -102,7 +105,8 @@
 		[plistDict setValue:@"1" forKey:@"submitReadable"];
 		[plistDict writeToFile:typeSelectorStatusPlistPathInAppDocuments atomically:YES];
 		
-		[self dismissModalViewControllerAnimated:YES];
+		// Switch back
+		[delegate backToPreviousView];
 	}
 }
 

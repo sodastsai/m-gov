@@ -11,6 +11,8 @@
 
 @implementation typesViewController
 
+@synthesize delegate;
+
 #pragma mark -
 #pragma mark View Switch
 
@@ -98,10 +100,12 @@
 		details.finalSectionId = finalSectionId;
 		details.finalTypeId = finalTypeId; 
 		details.title = selectedTitle;
+		details.delegate = self.delegate;
 				
 		// Pass the selected object to the new view controller.
 		[self.navigationController pushViewController:details animated:YES];
 		[details release];
+		
 	} else {
 		// 1-level only
 		// Generate qid
@@ -121,7 +125,7 @@
 		[plistDict writeToFile:typeSelectorStatusPlistPathInAppDocuments atomically:YES];
 		
 		// Switch back
-		[self dismissModalViewControllerAnimated:YES];
+		[delegate backToPreviousView];
 	}
 }
 

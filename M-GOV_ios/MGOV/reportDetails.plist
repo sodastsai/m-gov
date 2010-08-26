@@ -146,75 +146,75 @@
 		<key>Type1</key>
 		<dict>
 			<key>Detail0</key>
-			<string>圓環、分隔島或公園上</string>
+			<string>圓環或公園上競選違規旗幟移除</string>
 			<key>Detail1</key>
-			<string>巷道</string>
+			<string>巷道競選違規旗幟移除</string>
 			<key>Detail2</key>
-			<string>人行陸橋、跨河橋梁上</string>
+			<string>橋梁上競選違規旗幟移除</string>
 			<key>Detail3</key>
-			<string>山坡地</string>
+			<string>山坡地競選違規旗幟移除</string>
 			<key>Detail4</key>
-			<string>社教及學校內</string>
+			<string>社教及學校內競選違規旗幟移除</string>
 			<key>Detail5</key>
-			<string>公有古蹟內</string>
+			<string>公有古蹟內競選違規旗幟移除</string>
 			<key>Detail6</key>
-			<string>國宅社區內</string>
+			<string>國宅社區內競選違規旗幟移除</string>
 			<key>Detail7</key>
-			<string>捷運系統內</string>
+			<string>捷運系統內競選違規旗幟移除</string>
 			<key>Detail8</key>
-			<string>鄰里公園 </string>
+			<string>鄰里公園競選違規旗幟移除</string>
 			<key>Detail9</key>
-			<string>交通號誌燈桿</string>
+			<string>交通號誌燈桿競選違規旗幟移除</string>
 		</dict>
 		<key>Type2</key>
 		<dict>
 			<key>Detail0</key>
-			<string>圓環、分隔島或公園上</string>
+			<string>圓環或公園上競選廣告張貼移除</string>
 			<key>Detail1</key>
-			<string>巷道</string>
+			<string>巷道競選廣告張貼移除</string>
 			<key>Detail2</key>
-			<string>人行陸橋、跨河橋梁上</string>
+			<string>橋梁上競選廣告張貼移除</string>
 			<key>Detail3</key>
-			<string>山坡地</string>
+			<string>山坡地競選廣告張貼移除</string>
 			<key>Detail4</key>
-			<string>社教及學校內</string>
+			<string>社教及學校內競選廣告張貼移除</string>
 			<key>Detail5</key>
-			<string>公有古蹟內</string>
+			<string>公有古蹟內競選廣告張貼移除</string>
 			<key>Detail6</key>
-			<string>國宅社區內</string>
+			<string>國宅社區內競選廣告張貼移除</string>
 			<key>Detail7</key>
-			<string>捷運系統內</string>
+			<string>捷運系統內競選廣告張貼移除</string>
 			<key>Detail8</key>
-			<string>鄰里公園 </string>
+			<string>鄰里公園競選廣告張貼移除</string>
 			<key>Detail9</key>
-			<string>交通號誌燈桿</string>
+			<string>交通號誌燈桿競選廣告張貼移除</string>
 		</dict>
 		<key>Type3</key>
 		<dict>
 			<key>Detail0</key>
-			<string>車上(路邊非違規路段) </string>
+			<string>車上(非違規路段)大型遊動競選廣告</string>
 			<key>Detail1</key>
-			<string>車上(收費停車格位) </string>
+			<string>車上(收費停車格)大型遊動競選廣告</string>
 			<key>Detail2</key>
-			<string>建築物牆上</string>
+			<string>建築物牆上大型或遊動競選廣告</string>
 			<key>Detail3</key>
-			<string>捷運系統</string>
+			<string>捷運系統大型或遊動競選廣告</string>
 			<key>Detail4</key>
-			<string>住宅社區</string>
+			<string>住宅社區大型或遊動競選廣告</string>
 			<key>Detail5</key>
-			<string>建築物屋頂、基地</string>
+			<string>建築物屋頂大型或遊動競選廣告</string>
 			<key>Detail6</key>
-			<string>路外停車場</string>
+			<string>路外停車場大型或遊動競選廣告</string>
 			<key>Detail7</key>
-			<string>行道樹、公園、兒童遊樂場</string>
+			<string>行道樹、公園大型或遊動競選廣告</string>
 			<key>Detail8</key>
-			<string>圓環、廣場</string>
+			<string>圓環、廣場大型或遊動競選廣告</string>
 			<key>Detail9</key>
-			<string>天橋、地下道、安全島</string>
+			<string>天橋、地下道大型或遊動競選廣告</string>
 			<key>Detail10</key>
-			<string>紅磚人行道</string>
+			<string>紅磚人行道大型或遊動競選廣告</string>
 			<key>Detail11</key>
-			<string>大型道路</string>
+			<string>大型道路大型或遊動競選廣告</string>
 		</dict>
 	</dict>
 	<key>Section4</key>

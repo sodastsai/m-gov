@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "typesViewController.h"
 
-
-@interface CaseAddViewController : UITableViewController {
+@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol>  {
 		
 }
 

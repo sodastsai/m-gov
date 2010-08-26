@@ -144,6 +144,7 @@
 		typesView.title = @"請選擇案件種類";
 		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typesView];
 		// Show the view
+		typesView.delegate = self;
 		[self presentModalViewController:typeAndDetailSelector animated:YES];
 		// Add Back button
 		UIBarButtonItem *backBuuton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:typesView action:@selector(backToPreviousView)];
@@ -160,6 +161,15 @@
 	}
 }
 
+#pragma mark -
+#pragma mark typesViewControllerDelegate
+
+- (void)backToPreviousView {
+	// Dismiss the view
+	[self dismissModalViewControllerAnimated:YES];
+	// Reload tableview after selected
+	[self.tableView reloadData];
+}
 
 #pragma mark -
 #pragma mark Memory management
