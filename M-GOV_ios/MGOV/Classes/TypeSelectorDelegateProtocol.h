@@ -10,6 +10,7 @@
 
 @protocol TypeSelectorDelegateProtocol
 
+@required
 - (void)backToPreviousView;
 
 @end

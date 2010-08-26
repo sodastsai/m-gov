@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TypeSelectorDelegateProtocol.h"
 
 
-@interface QueryViewController : UITableViewController {
+@interface QueryViewController : UITableViewController <TypeSelectorDelegateProtocol> {
 
 }
 

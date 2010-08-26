@@ -83,9 +83,15 @@
 	// Write to plist
 	NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
 	NSMutableDictionary *plistDict = [NSMutableDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
-	[plistDict setValue:selectedTitle forKey:@"submitContent"];
-	[plistDict setValue:qid forKey:@"submitQid"];
-	[plistDict setValue:@"1" forKey:@"submitReadable"];
+	if ([[plistDict valueForKey:@"Invoker"] isEqualToString:@"submit"]) {
+		[plistDict setValue:selectedTitle forKey:@"submitContent"];
+		[plistDict setValue:qid forKey:@"submitQid"];
+		[plistDict setValue:@"1" forKey:@"submitReadable"];
+	} else if ([[plistDict valueForKey:@"Invoker"] isEqualToString:@"query"]) {
+		[plistDict setValue:selectedTitle forKey:@"queryContent"];
+		[plistDict setValue:qid forKey:@"queryQid"];
+		[plistDict setValue:@"1" forKey:@"queryReadable"];
+	}
 	[plistDict writeToFile:typeSelectorStatusPlistPathInAppDocuments atomically:YES];
 	
 	// Switch back
