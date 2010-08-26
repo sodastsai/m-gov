@@ -108,6 +108,7 @@
 		// Check plist
 		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
 		NSDictionary *plistDict = [NSDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
+		// Decide placeholder or selected result to show
 		if ( [plistDict valueForKey:@"submitReadable"] && [[plistDict valueForKey:@"Invoker"] isEqualToString:@"submit"] )
 			cell.textLabel.text = [plistDict valueForKey:@"submitContent"];
 		else

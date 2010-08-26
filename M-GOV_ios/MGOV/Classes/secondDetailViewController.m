@@ -23,20 +23,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	// Open plist - First class
+	// Open plist
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"reportSecondDetails" ofType:@"plist"];
-	NSDictionary *sectionDict = [NSDictionary dictionaryWithContentsOfFile:path];
-	// Open Dictionary - Second class
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
-	NSDictionary *typeDict = [sectionDict objectForKey:sectionId];
-	// Open Dictionary - Third class
 	NSString *typeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
-	NSDictionary *detailDict = [typeDict objectForKey:typeId];
-	// Open Dictionary - Fouth class
 	NSString *detailId = [NSString stringWithFormat:@"Detail%d", finalDetailId];
-	NSDictionary *secondDetailDict = [detailDict objectForKey:detailId];
-	
-    return [secondDetailDict count];
+
+    return [[[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] objectForKey:detailId] count];
 }
 
 // Customize the appearance of table view cells.
@@ -49,22 +42,14 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    // Configure the cell...
-    // Open plist - First class
+     // Open plist - First class
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"reportSecondDetails" ofType:@"plist"];
-	NSDictionary *sectionDict = [NSDictionary dictionaryWithContentsOfFile:path];
-	// Open Dictionary - Second class
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
-	NSDictionary *typeDict = [sectionDict objectForKey:sectionId];
-	// Open Dictionary - Third class
 	NSString *typeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
-	NSDictionary *detailDict = [typeDict objectForKey:typeId];
-	// Open Dictionary - Fouth class
 	NSString *detailId = [NSString stringWithFormat:@"Detail%d", finalDetailId];
-	NSDictionary *secondDetailDict = [detailDict objectForKey:detailId];
-	
 	NSString *secondDetailId = [NSString stringWithFormat:@"SecondDetail%d", indexPath.row];
-	cell.textLabel.text = [secondDetailDict valueForKey:secondDetailId];
+		
+	cell.textLabel.text = [[[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] objectForKey:detailId] valueForKey:secondDetailId];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	
     return cell;
@@ -83,23 +68,16 @@
 	NSString *detailId = [NSString stringWithFormat:@"Detail%d", finalDetailId];
 	NSString *secondDetailId = [NSString stringWithFormat:@"SecondDetail%d", finalSecondDetailId];
 	// Open the qid plist
-	NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-	NSDictionary *sectionDict = [dict objectForKey:sectionId];
-	NSDictionary *typeDict = [sectionDict objectForKey:typeId];
-	NSDictionary *detailDict = [typeDict objectForKey:detailId];
-	NSString *qid = [detailDict valueForKey:secondDetailId];
+	NSString *qid = [[[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] objectForKey:detailId] valueForKey:secondDetailId];
 	
 	// Title
+	NSString *titlePlistPath=[[NSBundle mainBundle] pathForResource:@"reportSecondDetails" ofType:@"plist"];
 	NSString *finalSection = [NSString stringWithFormat:@"Section%d", finalSectionId];
 	NSString *finalType = [NSString stringWithFormat:@"Type%d", finalTypeId];
 	NSString *finalDetail = [NSString stringWithFormat:@"Detail%d", finalDetailId];
-	// Open the plist - First class
-	NSString *titlePath=[[NSBundle mainBundle] pathForResource:@"reportDetails" ofType:@"plist"];
-	NSDictionary *titleSectionDict=[NSDictionary dictionaryWithContentsOfFile:titlePath];
-	// Open the plist - Second class
-	NSDictionary *titleTypeDict = [titleSectionDict objectForKey:finalSection];
-	NSDictionary *titleDetailDict = [titleTypeDict objectForKey:finalType];
-	NSString *selectedTitle = [titleDetailDict valueForKey:finalDetail];
+	NSString *finalSecondDetail = [NSString stringWithFormat:@"SecondDetail%d", finalSecondDetailId];
+	
+	NSString *selectedTitle = [[[[[NSDictionary dictionaryWithContentsOfFile:titlePlistPath] objectForKey:finalSection] objectForKey:finalType] objectForKey:finalDetail] valueForKey:finalSecondDetail];
 	
 	// Write to plist
 	NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];

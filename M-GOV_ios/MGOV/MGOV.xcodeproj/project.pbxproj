@@ -173,8 +173,8 @@
 		2A79AC2E1223FBB500F140A2 /* Add Case */ = {
 			isa = PBXGroup;
 			children = (
-				2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */,
 				2A79AC1E1223FB7C00F140A2 /* CaseAddViewController.h */,
+				2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */,
 			);
 			name = "Add Case";
 			sourceTree = "<group>";

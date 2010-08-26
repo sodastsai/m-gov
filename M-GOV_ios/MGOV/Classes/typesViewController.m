@@ -26,30 +26,27 @@
 
 	// Open and set sectionDict
 	NSString *path=[[NSBundle mainBundle] pathForResource:@"reportSections" ofType:@"plist"];
-	NSDictionary *sectionDict=[NSDictionary dictionaryWithContentsOfFile:path];
-    return [sectionDict count];
+	
+    return [[NSDictionary dictionaryWithContentsOfFile:path] count];
 }
 
 // Section names
 - (NSString*)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section {
 	NSString *path=[[NSBundle mainBundle] pathForResource:@"reportSections" ofType:@"plist"];
-	NSDictionary *sectionDict=[NSDictionary dictionaryWithContentsOfFile:path];
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", section];
-	return [sectionDict valueForKey:sectionId];
+	
+	return [[NSDictionary dictionaryWithContentsOfFile:path] valueForKey:sectionId];
 }
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 
 	// Set typeDict
-    // Open the plist - First class
+    // Open the plist
 	NSString *path=[[NSBundle mainBundle] pathForResource:@"reportTypes" ofType:@"plist"];
-	NSDictionary *typeSectionDict=[NSDictionary dictionaryWithContentsOfFile:path];
-	// Open the plist - Second class
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", section];
-	NSDictionary* typeDict = [typeSectionDict objectForKey:sectionId];
 
-	return [typeDict count];
+	return [[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] count];
 }
 
 // Customize the appearance of table view cells.
@@ -61,16 +58,12 @@
     if (cell == nil) 
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	
-	// Configure the cell.
-	// Open the plist - First class
+	// Open the plist
 	NSString *path=[[NSBundle mainBundle] pathForResource:@"reportTypes" ofType:@"plist"];
-	NSDictionary *typeSectionDict=[NSDictionary dictionaryWithContentsOfFile:path];
-	// Open the plist - Second class
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", indexPath.section];
-	NSDictionary *typeDict = [typeSectionDict objectForKey:sectionId];
-	
 	NSString *typeString = [NSString stringWithFormat:@"Type%d", indexPath.row];
-	cell.textLabel.text = [typeDict valueForKey:typeString];
+	
+	cell.textLabel.text = [[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] valueForKey:typeString];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	
     return cell;
@@ -86,25 +79,19 @@
 	finalTypeId = indexPath.row;
 	
 	// Check if 1-level only
-	// Open plist - First class
+	// Open plist
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"reportDetails" ofType:@"plist"];
-	NSDictionary *detailSectionDict = [NSDictionary dictionaryWithContentsOfFile:path];
-	// Open Dictionary - Second class
 	NSString *detailSectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
-	NSDictionary *detailTypeDict = [detailSectionDict objectForKey:detailSectionId];
-	// Open Dictionary - Third class
 	NSString *detailTypeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
-	NSDictionary *detailDict = [detailTypeDict objectForKey:detailTypeId];
-	
+
 	// Title
-	// Open the plist - First class
+	// Open the plist
 	NSString *titlePath=[[NSBundle mainBundle] pathForResource:@"reportTypes" ofType:@"plist"];
-	NSDictionary *titleSectionDict=[NSDictionary dictionaryWithContentsOfFile:titlePath];
-	// Open the plist - Second class
-	NSDictionary *titleTypeDict = [titleSectionDict objectForKey:detailSectionId];
+	NSDictionary *titleTypeDict = [[NSDictionary dictionaryWithContentsOfFile:titlePath] objectForKey:detailSectionId];
 	NSString *selectedTitle = [titleTypeDict valueForKey:detailTypeId];
 	
-    if([detailDict count]){
+	// Check detail
+    if([[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:detailSectionId] objectForKey:detailTypeId] count]){
 		// 2-level or more
 		detailViewController *details = [[detailViewController alloc] initWithNibName:@"detailViewController" bundle:nil];
 		// Record
@@ -123,9 +110,7 @@
 		NSString *sectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
 		NSString *typeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
 		// Open the qid plist
-		NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-		NSDictionary *sectionDict = [dict objectForKey:sectionId];
-		NSString *qid = [sectionDict valueForKey:typeId];
+		NSString *qid = [[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] valueForKey:typeId];
 		
 		// Write to plist
 		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];

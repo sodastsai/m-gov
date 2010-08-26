@@ -23,17 +23,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Open plist - First class
+    // Open plist
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"reportDetails" ofType:@"plist"];
-	NSDictionary *sectionDict = [NSDictionary dictionaryWithContentsOfFile:path];
-	// Open Dictionary - Second class
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
-	NSDictionary *typeDict = [sectionDict objectForKey:sectionId];
-	// Open Dictionary - Third class
 	NSString *typeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
-	NSDictionary *detailDict = [typeDict objectForKey:typeId];
 
-    return [detailDict count];
+    return [[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] count];
 }
 
 // Customize the appearance of table view cells.
@@ -46,19 +41,13 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
-    // Configure the cell...
-    // Open plist - First class
+    // Open plist
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"reportDetails" ofType:@"plist"];
-	NSDictionary *sectionDict = [NSDictionary dictionaryWithContentsOfFile:path];
-	// Open Dictionary - Second class
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
-	NSDictionary *typeDict = [sectionDict objectForKey:sectionId];
-	// Open Dictionary - Third class
 	NSString *typeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
-	NSDictionary *detailDict = [typeDict objectForKey:typeId];
-	
 	NSString *detailId = [NSString stringWithFormat:@"Detail%d", indexPath.row];
-	cell.textLabel.text = [detailDict valueForKey:detailId];
+		
+	cell.textLabel.text = [[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] valueForKey:detailId];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	
     return cell;
@@ -72,37 +61,24 @@
 	finalDetailId = indexPath.row;
 	
 	// Check second detail
-	// Open plist - First class
+	// Open plist
 	NSString *path = [[NSBundle mainBundle] pathForResource:@"reportSecondDetails" ofType:@"plist"];
-	NSDictionary *sectionDict = [NSDictionary dictionaryWithContentsOfFile:path];
-	// Open Dictionary - Second class
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
-	NSDictionary *typeDict = [sectionDict objectForKey:sectionId];
-	// Open Dictionary - Third class
 	NSString *typeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
-	NSDictionary *detailDict = [typeDict objectForKey:typeId];
-	// Open Dictionary - Fouth class
 	NSString *detailId = [NSString stringWithFormat:@"Detail%d", indexPath.row];
-	NSDictionary *secondDetailDict = [detailDict objectForKey:detailId];
 
 	// Title
-	// Open the plist - First class
+	// Open the plist
 	NSString *titlePath=[[NSBundle mainBundle] pathForResource:@"reportDetails" ofType:@"plist"];
-	NSDictionary *titleSectionDict=[NSDictionary dictionaryWithContentsOfFile:titlePath];
-	// Open the plist - Second class
-	NSDictionary *titleTypeDict = [titleSectionDict objectForKey:sectionId];
-	// Open the plist - Third class
-	NSDictionary *titleDetailDict = [titleTypeDict objectForKey:typeId];
-	NSString *selectedTitle = [titleDetailDict valueForKey:detailId];
+	NSString *selectedTitle = [[[[NSDictionary dictionaryWithContentsOfFile:titlePath] objectForKey:sectionId] objectForKey:typeId] valueForKey:detailId];
 	
-	if ([secondDetailDict count]) {
+	if ([[[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] objectForKey:detailId] count]) {
 		// Navigation logic may go here. Create and push another view controller.
 		secondDetailViewController *secondDetail = [[secondDetailViewController alloc] initWithNibName:@"secondDetailViewController" bundle:nil];
 		
 		secondDetail.finalSectionId = finalSectionId;
 		secondDetail.finalTypeId = finalTypeId;
 		secondDetail.finalDetailId = finalDetailId;
-		
 		secondDetail.title = selectedTitle;
 		
 		// Pass the selected object to the new view controller.
@@ -116,11 +92,7 @@
 		NSString *typeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
 		NSString *detailId = [NSString stringWithFormat:@"Detail%d", finalDetailId];
 		// Open the qid plist
-		NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:path];
-		NSDictionary *sectionDict = [dict objectForKey:sectionId];
-		NSDictionary *typeDict = [sectionDict objectForKey:typeId];
-		
-		NSString *qid = [typeDict valueForKey:detailId];
+		NSString *qid = [[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] valueForKey:detailId];
 		
 		// Write to plist
 		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
