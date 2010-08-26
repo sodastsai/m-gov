@@ -7,6 +7,7 @@
 //
 
 #import "MyCaseViewController.h"
+#import "GlobalVariable.h"
 
 @implementation MyCaseViewController
 
@@ -14,6 +15,7 @@
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
+	
     [super viewDidLoad];
 	// Add Case Button
 	UIBarButtonItem *addCaseButton = [[UIBarButtonItem alloc] initWithTitle:@"新增案件" style:UIBarButtonItemStylePlain target:self action:@selector(addCase)];

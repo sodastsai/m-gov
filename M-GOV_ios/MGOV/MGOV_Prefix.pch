@@ -5,4 +5,7 @@
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
     #import <UIKit/UIKit.h>
+	#import <CoreLocation/CoreLocation.h>
+	#import <CoreData/CoreData.h>
+	#import "GlobalVariable.h"
 #endif

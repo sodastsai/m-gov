@@ -17,6 +17,11 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 	
+	// Set the locationManager be a global variable, and init
+	GlobalVariable *shared = [GlobalVariable sharedVariable];
+	shared.locationManager = [[CLLocationManager alloc] init];
+	[shared.locationManager startUpdatingLocation];
+	
 	// Define File Path
 	NSString *userInformationPlistPathInAppBundle = [[NSBundle mainBundle] pathForResource:@"UserInformation" ofType:@"plist"];
 	NSString *userInformationPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];

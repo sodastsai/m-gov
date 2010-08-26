@@ -11,6 +11,7 @@
 
 #define kTextFieldHeight 30.0
 #define kTextFieldWidth 290.0
+#define kMapViewHeight 120.0
 
 @implementation CaseAddViewController
 
@@ -29,7 +30,7 @@
     [super viewDidLoad];
 	
 	self.title = @"報案";
-	
+		
 	UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithTitle:@"送出" style:UIBarButtonItemStylePlain target:self action:@selector(submitCase)];
 	self.navigationItem.rightBarButtonItem = submitButton;
 	[submitButton release];
@@ -74,7 +75,7 @@
 		if (!indexPath.row) {
 			return 200;
 		} else {
-			return 100;
+			return kMapViewHeight;
 		}
 	} else if (indexPath.section == 1 ){
 		return 45;
@@ -104,6 +105,24 @@
 	// Style by each cell
 	if (indexPath.section == 0) {
 		// TODO: photo and lcoation
+		if (indexPath.row == 1) {
+			MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, kTextFieldWidth+10, kMapViewHeight)];
+			mapView.mapType = MKMapTypeStandard;
+			GlobalVariable *shared = [GlobalVariable sharedVariable];
+			[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
+			MKCoordinateRegion region;
+			region.center = shared.locationManager.location.coordinate;
+			MKCoordinateSpan span;
+			span.latitudeDelta = 0.004;
+			span.longitudeDelta = 0.004;
+			region.span = span;
+			[mapView setRegion:region];
+			
+			// TODO: fix the bound to round.
+			// TODO: add a pointer to the region
+			[cell.contentView addSubview:mapView];
+			[mapView release];
+		}
 	} else if (indexPath.section == 1) {
 		// Check plist
 		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
