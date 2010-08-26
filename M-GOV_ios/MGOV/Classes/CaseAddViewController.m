@@ -128,7 +128,7 @@
 		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
 		NSDictionary *plistDict = [NSDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
 		// Decide placeholder or selected result to show
-		if ( [plistDict valueForKey:@"submitReadable"] && [[plistDict valueForKey:@"Invoker"] isEqualToString:@"submit"] )
+		if ([plistDict valueForKey:@"submitReadable"])
 			cell.textLabel.text = [plistDict valueForKey:@"submitContent"];
 		else
 			cell.textLabel.text = @"請按此選擇案件種類";

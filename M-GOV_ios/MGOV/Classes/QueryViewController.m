@@ -70,7 +70,7 @@
 		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
 		NSDictionary *plistDict = [NSDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
 		// Decide placeholder or selected result to show
-		if ( [plistDict valueForKey:@"queryReadable"] && [[plistDict valueForKey:@"Invoker"] isEqualToString:@"query"] )
+		if ([plistDict valueForKey:@"queryReadable"])
 			cell.textLabel.text = [plistDict valueForKey:@"queryContent"];
 		else
 			cell.textLabel.text = @"請按此選擇案件種類";
