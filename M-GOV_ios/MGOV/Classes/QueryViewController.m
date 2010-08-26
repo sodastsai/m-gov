@@ -11,6 +11,9 @@
 
 @implementation QueryViewController
 
+@synthesize selectedTypeTitle;
+@synthesize qid;
+
 #pragma mark -
 #pragma mark QueryViewController Method
 
@@ -28,6 +31,8 @@
 	UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithTitle:@"送出" style:UIBarButtonItemStylePlain target:self action:@selector(submitQuery)];
 	self.navigationItem.rightBarButtonItem = submitButton;
 	[submitButton release];
+	
+	selectedTypeTitle = [[NSString alloc] init];
 }
 
 #pragma mark -
@@ -66,12 +71,8 @@
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 	}
 	else {
-		// Check plist
-		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
-		NSDictionary *plistDict = [NSDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
-		// Decide placeholder or selected result to show
-		if ([plistDict valueForKey:@"queryReadable"])
-			cell.textLabel.text = [plistDict valueForKey:@"queryContent"];
+		if ([selectedTypeTitle length])
+			cell.textLabel.text = selectedTypeTitle;
 		else
 			cell.textLabel.text = @"請按此選擇案件種類";
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -109,7 +110,9 @@
 #pragma mark -
 #pragma mark TypeSelectorDelegateProtocol
 
-- (void)backToPreviousView {
+- (void)typeSelectorDidSelectWithTitle:(NSString *)t andQid:(NSInteger)q {
+	self.selectedTypeTitle = t;
+	self.qid = q;
 	// Dismiss the view
 	[self dismissModalViewControllerAnimated:YES];
 	// Reload tableview after selected

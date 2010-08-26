@@ -11,6 +11,6 @@
 @protocol TypeSelectorDelegateProtocol
 
 @required
-- (void)backToPreviousView;
+- (void)typeSelectorDidSelectWithTitle:(NSString *)t andQid:(NSInteger)q;
 
 @end

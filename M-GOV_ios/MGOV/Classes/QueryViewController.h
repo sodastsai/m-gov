@@ -11,8 +11,12 @@
 
 
 @interface QueryViewController : UITableViewController <TypeSelectorDelegateProtocol> {
-
+	NSString *selectedTypeTitle;
+	NSInteger qid;
 }
+
+@property (retain, nonatomic) NSString *selectedTypeTitle;
+@property (nonatomic) NSInteger qid;
 
 - (BOOL)submitQuery;
 

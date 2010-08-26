@@ -7,13 +7,15 @@
 //
 
 #import "CaseAddViewController.h"
-#import "typesViewController.h"
 
 #define kTextFieldHeight 30.0
 #define kTextFieldWidth 290.0
 #define kMapViewHeight 120.0
 
 @implementation CaseAddViewController
+
+@synthesize selectedTypeTitle;
+@synthesize qid;
 
 #pragma mark -
 #pragma mark CaseAddMethod
@@ -34,6 +36,8 @@
 	UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithTitle:@"送出" style:UIBarButtonItemStylePlain target:self action:@selector(submitCase)];
 	self.navigationItem.rightBarButtonItem = submitButton;
 	[submitButton release];
+	
+	selectedTypeTitle = @"";
 }
 
 #pragma mark -
@@ -124,12 +128,9 @@
 			[mapView release];
 		}
 	} else if (indexPath.section == 1) {
-		// Check plist
-		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
-		NSDictionary *plistDict = [NSDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
 		// Decide placeholder or selected result to show
-		if ([plistDict valueForKey:@"submitReadable"])
-			cell.textLabel.text = [plistDict valueForKey:@"submitContent"];
+		if (![selectedTypeTitle isEqualToString:@""])
+			cell.textLabel.text = selectedTypeTitle;
 		else
 			cell.textLabel.text = @"請按此選擇案件種類";
 		// Other style
@@ -183,7 +184,9 @@
 #pragma mark -
 #pragma mark typesViewControllerDelegate
 
-- (void)backToPreviousView {
+- (void)typeSelectorDidSelectWithTitle:(NSString *)t andQid:(NSInteger)q {
+	self.selectedTypeTitle = t;
+	self.qid = q;
 	// Dismiss the view
 	[self dismissModalViewControllerAnimated:YES];
 	// Reload tableview after selected

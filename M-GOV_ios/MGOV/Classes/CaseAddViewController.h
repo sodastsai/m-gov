@@ -9,10 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "typesViewController.h"
+#import "TypeSelectorDelegateProtocol.h"
 
 @interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol>  {
-		
+	NSString *selectedTypeTitle;
+	NSInteger qid;
 }
+
+@property (retain, nonatomic) NSString *selectedTypeTitle;
+@property (nonatomic) NSInteger qid;
 
 - (BOOL)submitCase;
 

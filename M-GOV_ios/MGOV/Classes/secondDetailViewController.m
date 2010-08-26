@@ -69,7 +69,7 @@
 	NSString *detailId = [NSString stringWithFormat:@"Detail%d", finalDetailId];
 	NSString *secondDetailId = [NSString stringWithFormat:@"SecondDetail%d", finalSecondDetailId];
 	// Open the qid plist
-	NSString *qid = [[[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] objectForKey:detailId] valueForKey:secondDetailId];
+	NSInteger qid = [[[[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] objectForKey:detailId] valueForKey:secondDetailId] intValue];
 	
 	// Title
 	NSString *titlePlistPath=[[NSBundle mainBundle] pathForResource:@"reportSecondDetails" ofType:@"plist"];
@@ -80,22 +80,8 @@
 	
 	NSString *selectedTitle = [[[[[NSDictionary dictionaryWithContentsOfFile:titlePlistPath] objectForKey:finalSection] objectForKey:finalType] objectForKey:finalDetail] valueForKey:finalSecondDetail];
 	
-	// Write to plist
-	NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
-	NSMutableDictionary *plistDict = [NSMutableDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
-	if ([[plistDict valueForKey:@"Invoker"] isEqualToString:@"submit"]) {
-		[plistDict setValue:selectedTitle forKey:@"submitContent"];
-		[plistDict setValue:qid forKey:@"submitQid"];
-		[plistDict setValue:@"1" forKey:@"submitReadable"];
-	} else if ([[plistDict valueForKey:@"Invoker"] isEqualToString:@"query"]) {
-		[plistDict setValue:selectedTitle forKey:@"queryContent"];
-		[plistDict setValue:qid forKey:@"queryQid"];
-		[plistDict setValue:@"1" forKey:@"queryReadable"];
-	}
-	[plistDict writeToFile:typeSelectorStatusPlistPathInAppDocuments atomically:YES];
-	
 	// Switch back
-	[delegate backToPreviousView];
+	[delegate typeSelectorDidSelectWithTitle:selectedTitle andQid:qid];
 }
 
 #pragma mark -
