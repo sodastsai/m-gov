@@ -19,19 +19,31 @@
 
 - (IBAction)requestEmail {
 	// Alert
-	UIAlertView *alertEmailInput = [[UIAlertView alloc] initWithTitle:alertRequestEmailTitle message:@"請輸入您的E-Mail" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好", nil];
+	alertEmailInput = [[UIAlertView alloc] initWithTitle:alertRequestEmailTitle message:alertRequestEmailPlaceholder delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好", nil];
 	// Email Text Field
 	emailField = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
+	emailField.delegate = self;
 	emailField.borderStyle = UITextBorderStyleRoundedRect;
 	emailField.keyboardType = UIKeyboardTypeEmailAddress;
 	emailField.returnKeyType = UIReturnKeyDone;
 	emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-	emailField.placeholder = @"請輸入您的E-Mail";
+	emailField.placeholder = alertRequestEmailPlaceholder;
 	[emailField becomeFirstResponder];
 	// Show view
 	[alertEmailInput addSubview:emailField];
 	[alertEmailInput show];
-	[alertEmailInput release];
+	// TODO: check if textfield is empty
+}
+
+#pragma mark -
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	// Call pre-close method
+	[self alertView:alertEmailInput clickedButtonAtIndex:1];
+	// close the alert
+	[alertEmailInput dismissWithClickedButtonIndex:0 animated:YES];
+	return NO;
 }
 
 #pragma mark -
@@ -82,6 +94,7 @@
 - (void)viewDidLoad {
 	// TODO: change the fake name to real one.
 	alertRequestEmailTitle = @"歡迎使用烏賊車";
+	alertRequestEmailPlaceholder = @"請輸入您的E-Mail";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,6 +103,7 @@
 
 - (void)viewDidUnload {
 	[emailField release];
+	[alertEmailInput release];
     [super viewDidUnload];
 }
 
