@@ -124,6 +124,7 @@
 			
 			// TODO: fix the bound to round.
 			// TODO: add a pointer to the region
+			// TODO: fix the map in normal view
 			[cell.contentView addSubview:mapView];
 			[mapView release];
 		}
@@ -145,7 +146,7 @@
 	} else {
 		UITextView *descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 180)];
 		descriptionField.font = [UIFont systemFontOfSize:18.0];
-		// TODO: Set the placeholder
+		// TODO: Set the placeholder and set keyboard hide
 		//descriptionField.text = @"請描述案件情況";
 		[cell.contentView addSubview:descriptionField];
 		[descriptionField release];
