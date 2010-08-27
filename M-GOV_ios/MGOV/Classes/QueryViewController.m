@@ -39,7 +39,7 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -69,15 +69,19 @@
 	// TODO: location (use mapView)
     if (indexPath.section == 0) {
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-	}
-	else {
+	} else if (indexPath.section == 1) {
+		// Define selector textlabel
 		if ([selectedTypeTitle length])
 			cell.textLabel.text = selectedTypeTitle;
 		else
 			cell.textLabel.text = @"請按此選擇案件種類";
+		// other style
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 	}
+	
+	// TODO: move the query button to here
+	
 	return cell;
 }
 

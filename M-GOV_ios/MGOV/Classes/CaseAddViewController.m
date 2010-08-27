@@ -33,33 +33,37 @@
 
 - (void) photoDialogAction {
 
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
-															 delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil
-													otherButtonTitles:@"拍攝照片", @"選擇照片", nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍攝照片", @"選擇照片", nil];
 	actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
 	[actionSheet showInView:self.view]; // show from our table view (pops up in the middle of the table)
 	[actionSheet release];
 }
+
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 
 	UIImagePickerController *picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
+	
 	if (buttonIndex == 0) {
 		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
 		[self presentModalViewController:picker animated:YES];
-	}
-	else if ( buttonIndex == 1 ){
+	} else if ( buttonIndex == 1 ){
 		picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 		[self presentModalViewController:picker animated:YES];
 	}
 	
-	[picker release];
-	
+	[picker release];	
 }
 
 
 #pragma mark -
 #pragma mark UIImagePickerControllerDelegate
+
+// TODO: photo scale
+// TODO: photo button text
+// TODO: picker localization
+// TODO: strange cancel button
+
 /*
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
@@ -90,7 +94,7 @@
 	
 	self.title = @"報案";
 	
-	UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithTitle:@"送出" style:UIBarButtonItemStylePlain target:self action:@selector(submitCase)];
+	UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithTitle:@"送出案件" style:UIBarButtonItemStylePlain target:self action:@selector(submitCase)];
 	self.navigationItem.rightBarButtonItem = submitButton;
 	[submitButton release];
 	
@@ -113,8 +117,6 @@
 	}
 	return 1;
 }
-
-
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 0) {
@@ -167,6 +169,7 @@
 	if (indexPath.section == 0) {
 		// TODO: photo and lcoation
 		if ( indexPath.row == 0 ) {
+			#pragma mark PhotoPicker
 			photoButton = [[UIButton alloc] init];
 			photoButton.frame = CGRectMake(0, 0, 300, kPhotoViewHeight);
 			// Had better to find a new method
@@ -183,6 +186,7 @@
 			
 		}		
 		if (indexPath.row == 1) {
+			#pragma mark Address MapView
 			MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, kTextFieldWidth+10, kMapViewHeight)];
 			mapView.mapType = MKMapTypeStandard;
 			GlobalVariable *shared = [GlobalVariable sharedVariable];
@@ -207,8 +211,9 @@
 			[mapView release];
 		}
 	} else if (indexPath.section == 1) {
+		#pragma mark Type Selector
 		// Decide placeholder or selected result to show
-		if (![selectedTypeTitle isEqualToString:@""])
+		if ([selectedTypeTitle length])
 			cell.textLabel.text = selectedTypeTitle;
 		else
 			cell.textLabel.text = @"請按此選擇案件種類";
@@ -216,6 +221,7 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 	} else if (indexPath.section == 2) {
+		#pragma mark Name field
 		UITextField *nameField = [[UITextField alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, kTextFieldHeight)];
 		nameField.placeholder = @"請輸入您的姓名";
 		nameField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -227,6 +233,7 @@
 		[cell.contentView addSubview:nameField];
 		[nameField release];
 	} else {
+		#pragma mark Descritption
 		// TODO: change to other UI element
 		UITextView *descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 180)];
 		descriptionField.font = [UIFont systemFontOfSize:18.0];
