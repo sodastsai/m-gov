@@ -7,6 +7,7 @@
 //
 
 #import "CaseAddViewController.h"
+#import "AppMKAnnotation.h"
 
 #define kTextFieldHeight 30.0
 #define kTextFieldWidth 290.0
@@ -122,10 +123,14 @@
 			region.span = span;
 			[mapView setRegion:region];
 			
+			// TODO: correct the title: 現在位置or照片位置
+			// TODO: correct the subtitle: 地址
+			AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"Title test" andSubtitle:@"科科"];
+			[mapView addAnnotation:casePlace];
+			[casePlace release];
+
 			// TODO: fix the bound to round.
-			// TODO: add a pointer to the region
-			// TODO: fix the map in normal view
-		
+			// TODO: fix the map in normal view		
 			[cell.contentView addSubview:mapView];
 			[mapView release];
 		}
@@ -153,7 +158,6 @@
 		// TODO: change to other UI element
 		UITextView *descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 180)];
 		descriptionField.font = [UIFont systemFontOfSize:18.0];
-		// TODO: Set the placeholder and set keyboard hide
 		//descriptionField.text = @"請描述案件情況";
 		[cell.contentView addSubview:descriptionField];
 		[descriptionField release];

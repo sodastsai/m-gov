@@ -16,6 +16,7 @@ static GlobalVariable *sharedVariable = nil;
 
 #pragma mark -
 #pragma mark Singleton Methods
+
 + (GlobalVariable *)sharedVariable {
 	@synchronized(self) {
 		if(sharedVariable == nil){

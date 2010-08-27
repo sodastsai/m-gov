@@ -7,11 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
 #import "typesViewController.h"
 #import "TypeSelectorDelegateProtocol.h"
 
-@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, MKAnnotation, UITextFieldDelegate>  {
+@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate>  {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
 }

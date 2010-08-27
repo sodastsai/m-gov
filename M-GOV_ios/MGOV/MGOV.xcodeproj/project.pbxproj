@@ -37,6 +37,7 @@
 		FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */ = {isa = PBXBuildFile; fileRef = FED3DDE71224EA3A001D3C73 /* UserInformation.plist */; };
 		FED3DDED1224EB7F001D3C73 /* FirstTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FED3DDEB1224EB7F001D3C73 /* FirstTimeViewController.m */; };
 		FED3DDEE1224EB7F001D3C73 /* FirstTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED3DDEC1224EB7F001D3C73 /* FirstTimeViewController.xib */; };
+		FEE81538122791BF00D82E46 /* AppMKAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE81537122791BF00D82E46 /* AppMKAnnotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -83,6 +84,8 @@
 		FED3DDEA1224EB7F001D3C73 /* FirstTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTimeViewController.h; sourceTree = "<group>"; };
 		FED3DDEB1224EB7F001D3C73 /* FirstTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTimeViewController.m; sourceTree = "<group>"; };
 		FED3DDEC1224EB7F001D3C73 /* FirstTimeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FirstTimeViewController.xib; path = Classes/FirstTimeViewController.xib; sourceTree = "<group>"; };
+		FEE81536122791BF00D82E46 /* AppMKAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMKAnnotation.h; sourceTree = "<group>"; };
+		FEE81537122791BF00D82E46 /* AppMKAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppMKAnnotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +116,8 @@
 				1D3623250D0F684500981E51 /* MGOVAppDelegate.m */,
 				2A560ED21226A6E700F3800F /* GlobalVariable.h */,
 				2A560ED31226A6E700F3800F /* GlobalVariable.m */,
+				FEE81536122791BF00D82E46 /* AppMKAnnotation.h */,
+				FEE81537122791BF00D82E46 /* AppMKAnnotation.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -327,6 +332,7 @@
 				FED3DDED1224EB7F001D3C73 /* FirstTimeViewController.m in Sources */,
 				2AE786D71225600E00036DB9 /* QueryViewController.m in Sources */,
 				2A560ED41226A6E700F3800F /* GlobalVariable.m in Sources */,
+				FEE81538122791BF00D82E46 /* AppMKAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
