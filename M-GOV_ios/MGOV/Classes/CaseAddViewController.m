@@ -12,11 +12,13 @@
 #define kTextFieldHeight 30.0
 #define kTextFieldWidth 290.0
 #define kMapViewHeight 120.0
+#define kPhotoViewHeight 200.0
 
 @implementation CaseAddViewController
 
 @synthesize selectedTypeTitle;
 @synthesize qid;
+@synthesize photoButton;
 
 #pragma mark -
 #pragma mark CaseAddMethod
@@ -27,13 +29,67 @@
 }
 
 #pragma mark -
+#pragma mark UIActionSheetDelegate
+
+- (void) photoDialogAction {
+
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil
+															 delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil
+													otherButtonTitles:@"拍攝照片", @"選擇照片", nil];
+	actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
+	[actionSheet showInView:self.view]; // show from our table view (pops up in the middle of the table)
+	[actionSheet release];
+}
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+
+	UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+	picker.delegate = self;
+	if (buttonIndex == 0) {
+		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+		[self presentModalViewController:picker animated:YES];
+	}
+	else if ( buttonIndex == 1 ){
+		picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+		[self presentModalViewController:picker animated:YES];
+	}
+	
+	[picker release];
+	
+}
+
+
+#pragma mark -
+#pragma mark UIImagePickerControllerDelegate
+/*
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+	
+	//photo = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+	[picker dismissModalViewControllerAnimated:YES];
+	
+	//[self.tableView reloadData];
+	
+}
+*/
+
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
+	
+	[photoButton setImage:image forState:UIControlStateNormal];
+	[picker dismissModalViewControllerAnimated:YES];
+	//UIImageView *test = [[UIImageView alloc] initWithImage:photo];
+	//[self.view addSubview:test];
+	[self.tableView reloadData];
+}
+
+
+#pragma mark -
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
 	self.title = @"報案";
-		
+	
 	UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithTitle:@"送出" style:UIBarButtonItemStylePlain target:self action:@selector(submitCase)];
 	self.navigationItem.rightBarButtonItem = submitButton;
 	[submitButton release];
@@ -78,7 +134,7 @@
 	// Set the height according to the edit area size
     if (indexPath.section == 0) {
 		if (!indexPath.row) {
-			return 200;
+			return kPhotoViewHeight;
 		} else {
 			return kMapViewHeight;
 		}
@@ -110,6 +166,22 @@
 	// Style by each cell
 	if (indexPath.section == 0) {
 		// TODO: photo and lcoation
+		if ( indexPath.row == 0 ) {
+			photoButton = [[UIButton alloc] init];
+			photoButton.frame = CGRectMake(0, 0, 300, kPhotoViewHeight);
+			// Had better to find a new method
+			UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(200, 180, 100, 20)];
+			[label setText:@"加入照片"];
+			[label setTextColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
+			[label setBackgroundColor:[UIColor clearColor]];
+			[photoButton addSubview:label];
+			[label release];
+			photoButton.showsTouchWhenHighlighted = YES;
+			[photoButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+			[photoButton addTarget:self action:@selector(photoDialogAction) forControlEvents:UIControlEventTouchUpInside];
+			[cell.contentView addSubview:photoButton];
+			
+		}		
 		if (indexPath.row == 1) {
 			MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, kTextFieldWidth+10, kMapViewHeight)];
 			mapView.mapType = MKMapTypeStandard;
@@ -221,6 +293,7 @@
 }
 
 - (void)dealloc {
+	[selectedTypeTitle release];
     [super dealloc];
 }
 

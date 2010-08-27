@@ -10,14 +10,18 @@
 #import "typesViewController.h"
 #import "TypeSelectorDelegateProtocol.h"
 
-@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate>  {
+@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>  {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
+	UIButton *photoButton;
 }
 
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
+@property (nonatomic, retain) UIButton *photoButton;
 
 - (BOOL)submitCase;
+- (void)photoDialogAction;
+
 
 @end
