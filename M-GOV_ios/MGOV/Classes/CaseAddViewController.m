@@ -125,6 +125,7 @@
 			// TODO: fix the bound to round.
 			// TODO: add a pointer to the region
 			// TODO: fix the map in normal view
+		
 			[cell.contentView addSubview:mapView];
 			[mapView release];
 		}
