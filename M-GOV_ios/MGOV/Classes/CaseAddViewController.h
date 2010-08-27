@@ -11,7 +11,7 @@
 #import "typesViewController.h"
 #import "TypeSelectorDelegateProtocol.h"
 
-@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol>  {
+@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate>  {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
 }

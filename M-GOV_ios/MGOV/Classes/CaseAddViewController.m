@@ -141,9 +141,15 @@
 		UITextField *nameField = [[UITextField alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, kTextFieldHeight)];
 		nameField.placeholder = @"請輸入您的姓名";
 		nameField.autocorrectionType = UITextAutocorrectionTypeNo;
+		nameField.delegate = self;
+		nameField.keyboardType = UIKeyboardTypeDefault;
+		nameField.returnKeyType = UIReturnKeyDone;
+		nameField.autocapitalizationType = UITextAutocapitalizationTypeWords;
+		
 		[cell.contentView addSubview:nameField];
 		[nameField release];
 	} else {
+		// TODO: change to other UI element
 		UITextView *descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 180)];
 		descriptionField.font = [UIFont systemFontOfSize:18.0];
 		// TODO: Set the placeholder and set keyboard hide
@@ -155,6 +161,14 @@
 	return cell;
 }
 
+#pragma mark -
+#pragma mark UITextFieldDelegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+	// End editing
+	[textField resignFirstResponder];
+	return YES;
+}
 
 #pragma mark -
 #pragma mark Table view delegate
