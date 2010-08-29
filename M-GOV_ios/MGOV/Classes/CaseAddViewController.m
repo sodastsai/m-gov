@@ -12,13 +12,14 @@
 #define kTextFieldHeight 30.0
 #define kTextFieldWidth 290.0
 #define kMapViewHeight 120.0
-#define kPhotoViewHeight 200.0
+#define kPhotoViewHeight 225.0
 
 @implementation CaseAddViewController
 
 @synthesize selectedTypeTitle;
 @synthesize qid;
 @synthesize photoButton;
+@synthesize didSelectPhoto;
 
 #pragma mark -
 #pragma mark CaseAddMethod
@@ -77,11 +78,9 @@
 */
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
-	
-	[photoButton setImage:image forState:UIControlStateNormal];
+	[photoButton setBackgroundImage:image forState:UIControlStateNormal];
 	[picker dismissModalViewControllerAnimated:YES];
-	//UIImageView *test = [[UIImageView alloc] initWithImage:photo];
-	//[self.view addSubview:test];
+	self.didSelectPhoto = YES;
 	[self.tableView reloadData];
 }
 
@@ -99,6 +98,7 @@
 	[submitButton release];
 	
 	selectedTypeTitle = @"";
+	didSelectPhoto = NO;
 }
 
 #pragma mark -
@@ -170,21 +170,20 @@
 		// TODO: photo and lcoation
 		if ( indexPath.row == 0 ) {
 			#pragma mark PhotoPicker
-			photoButton = [[UIButton alloc] init];
-			photoButton.frame = CGRectMake(0, 0, 300, kPhotoViewHeight);
-			// Had better to find a new method
-			UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(200, 180, 100, 20)];
-			[label setText:@"加入照片"];
-			[label setTextColor:[UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5]];
-			[label setBackgroundColor:[UIColor clearColor]];
-			[photoButton addSubview:label];
-			[label release];
+			// TODO: strange button tag
+			// Button: Take a photo
+			photoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, kPhotoViewHeight)];
+			
+			if (!didSelectPhoto) [photoButton setTitle:@"按一下以加入照片..." forState:UIControlStateNormal];
+			else [photoButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
+			
+			photoButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+			[photoButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+			
 			photoButton.showsTouchWhenHighlighted = YES;
-			[photoButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
 			[photoButton addTarget:self action:@selector(photoDialogAction) forControlEvents:UIControlEventTouchUpInside];
 			[cell.contentView addSubview:photoButton];
-			
-		}		
+		}
 		if (indexPath.row == 1) {
 			#pragma mark Address MapView
 			MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, kTextFieldWidth+10, kMapViewHeight)];

@@ -14,11 +14,13 @@
 	NSString *selectedTypeTitle;
 	NSInteger qid;
 	UIButton *photoButton;
+	BOOL didSelectPhoto;
 }
 
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
 @property (nonatomic, retain) UIButton *photoButton;
+@property (nonatomic) BOOL didSelectPhoto;
 
 - (BOOL)submitCase;
 - (void)photoDialogAction;

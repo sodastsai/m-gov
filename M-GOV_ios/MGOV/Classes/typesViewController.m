@@ -14,13 +14,6 @@
 @synthesize delegate;
 
 #pragma mark -
-#pragma mark View Switch
-
-- (void)backToPreviousView {
-	[self dismissModalViewControllerAnimated:YES];
-}
-
-#pragma mark -
 #pragma mark Table view data source
 
 // Customize the number of sections in the table view.

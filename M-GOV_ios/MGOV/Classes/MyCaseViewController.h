@@ -10,7 +10,6 @@
 #import "CaseAddViewController.h"
 
 @interface MyCaseViewController : UITableViewController {
-
 }
 
 - (void) addCase;
