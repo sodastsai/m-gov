@@ -33,10 +33,10 @@
 #pragma mark UIActionSheetDelegate
 
 - (void) photoDialogAction {
-
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:nil delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍攝照片", @"選擇照片", nil];
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍攝照片", @"選擇照片", nil];
 	actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
-	[actionSheet showInView:self.view]; // show from our table view (pops up in the middle of the table)
+	// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
+	[actionSheet showInView:self.parentViewController.tabBarController.view];
 	[actionSheet release];
 }
 
@@ -61,9 +61,7 @@
 #pragma mark UIImagePickerControllerDelegate
 
 // TODO: photo scale
-// TODO: photo button text
 // TODO: picker localization
-// TODO: strange cancel button
 
 /*
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -173,6 +171,7 @@
 			// TODO: strange button tag
 			// Button: Take a photo
 			photoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, kPhotoViewHeight)];
+			[photoButton setTitleColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5] forState:UIControlStateNormal];
 			
 			if (!didSelectPhoto) [photoButton setTitle:@"按一下以加入照片..." forState:UIControlStateNormal];
 			else [photoButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
@@ -180,7 +179,7 @@
 			photoButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
 			[photoButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
 			
-			photoButton.showsTouchWhenHighlighted = YES;
+			//photoButton.showsTouchWhenHighlighted = YES;
 			[photoButton addTarget:self action:@selector(photoDialogAction) forControlEvents:UIControlEventTouchUpInside];
 			[cell.contentView addSubview:photoButton];
 		}
