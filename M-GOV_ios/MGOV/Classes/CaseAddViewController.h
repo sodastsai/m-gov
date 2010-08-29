@@ -13,8 +13,8 @@
 @interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>  {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
-	UIButton *photoButton;
 	BOOL didSelectPhoto;
+	UIImage *selectedImage;
 }
 
 @property (retain, nonatomic) NSString *selectedTypeTitle;

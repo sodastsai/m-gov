@@ -168,20 +168,19 @@
 		// TODO: photo and lcoation
 		if ( indexPath.row == 0 ) {
 			#pragma mark PhotoPicker
-			// TODO: strange button tag
-			// Button: Take a photo
-			photoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, kPhotoViewHeight)];
-			[photoButton setTitleColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:0.5] forState:UIControlStateNormal];
-			
-			if (!didSelectPhoto) [photoButton setTitle:@"按一下以加入照片..." forState:UIControlStateNormal];
-			else [photoButton setTitleColor:[UIColor clearColor] forState:UIControlStateNormal];
-			
-			photoButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-			[photoButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-			
-			//photoButton.showsTouchWhenHighlighted = YES;
-			[photoButton addTarget:self action:@selector(photoDialogAction) forControlEvents:UIControlEventTouchUpInside];
-			[cell.contentView addSubview:photoButton];
+			if (!didSelectPhoto) {
+				photoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, kPhotoViewHeight)];
+				
+				[photoButton setTitle:@"按一下以加入照片..." forState:UIControlStateNormal];
+				photoButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+				[photoButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+				
+				photoButton.showsTouchWhenHighlighted = YES;
+				[photoButton addTarget:self action:@selector(photoDialogAction) forControlEvents:UIControlEventTouchUpInside];
+				[cell.contentView addSubview:photoButton];
+			} else {
+				[photoButton setTitle:@"" forState:UIControlStateNormal];
+			}
 		}
 		if (indexPath.row == 1) {
 			#pragma mark Address MapView
@@ -299,6 +298,7 @@
 
 - (void)dealloc {
 	[selectedTypeTitle release];
+	[photoButton release];
     [super dealloc];
 }
 
