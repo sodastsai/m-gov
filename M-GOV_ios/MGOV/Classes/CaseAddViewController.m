@@ -60,7 +60,6 @@
 #pragma mark -
 #pragma mark UIImagePickerControllerDelegate
 
-// TODO: photo scale
 // TODO: picker localization
 
 /*
@@ -165,8 +164,9 @@
 	
 	// Style by each cell
 	if (indexPath.section == 0) {
-		// TODO: photo and lcoation
 		if ( indexPath.row == 0 ) {
+			// TODO: photo scale
+			// TODO: round corner
 			#pragma mark PhotoPicker
 			if (!didSelectPhoto) {
 				photoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, kPhotoViewHeight)];
