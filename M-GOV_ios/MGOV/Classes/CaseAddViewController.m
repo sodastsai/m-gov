@@ -11,8 +11,8 @@
 
 #define kTextFieldHeight 30.0
 #define kTextFieldWidth 290.0
-#define kMapViewHeight 120.0
-#define kPhotoViewHeight 225.0
+#define kMapViewHeight 100.0
+#define kPhotoViewHeight 200.0
 
 @implementation CaseAddViewController
 
@@ -80,7 +80,7 @@
 	UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithTitle:@"送出案件" style:UIBarButtonItemStylePlain target:self action:@selector(submitCase)];
 	self.navigationItem.rightBarButtonItem = submitButton;
 	[submitButton release];
-	
+
 	selectedTypeTitle = @"";
 }
 
@@ -133,7 +133,7 @@
 	} else if (indexPath.section == 3 ){
 		return 40;
 	} else if (indexPath.section == 4 ){
-		return 30;
+		return 190;
 	}
 	
 	return 0;
@@ -142,9 +142,7 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
 
-	
 	static NSString *CellIdentifier = @"Cell";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
@@ -167,7 +165,8 @@
 			photoButton.layer.cornerRadius = 10.0;
 			photoButton.layer.masksToBounds = YES;
 			[cell.contentView addSubview:photoButton];
-		} else if (indexPath.section == 1) {
+		} 
+		else if (indexPath.section == 1) {
 			#pragma mark Address MapView
 			MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, kTextFieldWidth+10, kMapViewHeight-1)];
 			mapView.mapType = MKMapTypeStandard;
@@ -193,7 +192,8 @@
 			// TODO: fix the map in normal view		
 			[cell.contentView addSubview:mapView];
 			[mapView release];
-		} else if (indexPath.section == 2) {
+		} 
+		else if (indexPath.section == 2) {
 			#pragma mark Type Selector
 			// Decide placeholder or selected result to show
 			if ([selectedTypeTitle length])
@@ -203,7 +203,8 @@
 			// Other style
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-		} else if (indexPath.section == 3) {
+		} 
+		else if (indexPath.section == 3) {
 			#pragma mark Name field
 			UITextField *nameField = [[UITextField alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, kTextFieldHeight)];
 			nameField.placeholder = @"請輸入您的姓名";
@@ -215,7 +216,9 @@
 			
 			[cell.contentView addSubview:nameField];
 			[nameField release];
-		} else if ( indexPath.section == 4 ){
+		} 
+		else if ( indexPath.section == 4 ){
+			NSLog(@"!!!");
 			#pragma mark Descritption
 			// TODO: change to other UI element
 			UITextView *descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 180)];
