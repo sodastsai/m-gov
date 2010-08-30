@@ -82,7 +82,6 @@
 	[submitButton release];
 	
 	selectedTypeTitle = @"";
-	didSelectPhoto = NO;
 }
 
 #pragma mark -
@@ -112,6 +111,14 @@
 		return @"描述及建議";
 	}
 	
+	return nil;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+	if (section == 4) {
+		// TODO: Change to legal info
+		return @"Footer";
+	}
 	return nil;
 }
 
