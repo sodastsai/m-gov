@@ -103,9 +103,9 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 0) {
 		return @"照片及地址";
-	} /*else if(section == 1) {
-		return @"地址";
-	}*/ else if (section == 2 ){
+	} else if(section == 1) {
+		return nil;
+	} else if (section == 2 ){
 		return @"案件種類";
 	} else if (section == 3 ){
 		return @"報案者姓名";
@@ -222,6 +222,7 @@
 		//descriptionField.text = @"請描述案件情況";
 		[cell.contentView addSubview:descriptionField];
 		[descriptionField release];
+		NSLog(@"QQ");
 	} 
 
 	return cell;
@@ -252,13 +253,6 @@
 		typesView.navigationItem.leftBarButtonItem = backBuuton;
 		[backBuuton release];
 		[typesView release];
-		
-		// Record to plist
-		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
-		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
-		[dict setValue:@"submit" forKey:@"Invoker"];
-		[dict setValue:0 forKey:@"submitReadable"];
-		[dict writeToFile:typeSelectorStatusPlistPathInAppDocuments atomically:YES];
 	}
 }
 
