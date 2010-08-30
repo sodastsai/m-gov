@@ -14,13 +14,11 @@
 @interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>  {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
-	BOOL didSelectPhoto;
 }
 
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
 @property (nonatomic, retain) UIButton *photoButton;
-@property (nonatomic) BOOL didSelectPhoto;
 
 - (BOOL)submitCase;
 - (void)photoDialogAction;

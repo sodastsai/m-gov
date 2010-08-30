@@ -19,7 +19,6 @@
 @synthesize selectedTypeTitle;
 @synthesize qid;
 @synthesize photoButton;
-@synthesize didSelectPhoto;
 
 #pragma mark -
 #pragma mark CaseAddMethod
@@ -66,7 +65,6 @@
 	[photoButton setBackgroundImage:image forState:UIControlStateNormal];
 	[photoButton setTitle:@"" forState:UIControlStateNormal];
 	[picker dismissModalViewControllerAnimated:YES];
-	self.didSelectPhoto = YES;
 	[self.tableView reloadData];
 }
 
@@ -151,19 +149,17 @@
 		if (indexPath.section == 0) {
 			// TODO: photo scale
 			#pragma mark PhotoPicker
-			if (!didSelectPhoto) {
-				photoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, kPhotoViewHeight)];
-				
-				[photoButton setTitle:@"按一下以加入照片..." forState:UIControlStateNormal];
-				photoButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-				[photoButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-				
-				photoButton.showsTouchWhenHighlighted = YES;
-				[photoButton addTarget:self action:@selector(photoDialogAction) forControlEvents:UIControlEventTouchUpInside];
-				photoButton.layer.cornerRadius = 10.0;
-				photoButton.layer.masksToBounds = YES;
-				[cell.contentView addSubview:photoButton];
-			}
+			photoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, kPhotoViewHeight)];
+			
+			[photoButton setTitle:@"按一下以加入照片..." forState:UIControlStateNormal];
+			photoButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+			[photoButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+			
+			photoButton.showsTouchWhenHighlighted = YES;
+			[photoButton addTarget:self action:@selector(photoDialogAction) forControlEvents:UIControlEventTouchUpInside];
+			photoButton.layer.cornerRadius = 10.0;
+			photoButton.layer.masksToBounds = YES;
+			[cell.contentView addSubview:photoButton];
 		} else if (indexPath.section == 1) {
 			#pragma mark Address MapView
 			MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, kTextFieldWidth+10, kMapViewHeight-1)];
