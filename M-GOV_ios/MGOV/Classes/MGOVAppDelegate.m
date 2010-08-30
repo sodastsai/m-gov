@@ -31,39 +31,28 @@
 		[[NSFileManager defaultManager] copyItemAtPath:userInformationPlistPathInAppBundle toPath:userInformationPlistPathInAppDocuments error:nil];
 	}
 	
-	// Read plist from App's documents folder
-	NSDictionary *dictUserInformation = [NSDictionary dictionaryWithContentsOfFile:userInformationPlistPathInAppDocuments];
+	// Main tab
+	tabBarController = [[UITabBarController alloc] init];
 	
-	if ([dictUserInformation valueForKey:@"FirstRun"]) {
-		firstTimeView = [[FirstTimeViewController alloc] init];
-		[window addSubview:firstTimeView.view];
-	} else {
-		// Main tab
-		tabBarController = [[UITabBarController alloc] init];
-		
-		// My Case
-		MyCaseViewController *myCase = [[MyCaseViewController alloc] init];
-		myCase.title = @"我的案件";
-		UINavigationController *myCaseNavigation = [[UINavigationController alloc] initWithRootViewController:myCase];
-		
-		// Query
-		QueryViewController *query = [[QueryViewController alloc] initWithStyle:UITableViewStyleGrouped];
-		query.title = @"查詢";
-		UINavigationController *queryNavigation = [[UINavigationController alloc] initWithRootViewController:query];
-		
-		// Add tabs and view
-		tabBarController.viewControllers = [NSArray arrayWithObjects:myCaseNavigation, queryNavigation, nil];
-		[window addSubview:tabBarController.view];
-		
-		// Release
-		[query release];
-		[myCase release];
-		[queryNavigation release];
-		[myCaseNavigation release];
-	}
+	// My Case
+	MyCaseViewController *myCase = [[MyCaseViewController alloc] init];
+	myCase.title = @"我的案件";
+	UINavigationController *myCaseNavigation = [[UINavigationController alloc] initWithRootViewController:myCase];
 	
-	dictUserInformation = nil;
-	[dictUserInformation release];
+	// Query
+	QueryViewController *query = [[QueryViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	query.title = @"查詢";
+	UINavigationController *queryNavigation = [[UINavigationController alloc] initWithRootViewController:query];
+	
+	// Add tabs and view
+	tabBarController.viewControllers = [NSArray arrayWithObjects:myCaseNavigation, queryNavigation, nil];
+	[window addSubview:tabBarController.view];
+	
+	// Release
+	[query release];
+	[myCase release];
+	[queryNavigation release];
+	[myCaseNavigation release];
 	
 	[window makeKeyAndVisible];
 	return YES;
@@ -73,7 +62,6 @@
 #pragma mark Memory management
 
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
-	[firstTimeView release];
 }
 
 - (void)dealloc {

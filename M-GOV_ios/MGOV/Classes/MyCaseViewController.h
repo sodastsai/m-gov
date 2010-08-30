@@ -10,7 +10,11 @@
 #import "CaseAddViewController.h"
 
 @interface MyCaseViewController : UITableViewController {
+	NSString *userEmail;
+	UITableViewCell *firstRunCell;
 }
+
+@property (retain, nonatomic) IBOutlet UITableViewCell *firstRunCell;
 
 - (void) addCase;
 

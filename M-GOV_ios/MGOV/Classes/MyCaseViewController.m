@@ -11,6 +11,8 @@
 
 @implementation MyCaseViewController
 
+@synthesize firstRunCell;
+
 #pragma mark -
 #pragma mark View lifecycle
 
@@ -21,6 +23,9 @@
 	UIBarButtonItem *addCaseButton = [[UIBarButtonItem alloc] initWithTitle:@"新增案件" style:UIBarButtonItemStylePlain target:self action:@selector(addCase)];
 	self.navigationItem.rightBarButtonItem = addCaseButton;
 	[addCaseButton release];
+	
+	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
+	userEmail = [[NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments] valueForKey:@"User Email"];
 }
 
 - (void) addCase {
@@ -34,23 +39,32 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	if (![userEmail length]) {
+		// FirstRun
+		return 1;
+	}
+	// MyCase
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	if (![userEmail length]) {
+		// FirstRun
+		return 1;
+	}
+	// MyCase
     return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-    
-    return cell;
+	
+	static NSString *CellIdentifier = @"Cell";
+	
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	if (cell == nil) {
+		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+	}
+	return cell;
 }
 
 #pragma mark -

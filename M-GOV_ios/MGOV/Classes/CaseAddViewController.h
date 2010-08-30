@@ -11,9 +11,14 @@
 #import "typesViewController.h"
 #import "TypeSelectorDelegateProtocol.h"
 
-@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>  {
+@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate>  {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
+	UITextField *emailField;
+	UIAlertView *alertEmailInput;
+	NSString *alertRequestEmailTitle;
+	NSString *alertRequestEmailPlaceholder;
+	NSString *nameFieldPlaceholder;
 }
 
 @property (retain, nonatomic) NSString *selectedTypeTitle;

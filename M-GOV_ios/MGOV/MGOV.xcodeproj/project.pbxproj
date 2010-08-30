@@ -38,7 +38,6 @@
 		FE4EE7811223F72E00737028 /* secondDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */; };
 		FE4EE7821223F72E00737028 /* typesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77F1223F72E00737028 /* typesViewController.xib */; };
 		FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */ = {isa = PBXBuildFile; fileRef = FED3DDE71224EA3A001D3C73 /* UserInformation.plist */; };
-		FED3DDED1224EB7F001D3C73 /* FirstTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FED3DDEB1224EB7F001D3C73 /* FirstTimeViewController.m */; };
 		FED3DDEE1224EB7F001D3C73 /* FirstTimeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FED3DDEC1224EB7F001D3C73 /* FirstTimeViewController.xib */; };
 		FEE81538122791BF00D82E46 /* AppMKAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE81537122791BF00D82E46 /* AppMKAnnotation.m */; };
 /* End PBXBuildFile section */
@@ -88,8 +87,6 @@
 		FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = secondDetailViewController.xib; sourceTree = "<group>"; };
 		FE4EE77F1223F72E00737028 /* typesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = typesViewController.xib; sourceTree = "<group>"; };
 		FED3DDE71224EA3A001D3C73 /* UserInformation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInformation.plist; sourceTree = "<group>"; };
-		FED3DDEA1224EB7F001D3C73 /* FirstTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstTimeViewController.h; sourceTree = "<group>"; };
-		FED3DDEB1224EB7F001D3C73 /* FirstTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstTimeViewController.m; sourceTree = "<group>"; };
 		FED3DDEC1224EB7F001D3C73 /* FirstTimeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FirstTimeViewController.xib; path = Classes/FirstTimeViewController.xib; sourceTree = "<group>"; };
 		FEE81536122791BF00D82E46 /* AppMKAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMKAnnotation.h; sourceTree = "<group>"; };
 		FEE81537122791BF00D82E46 /* AppMKAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppMKAnnotation.m; sourceTree = "<group>"; };
@@ -117,7 +114,6 @@
 			isa = PBXGroup;
 			children = (
 				2A0974F6122BC7300048D841 /* Location Selector */,
-				FED3DDE91224EB5A001D3C73 /* FirstTime Message */,
 				2A79AC301223FBCF00F140A2 /* Query Case */,
 				2A79AC2F1223FBC200F140A2 /* My Case */,
 				FE4EE7461223D50200737028 /* Types and Detail Selector */,
@@ -264,15 +260,6 @@
 			name = "Types and Detail Strings";
 			sourceTree = "<group>";
 		};
-		FED3DDE91224EB5A001D3C73 /* FirstTime Message */ = {
-			isa = PBXGroup;
-			children = (
-				FED3DDEA1224EB7F001D3C73 /* FirstTimeViewController.h */,
-				FED3DDEB1224EB7F001D3C73 /* FirstTimeViewController.m */,
-			);
-			name = "FirstTime Message";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -350,7 +337,6 @@
 				FE4EE77B1223F6D100737028 /* secondDetailViewController.m in Sources */,
 				FE4EE77C1223F6D100737028 /* typesViewController.m in Sources */,
 				2A79AC231223FB7C00F140A2 /* CaseAddViewController.m in Sources */,
-				FED3DDED1224EB7F001D3C73 /* FirstTimeViewController.m in Sources */,
 				2AE786D71225600E00036DB9 /* QueryViewController.m in Sources */,
 				2A560ED41226A6E700F3800F /* GlobalVariable.m in Sources */,
 				FEE81538122791BF00D82E46 /* AppMKAnnotation.m in Sources */,
