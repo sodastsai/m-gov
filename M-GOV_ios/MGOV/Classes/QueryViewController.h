@@ -11,6 +11,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "TypeSelectorDelegateProtocol.h"
 #import "AppMKAnnotation.h"
+#import "LocationSelectorViewController.h"
 
 
 @interface QueryViewController : UITableViewController <TypeSelectorDelegateProtocol> {
@@ -22,5 +23,7 @@
 @property (nonatomic) NSInteger qid;
 
 - (BOOL)submitQuery;
+- (void)locationSelector;
+
 
 @end

@@ -22,6 +22,15 @@
 	return YES;
 	
 }
+- (void)locationSelector {
+	
+	LocationSelectorViewController *locationSelector = [[LocationSelectorViewController alloc] init];
+	
+	[self presentModalViewController:locationSelector animated:YES];
+	
+	[locationSelector release];
+	
+}
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -74,44 +83,53 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		if (indexPath.section == 0) {
+			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+			#pragma mark Address MapView
+			MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+			mapView.mapType = MKMapTypeStandard;
+			GlobalVariable *shared = [GlobalVariable sharedVariable];
+			[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
+			MKCoordinateRegion region;
+			region.center = shared.locationManager.location.coordinate;
+			MKCoordinateSpan span;
+			span.latitudeDelta = 0.004;
+			span.longitudeDelta = 0.004;
+			region.span = span;
+			mapView.layer.cornerRadius = 10.0;
+			mapView.layer.masksToBounds = YES;
+			[mapView setRegion:region];
+			
+			UIButton *mapButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+			mapButton.backgroundColor = [UIColor clearColor];
+			[cell.contentView addSubview:mapButton];
+			[mapButton addTarget:self action:@selector(locationSelector) forControlEvents:UIControlEventTouchUpInside];
+
+			
+			// TODO: correct the title: 現在位置or照片位置
+			// TODO: correct the subtitle: 地址
+			AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"Title test" andSubtitle:@"科科"];
+			[mapView addAnnotation:casePlace];
+			[casePlace release];
+			
+			cell.backgroundView = mapView;
+			[mapView release];
+		} else if (indexPath.section == 1) {
+			// Define selector textlabel
+			cell.textLabel.text = @"請按此選擇案件種類";
+			// other style
+			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+			cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+		}
     }
-    
-	// TODO: location (use mapView)
-    if (indexPath.section == 0) {
-		cell.selectionStyle = UITableViewCellSelectionStyleNone;
-		#pragma mark Address MapView
-		MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
-		mapView.mapType = MKMapTypeStandard;
-		GlobalVariable *shared = [GlobalVariable sharedVariable];
-		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
-		MKCoordinateRegion region;
-		region.center = shared.locationManager.location.coordinate;
-		MKCoordinateSpan span;
-		span.latitudeDelta = 0.004;
-		span.longitudeDelta = 0.004;
-		region.span = span;
-		mapView.layer.cornerRadius = 10.0;
-		mapView.layer.masksToBounds = YES;
-		[mapView setRegion:region];
-		
-		// TODO: correct the title: 現在位置or照片位置
-		// TODO: correct the subtitle: 地址
-		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"Title test" andSubtitle:@"科科"];
-		[mapView addAnnotation:casePlace];
-		[casePlace release];
-		
-		cell.backgroundView = mapView;
-		[mapView release];
-	} else if (indexPath.section == 1) {
-		// Define selector textlabel
+	
+	if (indexPath.section == 1) {
+		// Decide placeholder or selected result to show
 		if ([selectedTypeTitle length])
 			cell.textLabel.text = selectedTypeTitle;
 		else
 			cell.textLabel.text = @"請按此選擇案件種類";
-		// other style
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-	}
+	}	
 	
 	return cell;
 }
