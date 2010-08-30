@@ -115,10 +115,10 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	if (section == 4) {
+	//if (section == 4) {
 		// TODO: Change to legal info
-		return @"Footer";
-	}
+		//return @"FooterFooterFooterFooterFooterFooterFooterFooterFooterFooterFooterFooterFooter";
+		//}
 	return nil;
 }
 
@@ -188,18 +188,12 @@
 			[mapView addAnnotation:casePlace];
 			[casePlace release];
 			
-			// TODO: fix the bound to round.
-			// TODO: fix the map in normal view		
-			[cell.contentView addSubview:mapView];
+			cell.backgroundView = mapView;
 			[mapView release];
 		} 
 		else if (indexPath.section == 2) {
 			#pragma mark Type Selector
-			// Decide placeholder or selected result to show
-			if ([selectedTypeTitle length])
-				cell.textLabel.text = selectedTypeTitle;
-			else
-				cell.textLabel.text = @"請按此選擇案件種類";
+			cell.textLabel.text = @"請按此選擇案件種類";
 			// Other style
 			cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 			cell.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -218,7 +212,6 @@
 			[nameField release];
 		} 
 		else if ( indexPath.section == 4 ){
-			NSLog(@"!!!");
 			#pragma mark Descritption
 			// TODO: change to other UI element
 			UITextView *descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 180)];
@@ -228,6 +221,16 @@
 			[descriptionField release];
 		} 
 	}
+	
+	// For Reloading
+	if (indexPath.section == 2) {
+		// Decide placeholder or selected result to show
+		if ([selectedTypeTitle length])
+			cell.textLabel.text = selectedTypeTitle;
+		else
+			cell.textLabel.text = @"請按此選擇案件種類";
+	}
+	
 	return cell;
 }
 
@@ -252,7 +255,7 @@
 		typesView.delegate = self;
 		[self presentModalViewController:typeAndDetailSelector animated:YES];
 		// Add Back button
-		UIBarButtonItem *backBuuton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:typesView action:@selector(backToPreviousView)];
+		UIBarButtonItem *backBuuton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:typesView.delegate action:@selector(leaveSelectorWithoutTitleAndQid)];
 		typesView.navigationItem.leftBarButtonItem = backBuuton;
 		[backBuuton release];
 		[typesView release];
@@ -269,6 +272,10 @@
 	[self dismissModalViewControllerAnimated:YES];
 	// Reload tableview after selected
 	[self.tableView reloadData];
+}
+
+- (void)leaveSelectorWithoutTitleAndQid {
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark -

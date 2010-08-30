@@ -12,5 +12,6 @@
 
 @required
 - (void)typeSelectorDidSelectWithTitle:(NSString *)t andQid:(NSInteger)q;
+- (void)leaveSelectorWithoutTitleAndQid;
 
 @end
