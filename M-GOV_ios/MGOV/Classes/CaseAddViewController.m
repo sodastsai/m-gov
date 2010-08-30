@@ -62,18 +62,6 @@
 
 // TODO: picker localization
 
-/*
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-{
-	
-	//photo = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-	[picker dismissModalViewControllerAnimated:YES];
-	
-	//[self.tableView reloadData];
-	
-}
-*/
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
 	[photoButton setBackgroundImage:image forState:UIControlStateNormal];
 	[picker dismissModalViewControllerAnimated:YES];
@@ -103,26 +91,25 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 4;
+    return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
 	// The number has been discussed before.
-    if (!section) {
-		return 2;
-	}
 	return 1;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section == 0) {
 		return @"照片及地址";
-	} else if (section == 1 ){
+	} /*else if(section == 1) {
+		return @"地址";
+	}*/ else if (section == 2 ){
 		return @"案件種類";
-	} else if (section == 2 ){
-		return @"報案者姓名";
 	} else if (section == 3 ){
+		return @"報案者姓名";
+	} else if (section == 4 ){
 		return @"描述及建議";
 	}
 	
@@ -132,16 +119,14 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {	
 	// Set the height according to the edit area size
     if (indexPath.section == 0) {
-		if (!indexPath.row) {
-			return kPhotoViewHeight;
-		} else {
-			return kMapViewHeight;
-		}
-	} else if (indexPath.section == 1 ){
-		return 45;
+		return kPhotoViewHeight;
+	} else if (indexPath.section == 1) {
+		return kMapViewHeight;
 	} else if (indexPath.section == 2 ){
-		return 40;
+		return 45;
 	} else if (indexPath.section == 3 ){
+		return 40;
+	} else if (indexPath.section == 4 ){
 		return 190;
 	}
 	
@@ -164,50 +149,50 @@
 	
 	// Style by each cell
 	if (indexPath.section == 0) {
-		if ( indexPath.row == 0 ) {
-			// TODO: photo scale
-			// TODO: round corner
-			#pragma mark PhotoPicker
-			if (!didSelectPhoto) {
-				photoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, kPhotoViewHeight)];
-				
-				[photoButton setTitle:@"按一下以加入照片..." forState:UIControlStateNormal];
-				photoButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
-				[photoButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-				
-				photoButton.showsTouchWhenHighlighted = YES;
-				[photoButton addTarget:self action:@selector(photoDialogAction) forControlEvents:UIControlEventTouchUpInside];
-				[cell.contentView addSubview:photoButton];
-			} else {
-				[photoButton setTitle:@"" forState:UIControlStateNormal];
-			}
-		}
-		if (indexPath.row == 1) {
-			#pragma mark Address MapView
-			MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, kTextFieldWidth+10, kMapViewHeight)];
-			mapView.mapType = MKMapTypeStandard;
-			GlobalVariable *shared = [GlobalVariable sharedVariable];
-			[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
-			MKCoordinateRegion region;
-			region.center = shared.locationManager.location.coordinate;
-			MKCoordinateSpan span;
-			span.latitudeDelta = 0.004;
-			span.longitudeDelta = 0.004;
-			region.span = span;
-			[mapView setRegion:region];
+		// TODO: photo scale
+		#pragma mark PhotoPicker
+		if (!didSelectPhoto) {
+			photoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, kPhotoViewHeight)];
+		
+			[photoButton setTitle:@"按一下以加入照片..." forState:UIControlStateNormal];
+			photoButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+			[photoButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
 			
-			// TODO: correct the title: 現在位置or照片位置
-			// TODO: correct the subtitle: 地址
-			AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"Title test" andSubtitle:@"科科"];
-			[mapView addAnnotation:casePlace];
-			[casePlace release];
-
-			// TODO: fix the bound to round.
-			// TODO: fix the map in normal view		
-			[cell.contentView addSubview:mapView];
-			[mapView release];
+			photoButton.showsTouchWhenHighlighted = YES;
+			[photoButton addTarget:self action:@selector(photoDialogAction) forControlEvents:UIControlEventTouchUpInside];
+			[cell.contentView addSubview:photoButton];
+		} else {
+			[photoButton setTitle:@"" forState:UIControlStateNormal];
+			photoButton.layer.cornerRadius = 10.0;
+			photoButton.layer.masksToBounds = YES;
 		}
 	} else if (indexPath.section == 1) {
+		#pragma mark Address MapView
+		MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, kTextFieldWidth+10, kMapViewHeight-1)];
+		mapView.mapType = MKMapTypeStandard;
+		GlobalVariable *shared = [GlobalVariable sharedVariable];
+		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
+		MKCoordinateRegion region;
+		region.center = shared.locationManager.location.coordinate;
+		MKCoordinateSpan span;
+		span.latitudeDelta = 0.004;
+		span.longitudeDelta = 0.004;
+		region.span = span;
+		mapView.layer.cornerRadius = 10.0;
+		mapView.layer.masksToBounds = YES;
+		[mapView setRegion:region];
+		
+		// TODO: correct the title: 現在位置or照片位置
+		// TODO: correct the subtitle: 地址
+		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"Title test" andSubtitle:@"科科"];
+		[mapView addAnnotation:casePlace];
+		[casePlace release];
+
+		// TODO: fix the bound to round.
+		// TODO: fix the map in normal view		
+		[cell.contentView addSubview:mapView];
+		[mapView release];
+	} else if (indexPath.section == 2) {
 		#pragma mark Type Selector
 		// Decide placeholder or selected result to show
 		if ([selectedTypeTitle length])
@@ -217,7 +202,7 @@
 		// Other style
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-	} else if (indexPath.section == 2) {
+	} else if (indexPath.section == 3) {
 		#pragma mark Name field
 		UITextField *nameField = [[UITextField alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, kTextFieldHeight)];
 		nameField.placeholder = @"請輸入您的姓名";
@@ -229,7 +214,7 @@
 		
 		[cell.contentView addSubview:nameField];
 		[nameField release];
-	} else {
+	} else if ( indexPath.section == 4 ){
 		#pragma mark Descritption
 		// TODO: change to other UI element
 		UITextView *descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 180)];
@@ -237,8 +222,8 @@
 		//descriptionField.text = @"請描述案件情況";
 		[cell.contentView addSubview:descriptionField];
 		[descriptionField release];
-	}
-	
+	} 
+
 	return cell;
 }
 
@@ -255,7 +240,7 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section==1 && indexPath.row==0) {
+	if (indexPath.section==2 && indexPath.row==0) {
 		typesViewController *typesView = [[typesViewController alloc] init];
 		typesView.title = @"請選擇案件種類";
 		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typesView];

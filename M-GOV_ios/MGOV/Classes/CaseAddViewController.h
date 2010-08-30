@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "typesViewController.h"
 #import "TypeSelectorDelegateProtocol.h"
 
@@ -14,7 +15,6 @@
 	NSString *selectedTypeTitle;
 	NSInteger qid;
 	BOOL didSelectPhoto;
-	UIImage *selectedImage;
 }
 
 @property (retain, nonatomic) NSString *selectedTypeTitle;
