@@ -56,6 +56,16 @@
 	return 40;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	if (section == 0) {
+		return @"依照地址查詢";
+	} else if(section == 1) {
+		return @"依照案件種類查詢";
+	}
+	
+	return nil;
+}
+
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -69,6 +79,29 @@
 	// TODO: location (use mapView)
     if (indexPath.section == 0) {
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		#pragma mark Address MapView
+		MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
+		mapView.mapType = MKMapTypeStandard;
+		GlobalVariable *shared = [GlobalVariable sharedVariable];
+		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
+		MKCoordinateRegion region;
+		region.center = shared.locationManager.location.coordinate;
+		MKCoordinateSpan span;
+		span.latitudeDelta = 0.004;
+		span.longitudeDelta = 0.004;
+		region.span = span;
+		mapView.layer.cornerRadius = 10.0;
+		mapView.layer.masksToBounds = YES;
+		[mapView setRegion:region];
+		
+		// TODO: correct the title: 現在位置or照片位置
+		// TODO: correct the subtitle: 地址
+		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"Title test" andSubtitle:@"科科"];
+		[mapView addAnnotation:casePlace];
+		[casePlace release];
+		
+		cell.backgroundView = mapView;
+		[mapView release];
 	} else if (indexPath.section == 1) {
 		// Define selector textlabel
 		if ([selectedTypeTitle length])
@@ -95,17 +128,10 @@
 		typesView.delegate = self;
 		[self presentModalViewController:typeAndDetailSelector animated:YES];
 		// Add Back button
-		UIBarButtonItem *backBuuton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:typesView action:@selector(backToPreviousView)];
+		UIBarButtonItem *backBuuton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:typesView.delegate action:@selector(leaveSelectorWithoutTitleAndQid)];
 		typesView.navigationItem.leftBarButtonItem = backBuuton;
 		[backBuuton release];
 		[typesView release];
-		
-		// Record to plist
-		NSString *typeSelectorStatusPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"TypeSelectorStatus.plist"];
-		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:typeSelectorStatusPlistPathInAppDocuments];
-		[dict setValue:@"query" forKey:@"Invoker"];
-		[dict setValue:0 forKey:@"queryReadable"];
-		[dict writeToFile:typeSelectorStatusPlistPathInAppDocuments atomically:YES];
 	}
 }
 
@@ -119,6 +145,10 @@
 	[self dismissModalViewControllerAnimated:YES];
 	// Reload tableview after selected
 	[self.tableView reloadData];
+}
+
+- (void)leaveSelectorWithoutTitleAndQid {
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark -

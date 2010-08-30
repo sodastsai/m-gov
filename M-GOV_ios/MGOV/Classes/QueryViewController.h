@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "TypeSelectorDelegateProtocol.h"
+#import "AppMKAnnotation.h"
 
 
 @interface QueryViewController : UITableViewController <TypeSelectorDelegateProtocol> {
