@@ -1,7 +1,6 @@
 package net;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.regex.Matcher;
@@ -11,6 +10,7 @@ import org.htmlparser.Parser;
 import org.htmlparser.filters.NodeClassFilter;
 import org.htmlparser.tags.BodyTag;
 import org.htmlparser.util.NodeList;
+import org.htmlparser.util.ParserException;
 import org.htmlparser.visitors.TextExtractingVisitor;
 
 import tool.ReadFile;
@@ -19,41 +19,47 @@ public class HtmlFilter {
 
 	public static void main(String args[]) {
 
-		String str,res="";
+		String str, res = "";
 		Matcher tmp;
 		str = ReadFile.read("/Users/wildmind5/test.in");
-//		System.out.print(str);
+		// System.out.print(str);
 		tmp = Pattern.compile("案情補述相關照片.*?\n", Pattern.DOTALL).matcher(str);
-		
-		if(tmp.find())
+
+		if (tmp.find())
 			res = tmp.group();
-		
+
 		tmp = Pattern.compile("http://.*?JPG", Pattern.DOTALL).matcher(res);
 		res = "案情補述相關照片：";
-			
-		while(tmp.find())
-			res += tmp.group() +" ";
+
+		while (tmp.find())
+			res += tmp.group() + " ";
 		System.out.println(res);
-		
+
 	}
 
-	public static String process(String stringUrl) {
+	public static String process(String stringUrl) throws IOException {
 		URL url;
 		URLConnection connection = null;
-		try {
-			url = new URL(stringUrl);
-			try {
-				connection = url.openConnection();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		url = new URL(stringUrl);
+		connection = url.openConnection();
 		return process(connection);
+	}
+
+	public static String processByHTMLStr(String htmlstr)
+			throws ParserException {
+		Parser parser = new Parser();
+		htmlstr = Pattern.compile("<(script)[^>]*>(.*?)</script>",
+				Pattern.MULTILINE + Pattern.DOTALL).matcher(htmlstr)
+				.replaceAll("");
+		htmlstr = Pattern.compile("(<!--.{0,}?-->)",
+				Pattern.MULTILINE + Pattern.DOTALL).matcher(htmlstr)
+				.replaceAll("");
+		parser.setInputHTML(htmlstr);
+		TextExtractingVisitor visitor = new TextExtractingVisitor();
+		parser.visitAllNodesWith(visitor);
+		// System.out.print("go"+str);
+
+		return visitor.getExtractedText();
 	}
 
 	public static String process(URLConnection connection) {
@@ -66,7 +72,7 @@ public class HtmlFilter {
 			str = nodeList.toHtml();
 
 			str = makeImageURL(str);
-			
+
 			str = Pattern.compile("<(script)[^>]*>(.*?)</script>",
 					Pattern.MULTILINE + Pattern.DOTALL).matcher(str)
 					.replaceAll("");
@@ -77,7 +83,7 @@ public class HtmlFilter {
 			TextExtractingVisitor visitor = new TextExtractingVisitor();
 			parser.visitAllNodesWith(visitor);
 			// System.out.print("go"+str);
-			str = delTrash(visitor.getExtractedText());
+			str = visitor.getExtractedText();
 		} catch (Exception e) {
 			e.printStackTrace();
 			// eat it
@@ -85,26 +91,26 @@ public class HtmlFilter {
 		return str;
 	}
 
-	private static String makeImageURL(String str)
-	{
-		String res="";
+	private static String makeImageURL(String str) {
+		String res = "";
 		Matcher matcher;
 		matcher = Pattern.compile("案情補述相關照片.*?\n", Pattern.DOTALL).matcher(str);
-		
-		if(matcher.find())
+
+		if (matcher.find())
 			res = matcher.group();
-		
+
 		matcher = Pattern.compile("http://.*?JPG", Pattern.DOTALL).matcher(res);
 		res = "案情補述相關照片：\n";
-			
-		while(matcher.find())
-			res += matcher.group() +"\n";
+
+		while (matcher.find())
+			res += matcher.group() + "\n";
 		System.out.println(res);
 
-		return Pattern.compile("案情補述相關照片.*?\n", Pattern.DOTALL).matcher(str).replaceAll(res);
+		return Pattern.compile("案情補述相關照片.*?\n", Pattern.DOTALL).matcher(str)
+				.replaceAll(res);
 	}
-	
-	private static String delTrash(String textInPage) {
+
+	public static String delTrash(String textInPage) {
 
 		textInPage = textInPage.replace("\u0009", "");
 		textInPage = textInPage.replace("\r", "");

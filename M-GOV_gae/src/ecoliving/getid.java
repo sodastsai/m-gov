@@ -30,7 +30,7 @@ public class getid {
 		} catch (Exception E) {
 			// TODO: handle exception
 			try {
-				query.go(id);
+				store_id.go(id);
 				e = pm.getObjectById(GAENode.class, id);
 				System.out.println(e.toJson());
 				return e.toJson() ;

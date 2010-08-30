@@ -13,8 +13,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/query")
-public class query {
+@Path("/store_id")
+public class store_id {
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("{c1}")
@@ -28,7 +28,10 @@ public class query {
 			urlcon.addCookie("CFID", "264151", true);
 			urlcon.addCookie("CFTOKEN", "14172663", true);
 			
-			String res=HtmlFilter.process(urlcon.getConnection());
+			String res="";
+			res=HtmlFilter.process(urlcon.getConnection());
+			res = HtmlFilter.delTrash(res);
+			
 			if(res.contains("查報案件")==false)
 				return "Not Found.";
 			
