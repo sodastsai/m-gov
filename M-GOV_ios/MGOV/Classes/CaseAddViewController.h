@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
+
 #import "typesViewController.h"
 #import "TypeSelectorDelegateProtocol.h"
+#import "PhotoPickerTableCell.h"
+#import "LocationSelectorTableCell.h"
+#import "NameFieldTableCell.h"
+#import "DescriptionTableCell.h"
 
-@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate>  {
+@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, PhotoPickerTableCellDelegate>  {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
 	UITextField *emailField;
@@ -19,14 +24,17 @@
 	NSString *alertRequestEmailTitle;
 	NSString *alertRequestEmailPlaceholder;
 	NSString *nameFieldPlaceholder;
+	
+	// Component Cells
+	PhotoPickerTableCell *photoCell;
+	LocationSelectorTableCell *locationCell;
+	NameFieldTableCell *nameFieldCell;
+	DescriptionTableCell *descriptionCell;
 }
 
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
-@property (nonatomic, retain) UIButton *photoButton;
 
 - (BOOL)submitCase;
-- (void)photoDialogAction;
-
 
 @end

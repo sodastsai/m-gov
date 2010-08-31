@@ -35,6 +35,10 @@
 		FE1745EF122CF3DD00641599 /* FirstRunCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1745ED122CF3DD00641599 /* FirstRunCellViewController.m */; };
 		FE1745F0122CF3DD00641599 /* FirstRunCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE1745EE122CF3DD00641599 /* FirstRunCellViewController.xib */; };
 		FE17463C122D179C00641599 /* NoMyCase.png in Resources */ = {isa = PBXBuildFile; fileRef = FE17463B122D179C00641599 /* NoMyCase.png */; };
+		FE174735122D276400641599 /* PhotoPickerTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE174734122D276400641599 /* PhotoPickerTableCell.m */; };
+		FE1747A9122D2D6B00641599 /* LocationSelectorTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1747A8122D2D6B00641599 /* LocationSelectorTableCell.m */; };
+		FE1747DD122D303500641599 /* NameFieldTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1747DC122D303500641599 /* NameFieldTableCell.m */; };
+		FE174803122D329C00641599 /* DescriptionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE174802122D329C00641599 /* DescriptionTableCell.m */; };
 		FE4EE76F1223F68F00737028 /* reportDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76A1223F68F00737028 /* reportDetails.plist */; };
 		FE4EE7701223F68F00737028 /* reportQid.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76B1223F68F00737028 /* reportQid.plist */; };
 		FE4EE7711223F68F00737028 /* reportSecondDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76C1223F68F00737028 /* reportSecondDetails.plist */; };
@@ -96,6 +100,14 @@
 		FE1745ED122CF3DD00641599 /* FirstRunCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstRunCellViewController.m; sourceTree = "<group>"; };
 		FE1745EE122CF3DD00641599 /* FirstRunCellViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FirstRunCellViewController.xib; path = Classes/FirstRunCellViewController.xib; sourceTree = "<group>"; };
 		FE17463B122D179C00641599 /* NoMyCase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoMyCase.png; sourceTree = "<group>"; };
+		FE174733122D276400641599 /* PhotoPickerTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoPickerTableCell.h; sourceTree = "<group>"; };
+		FE174734122D276400641599 /* PhotoPickerTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoPickerTableCell.m; sourceTree = "<group>"; };
+		FE1747A7122D2D6B00641599 /* LocationSelectorTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSelectorTableCell.h; sourceTree = "<group>"; };
+		FE1747A8122D2D6B00641599 /* LocationSelectorTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSelectorTableCell.m; sourceTree = "<group>"; };
+		FE1747DB122D303500641599 /* NameFieldTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameFieldTableCell.h; sourceTree = "<group>"; };
+		FE1747DC122D303500641599 /* NameFieldTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameFieldTableCell.m; sourceTree = "<group>"; };
+		FE174801122D329C00641599 /* DescriptionTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionTableCell.h; sourceTree = "<group>"; };
+		FE174802122D329C00641599 /* DescriptionTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionTableCell.m; sourceTree = "<group>"; };
 		FE1E82591226A54000973DA4 /* TypeSelectorDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeSelectorDelegateProtocol.h; sourceTree = "<group>"; };
 		FE4EE76A1223F68F00737028 /* reportDetails.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportDetails.plist; sourceTree = SOURCE_ROOT; };
 		FE4EE76B1223F68F00737028 /* reportQid.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportQid.plist; sourceTree = SOURCE_ROOT; };
@@ -235,6 +247,7 @@
 		2A79AC2E1223FBB500F140A2 /* Add Case */ = {
 			isa = PBXGroup;
 			children = (
+				FE1747A6122D2D3400641599 /* Component Cells */,
 				2A79AC1E1223FB7C00F140A2 /* CaseAddViewController.h */,
 				2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */,
 			);
@@ -288,6 +301,21 @@
 				FE17463B122D179C00641599 /* NoMyCase.png */,
 			);
 			name = "Icon And Pictures";
+			sourceTree = "<group>";
+		};
+		FE1747A6122D2D3400641599 /* Component Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FE174733122D276400641599 /* PhotoPickerTableCell.h */,
+				FE174734122D276400641599 /* PhotoPickerTableCell.m */,
+				FE1747A7122D2D6B00641599 /* LocationSelectorTableCell.h */,
+				FE1747A8122D2D6B00641599 /* LocationSelectorTableCell.m */,
+				FE1747DB122D303500641599 /* NameFieldTableCell.h */,
+				FE1747DC122D303500641599 /* NameFieldTableCell.m */,
+				FE174801122D329C00641599 /* DescriptionTableCell.h */,
+				FE174802122D329C00641599 /* DescriptionTableCell.m */,
+			);
+			name = "Component Cells";
 			sourceTree = "<group>";
 		};
 		FE4EE7461223D50200737028 /* Types and Detail Selector */ = {
@@ -405,6 +433,10 @@
 				2AC8B459122CB478007E3FC8 /* NSObject+SBJSON.m in Sources */,
 				FE174377122CC80B00641599 /* MyCaseViewController.m in Sources */,
 				FE1745EF122CF3DD00641599 /* FirstRunCellViewController.m in Sources */,
+				FE174735122D276400641599 /* PhotoPickerTableCell.m in Sources */,
+				FE1747A9122D2D6B00641599 /* LocationSelectorTableCell.m in Sources */,
+				FE1747DD122D303500641599 /* NameFieldTableCell.m in Sources */,
+				FE174803122D329C00641599 /* DescriptionTableCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
