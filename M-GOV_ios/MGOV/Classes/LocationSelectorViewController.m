@@ -9,6 +9,7 @@
 #import "LocationSelectorViewController.h"
 #import "GlobalVariable.h"
 #import "AppMKAnnotation.h"
+#import "AppMKAnnotationView.h"
 
 @implementation LocationSelectorViewController
 
@@ -16,6 +17,24 @@
 @synthesize titleBar, searchBar, mapView;
 @synthesize selectedAddress;
 
+#pragma mark -
+#pragma mark MKMapViewDelegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)MapView viewForAnnotation:(id <MKAnnotation>)annotation
+{
+	static NSString * const kPinAnnotationIdentifier = @"PinIdentifier";
+	MKAnnotationView *draggablePinView = [MapView dequeueReusableAnnotationViewWithIdentifier:kPinAnnotationIdentifier];
+	
+	if (draggablePinView) {
+		draggablePinView.annotation = annotation;
+	} else {		
+		draggablePinView = [[[AppMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:kPinAnnotationIdentifier] autorelease];
+		if ([draggablePinView isKindOfClass:[AppMKAnnotationView class]]) {
+			((AppMKAnnotationView *)draggablePinView).AmapView = MapView;
+		}
+	}			
+	return draggablePinView;
+}
 
 #pragma mark -
 #pragma mark Location Selector method

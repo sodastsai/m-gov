@@ -11,7 +11,7 @@
 #import "JSON.h"
 
 
-@interface LocationSelectorViewController : UIViewController {
+@interface LocationSelectorViewController : UIViewController <MKMapViewDelegate> {
 
 	MKMapView *mapView;
 	UINavigationBar *titleBar;
