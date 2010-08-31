@@ -76,9 +76,9 @@
 	} else if (section == 2 ){
 		return @"案件種類";
 	} else if (section == 3 ){
-		return @"報案者姓名（選擇性）";
+		return @"報案者姓名";
 	} else if (section == 4 ){
-		return @"描述及建議（選擇性）";
+		return @"描述及建議";
 	}
 	
 	return nil;
@@ -95,7 +95,7 @@
 	} else if (indexPath.section == 3 ){
 		return 40;
 	} else if (indexPath.section == 4 ){
-		return 153;
+		return 156;
 	}
 	
 	return 0;
@@ -159,8 +159,6 @@
 #pragma mark -
 #pragma mark UIImagePickerControllerDelegate
 
-// TODO: picker localization
-
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
 	[photoCell.photoButton setBackgroundImage:image forState:UIControlStateNormal];
 	[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];
@@ -197,12 +195,12 @@
 			[dictUserInformation setValue:emailField.text forKey:@"User Email"];
 			// Write to File
 			[dictUserInformation writeToFile:plistPathInAppDocuments atomically:YES];
+			[self submitCase];
 		} else {
 			// User does not enter his email. Close the Alert
 		}
 		// Maintain the responder chain
 		[emailField removeFromSuperview];
-		[self submitCase];
 	}
 }
 

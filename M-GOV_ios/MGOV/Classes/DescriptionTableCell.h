@@ -11,12 +11,13 @@
 
 @interface DescriptionTableCell : UITableViewCell <UITextViewDelegate> {
 	UITextView *descriptionField;
-	UIButton *closeKeyboard;
-	BOOL firstShowHideKeyboard;
+	UIToolbar *keyboardToolbar;
+	UIView *keyboard;
 }
 
 @property (nonatomic, retain) UITextView *descriptionField;
 
-- (void)hideKeyboard;
+- (void)keyboardWillShow:(NSNotification *)note;
+- (void)endEditingTextView;
 
 @end

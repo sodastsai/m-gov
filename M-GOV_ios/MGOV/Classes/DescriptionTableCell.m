@@ -14,14 +14,34 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
-		firstShowHideKeyboard = YES;
-		descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 100)];
+		descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 140)];
 		descriptionField.font = [UIFont systemFontOfSize:18.0];
 		descriptionField.delegate = self;
-		//descriptionField.text = @"請描述案件情況";
 		[self.contentView addSubview:descriptionField];
 
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
+		
+		// Set keyboard bar
+		// Prepare Keyboard
+		keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -44, 320, 44)];
+		keyboardToolbar.barStyle = UIBarStyleBlack;
+		keyboardToolbar.translucent = YES;
+		
+		// Prepare Buttons
+		UIBarButtonItem *doneEditing = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(endEditingTextView)];
+		UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+		
+		// Prepare Labels
+		UILabel *optionalHint = [[UILabel alloc] initWithFrame:CGRectMake(10, 14, 250, 16)];
+		optionalHint.text = @"本欄為選項性欄位，可不填";
+		optionalHint.backgroundColor = [UIColor clearColor];
+		optionalHint.textColor = [UIColor whiteColor];
+		optionalHint.font = [UIFont boldSystemFontOfSize:16.0];
+		[keyboardToolbar addSubview:optionalHint];
+		
+		// Add buttons to keyboard
+		NSArray *toolbarItems = [NSArray arrayWithObjects:flexibleItem, doneEditing, nil];
+		[keyboardToolbar setItems:toolbarItems animated:YES];
     }
     return self;
 }
@@ -30,35 +50,32 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)hideKeyboard {
-	[descriptionField resignFirstResponder];
-}
-
 - (void)dealloc {
     [descriptionField release];
 	[super dealloc];
 }
 
 #pragma mark -
-#pragma mark UITextViewDelegate
+#pragma mark UITextViewDelegate and Keyboard Toolbar
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-	if (firstShowHideKeyboard) {
-		// Close Keyboard Button
-		closeKeyboard = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-		closeKeyboard.frame = CGRectMake(193.0, 115.0, 100, 30);
-		[closeKeyboard setTitle:@"輸入完成" forState:UIControlStateNormal];
-		[closeKeyboard addTarget:self action:@selector(hideKeyboard) forControlEvents:UIControlEventTouchUpInside];
-		[self.contentView addSubview:closeKeyboard];
-	} else {
-		closeKeyboard.hidden = NO;
-	}
-	
+	// Monitor the keyboard
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
 }
 
-- (void)textViewDidEndEditing:(UITextView *)textView {
-	closeKeyboard.hidden = YES;
-	if (firstShowHideKeyboard) firstShowHideKeyboard = NO;
+- (void)keyboardWillShow:(NSNotification *)note {
+	// locate keyboard view from window
+	keyboard = [[[[[UIApplication sharedApplication] windows] objectAtIndex:1] subviews] objectAtIndex:0];
+	[keyboard addSubview:keyboardToolbar];
+}
+
+- (void)endEditingTextView {
+	// Remove Toolbar From Keyboard
+	[[[keyboard subviews] lastObject] removeFromSuperview];
+	// Stop monitor keyboard
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	// Hide the keyboard
+	[descriptionField resignFirstResponder];
 }
 
 @end

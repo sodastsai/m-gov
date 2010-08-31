@@ -15,7 +15,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         nameField = [[UITextField alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, kTextFieldHeight)];
-		nameField.placeholder = @"請輸入您的姓名";
+		nameField.placeholder = @"本欄為選項性欄位，可不填";
 		nameField.autocorrectionType = UITextAutocorrectionTypeNo;
 		nameField.delegate = self;
 		nameField.keyboardType = UIKeyboardTypeDefault;
@@ -41,7 +41,8 @@
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	if ([textField.placeholder isEqualToString:@"請輸入您的姓名"]) [textField resignFirstResponder];
+	if ([textField.placeholder isEqualToString:@"本欄為選項性欄位，可不填"])
+		[textField resignFirstResponder];
 	
 	return YES;
 }
