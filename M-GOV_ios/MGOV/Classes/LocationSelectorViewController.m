@@ -13,9 +13,9 @@
 @implementation LocationSelectorViewController
 
 
-@synthesize topBar, searchBar, mapView;
-@synthesize searchBarCell, titleCell;
+@synthesize titleBar, searchBar, mapView;
 @synthesize selectedAddress;
+
 
 #pragma mark -
 #pragma mark Location Selector method
@@ -48,41 +48,6 @@
 
 
 #pragma mark -
-#pragma mark Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {	
-	return 45;
-}
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-	if (indexPath.row == 1) {
-		return searchBarCell;
-	}
-	if (indexPath.row == 0) {
-		return titleCell;
-	}
-	
-	static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-	return cell;
-}
-
-
-#pragma mark -
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
@@ -103,10 +68,7 @@
 	[mapView addAnnotation:casePlace];
 	[casePlace release];
 	
-	topBar.backgroundColor = [UIColor blackColor];
-	topBar.scrollEnabled = NO;
-	topBar.separatorStyle = UITableViewCellSeparatorStyleNone;
-	searchBarCell.clipsToBounds = YES;
+
 	selectedAddress.textAlignment = UITextAlignmentCenter;
 	
 	[self updatingAddress:shared.locationManager.location.coordinate];
@@ -150,9 +112,9 @@
 
 - (void)dealloc {
 	[mapView release];
-	[topBar release];
+	[titleBar release];
 	[searchBar release];
-	[searchBarCell release];
+	[selectedAddress release];
     [super dealloc];
 }
 

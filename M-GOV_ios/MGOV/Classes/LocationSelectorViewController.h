@@ -11,21 +11,17 @@
 #import "JSON.h"
 
 
-@interface LocationSelectorViewController : UIViewController <UITableViewDataSource>{
+@interface LocationSelectorViewController : UIViewController {
 
 	MKMapView *mapView;
-	UITableView *topBar;
+	UINavigationBar *titleBar;
 	UISearchBar *searchBar;
-	UITableViewCell *searchBarCell;
-	UITableViewCell *titleCell;
 	UILabel *selectedAddress;
 }
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
-@property (nonatomic, retain) IBOutlet UITableView *topBar;
+@property (nonatomic, retain) IBOutlet UINavigationBar *titleBar;
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
-@property (nonatomic, retain) IBOutlet UITableViewCell *searchBarCell;
-@property (nonatomic, retain) IBOutlet UITableViewCell *titleCell;
 @property (nonatomic, retain) IBOutlet UILabel *selectedAddress;
 
 -(void) selectCancel;
