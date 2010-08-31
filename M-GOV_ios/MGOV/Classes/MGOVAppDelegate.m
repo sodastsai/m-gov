@@ -41,7 +41,7 @@
 	
 	// Query
 	QueryViewController *query = [[QueryViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	query.title = @"查詢";
+	query.title = @"查詢案件";
 	UINavigationController *queryNavigation = [[UINavigationController alloc] initWithRootViewController:query];
 	
 	// Add tabs and view

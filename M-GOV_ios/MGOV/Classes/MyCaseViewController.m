@@ -8,10 +8,9 @@
 
 #import "MyCaseViewController.h"
 #import "GlobalVariable.h"
+#import "FirstRunCellViewController.h"
 
 @implementation MyCaseViewController
-
-@synthesize firstRunCell;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -26,6 +25,8 @@
 	
 	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
 	userEmail = [[NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments] valueForKey:@"User Email"];
+	
+	if (![userEmail length]) self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 }
 
 - (void) addCase {
@@ -56,16 +57,31 @@
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (![userEmail length]) {
+		// The full cell height including a navigation bar and a tabbar
+		return 372;
+	}
+	// Default Height is 44.
+	return 44;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
-	
-	static NSString *CellIdentifier = @"Cell";
-	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+	if (![userEmail length]) {
+		// FirstRun Guide
+		FirstRunCellViewController *firstCell = [[[FirstRunCellViewController alloc] init] autorelease];
+		return (UITableViewCell *)firstCell.view;
+	} else {
+		// Show cases
+		static NSString *CellIdentifier = @"Cell";
+		
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		}
+		return cell;
 	}
-	return cell;
 }
 
 #pragma mark -
