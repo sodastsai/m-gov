@@ -128,13 +128,11 @@
 #pragma mark LocationSelectorViewControllerDelegate
 
 - (void)userDidSelectCancel {
-	NSLog(@"Cancel");
 	// Dismiss the view
 	[self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)userDidSelectDone:(CLLocationCoordinate2D)coordinate {
-	NSLog(@"Done");
 	// Dismiss the view
 	[locationCell updatingCoordinate:coordinate];
 	selectedCoord = coordinate;

@@ -30,19 +30,19 @@
 	NSMutableDictionary *dictUserInformation = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
 	
 	if (![[dictUserInformation valueForKey:@"User Email"] length]) {
-		alertEmailInput = [[UIAlertView alloc] initWithTitle:alertRequestEmailTitle message:alertRequestEmailPlaceholder delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好", nil];
+		alertEmailPopupBox = [[UIAlertView alloc] initWithTitle:alertRequestEmailTitle message:alertRequestEmailPlaceholder delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好", nil];
 		// Email Text Field
-		emailField = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
-		emailField.delegate = self;
-		emailField.borderStyle = UITextBorderStyleRoundedRect;
-		emailField.keyboardType = UIKeyboardTypeEmailAddress;
-		emailField.returnKeyType = UIReturnKeyDone;
-		emailField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-		emailField.placeholder = alertRequestEmailPlaceholder;
-		[emailField becomeFirstResponder];
+		alertEmailInputField = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
+		alertEmailInputField.delegate = self;
+		alertEmailInputField.borderStyle = UITextBorderStyleRoundedRect;
+		alertEmailInputField.keyboardType = UIKeyboardTypeEmailAddress;
+		alertEmailInputField.returnKeyType = UIReturnKeyDone;
+		alertEmailInputField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+		alertEmailInputField.placeholder = alertRequestEmailPlaceholder;
+		[alertEmailInputField becomeFirstResponder];
 		// Show view
-		[alertEmailInput addSubview:emailField];
-		[alertEmailInput show];
+		[alertEmailPopupBox addSubview:alertEmailInputField];
+		[alertEmailPopupBox show];
 	}
 	
 	if ([[dictUserInformation valueForKey:@"User Email"] length]) {
@@ -173,10 +173,10 @@
 	// End editing
 	if (textField.placeholder == alertRequestEmailPlaceholder) {
 		// Call pre-close method
-		[self alertView:alertEmailInput clickedButtonAtIndex:1];
-		alertEmailInput.message = textField.text;
+		[self alertView:alertEmailPopupBox clickedButtonAtIndex:1];
+		alertEmailPopupBox.message = textField.text;
 		// close the alert
-		[alertEmailInput dismissWithClickedButtonIndex:0 animated:YES];
+		[alertEmailPopupBox dismissWithClickedButtonIndex:0 animated:YES];
 		[self submitCase];
 		return NO;
 	}
@@ -189,18 +189,24 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if ([alertView.title isEqualToString:alertRequestEmailTitle]) {
 		if (buttonIndex) {
-			// Write email to plist
-			NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-			NSMutableDictionary *dictUserInformation = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
-			[dictUserInformation setValue:emailField.text forKey:@"User Email"];
-			// Write to File
-			[dictUserInformation writeToFile:plistPathInAppDocuments atomically:YES];
-			[self submitCase];
+			if ([alertEmailInputField.text length]) {
+				// Write email to plist
+				NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
+				NSMutableDictionary *dictUserInformation = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
+				[dictUserInformation setValue:alertEmailInputField.text forKey:@"User Email"];
+				// Write to File
+				[dictUserInformation writeToFile:plistPathInAppDocuments atomically:YES];
+				[self submitCase];
+			} else {
+				UIAlertView *emptyEmail = [[UIAlertView alloc] initWithTitle:@"E-Mail為必填項目" message:@"請輸入您的E-Mail，否則無法報案！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
+				[emptyEmail show];
+				[emptyEmail release];
+			}
 		} else {
 			// User does not enter his email. Close the Alert
 		}
 		// Maintain the responder chain
-		[emailField removeFromSuperview];
+		[alertEmailInputField removeFromSuperview];
 	}
 }
 

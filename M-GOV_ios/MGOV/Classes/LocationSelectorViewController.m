@@ -16,6 +16,7 @@
 @synthesize delegate;
 @synthesize titleBar, searchBar, mapView;
 @synthesize selectedAddress, selectedCoord;
+@synthesize bottomBar;
 
 #pragma mark -
 #pragma mark MKMapViewDelegate
@@ -91,24 +92,12 @@
 	[self updatingAddress:casePlace];
 	[casePlace release];
 	
-	UIButton *doneButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 420, 159.5, 45)];
-	UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 420, 160, 45)];
-	doneButton.backgroundColor = [UIColor blackColor];
-	cancelButton.backgroundColor = [UIColor blackColor];
-	doneButton.alpha = 0.8;
-	cancelButton.alpha = 0.8;
-	doneButton.showsTouchWhenHighlighted = YES;
-	cancelButton.showsTouchWhenHighlighted = YES;
-	doneButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-	cancelButton.titleLabel.font = [UIFont boldSystemFontOfSize:16.0];
-	[doneButton setTitle:@"確定" forState:UIControlStateNormal];
-	[cancelButton setTitle:@"取消" forState:UIControlStateNormal];
-	[doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[doneButton addTarget:self action:@selector(transformCoordinate) forControlEvents:UIControlEventTouchUpInside];
-	[cancelButton addTarget:delegate action:@selector(userDidSelectCancel) forControlEvents:UIControlEventTouchUpInside];
-	[self.view addSubview:doneButton];
-	[self.view addSubview:cancelButton];
+	// OK, Cancel
+	UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"確定" style:UIBarButtonItemStyleBordered target:self action:@selector(transformCoordinate)];
+	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleBordered target:delegate action:@selector(userDidSelectCancel)];
+	doneButton.width = 149;
+	cancelButton.width = 149;
+	[bottomBar setItems:[NSArray arrayWithObjects:doneButton, cancelButton, nil] animated:YES];
 	[doneButton release];
 	[cancelButton release];
 }

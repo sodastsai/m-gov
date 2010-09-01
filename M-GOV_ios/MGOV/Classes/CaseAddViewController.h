@@ -20,8 +20,8 @@
 @interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, PhotoPickerTableCellDelegate, LocationSelectorTableCellDelegate, LocationSelectorViewControllerDelegate>  {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
-	UITextField *emailField;
-	UIAlertView *alertEmailInput;
+	UITextField *alertEmailInputField;
+	UIAlertView *alertEmailPopupBox;
 	NSString *alertRequestEmailTitle;
 	NSString *alertRequestEmailPlaceholder;
 	NSString *nameFieldPlaceholder;
