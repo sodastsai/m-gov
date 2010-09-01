@@ -23,11 +23,14 @@
 
 @interface LocationSelectorTableCell : UITableViewCell {
 	CGFloat mapViewHeight;
+	MKMapView *mapView;
+	AppMKAnnotation *casePlace;
 	id<LocationSelectorTableCellDelegate> delegate;
 }
 
 @property (retain, nonatomic) id<LocationSelectorTableCellDelegate> delegate;
 
 - (id)initWithHeight:(CGFloat)h;
+- (void)updatingCoordinate:(CLLocationCoordinate2D)coordinate;
 
 @end

@@ -253,9 +253,11 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)userDidSelectDone {
+- (void)userDidSelectDone:(CLLocationCoordinate2D)coordinate {
 	NSLog(@"Done");
 	// Dismiss the view
+	[locationCell updatingCoordinate:coordinate];
+	[self.tableView reloadData];
 	[self dismissModalViewControllerAnimated:YES];
 }
 

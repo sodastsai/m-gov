@@ -17,9 +17,15 @@
 	return [self init];
 }
 
+- (void)updatingCoordinate:(CLLocationCoordinate2D)coordinate {
+
+	[mapView setCenterCoordinate:coordinate];
+	casePlace.coordinate = coordinate;
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
-        MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, mapViewHeight-1)];
+        mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, mapViewHeight-1)];
 		mapView.mapType = MKMapTypeStandard;
 		GlobalVariable *shared = [GlobalVariable sharedVariable];
 		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
@@ -49,9 +55,8 @@
 		
 		// TODO: correct the title: 現在位置or照片位置
 		// TODO: correct the subtitle: 地址
-		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"Title test" andSubtitle:[NSString stringWithFormat:@"%@", [[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"formatted_address"]]];
+		casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"Title test" andSubtitle:[NSString stringWithFormat:@"%@", [[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"formatted_address"]]];
 		[mapView addAnnotation:casePlace];
-		[casePlace release];
 		
 		self.backgroundView = mapView;
 		[mapView release];
@@ -66,6 +71,8 @@
 }
 
 - (void)dealloc {
+	[casePlace release];
+	[mapView release];
     [super dealloc];
 }
 

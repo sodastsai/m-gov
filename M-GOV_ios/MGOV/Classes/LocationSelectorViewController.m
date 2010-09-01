@@ -15,7 +15,7 @@
 
 @synthesize delegate;
 @synthesize titleBar, searchBar, mapView;
-@synthesize selectedAddress;
+@synthesize selectedAddress, selectedCoord;
 
 #pragma mark -
 #pragma mark MKMapViewDelegate
@@ -38,10 +38,7 @@
 - (void)mapView:(MKMapView *)MapView annotationView:(MKAnnotationView *)annotationView didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
 
 	if ( oldState == MKAnnotationViewDragStateDragging && newState == MKAnnotationViewDragStateEnding ) {
-		CLLocationCoordinate2D coord;
-		coord.latitude = annotationView.annotation.coordinate.latitude;
-		coord.longitude = annotationView.annotation.coordinate.longitude;
-		[self updatingAddress:coord ForAnnotation:annotationView.annotation];
+		[self updatingAddress:annotationView.annotation];
 	}
 }
 
@@ -49,9 +46,9 @@
 #pragma mark -
 #pragma mark Location Selector method
 
-- (void) updatingAddress:(CLLocationCoordinate2D)coordinate ForAnnotation:(AppMKAnnotation *)annotation{
+- (void) updatingAddress:(AppMKAnnotation *)annotation{
 	// Use Google API to transform Latitude & Longitude to the corresponding address  
-	NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?latlng=%f,%f&sensor=true&language=zh-TW", coordinate.latitude, coordinate.longitude]];
+	NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?latlng=%f,%f&sensor=true&language=zh-TW", annotation.coordinate.latitude, annotation.coordinate.longitude]];
 	NSString *str = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
 	NSDictionary *dict = [str JSONValue];
 	NSString *address = [[NSString alloc]initWithString:[NSString stringWithFormat:@"%@", [[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"formatted_address"]]];
@@ -60,6 +57,11 @@
 	[url release];
 	[str release];	
 	[address release];
+	selectedCoord = annotation.coordinate;
+}
+
+- (void) transformCoordinate {
+	[delegate userDidSelectDone:selectedCoord];
 }
 
 
@@ -81,7 +83,7 @@
 	
 	AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"Title test" andSubtitle:@"科科"];
 	[mapView addAnnotation:casePlace];
-	[self updatingAddress:shared.locationManager.location.coordinate ForAnnotation:casePlace];
+	[self updatingAddress:casePlace];
 	[casePlace release];
 	
 	UIButton *doneButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 420, 159.5, 45)];
@@ -98,7 +100,7 @@
 	[cancelButton setTitle:@"取消" forState:UIControlStateNormal];
 	[doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[doneButton addTarget:delegate action:@selector(userDidSelectDone) forControlEvents:UIControlEventTouchUpInside];
+	[doneButton addTarget:self action:@selector(transformCoordinate) forControlEvents:UIControlEventTouchUpInside];
 	[cancelButton addTarget:delegate action:@selector(userDidSelectCancel) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:doneButton];
 	[self.view addSubview:cancelButton];

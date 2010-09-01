@@ -14,7 +14,7 @@
 
 @required
 - (void)userDidSelectCancel;
-- (void)userDidSelectDone;
+- (void)userDidSelectDone:(CLLocationCoordinate2D)coordinate;
 
 @end
 
@@ -25,6 +25,7 @@
 	UINavigationBar *titleBar;
 	UISearchBar *searchBar;
 	UILabel *selectedAddress;
+	CLLocationCoordinate2D selectedCoord;
 }
 @property (nonatomic, retain) id<LocationSelectorViewControllerDelegate> delegate;
 
@@ -32,7 +33,10 @@
 @property (nonatomic, retain) IBOutlet UINavigationBar *titleBar;
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, retain) IBOutlet UILabel *selectedAddress;
+@property (nonatomic) CLLocationCoordinate2D selectedCoord;
 
-- (void) updatingAddress:(CLLocationCoordinate2D)coordinate ForAnnotation:(id <MKAnnotation>)annotation;
+- (void) updatingAddress:(id <MKAnnotation>)annotation;
+- (void) transformCoordinate;
+
 
 @end

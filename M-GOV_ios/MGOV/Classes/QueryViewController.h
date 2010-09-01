@@ -19,6 +19,7 @@
 @interface QueryViewController : UITableViewController <TypeSelectorDelegateProtocol, LocationSelectorTableCellDelegate, LocationSelectorViewControllerDelegate> {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
+	LocationSelectorViewController *locationSelector;
 	
 	// Component Cells
 	LocationSelectorTableCell *locationCell;

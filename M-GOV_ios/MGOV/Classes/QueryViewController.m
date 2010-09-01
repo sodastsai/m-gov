@@ -119,10 +119,9 @@
 #pragma mark LocationSelectorTableCellDelegate
 
 - (void)openLocationSelector {
-	LocationSelectorViewController *locationSelector = [[LocationSelectorViewController alloc] init];
+	locationSelector = [[LocationSelectorViewController alloc] init];
 	locationSelector.delegate = self;
 	[self presentModalViewController:locationSelector animated:YES];
-	[locationSelector release];
 }
 
 #pragma mark -
@@ -134,9 +133,11 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
-- (void)userDidSelectDone {
+- (void)userDidSelectDone:(CLLocationCoordinate2D)coordinate {
 	NSLog(@"Done");
 	// Dismiss the view
+	[locationCell updatingCoordinate:coordinate];
+	[self.tableView reloadData];
 	[self dismissModalViewControllerAnimated:YES];
 }
 
@@ -166,6 +167,8 @@
 }
 
 - (void)dealloc {
+	[locationSelector release];
+	[locationCell release];
     [super dealloc];
 }
 
