@@ -38,9 +38,18 @@
 		[self.contentView addSubview:mapButton];
 		[mapButton addTarget:delegate action:@selector(openLocationSelector) forControlEvents:UIControlEventTouchUpInside];
 		
+		
+		
+		// Use Google API to transform Latitude & Longitude to the corresponding address  
+		NSURL *url = [[NSURL alloc] initWithString:@"http://maps.google.com/maps/api/geocode/json?latlng=25.047924,121.517081&sensor=true&language=zh-TW"];
+		NSString *str = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+		NSDictionary *dict = [str JSONValue];
+		[url release];
+		[str release];
+		
 		// TODO: correct the title: 現在位置or照片位置
 		// TODO: correct the subtitle: 地址
-		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"Title test" andSubtitle:@"科科"];
+		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"Title test" andSubtitle:[NSString stringWithFormat:@"%@", [[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"formatted_address"]]];
 		[mapView addAnnotation:casePlace];
 		[casePlace release];
 		

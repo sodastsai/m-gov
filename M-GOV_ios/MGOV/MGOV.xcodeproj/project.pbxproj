@@ -227,8 +227,8 @@
 				2A0974F2122BC7270048D841 /* LocationSelectorViewController.m */,
 				FEE81536122791BF00D82E46 /* AppMKAnnotation.h */,
 				FEE81537122791BF00D82E46 /* AppMKAnnotation.m */,
-				2A47D962122D458E0018107A /* AppMKAnnotationView.m */,
 				2A47D963122D458E0018107A /* AppMKAnnotationView.h */,
+				2A47D962122D458E0018107A /* AppMKAnnotationView.m */,
 			);
 			name = "Location Selector";
 			sourceTree = "<group>";

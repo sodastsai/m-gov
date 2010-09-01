@@ -18,5 +18,6 @@
 @property (nonatomic, retain) NSString *annotationSubtitle;
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coord andTitle:(NSString *)t andSubtitle:(NSString *)st;
+- (void) setSubtitle:(NSString *)subtitle;
 
 @end

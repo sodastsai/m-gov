@@ -15,7 +15,7 @@
 
 - (id)initWithAnnotation:(id <MKAnnotation>)annotation reuseIdentifier:(NSString *)reuseIdentifier {
 	
-    self.hasBuiltInDraggingSupport = [[MKAnnotationView class] instancesRespondToSelector:NSSelectorFromString(@"isDraggable")];
+    self.hasBuiltInDraggingSupport = [[MKPinAnnotationView class] instancesRespondToSelector:NSSelectorFromString(@"isDraggable")];
 	
 	if (self.hasBuiltInDraggingSupport) {
 		if ((self = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:reuseIdentifier])) {

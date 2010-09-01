@@ -31,25 +31,35 @@
 		if ([draggablePinView isKindOfClass:[AppMKAnnotationView class]]) {
 			((AppMKAnnotationView *)draggablePinView).AmapView = MapView;
 		}
-	}			
+	}
 	return draggablePinView;
 }
+
+- (void)mapView:(MKMapView *)MapView annotationView:(MKAnnotationView *)annotationView didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
+
+	if ( oldState == MKAnnotationViewDragStateDragging && newState == MKAnnotationViewDragStateEnding ) {
+		CLLocationCoordinate2D coord;
+		coord.latitude = annotationView.annotation.coordinate.latitude;
+		coord.longitude = annotationView.annotation.coordinate.longitude;
+		[self updatingAddress:coord ForAnnotation:annotationView.annotation];
+	}
+}
+
 
 #pragma mark -
 #pragma mark Location Selector method
 
-- (void) updatingAddress:(CLLocationCoordinate2D)coordinate {
+- (void) updatingAddress:(CLLocationCoordinate2D)coordinate ForAnnotation:(AppMKAnnotation *)annotation{
 	// Use Google API to transform Latitude & Longitude to the corresponding address  
-	NSURL *url = [[NSURL alloc] initWithString:@"http://maps.google.com/maps/api/geocode/json?latlng=25.047924,121.517081&sensor=true&language=zh-TW"];
+	NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?latlng=%f,%f&sensor=true&language=zh-TW", coordinate.latitude, coordinate.longitude]];
 	NSString *str = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-	//NSLog(@"%@", str);	
 	NSDictionary *dict = [str JSONValue];
-	NSLog(@"%@", [[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"formatted_address"]);
-	NSLog(@"%@", [[[[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"address_components"] objectAtIndex:1] objectForKey:@"long_name"]);
-	selectedAddress.text = [NSString stringWithFormat:@"%@", [[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"formatted_address"]];
-	
+	NSString *address = [[NSString alloc]initWithString:[NSString stringWithFormat:@"%@", [[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"formatted_address"]]];
+	selectedAddress.text = address;
+	[annotation setSubtitle:address];
 	[url release];
 	[str release];	
+	[address release];
 }
 
 
@@ -69,14 +79,10 @@
 	region.span = span;
 	[mapView setRegion:region];
 	
-	
 	AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"Title test" andSubtitle:@"科科"];
 	[mapView addAnnotation:casePlace];
+	[self updatingAddress:shared.locationManager.location.coordinate ForAnnotation:casePlace];
 	[casePlace release];
-	
-	selectedAddress.textAlignment = UITextAlignmentCenter;
-	
-	[self updatingAddress:shared.locationManager.location.coordinate];
 	
 	UIButton *doneButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 420, 159.5, 45)];
 	UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(160, 420, 160, 45)];

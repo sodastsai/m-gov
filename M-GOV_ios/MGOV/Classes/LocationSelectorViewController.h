@@ -33,6 +33,6 @@
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, retain) IBOutlet UILabel *selectedAddress;
 
--(void) updatingAddress:(CLLocationCoordinate2D)coordinate;
+- (void) updatingAddress:(CLLocationCoordinate2D)coordinate ForAnnotation:(id <MKAnnotation>)annotation;
 
 @end

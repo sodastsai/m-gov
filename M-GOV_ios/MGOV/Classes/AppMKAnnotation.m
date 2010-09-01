@@ -35,6 +35,10 @@
 	return self;
 }
 
+- (void) setSubtitle:(NSString *)subtitle {
+	annotationSubtitle	= subtitle;
+}
+
 #pragma mark -
 #pragma mark MKAnnotation protocol
 

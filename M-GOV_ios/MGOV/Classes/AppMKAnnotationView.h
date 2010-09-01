@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "AppMKAnnotation.h"
 
-@interface AppMKAnnotationView : MKAnnotationView {
+@interface AppMKAnnotationView : MKPinAnnotationView {
 
 }
 
