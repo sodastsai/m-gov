@@ -11,7 +11,7 @@ public class CookiesInURL {
 	Hashtable theCookies = new Hashtable();
 	URLConnection connection;
 	//test
-	public static void main(String args[]) throws IOException {
+	public static void main(String args[]) throws IOException, Exception {
 		try {
 
 			String stringUrl = "http://www.czone.tcg.gov.tw/tp88-1/sys/query_memo_a.cfm?h_id=09907-010244";
@@ -20,12 +20,14 @@ public class CookiesInURL {
 			CookiesInURL cookurl = new CookiesInURL();
 			cookurl.setConnection(url);
 
-			cookurl.addCookie("CFID", "264151", true);
-			cookurl.addCookie("CFTOKEN", "14172663", true);
+			cookurl.addCookie("CFID", "280040", true);
+			cookurl.addCookie("CFTOKEN", "27012071", true);
 
 			String r = null;
-			r = HtmlFilter.process(cookurl.connection);
-
+			r = net.ReadUrl.process(cookurl.connection);
+			r = net.HtmlFilter.processByHTMLStr(r);
+			r = net.HtmlFilter.delTrash(r);
+			
 			System.out.println(r);
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block

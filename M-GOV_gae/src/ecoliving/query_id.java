@@ -13,8 +13,12 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/store_id")
-public class store_id {
+import tool.TypeFilter;
+
+import com.sun.xml.internal.rngom.binary.AfterPattern;
+
+@Path("/query_id")
+public class query_id {
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("{c1}")
@@ -25,11 +29,12 @@ public class store_id {
 //			System.out.print(str);
 
 			urlcon.setConnection(str);
-			urlcon.addCookie("CFID", "264151", true);
-			urlcon.addCookie("CFTOKEN", "14172663", true);
+			urlcon.addCookie("CFID", "280040", true);
+			urlcon.addCookie("CFTOKEN", "27012071", true);
+
 			
 			String res="";
-			res=HtmlFilter.process(urlcon.getConnection());
+			res = HtmlFilter.processByURL(urlcon.getConnection());
 			res = HtmlFilter.delTrash(res);
 			
 			if(res.contains("查報案件")==false)
@@ -62,16 +67,39 @@ public class store_id {
 			images[p-j-1] = line[p];
 		
 		GAENode node = new GAENode(
-				line[i+1].substring(line[i+1].indexOf("：") + 1),
-				line[i+2], 
-				line[i+3] + " "+ line[i+4].substring(line[i+4].indexOf("：") + 1), 
-				line[i+5],
-				line[i+6] + " "+ line[i+7].substring(line[i+7].indexOf("：") + 1),
-				line[i+8],
+				afterColon(line[i+1]),
+				afterColon(line[i+2]), 
+				afterColon(line[i+3]) + " "+ afterColon(line[i+4]), 
+				afterColon(line[i+5]),
+				afterColon(line[i+6]),
+				TypeFilter.process(line[i+6]),
+				afterColon(line[i+7]),
+				parseAddress(line[i+8]),
+				afterColon(line[i+12]),
 				images,
 				res.substring(res.indexOf("查報來源")));
 
 		// System.out.println(node.getKey());
 		GAEDateBase.store(node);
 	}
+	private static String afterColon(String str){
+		return str.substring(str.indexOf("：")+1);
+	}
+	private static String parseAddress(String str){
+		str = afterColon(str);
+		int st = 0,ed = str.length();
+	
+		if(str.contains("地點:"))
+			st = str.indexOf("地點:")+3;
+		
+		if(str.contains("建議事項"))
+			ed = str.indexOf("建議事項");
+		else if(str.contains("號"))
+			ed = str.indexOf("號")+1;
+		else if(str.contains("弄"))
+			ed = str.indexOf("弄")+1;
+		
+		return str.substring(st,ed);
+	}
+	
 }

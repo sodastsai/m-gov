@@ -21,27 +21,37 @@ public class GAENode {
 	@Persistent
 	public String date;
 	@Persistent
-	public String admin_region;
+	public String region;
 	@Persistent
-	public String category;
+	public String type1;
+	@Persistent
+	public String type2;
+	@Persistent
+	public String typeid;
 	@Persistent
 	public String detail;
 	@Persistent
-	public String detail2;
+	public String address;
+	@Persistent
+	public String state;
+	
 	@Persistent
 	public String images[];
 	@Persistent
 	public Text other;
 
-	public GAENode(String key, String date, String admin_region,
-			String category, String detail, String detail2, String images[],
+	public GAENode(String key, String date, String region,
+			String type1, String type2, String typeid, String detail, String address, String state,String images[],
 			String other) {
 		this.key = key;
 		this.date = date;
-		this.admin_region = admin_region;
-		this.category = category;
+		this.region = region;
+		this.type1 = type1;
+		this.type2 = type2;
+		this.typeid = typeid;
 		this.detail = detail;
-		this.detail2 = detail2;
+		this.address = address;
+		this.state = state;
 		this.images = images;
 		this.other = new Text(other);
 	}
@@ -56,10 +66,15 @@ public class GAENode {
 
 			o.accumulate("key", key);
 			o.accumulate("date", date);
-			o.accumulate("region", admin_region);
-			o.accumulate("category", category);
+			o.accumulate("region", region);
+			o.accumulate("type1", type1);
+			o.accumulate("type2", type2);
+			o.accumulate("typeid", typeid);
+
 			o.accumulate("detail", detail);
-			o.accumulate("detail2", detail2);
+			o.accumulate("address",address);
+			o.accumulate("state", state);
+
 			// o.accumulate("other", other.getValue());
 			for (int i = 0; i < images.length; i++)
 				o.accumulate("image", images[i]);
@@ -74,7 +89,7 @@ public class GAENode {
 
 	@Override
 	public String toString() {
-		return key + " " + date + " " + admin_region + " " + category + " "
-				+ detail + " " + other;
+		return key + " " + date + " " + region + " " + type1 + " "
+				+ type2 + " " + other;
 	}
 }

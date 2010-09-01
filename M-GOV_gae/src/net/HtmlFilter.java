@@ -42,7 +42,7 @@ public class HtmlFilter {
 		URLConnection connection = null;
 		url = new URL(stringUrl);
 		connection = url.openConnection();
-		return process(connection);
+		return processByURL(connection);
 	}
 
 	public static String processByHTMLStr(String htmlstr)
@@ -62,7 +62,7 @@ public class HtmlFilter {
 		return visitor.getExtractedText();
 	}
 
-	public static String process(URLConnection connection) {
+	public static String processByURL(URLConnection connection) {
 		String str = "";
 		String tmp = "";
 		try {

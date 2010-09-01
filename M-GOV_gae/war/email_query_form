@@ -1,0 +1,12 @@
+<if有序號>
+cfcma_sn='序號' and cfcma_admit='區' and cfcma_admiv='里' and cfcma_1='主類別' and cfcma_2='細節' and cfcma_name='姓名' and cfcma_email='信箱'
+
+<if無序號>
+1=1 and cfcma_admit='區' and cfcma_admiv='里' and cfcma_1='主類別' and cfcma_2='細節' and cfcma_name='姓名' and cfcma_email='信箱'
+
+<form name="main" action="http://www.czone.tcg.gov.tw/tp88-1/sys/guest_query_open.cfm" method="post">
+	<input type="hidden" name="sql_str" value="SQL string">
+	<input type="hidden" name="type_id" value="1">
+	<input type="hidden" name="h_custom">
+  	<input type="submit" name="s_query" value="Start">
+</form>
