@@ -11,10 +11,23 @@
 #import <QuartzCore/QuartzCore.h>
 #import "GlobalVariable.h"
 #import "AppMKAnnotation.h"
-#define kMapViewHeight 100.0
+#import "LocationSelectorViewController.h"
+
+@protocol LocationSelectorTableCellDelegate
+
+@required
+- (void)openLocationSelector;
+
+@end
+
 
 @interface LocationSelectorTableCell : UITableViewCell {
-
+	CGFloat mapViewHeight;
+	id<LocationSelectorTableCellDelegate> delegate;
 }
+
+@property (retain, nonatomic) id<LocationSelectorTableCellDelegate> delegate;
+
+- (id)initWithHeight:(CGFloat)h;
 
 @end

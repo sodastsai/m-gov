@@ -89,7 +89,7 @@
     if (indexPath.section == 0) {
 		return kPhotoViewHeight;
 	} else if (indexPath.section == 1) {
-		return kMapViewHeight;
+		return 100;
 	} else if (indexPath.section == 2 ){
 		return 45;
 	} else if (indexPath.section == 3 ){
@@ -235,6 +235,31 @@
 }
 
 #pragma mark -
+#pragma mark LocationSelectorTableCellDelegate
+
+- (void)openLocationSelector {
+	LocationSelectorViewController *locationSelector = [[LocationSelectorViewController alloc] init];
+	locationSelector.delegate = self;
+	[self presentModalViewController:locationSelector animated:YES];
+	[locationSelector release];
+}
+
+#pragma mark -
+#pragma mark LocationSelectorViewControllerDelegate
+
+- (void)userDidSelectCancel {
+	NSLog(@"Cancel");
+	// Dismiss the view
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+- (void)userDidSelectDone {
+	NSLog(@"Done");
+	// Dismiss the view
+	[self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark -
 #pragma mark typesViewControllerDelegate
 
 - (void)typeSelectorDidSelectWithTitle:(NSString *)t andQid:(NSInteger)q {
@@ -265,7 +290,8 @@
 	// Add Component
 	photoCell = [[PhotoPickerTableCell alloc] init];
 	photoCell.delegate = self;
-	locationCell = [[LocationSelectorTableCell alloc] init];
+	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:100];
+	locationCell.delegate = self;
 	nameFieldCell = [[NameFieldTableCell alloc] init];
 	descriptionCell = [[DescriptionTableCell alloc] init];
 	

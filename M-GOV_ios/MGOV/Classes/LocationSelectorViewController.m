@@ -13,15 +13,14 @@
 
 @implementation LocationSelectorViewController
 
-
+@synthesize delegate;
 @synthesize titleBar, searchBar, mapView;
 @synthesize selectedAddress;
 
 #pragma mark -
 #pragma mark MKMapViewDelegate
 
-- (MKAnnotationView *)mapView:(MKMapView *)MapView viewForAnnotation:(id <MKAnnotation>)annotation
-{
+- (MKAnnotationView *)mapView:(MKMapView *)MapView viewForAnnotation:(id <MKAnnotation>)annotation {
 	static NSString * const kPinAnnotationIdentifier = @"PinIdentifier";
 	MKAnnotationView *draggablePinView = [MapView dequeueReusableAnnotationViewWithIdentifier:kPinAnnotationIdentifier];
 	
@@ -38,18 +37,6 @@
 
 #pragma mark -
 #pragma mark Location Selector method
-
-- (void) selectDone {
-	
-	[self dismissModalViewControllerAnimated:YES];
-	
-}
-
-- (void) selectCancel {
-	
-	[self dismissModalViewControllerAnimated:YES];
-	
-}
 
 - (void) updatingAddress:(CLLocationCoordinate2D)coordinate {
 	// Use Google API to transform Latitude & Longitude to the corresponding address  
@@ -87,7 +74,6 @@
 	[mapView addAnnotation:casePlace];
 	[casePlace release];
 	
-
 	selectedAddress.textAlignment = UITextAlignmentCenter;
 	
 	[self updatingAddress:shared.locationManager.location.coordinate];
@@ -106,31 +92,25 @@
 	[cancelButton setTitle:@"取消" forState:UIControlStateNormal];
 	[doneButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 	[cancelButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-	[doneButton addTarget:self action:@selector(selectCancel) forControlEvents:UIControlEventTouchUpInside];
-	[cancelButton addTarget:self action:@selector(selectDone) forControlEvents:UIControlEventTouchUpInside];
+	[doneButton addTarget:delegate action:@selector(userDidSelectDone) forControlEvents:UIControlEventTouchUpInside];
+	[cancelButton addTarget:delegate action:@selector(userDidSelectCancel) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:doneButton];
 	[self.view addSubview:cancelButton];
 	[doneButton release];
 	[cancelButton release];
-	
 }
 
 - (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 
 - (void)dealloc {
-	[mapView release];
+	// MapView could not release
 	[titleBar release];
 	[searchBar release];
 	[selectedAddress release];

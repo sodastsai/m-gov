@@ -12,18 +12,21 @@
 #import "TypeSelectorDelegateProtocol.h"
 #import "AppMKAnnotation.h"
 #import "LocationSelectorViewController.h"
+#import "typesViewController.h"
+#import "LocationSelectorTableCell.h"
+#import "LocationSelectorViewController.h"
 
-
-@interface QueryViewController : UITableViewController <TypeSelectorDelegateProtocol> {
+@interface QueryViewController : UITableViewController <TypeSelectorDelegateProtocol, LocationSelectorTableCellDelegate, LocationSelectorViewControllerDelegate> {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
+	
+	// Component Cells
+	LocationSelectorTableCell *locationCell;
 }
 
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
 
 - (BOOL)submitQuery;
-- (void)locationSelector;
-
 
 @end

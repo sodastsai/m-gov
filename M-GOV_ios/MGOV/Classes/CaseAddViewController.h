@@ -15,8 +15,9 @@
 #import "LocationSelectorTableCell.h"
 #import "NameFieldTableCell.h"
 #import "DescriptionTableCell.h"
+#import "LocationSelectorViewController.h"
 
-@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, PhotoPickerTableCellDelegate>  {
+@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, PhotoPickerTableCellDelegate, LocationSelectorTableCellDelegate, LocationSelectorViewControllerDelegate>  {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
 	UITextField *emailField;

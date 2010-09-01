@@ -40,8 +40,9 @@
 		[keyboardToolbar addSubview:optionalHint];
 		
 		// Add buttons to keyboard
-		NSArray *toolbarItems = [NSArray arrayWithObjects:flexibleItem, doneEditing, nil];
-		[keyboardToolbar setItems:toolbarItems animated:YES];
+		[keyboardToolbar setItems:[NSArray arrayWithObjects:flexibleItem, doneEditing, nil] animated:YES];
+		[flexibleItem release];
+		[optionalHint release];
     }
     return self;
 }
