@@ -248,15 +248,15 @@
 #pragma mark LocationSelectorViewControllerDelegate
 
 - (void)userDidSelectCancel {
-	NSLog(@"Cancel");
+	// Do nothing
 	// Dismiss the view
 	[self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)userDidSelectDone:(CLLocationCoordinate2D)coordinate {
-	NSLog(@"Done");
 	// Dismiss the view
 	[locationCell updatingCoordinate:coordinate];
+	// Set Geo information
 	selectedCoord = coordinate;
 	[self.tableView reloadData];
 	[self dismissModalViewControllerAnimated:YES];
@@ -276,6 +276,25 @@
 
 - (void)leaveSelectorWithoutTitleAndQid {
 	[self dismissModalViewControllerAnimated:YES];
+}
+
+#pragma mark -
+#pragma mark Keyboard Toolbar
+
+- (void)keyboardWillShow:(NSNotification *)note {
+	// Add keyboard toolbar
+	if ([nameFieldCell.nameField isFirstResponder] || [descriptionCell.descriptionField isFirstResponder]) {
+		keyboard = [[[[[UIApplication sharedApplication] windows] objectAtIndex:1] subviews] objectAtIndex:0];
+		[keyboard addSubview:keyboardToolbar];
+	}
+}
+
+- (void)endEditingText {
+	// Remove Toolbar From Keyboard
+	[[[keyboard subviews] lastObject] removeFromSuperview];
+	// Hide the keyboard
+	[nameFieldCell.nameField resignFirstResponder];
+	[descriptionCell.descriptionField resignFirstResponder];
 }
 
 #pragma mark -
@@ -302,10 +321,41 @@
 	alertRequestEmailTitle = @"歡迎使用烏賊車";
 	alertRequestEmailPlaceholder = @"請輸入您的E-Mail";
 	
+	// Modify Keyboard
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
+	
+	// Set keyboard bar
+	// Prepare Keyboard
+	keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -44, 320, 44)];
+	keyboardToolbar.barStyle = UIBarStyleBlack;
+	keyboardToolbar.translucent = YES;
+	
+	// Prepare Buttons
+	UIBarButtonItem *doneEditing = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(endEditingText)];
+	UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+	
+	// Prepare Labels
+	UILabel *optionalHint = [[UILabel alloc] initWithFrame:CGRectMake(10, 14, 250, 16)];
+	optionalHint.text = @"本欄為選項性欄位，可不填";
+	optionalHint.backgroundColor = [UIColor clearColor];
+	optionalHint.textColor = [UIColor whiteColor];
+	optionalHint.font = [UIFont boldSystemFontOfSize:16.0];
+	[keyboardToolbar addSubview:optionalHint];
+	
+	// Add buttons to keyboard
+	[keyboardToolbar setItems:[NSArray arrayWithObjects:flexibleItem, doneEditing, nil] animated:YES];
+	[flexibleItem release];
+	[optionalHint release];
+	
 	GlobalVariable *shared = [GlobalVariable sharedVariable];
 	selectedCoord = shared.locationManager.location.coordinate;
 	shared = nil;
 	[shared release];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+	// Stop monitor keyboard
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark -

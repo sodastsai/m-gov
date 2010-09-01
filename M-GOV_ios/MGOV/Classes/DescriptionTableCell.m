@@ -14,35 +14,20 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
+		textViewPlaceholder = YES;
+		
 		descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 140)];
-		descriptionField.font = [UIFont systemFontOfSize:18.0];
+		if (textViewPlaceholder) {
+			descriptionField.contentInset = UIEdgeInsetsMake(-7,-7,-7,-7);
+			descriptionField.text = @"請輸入描述及建議";
+			descriptionField.textColor = [UIColor lightGrayColor];
+		}
+		descriptionField.tag = 99;
+		descriptionField.font = [UIFont systemFontOfSize:17.0];
 		descriptionField.delegate = self;
 		[self.contentView addSubview:descriptionField];
 
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
-		
-		// Set keyboard bar
-		// Prepare Keyboard
-		keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -44, 320, 44)];
-		keyboardToolbar.barStyle = UIBarStyleBlack;
-		keyboardToolbar.translucent = YES;
-		
-		// Prepare Buttons
-		UIBarButtonItem *doneEditing = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(endEditingTextView)];
-		UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-		
-		// Prepare Labels
-		UILabel *optionalHint = [[UILabel alloc] initWithFrame:CGRectMake(10, 14, 250, 16)];
-		optionalHint.text = @"本欄為選項性欄位，可不填";
-		optionalHint.backgroundColor = [UIColor clearColor];
-		optionalHint.textColor = [UIColor whiteColor];
-		optionalHint.font = [UIFont boldSystemFontOfSize:16.0];
-		[keyboardToolbar addSubview:optionalHint];
-		
-		// Add buttons to keyboard
-		[keyboardToolbar setItems:[NSArray arrayWithObjects:flexibleItem, doneEditing, nil] animated:YES];
-		[flexibleItem release];
-		[optionalHint release];
     }
     return self;
 }
@@ -57,26 +42,29 @@
 }
 
 #pragma mark -
-#pragma mark UITextViewDelegate and Keyboard Toolbar
+#pragma mark UITextViewDelegate
 
-- (void)textViewDidBeginEditing:(UITextView *)textView {
-	// Monitor the keyboard
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
+- (BOOL)textViewShouldBeginEditing:(UITextView *)textView {
+	descriptionField.contentInset = UIEdgeInsetsMake(-7,-7,-7,-7);
+	if (textViewPlaceholder) {
+		textView.text = @"";
+		textView.textColor = [UIColor blackColor];
+		textViewPlaceholder = NO;
+	}
+	return YES;
 }
 
-- (void)keyboardWillShow:(NSNotification *)note {
-	// locate keyboard view from window
-	keyboard = [[[[[UIApplication sharedApplication] windows] objectAtIndex:1] subviews] objectAtIndex:0];
-	[keyboard addSubview:keyboardToolbar];
-}
-
-- (void)endEditingTextView {
-	// Remove Toolbar From Keyboard
-	[[[keyboard subviews] lastObject] removeFromSuperview];
-	// Stop monitor keyboard
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
-	// Hide the keyboard
-	[descriptionField resignFirstResponder];
+- (BOOL)textViewShouldEndEditing:(UITextView *)textView {
+	if ([textView.text isEqualToString:@""]) {
+		descriptionField.contentInset = UIEdgeInsetsMake(-7,-7,-7,-7);
+		descriptionField.text = @"請輸入描述及建議";
+		descriptionField.textColor = [UIColor lightGrayColor];
+		textViewPlaceholder = YES;
+	} else {
+		descriptionField.contentInset = UIEdgeInsetsMake(0,-7,-7,-7);
+		[textView scrollRangeToVisible:NSMakeRange(0, 1)];
+	}
+	return YES;
 }
 
 @end

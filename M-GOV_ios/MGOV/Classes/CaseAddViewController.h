@@ -32,11 +32,16 @@
 	LocationSelectorTableCell *locationCell;
 	NameFieldTableCell *nameFieldCell;
 	DescriptionTableCell *descriptionCell;
+	
+	UIToolbar *keyboardToolbar;
+	UIView *keyboard;
 }
 
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
 
 - (BOOL)submitCase;
+- (void)keyboardWillShow:(NSNotification *)note;
+- (void)endEditingText;
 
 @end

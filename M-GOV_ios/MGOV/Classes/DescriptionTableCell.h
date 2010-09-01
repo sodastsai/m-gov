@@ -11,13 +11,9 @@
 
 @interface DescriptionTableCell : UITableViewCell <UITextViewDelegate> {
 	UITextView *descriptionField;
-	UIToolbar *keyboardToolbar;
-	UIView *keyboard;
+	BOOL textViewPlaceholder;
 }
 
 @property (nonatomic, retain) UITextView *descriptionField;
-
-- (void)keyboardWillShow:(NSNotification *)note;
-- (void)endEditingTextView;
 
 @end

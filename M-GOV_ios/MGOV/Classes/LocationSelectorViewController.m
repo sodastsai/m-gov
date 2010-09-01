@@ -36,9 +36,11 @@
 }
 
 - (void)mapView:(MKMapView *)MapView annotationView:(MKAnnotationView *)annotationView didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
-
 	if ( oldState == MKAnnotationViewDragStateDragging && newState == MKAnnotationViewDragStateEnding ) {
+		// Update annotation subtitle
 		[self updatingAddress:annotationView.annotation];
+		// Update the center of mapview to annotation point
+		[MapView setCenterCoordinate:annotationView.annotation.coordinate animated:YES];
 	}
 }
 
