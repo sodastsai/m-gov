@@ -238,7 +238,7 @@
 #pragma mark LocationSelectorTableCellDelegate
 
 - (void)openLocationSelector {
-	LocationSelectorViewController *locationSelector = [[LocationSelectorViewController alloc] init];
+	LocationSelectorViewController *locationSelector = [[LocationSelectorViewController alloc] initWithCoordinate:selectedCoord];
 	locationSelector.delegate = self;
 	[self presentModalViewController:locationSelector animated:YES];
 	[locationSelector release];
@@ -257,6 +257,7 @@
 	NSLog(@"Done");
 	// Dismiss the view
 	[locationCell updatingCoordinate:coordinate];
+	selectedCoord = coordinate;
 	[self.tableView reloadData];
 	[self dismissModalViewControllerAnimated:YES];
 }
@@ -300,6 +301,11 @@
 	selectedTypeTitle = @"";
 	alertRequestEmailTitle = @"歡迎使用烏賊車";
 	alertRequestEmailPlaceholder = @"請輸入您的E-Mail";
+	
+	GlobalVariable *shared = [GlobalVariable sharedVariable];
+	selectedCoord = shared.locationManager.location.coordinate;
+	shared = nil;
+	[shared release];
 }
 
 #pragma mark -

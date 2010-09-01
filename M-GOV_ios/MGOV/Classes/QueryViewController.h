@@ -20,6 +20,7 @@
 	NSString *selectedTypeTitle;
 	NSInteger qid;
 	LocationSelectorViewController *locationSelector;
+	CLLocationCoordinate2D selectedCoord;
 	
 	// Component Cells
 	LocationSelectorTableCell *locationCell;

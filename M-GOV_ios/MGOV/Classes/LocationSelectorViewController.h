@@ -35,6 +35,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *selectedAddress;
 @property (nonatomic) CLLocationCoordinate2D selectedCoord;
 
+- (id) initWithCoordinate:(CLLocationCoordinate2D)coordinate;
 - (void) updatingAddress:(id <MKAnnotation>)annotation;
 - (void) transformCoordinate;
 

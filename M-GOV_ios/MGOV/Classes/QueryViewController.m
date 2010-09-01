@@ -119,7 +119,7 @@
 #pragma mark LocationSelectorTableCellDelegate
 
 - (void)openLocationSelector {
-	locationSelector = [[LocationSelectorViewController alloc] init];
+	locationSelector = [[LocationSelectorViewController alloc] initWithCoordinate:selectedCoord];
 	locationSelector.delegate = self;
 	[self presentModalViewController:locationSelector animated:YES];
 }
@@ -137,6 +137,7 @@
 	NSLog(@"Done");
 	// Dismiss the view
 	[locationCell updatingCoordinate:coordinate];
+	selectedCoord = coordinate;
 	[self.tableView reloadData];
 	[self dismissModalViewControllerAnimated:YES];
 }
@@ -154,6 +155,11 @@
 	locationCell.delegate = self;
 	
 	selectedTypeTitle = [[NSString alloc] init];
+	
+	GlobalVariable *shared = [GlobalVariable sharedVariable];
+	selectedCoord = shared.locationManager.location.coordinate;
+	shared = nil;
+	[shared release];
 }
 
 #pragma mark -

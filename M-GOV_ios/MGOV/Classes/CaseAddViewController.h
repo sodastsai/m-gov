@@ -25,6 +25,7 @@
 	NSString *alertRequestEmailTitle;
 	NSString *alertRequestEmailPlaceholder;
 	NSString *nameFieldPlaceholder;
+	CLLocationCoordinate2D selectedCoord;
 	
 	// Component Cells
 	PhotoPickerTableCell *photoCell;
