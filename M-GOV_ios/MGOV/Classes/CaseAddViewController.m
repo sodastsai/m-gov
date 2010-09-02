@@ -327,9 +327,6 @@
 	alertRequestEmailTitle = @"歡迎使用烏賊車";
 	alertRequestEmailPlaceholder = @"請輸入您的E-Mail";
 	
-	// Modify Keyboard
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
-	
 	// Set keyboard bar
 	// Prepare Keyboard
 	keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -44, 320, 44)];
@@ -359,7 +356,14 @@
 	[shared release];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	// Modify Keyboard
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
+}
+
 - (void)viewWillDisappear:(BOOL)animated {
+	[super viewWillDisappear:animated];
 	// Stop monitor keyboard
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 }
