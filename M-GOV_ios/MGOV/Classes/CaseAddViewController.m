@@ -350,7 +350,7 @@
 	[flexibleItem release];
 	[optionalHint release];
 	
-	GlobalVariable *shared = [GlobalVariable sharedVariable];
+	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 	selectedCoord = shared.locationManager.location.coordinate;
 	shared = nil;
 	[shared release];

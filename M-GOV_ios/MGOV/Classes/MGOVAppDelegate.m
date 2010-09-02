@@ -18,7 +18,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 	
 	// Set the locationManager be a global variable, and init
-	GlobalVariable *shared = [GlobalVariable sharedVariable];
+	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 	shared.locationManager = [[CLLocationManager alloc] init];
 	[shared.locationManager startUpdatingLocation];
 	

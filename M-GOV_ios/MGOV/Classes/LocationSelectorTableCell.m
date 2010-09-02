@@ -27,7 +27,7 @@
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, mapViewHeight-1)];
 		mapView.mapType = MKMapTypeStandard;
-		GlobalVariable *shared = [GlobalVariable sharedVariable];
+		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
 		MKCoordinateRegion region;
 		region.center = shared.locationManager.location.coordinate;

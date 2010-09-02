@@ -1,5 +1,5 @@
 //
-//  GlobalVariable.h
+//  MGOVGeocoder.h
 //  MGOV
 //
 //  Created by Shou on 2010/8/26.
@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface GlobalVariable : NSObject {
+@interface MGOVGeocoder : NSObject {
 	
 	CLLocationManager *locationManager;
 
@@ -17,6 +17,6 @@
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
 
-+ (GlobalVariable *)sharedVariable;
++ (MGOVGeocoder *)sharedVariable;
 
 @end

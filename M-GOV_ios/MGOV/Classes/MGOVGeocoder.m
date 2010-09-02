@@ -1,23 +1,23 @@
 //
-//  GlobalVariable.m
+//  MGOVGeocoder.m
 //  MGOV
 //
 //  Created by Shou on 2010/8/26.
 //  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
 //
 
-#import "GlobalVariable.h"
+#import "MGOVGeocoder.h"
 
-static GlobalVariable *sharedVariable = nil;
+static MGOVGeocoder *sharedVariable = nil;
 
-@implementation GlobalVariable
+@implementation MGOVGeocoder
 
 @synthesize locationManager;
 
 #pragma mark -
 #pragma mark Singleton Methods
 
-+ (GlobalVariable *)sharedVariable {
++ (MGOVGeocoder *)sharedVariable {
 	@synchronized(self) {
 		if(sharedVariable == nil){
 			sharedVariable = [[self alloc] init];

@@ -7,5 +7,5 @@
     #import <UIKit/UIKit.h>
 	#import <CoreLocation/CoreLocation.h>
 	#import <CoreData/CoreData.h>
-	#import "GlobalVariable.h"
+	#import "MGOVGeocoder.h"
 #endif

@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "GlobalVariable.h"
+#import "MGOVGeocoder.h"
 #import "AppMKAnnotation.h"
 #import "LocationSelectorViewController.h"
 

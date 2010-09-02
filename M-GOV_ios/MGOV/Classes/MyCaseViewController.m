@@ -7,7 +7,7 @@
 //
 
 #import "MyCaseViewController.h"
-#import "GlobalVariable.h"
+#import "MGOVGeocoder.h"
 #import "FirstRunCellViewController.h"
 
 @implementation MyCaseViewController

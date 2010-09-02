@@ -154,7 +154,7 @@
 	
 	selectedTypeTitle = [[NSString alloc] init];
 	
-	GlobalVariable *shared = [GlobalVariable sharedVariable];
+	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 	selectedCoord = shared.locationManager.location.coordinate;
 	shared = nil;
 	[shared release];

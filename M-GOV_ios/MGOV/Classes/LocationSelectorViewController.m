@@ -7,7 +7,7 @@
 //
 
 #import "LocationSelectorViewController.h"
-#import "GlobalVariable.h"
+#import "MGOVGeocoder.h"
 #import "AppMKAnnotation.h"
 #import "AppMKAnnotationView.h"
 
