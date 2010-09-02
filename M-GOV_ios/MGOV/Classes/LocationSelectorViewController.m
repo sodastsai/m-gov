@@ -14,7 +14,7 @@
 @implementation LocationSelectorViewController
 
 @synthesize delegate;
-@synthesize titleBar, searchBar, mapView;
+@synthesize titleBar, mapView, barTitle;
 @synthesize selectedAddress, selectedCoord;
 @synthesize bottomBar;
 
@@ -114,8 +114,9 @@
 - (void)dealloc {
 	// MapView could not release
 	[titleBar release];
-	[searchBar release];
+	[barTitle release];
 	[selectedAddress release];
+	[bottomBar release];
     [super dealloc];
 }
 

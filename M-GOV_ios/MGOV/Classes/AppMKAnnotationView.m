@@ -23,6 +23,7 @@
 		}
 	}
 	self.canShowCallout = YES;
+	self.animatesDrop = YES;
 	
 	return self;
 }
