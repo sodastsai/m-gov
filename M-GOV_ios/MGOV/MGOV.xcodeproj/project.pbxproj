@@ -40,6 +40,8 @@
 		FE1747A9122D2D6B00641599 /* LocationSelectorTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1747A8122D2D6B00641599 /* LocationSelectorTableCell.m */; };
 		FE1747DD122D303500641599 /* NameFieldTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1747DC122D303500641599 /* NameFieldTableCell.m */; };
 		FE174803122D329C00641599 /* DescriptionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE174802122D329C00641599 /* DescriptionTableCell.m */; };
+		FE3FFE14122F7904008B0E48 /* CaseViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3FFE12122F7904008B0E48 /* CaseViewerViewController.m */; };
+		FE3FFE15122F7904008B0E48 /* CaseViewerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE3FFE13122F7904008B0E48 /* CaseViewerViewController.xib */; };
 		FE4EE76F1223F68F00737028 /* reportDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76A1223F68F00737028 /* reportDetails.plist */; };
 		FE4EE7701223F68F00737028 /* reportQid.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76B1223F68F00737028 /* reportQid.plist */; };
 		FE4EE7711223F68F00737028 /* reportSecondDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76C1223F68F00737028 /* reportSecondDetails.plist */; };
@@ -112,6 +114,9 @@
 		FE174801122D329C00641599 /* DescriptionTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescriptionTableCell.h; sourceTree = "<group>"; };
 		FE174802122D329C00641599 /* DescriptionTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescriptionTableCell.m; sourceTree = "<group>"; };
 		FE1E82591226A54000973DA4 /* TypeSelectorDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeSelectorDelegateProtocol.h; sourceTree = "<group>"; };
+		FE3FFE11122F7904008B0E48 /* CaseViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseViewerViewController.h; sourceTree = "<group>"; };
+		FE3FFE12122F7904008B0E48 /* CaseViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseViewerViewController.m; sourceTree = "<group>"; };
+		FE3FFE13122F7904008B0E48 /* CaseViewerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CaseViewerViewController.xib; path = Classes/CaseViewerViewController.xib; sourceTree = "<group>"; };
 		FE4EE76A1223F68F00737028 /* reportDetails.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportDetails.plist; sourceTree = SOURCE_ROOT; };
 		FE4EE76B1223F68F00737028 /* reportQid.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportQid.plist; sourceTree = SOURCE_ROOT; };
 		FE4EE76C1223F68F00737028 /* reportSecondDetails.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportSecondDetails.plist; sourceTree = SOURCE_ROOT; };
@@ -152,6 +157,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FE3FFE10122F78D0008B0E48 /* Case Viewer */,
 				2AC8B441122CB3CC007E3FC8 /* SBJSON */,
 				2A0974F6122BC7300048D841 /* Location Selector */,
 				2A79AC301223FBCF00F140A2 /* Query Case */,
@@ -236,6 +242,7 @@
 		2A79AC2D1223FB9B00F140A2 /* Interface Builder */ = {
 			isa = PBXGroup;
 			children = (
+				FE3FFE13122F7904008B0E48 /* CaseViewerViewController.xib */,
 				FE1745EE122CF3DD00641599 /* FirstRunCellViewController.xib */,
 				FE174376122CC80B00641599 /* MyCaseViewController.xib */,
 				2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */,
@@ -321,6 +328,15 @@
 				FE174802122D329C00641599 /* DescriptionTableCell.m */,
 			);
 			name = "Component Cells";
+			sourceTree = "<group>";
+		};
+		FE3FFE10122F78D0008B0E48 /* Case Viewer */ = {
+			isa = PBXGroup;
+			children = (
+				FE3FFE11122F7904008B0E48 /* CaseViewerViewController.h */,
+				FE3FFE12122F7904008B0E48 /* CaseViewerViewController.m */,
+			);
+			name = "Case Viewer";
 			sourceTree = "<group>";
 		};
 		FE4EE7461223D50200737028 /* Types and Detail Selector */ = {
@@ -410,6 +426,7 @@
 				FE174378122CC80B00641599 /* MyCaseViewController.xib in Resources */,
 				FE1745F0122CF3DD00641599 /* FirstRunCellViewController.xib in Resources */,
 				FE17463C122D179C00641599 /* NoMyCase.png in Resources */,
+				FE3FFE15122F7904008B0E48 /* CaseViewerViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +460,7 @@
 				FE1747DD122D303500641599 /* NameFieldTableCell.m in Sources */,
 				FE174803122D329C00641599 /* DescriptionTableCell.m in Sources */,
 				2A47D964122D458E0018107A /* AppMKAnnotationView.m in Sources */,
+				FE3FFE14122F7904008B0E48 /* CaseViewerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,7 +471,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: def abc (HU4T39MR82)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dian-je Tsai (52BES94NYL)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -461,7 +479,7 @@
 				GCC_PREFIX_HEADER = MGOV_Prefix.pch;
 				INFOPLIST_FILE = "MGOV-Info.plist";
 				PRODUCT_NAME = MGOV;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8C06F644-B578-42E5-B280-92C68E9A47C0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEABC31E-4D43-44BB-B889-ADCFF07F642A";
 			};
 			name = Debug;
 		};
@@ -482,12 +500,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: def abc (HU4T39MR82)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dian-je Tsai (52BES94NYL)";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8C06F644-B578-42E5-B280-92C68E9A47C0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEABC31E-4D43-44BB-B889-ADCFF07F642A";
 				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
