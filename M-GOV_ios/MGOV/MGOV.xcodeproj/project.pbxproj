@@ -56,6 +56,7 @@
 		FE4EE7821223F72E00737028 /* typesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77F1223F72E00737028 /* typesViewController.xib */; };
 		FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */ = {isa = PBXBuildFile; fileRef = FED3DDE71224EA3A001D3C73 /* UserInformation.plist */; };
 		FEE81538122791BF00D82E46 /* AppMKAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE81537122791BF00D82E46 /* AppMKAnnotation.m */; };
+		FEF0D2C01230CACA000317C5 /* AppClassExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -137,6 +138,8 @@
 		FED3DDE71224EA3A001D3C73 /* UserInformation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInformation.plist; sourceTree = "<group>"; };
 		FEE81536122791BF00D82E46 /* AppMKAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMKAnnotation.h; sourceTree = "<group>"; };
 		FEE81537122791BF00D82E46 /* AppMKAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppMKAnnotation.m; sourceTree = "<group>"; };
+		FEF0D2BE1230CACA000317C5 /* AppClassExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppClassExtension.h; sourceTree = "<group>"; };
+		FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppClassExtension.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +163,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FEF0D2BE1230CACA000317C5 /* AppClassExtension.h */,
+				FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */,
+				FEF0D2BD1230CAAA000317C5 /* Case Display */,
 				FE3FFE10122F78D0008B0E48 /* Case Viewer */,
 				2AC8B441122CB3CC007E3FC8 /* SBJSON */,
 				2A0974F6122BC7300048D841 /* Location Selector */,
@@ -168,8 +174,6 @@
 				FE4EE7461223D50200737028 /* Types and Detail Selector */,
 				1D3623240D0F684500981E51 /* MGOVAppDelegate.h */,
 				1D3623250D0F684500981E51 /* MGOVAppDelegate.m */,
-				2A85D6C9123097E7008A4AD1 /* CaseDisplayView.h */,
-				2A85D6CA123097E7008A4AD1 /* CaseDisplayView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -370,6 +374,15 @@
 			name = "Types and Detail Strings";
 			sourceTree = "<group>";
 		};
+		FEF0D2BD1230CAAA000317C5 /* Case Display */ = {
+			isa = PBXGroup;
+			children = (
+				2A85D6C9123097E7008A4AD1 /* CaseDisplayView.h */,
+				2A85D6CA123097E7008A4AD1 /* CaseDisplayView.m */,
+			);
+			name = "Case Display";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -467,6 +480,7 @@
 				FE3FFE14122F7904008B0E48 /* CaseViewerViewController.m in Sources */,
 				2A9961B6122FDA550092C0D0 /* QueryViewController.m in Sources */,
 				2A85D6CB123097E7008A4AD1 /* CaseDisplayView.m in Sources */,
+				FEF0D2C01230CACA000317C5 /* AppClassExtension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
