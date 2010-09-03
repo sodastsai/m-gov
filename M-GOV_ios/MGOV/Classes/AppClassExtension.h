@@ -10,6 +10,10 @@
 
 @interface UIImage (AppExtension) 
 
-+ (UIImage *)scaleImage:(UIImage*)originalImage ToSize:(CGSize)newSize;
+- (UIImage *)scaleToSize:(CGSize)newSize;
+- (UIImage *)scaleProportionlyToWidth:(CGFloat)width;
+- (UIImage *)scaleProportionlyToHeight:(CGFloat)height;
+- (UIImage *)cropToRect:(CGRect)newRect;
+- (UIImage *)fitToSize:(CGSize)newSize;
 
 @end

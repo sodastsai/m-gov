@@ -160,8 +160,13 @@
 #pragma mark UIImagePickerControllerDelegate
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
-	[photoCell.photoButton setBackgroundImage:image forState:UIControlStateNormal];
+	// Scale and Crop to the Button
+	[photoCell.photoButton setImage:[image fitToSize:CGSizeMake(300, 200)] forState:UIControlStateNormal];
 	[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];
+	// Save to Camera Roll if this is a new photo
+	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) 
+		UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
+	// Close Picker and Reload Data
 	[picker dismissModalViewControllerAnimated:YES];
 	[self.tableView reloadData];
 }
@@ -218,10 +223,15 @@
 	UIImagePickerController *picker = [[UIImagePickerController alloc] init];
 	picker.delegate = self;
 	
-	if (buttonIndex == 0) {
-		picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-		[self presentModalViewController:picker animated:YES];
-	} else if ( buttonIndex == 1 ){
+	if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
+		if (buttonIndex == 0) {
+			picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+			[self presentModalViewController:picker animated:YES];
+		} else if ( buttonIndex == 1 ){
+			picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+			[self presentModalViewController:picker animated:YES];
+		}
+	} else {
 		picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 		[self presentModalViewController:picker animated:YES];
 	}
@@ -233,10 +243,18 @@
 #pragma mark PhotoPickerTableCellDelegate
 
 - (void)openPhotoDialogAction {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍攝照片", @"選擇照片", nil];
-	actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
-	// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
-	[actionSheet showInView:self.parentViewController.tabBarController.view];
+	UIActionSheet *actionSheet;
+	if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
+		actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍攝新的照片", @"選擇手機裡的照片", nil];
+		actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
+		// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
+		[actionSheet showInView:self.parentViewController.tabBarController.view];
+	} else {
+		UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"選擇手機裡的照片", nil];
+		actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
+		// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
+		[actionSheet showInView:self.parentViewController.tabBarController.view];
+	}
 	[actionSheet release];
 }
 

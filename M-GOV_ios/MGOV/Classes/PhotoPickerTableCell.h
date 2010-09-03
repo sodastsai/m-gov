@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AppClassExtension.h"
 
 #define kPhotoViewHeight 200.0
 
