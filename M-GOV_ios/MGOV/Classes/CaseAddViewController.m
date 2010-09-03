@@ -87,7 +87,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {	
 	// Set the height according to the edit area size
     if (indexPath.section == 0) {
-		return kPhotoViewHeight;
+		return 200;
 	} else if (indexPath.section == 1) {
 		return 100;
 	} else if (indexPath.section == 2 ){

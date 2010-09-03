@@ -165,8 +165,6 @@
 				FE4EE7461223D50200737028 /* Types and Detail Selector */,
 				1D3623240D0F684500981E51 /* MGOVAppDelegate.h */,
 				1D3623250D0F684500981E51 /* MGOVAppDelegate.m */,
-				2A560ED21226A6E700F3800F /* MGOVGeocoder.h */,
-				2A560ED31226A6E700F3800F /* MGOVGeocoder.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -229,6 +227,8 @@
 		2A0974F6122BC7300048D841 /* Location Selector */ = {
 			isa = PBXGroup;
 			children = (
+				2A560ED21226A6E700F3800F /* MGOVGeocoder.h */,
+				2A560ED31226A6E700F3800F /* MGOVGeocoder.m */,
 				2A0974F1122BC7270048D841 /* LocationSelectorViewController.h */,
 				2A0974F2122BC7270048D841 /* LocationSelectorViewController.m */,
 				FEE81536122791BF00D82E46 /* AppMKAnnotation.h */,
