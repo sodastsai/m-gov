@@ -11,7 +11,6 @@
 
 @implementation QueryViewController
 
-@synthesize mapView, infoButton, listView;
 @synthesize qid, selectedTypeTitle;
 
 #pragma mark -
@@ -27,37 +26,28 @@
 
 - (void)backToCurrentLocation {
 	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];	
-	[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
+	[caseDisplayView.mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
 	MKCoordinateRegion region;
 	region.center = shared.locationManager.location.coordinate;
 	MKCoordinateSpan span;
 	span.latitudeDelta = 0.004;
 	span.longitudeDelta = 0.004;
 	region.span = span;
-	[mapView setRegion:region];
+	[caseDisplayView.mapView setRegion:region];
 }
 
 - (void)modeChange {
-	if (listView.hidden) {
-		listView.hidden = NO;
-		listView.alpha = 0;
-		mapView.alpha = 1;
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:1.0];
-		listView.alpha = 1;
-		mapView.alpha = 0;
-		mapView.hidden = YES;
+	if (caseDisplayView.listView.hidden) {
+		caseDisplayView.listView.hidden = NO;
+		caseDisplayView.mapView.hidden = YES;
 		self.navigationItem.leftBarButtonItem.title = @"地圖";
 	}
 	else {
-		mapView.hidden = NO;
-		mapView.alpha = 0;
-		[UIView beginAnimations:nil context:NULL];
-		[UIView setAnimationDuration:1.0];
-		mapView.alpha = 1;
-		listView.hidden = YES;
+		caseDisplayView.mapView.hidden = NO;
+		caseDisplayView.listView.hidden = YES;
 		self.navigationItem.leftBarButtonItem.title = @"清單";
 	}
+	
 }
 
 - (void)typeSelect {
@@ -73,51 +63,6 @@
 	[backBuuton release];
 	[typesView release];
 	
-}
-
-#pragma mark -
-#pragma mark Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 1;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return 1;
-}
-
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-    
-    // Configure the cell...
-    
-    return cell;
-}
-
-
-#pragma mark -
-#pragma mark Table view delegate
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
 }
 
 
@@ -145,7 +90,6 @@
 	// Dismiss the view
 	[self dismissModalViewControllerAnimated:YES];
 	// Reload tableview after selected
-	[listView reloadData];
 }
 
 - (void)leaveSelectorWithoutTitleAndQid {
@@ -160,10 +104,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	listView.hidden = YES;
-	listView.alpha = 0;
+	caseDisplayView = [[CaseDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, 367)];
+	[self.view addSubview:caseDisplayView];
+	[caseDisplayView release];
 	[self backToCurrentLocation];
-	
+		
 	UIBarButtonItem *modeChangeButton = [[UIBarButtonItem alloc] initWithTitle:@"清單" style:UIBarButtonItemStyleBordered target:self action:@selector(modeChange)];
 	self.navigationItem.leftBarButtonItem = modeChangeButton;
 	[modeChangeButton release];
@@ -192,8 +137,6 @@
 
 
 - (void)dealloc {
-	[mapView release];
-	[infoButton release];
     [super dealloc];
 }
 

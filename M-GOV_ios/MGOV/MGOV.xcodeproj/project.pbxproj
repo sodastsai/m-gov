@@ -21,6 +21,7 @@
 		2A560ED41226A6E700F3800F /* MGOVGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A560ED31226A6E700F3800F /* MGOVGeocoder.m */; };
 		2A79AC231223FB7C00F140A2 /* CaseAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */; };
 		2A79AC241223FB7C00F140A2 /* CaseAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */; };
+		2A85D6CB123097E7008A4AD1 /* CaseDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A85D6CA123097E7008A4AD1 /* CaseDisplayView.m */; };
 		2A9961B6122FDA550092C0D0 /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9961B4122FDA550092C0D0 /* QueryViewController.m */; };
 		2A9961B7122FDA550092C0D0 /* QueryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A9961B5122FDA550092C0D0 /* QueryViewController.xib */; };
 		2AC8B454122CB478007E3FC8 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B447122CB478007E3FC8 /* SBJsonWriter.m */; };
@@ -78,6 +79,8 @@
 		2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseAddViewController.m; sourceTree = "<group>"; };
 		2A79AC1E1223FB7C00F140A2 /* CaseAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseAddViewController.h; sourceTree = "<group>"; };
 		2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CaseAddViewController.xib; path = Classes/CaseAddViewController.xib; sourceTree = "<group>"; };
+		2A85D6C9123097E7008A4AD1 /* CaseDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseDisplayView.h; sourceTree = "<group>"; };
+		2A85D6CA123097E7008A4AD1 /* CaseDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseDisplayView.m; sourceTree = "<group>"; };
 		2A9961B3122FDA550092C0D0 /* QueryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryViewController.h; sourceTree = "<group>"; };
 		2A9961B4122FDA550092C0D0 /* QueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryViewController.m; sourceTree = "<group>"; };
 		2A9961B5122FDA550092C0D0 /* QueryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = QueryViewController.xib; path = Classes/QueryViewController.xib; sourceTree = "<group>"; };
@@ -165,6 +168,8 @@
 				FE4EE7461223D50200737028 /* Types and Detail Selector */,
 				1D3623240D0F684500981E51 /* MGOVAppDelegate.h */,
 				1D3623250D0F684500981E51 /* MGOVAppDelegate.m */,
+				2A85D6C9123097E7008A4AD1 /* CaseDisplayView.h */,
+				2A85D6CA123097E7008A4AD1 /* CaseDisplayView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -461,6 +466,7 @@
 				2A47D964122D458E0018107A /* AppMKAnnotationView.m in Sources */,
 				FE3FFE14122F7904008B0E48 /* CaseViewerViewController.m in Sources */,
 				2A9961B6122FDA550092C0D0 /* QueryViewController.m in Sources */,
+				2A85D6CB123097E7008A4AD1 /* CaseDisplayView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

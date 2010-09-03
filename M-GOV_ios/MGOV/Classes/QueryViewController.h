@@ -9,18 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "typesViewController.h"
+#import "CaseDisplayView.h"
 
-@interface QueryViewController : UIViewController <UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate, TypeSelectorDelegateProtocol> {
+@interface QueryViewController : UIViewController <UIActionSheetDelegate, TypeSelectorDelegateProtocol> {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
-	MKMapView *mapView;
-	UITableView *listView;
-	UIButton *infoButton;
+	CaseDisplayView *caseDisplayView;
 }
 
-@property (nonatomic, retain) IBOutlet MKMapView *mapView;
-@property (nonatomic, retain) IBOutlet UIButton *infoButton;
-@property (nonatomic, retain) IBOutlet UITableView *listView;
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
 
