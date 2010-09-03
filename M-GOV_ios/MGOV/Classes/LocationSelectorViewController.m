@@ -50,15 +50,9 @@
 #pragma mark Location Selector method
 
 - (void) updatingAddress:(AppMKAnnotation *)annotation{
-	// Use Google API to transform Latitude & Longitude to the corresponding address  
-	NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?latlng=%f,%f&sensor=true&language=zh-TW", annotation.coordinate.latitude, annotation.coordinate.longitude]];
-	NSString *str = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-	NSDictionary *dict = [str JSONValue];
-	NSString *address = [[NSString alloc]initWithString:[NSString stringWithFormat:@"%@", [[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"formatted_address"]]];
+	NSString *address = [[NSString alloc]initWithString:[NSString stringWithFormat:@"%@", [MGOVGeocoder returnFullAddress:annotation.coordinate]]];
 	selectedAddress.text = address;
 	[annotation setSubtitle:address];
-	[url release];
-	[str release];	
 	[address release];
 	selectedCoord = annotation.coordinate;
 }

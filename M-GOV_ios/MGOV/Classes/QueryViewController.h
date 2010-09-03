@@ -2,33 +2,31 @@
 //  QueryViewController.h
 //  MGOV
 //
-//  Created by Shou on 2010/8/25.
+//  Created by iphone on 2010/9/2.
 //  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
-#import <QuartzCore/QuartzCore.h>
-#import "TypeSelectorDelegateProtocol.h"
-#import "AppMKAnnotation.h"
-#import "LocationSelectorViewController.h"
 #import "typesViewController.h"
-#import "LocationSelectorTableCell.h"
-#import "LocationSelectorViewController.h"
 
-@interface QueryViewController : UITableViewController <TypeSelectorDelegateProtocol, LocationSelectorTableCellDelegate, LocationSelectorViewControllerDelegate> {
+@interface QueryViewController : UIViewController <UIActionSheetDelegate, UITableViewDataSource, UITableViewDelegate, TypeSelectorDelegateProtocol> {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
-	LocationSelectorViewController *locationSelector;
-	CLLocationCoordinate2D selectedCoord;
-	
-	// Component Cells
-	LocationSelectorTableCell *locationCell;
+	MKMapView *mapView;
+	UITableView *listView;
+	UIButton *infoButton;
 }
 
+@property (nonatomic, retain) IBOutlet MKMapView *mapView;
+@property (nonatomic, retain) IBOutlet UIButton *infoButton;
+@property (nonatomic, retain) IBOutlet UITableView *listView;
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
 
-- (BOOL)submitQuery;
+- (IBAction)openPhotoDialogAction;
+- (void)backToCurrentLocation;
+- (void)modeChange;
+- (void)typeSelect;
 
 @end

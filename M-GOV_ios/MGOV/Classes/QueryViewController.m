@@ -2,7 +2,7 @@
 //  QueryViewController.m
 //  MGOV
 //
-//  Created by Shou on 2010/8/25.
+//  Created by iphone on 2010/9/2.
 //  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
 //
 
@@ -11,15 +11,67 @@
 
 @implementation QueryViewController
 
-@synthesize selectedTypeTitle;
-@synthesize qid;
+@synthesize mapView, infoButton, listView;
+@synthesize qid, selectedTypeTitle;
 
 #pragma mark -
-#pragma mark QueryViewController Method
+#pragma mark QueryView method
 
-- (BOOL)submitQuery {
-	NSLog(@"submitQuery");
-	return YES;
+- (IBAction)openPhotoDialogAction {
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"回到當下位置" destructiveButtonTitle:nil otherButtonTitles:@"地圖模式", @"清單模式", nil];
+	actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
+	// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
+	[actionSheet showInView:self.tabBarController.view];
+	[actionSheet release];
+}
+
+- (void)backToCurrentLocation {
+	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];	
+	[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
+	MKCoordinateRegion region;
+	region.center = shared.locationManager.location.coordinate;
+	MKCoordinateSpan span;
+	span.latitudeDelta = 0.004;
+	span.longitudeDelta = 0.004;
+	region.span = span;
+	[mapView setRegion:region];
+}
+
+- (void)modeChange {
+	if (listView.hidden) {
+		listView.hidden = NO;
+		listView.alpha = 0;
+		mapView.alpha = 1;
+		[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationDuration:1.0];
+		listView.alpha = 1;
+		mapView.alpha = 0;
+		mapView.hidden = YES;
+		self.navigationItem.leftBarButtonItem.title = @"地圖";
+	}
+	else {
+		mapView.hidden = NO;
+		mapView.alpha = 0;
+		[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationDuration:1.0];
+		mapView.alpha = 1;
+		listView.hidden = YES;
+		self.navigationItem.leftBarButtonItem.title = @"清單";
+	}
+}
+
+- (void)typeSelect {
+	typesViewController *typesView = [[typesViewController alloc] init];
+	typesView.title = @"請選擇案件種類";	
+	UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typesView];
+	// Show the view
+	typesView.delegate = self;
+	[self presentModalViewController:typeAndDetailSelector animated:YES];
+	// Add Back button
+	UIBarButtonItem *backBuuton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:typesView.delegate action:@selector(leaveSelectorWithoutTitleAndQid)];
+	typesView.navigationItem.leftBarButtonItem = backBuuton;
+	[backBuuton release];
+	[typesView release];
 	
 }
 
@@ -27,80 +79,65 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of sections.
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {	
-	// Set the height according to the edit area size
-    if (indexPath.section == 0) {
-		return 200;
-	} else if (indexPath.section == 1 ){
-		return 45;
-	}
-	return 40;
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return 1;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == 0) {
-		return @"依照案件地點查詢";
-	} else if(section == 1) {
-		return @"依照案件種類查詢";
-	}
-	
-	return nil;
-}
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-	if (indexPath.section==0) {
-		return locationCell;
-	}
-	// Type Selector is a normal table view cell
-	
     static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-	
-	if (indexPath.section == 1) {
-		if ([selectedTypeTitle length]) cell.textLabel.text = selectedTypeTitle;
-		else cell.textLabel.text = @"請按此選擇案件種類";
-		
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
-	}
-	
-	return cell;
+    
+    // Configure the cell...
+    
+    return cell;
 }
+
 
 #pragma mark -
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section==1 && indexPath.row==0) {
-		typesViewController *typesView = [[typesViewController alloc] init];
-		typesView.title = @"請選擇案件種類";
-		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typesView];
-		// Show the view
-		typesView.delegate = self;
-		[self presentModalViewController:typeAndDetailSelector animated:YES];
-		// Add Back button
-		UIBarButtonItem *backBuuton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:typesView.delegate action:@selector(leaveSelectorWithoutTitleAndQid)];
-		typesView.navigationItem.leftBarButtonItem = backBuuton;
-		[backBuuton release];
-		[typesView release];
+    // Navigation logic may go here. Create and push another view controller.
+	/*
+	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
+     // ...
+     // Pass the selected object to the new view controller.
+	 [self.navigationController pushViewController:detailViewController animated:YES];
+	 [detailViewController release];
+	 */
+}
+
+
+#pragma mark -
+#pragma mark UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	
+	if (buttonIndex == 0) {
+		
+	} else if (buttonIndex == 1) {
+		
+	} else {
+		[self backToCurrentLocation];
 	}
+	
 }
 
 #pragma mark -
-#pragma mark TypeSelectorDelegateProtocol
+#pragma mark typesViewControllerDelegate
 
 - (void)typeSelectorDidSelectWithTitle:(NSString *)t andQid:(NSInteger)q {
 	self.selectedTypeTitle = t;
@@ -108,72 +145,57 @@
 	// Dismiss the view
 	[self dismissModalViewControllerAnimated:YES];
 	// Reload tableview after selected
-	[self.tableView reloadData];
+	[listView reloadData];
 }
 
 - (void)leaveSelectorWithoutTitleAndQid {
 	[self dismissModalViewControllerAnimated:YES];
 }
 
-#pragma mark -
-#pragma mark LocationSelectorTableCellDelegate
-
-- (void)openLocationSelector {
-	locationSelector = [[LocationSelectorViewController alloc] initWithCoordinate:selectedCoord];
-	locationSelector.delegate = self;
-	[self presentModalViewController:locationSelector animated:YES];
-}
-
-#pragma mark -
-#pragma mark LocationSelectorViewControllerDelegate
-
-- (void)userDidSelectCancel {
-	// Dismiss the view
-	[self dismissModalViewControllerAnimated:YES];
-}
-
-- (void)userDidSelectDone:(CLLocationCoordinate2D)coordinate {
-	// Dismiss the view
-	[locationCell updatingCoordinate:coordinate];
-	selectedCoord = coordinate;
-	[self.tableView reloadData];
-	[self dismissModalViewControllerAnimated:YES];
-}
 
 #pragma mark -
 #pragma mark View lifecycle
 
+// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-	UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithTitle:@"送出" style:UIBarButtonItemStylePlain target:self action:@selector(submitQuery)];
-	self.navigationItem.rightBarButtonItem = submitButton;
-	[submitButton release];
 	
-	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:200];
-	locationCell.delegate = self;
+	listView.hidden = YES;
+	listView.alpha = 0;
+	[self backToCurrentLocation];
 	
-	selectedTypeTitle = [[NSString alloc] init];
+	UIBarButtonItem *modeChangeButton = [[UIBarButtonItem alloc] initWithTitle:@"清單" style:UIBarButtonItemStyleBordered target:self action:@selector(modeChange)];
+	self.navigationItem.leftBarButtonItem = modeChangeButton;
+	[modeChangeButton release];
 	
-	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
-	selectedCoord = shared.locationManager.location.coordinate;
-	shared = nil;
-	[shared release];
+	UIBarButtonItem *caseTypeSelector = [[UIBarButtonItem alloc] initWithTitle:@"種類" style:UIBarButtonItemStyleBordered target:self action:@selector(typeSelect)];
+	self.navigationItem.rightBarButtonItem = caseTypeSelector;
+	[caseTypeSelector release];
+	
 }
 
 #pragma mark -
 #pragma mark Memory management
 
 - (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)viewDidUnload {
+    [super viewDidUnload];
+    // Release any retained subviews of the main view.
+    // e.g. self.myOutlet = nil;
 }
 
+
 - (void)dealloc {
-	[locationSelector release];
-	[locationCell release];
+	[mapView release];
+	[infoButton release];
     [super dealloc];
 }
+
 
 @end
