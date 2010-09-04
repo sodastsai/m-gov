@@ -87,7 +87,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {	
 	// Set the height according to the edit area size
     if (indexPath.section == 0) {
-		return 200;
+		return 250;
 	} else if (indexPath.section == 1) {
 		return 100;
 	} else if (indexPath.section == 2 ){
@@ -100,7 +100,6 @@
 	
 	return 0;
 }
-
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -159,13 +158,26 @@
 #pragma mark -
 #pragma mark UIImagePickerControllerDelegate
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingImage:(UIImage *)image editingInfo:(NSDictionary *)editingInfo {
-	// Scale and Crop to the Button
-	[photoCell.photoButton setImage:[image fitToSize:CGSizeMake(300, 200)] forState:UIControlStateNormal];
-	[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];
-	// Save to Camera Roll if this is a new photo
-	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) 
-		UIImageWriteToSavedPhotosAlbum(image, self, nil, nil);
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+	// Get New photo
+	selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+	
+	// Process for New photo
+	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+		// Scale
+		if (selectedImage.size.width >= selectedImage.size.height) {
+			selectedImage = [selectedImage scaleProportionlyToWidth:1024];
+		} else {
+			selectedImage = [selectedImage scaleProportionlyToHeight:1024];
+		}
+		// Save to Camera Roll
+		UIImageWriteToSavedPhotosAlbum(selectedImage, self, nil, nil);
+	}
+	
+	// Fit the Button
+	[photoCell.photoButton setImage:[selectedImage fitToSize:CGSizeMake(300, 250)] forState:UIControlStateNormal];
+	[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];		
+	
 	// Close Picker and Reload Data
 	[picker dismissModalViewControllerAnimated:YES];
 	[self.tableView reloadData];
@@ -245,12 +257,12 @@
 - (void)openPhotoDialogAction {
 	UIActionSheet *actionSheet;
 	if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
-		actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍攝新的照片", @"選擇手機裡的照片", nil];
+		actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍攝新的照片", @"選擇現有的照片", nil];
 		actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
 		// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
 		[actionSheet showInView:self.parentViewController.tabBarController.view];
 	} else {
-		UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"選擇手機裡的照片", nil];
+		UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"選擇現有的照片", nil];
 		actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
 		// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
 		[actionSheet showInView:self.parentViewController.tabBarController.view];

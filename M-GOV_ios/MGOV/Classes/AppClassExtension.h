@@ -15,5 +15,6 @@
 - (UIImage *)scaleProportionlyToHeight:(CGFloat)height;
 - (UIImage *)cropToRect:(CGRect)newRect;
 - (UIImage *)fitToSize:(CGSize)newSize;
+- (UIImage*)fixImageSize;
 
 @end
