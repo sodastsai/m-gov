@@ -1,12 +1,9 @@
-package ecoliving;
+//URLfetch time out !!
 
+package ecoliving;
 
 import java.util.HashMap;
 
-import gae.GAEDateBase;
-import gae.GAENode;
-
-import net.CookiesInURL;
 import net.HtmlFilter;
 import net.ReadUrlByPOST;
 
@@ -34,7 +31,7 @@ public class query_email {
 		String res="failed";
 		try {
 			res = ReadUrlByPOST.doSubmit(url,forms);
-			res = HtmlFilter.processByHTMLStr(res);
+			res = HtmlFilter.parseHTMLStr(res);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,8 +52,8 @@ public class query_email {
 		try {
 			String res;
 			res = ReadUrlByPOST.doSubmit(url,forms);
-			res = HtmlFilter.processByHTMLStr(res);
-			res = HtmlFilter.delTrash(res);
+			res = HtmlFilter.parseHTMLStr(res);
+			res = HtmlFilter.delSpace(res);
 
 			System.out.println(res);
 		} catch (Exception e) {

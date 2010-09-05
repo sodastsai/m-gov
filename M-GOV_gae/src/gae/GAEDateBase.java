@@ -11,4 +11,13 @@ public class GAEDateBase {
 		pm.makePersistent(node);	
 				
 	}
+
+	public static void store(GAENodeSimple node)
+	{
+		PersistenceManager pm;
+		pm = PMF.get().getPersistenceManager();
+		pm.makePersistent(node);	
+				
+	}
+
 }

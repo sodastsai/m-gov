@@ -9,26 +9,23 @@ import java.util.*;
 public class CookiesInURL {
 
 	Hashtable theCookies = new Hashtable();
-	URLConnection connection;
-	//test
+	public URLConnection connection;
+	// test
+	static String CFID = "315832";
+	static String CFTOKEN = "12514745";
+
 	public static void main(String args[]) throws IOException, Exception {
 		try {
-
-			String stringUrl = "http://www.czone.tcg.gov.tw/tp88-1/sys/query_memo_a.cfm?h_id=09907-010244";
+			String stringUrl = "http://www.czone.tcg.gov.tw/tp88-1/sys/query_memo_a.cfm?h_id=09907-010270";
 			URL url = new URL(stringUrl);
 
-			CookiesInURL cookurl = new CookiesInURL();
-			cookurl.setConnection(url);
-
-			cookurl.addCookie("CFID", "280040", true);
-			cookurl.addCookie("CFTOKEN", "27012071", true);
+			CookiesInURL cookurl = new CookiesInURL(url.openConnection());
 
 			String r = null;
 			r = net.ReadUrl.process(cookurl.connection);
-			r = net.HtmlFilter.processByHTMLStr(r);
-			r = net.HtmlFilter.delTrash(r);
-			
+			// r = net.HtmlFilter.praseByCoordinates(r);
 			System.out.println(r);
+
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -36,15 +33,22 @@ public class CookiesInURL {
 
 	}
 
-	public void setConnection(URL url) throws IOException {
-		connection = url.openConnection();
+	public CookiesInURL(String strurl) throws IOException {
+		connection = new URL(strurl).openConnection();
+		setDefaultCookie();
 	}
 
-	public void setConnection(String urlstring) throws IOException {
-		URL url = new URL(urlstring);
-		setConnection(url);
+	public CookiesInURL(URLConnection urlcon) {
+		connection = urlcon;
+		setDefaultCookie();
 	}
-	
+
+	private void setDefaultCookie() {
+		addCookie("CFID", CFID, false);
+		addCookie("CFTOKEN", CFTOKEN, false);
+
+	}
+
 	public URLConnection getConnection() {
 		return connection;
 

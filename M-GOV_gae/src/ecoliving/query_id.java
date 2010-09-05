@@ -1,8 +1,10 @@
 package ecoliving;
 
+import java.io.IOException;
 
 import gae.GAEDateBase;
 import gae.GAENode;
+import gae.GAENodeSimple;
 
 import net.CookiesInURL;
 import net.HtmlFilter;
@@ -15,34 +17,32 @@ import javax.ws.rs.core.MediaType;
 
 import tool.TypeFilter;
 
-import com.sun.xml.internal.rngom.binary.AfterPattern;
-
 @Path("/query_id")
 public class query_id {
+
+	static String strurl ;
+
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path("{c1}")
+	@Path("{c1}")		
 	public static String go(@PathParam("c1") String cmd) {
 		try {
-			CookiesInURL urlcon = new CookiesInURL();
-			String str=String.format("http://www.czone.tcg.gov.tw/tp88-1/sys/query_memo_a.cfm?h_id=%s",cmd);
-//			System.out.print(str);
-
-			urlcon.setConnection(str);
-			urlcon.addCookie("CFID", "280040", true);
-			urlcon.addCookie("CFTOKEN", "27012071", true);
-
 			
-			String res="";
-			res = HtmlFilter.processByURL(urlcon.getConnection());
-			res = HtmlFilter.delTrash(res);
+			strurl=String.format("http://www.czone.tcg.gov.tw/tp88-1/sys/query_memo_a.cfm?h_id=%s",cmd);
+			CookiesInURL urlcon = new CookiesInURL (strurl); 
+
+			String res="",res2;
+			res = net.ReadUrl.process(urlcon.connection);
+			res = HtmlFilter.parseHTMLStr(res);
+			res = HtmlFilter.delSpace(res);
 			
 			if(res.contains("查報案件")==false)
 				return "Not Found.";
 			
-			storeResult(res);
-			return res;
-			// return Store(table);
+			res2=getCoordinates();
+			storeResult(res,res2);
+			return res + "\n" + res2;
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -50,7 +50,19 @@ public class query_id {
 		}
 	}
 
-	private static void storeResult(String res) {
+	private static String getCoordinates() throws IOException
+	{
+		String str = strurl.replace("query_memo_a.cfm","show_map.cfm");
+		CookiesInURL cookurl = new CookiesInURL(str);
+
+		String r = "";
+		r = net.ReadUrl.process(cookurl.connection);
+		r = net.HtmlFilter.praseCoordinates(r);
+			
+		return r;
+	}
+	
+	private static void storeResult(String res,String res2) {
 		String line[] = res.split("\n");
 		String images[] =null;
 		int i,j,k;
@@ -63,8 +75,10 @@ public class query_id {
 		for (k = j; k<line.length && !("處理狀態一覽表".equals(line[k])) ; k++);
 
 		images = new String[k-j-1];
-		for (int p=j+1;p<k;p++)
+		for (int p=j+1;p<k;p++){
 			images[p-j-1] = line[p];
+			System.out.println(images[p-j-1]);
+		}
 		
 		GAENode node = new GAENode(
 				afterColon(line[i+1]),
@@ -72,19 +86,30 @@ public class query_id {
 				afterColon(line[i+3]) + " "+ afterColon(line[i+4]), 
 				afterColon(line[i+5]),
 				afterColon(line[i+6]),
-				TypeFilter.process(line[i+6]),
+				TypeFilter.Type2Id(afterColon(line[i+6])),
 				afterColon(line[i+7]),
 				parseAddress(line[i+8]),
+				res2,
 				afterColon(line[i+12]),
 				images,
 				res.substring(res.indexOf("查報來源")));
 
+		GAENodeSimple node2 = new GAENodeSimple(
+				afterColon(line[i+1]),
+				TypeFilter.Type2Id(afterColon(line[i+6])),
+				afterColon(line[i+3]),
+				res2
+		);
+		
 		// System.out.println(node.getKey());
 		GAEDateBase.store(node);
+		GAEDateBase.store(node2);
 	}
+	
 	private static String afterColon(String str){
 		return str.substring(str.indexOf("：")+1);
 	}
+	
 	private static String parseAddress(String str){
 		str = afterColon(str);
 		int st = 0,ed = str.length();

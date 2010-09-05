@@ -1,6 +1,7 @@
 package ecoliving;
 
 import gae.GAENode;
+import gae.GAENodeSimple;
 import gae.PMF;
 
 import javax.jdo.PersistenceManager;
@@ -18,7 +19,9 @@ public class delete {
 		PersistenceManager pm;
 		pm = PMF.get().getPersistenceManager();
 		Query query = pm.newQuery(GAENode.class);
-		long t = query.deletePersistentAll();
+		Query query2 = pm.newQuery(GAENodeSimple.class);
+
+		long t = query.deletePersistentAll() + query2.deletePersistentAll();
 		return String.valueOf(t);
 	}
 }

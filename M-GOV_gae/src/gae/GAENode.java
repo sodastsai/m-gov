@@ -5,7 +5,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -33,6 +32,8 @@ public class GAENode {
 	@Persistent
 	public String address;
 	@Persistent
+	public String coordinates;
+	@Persistent
 	public String state;
 	
 	@Persistent
@@ -41,7 +42,8 @@ public class GAENode {
 	public Text other;
 
 	public GAENode(String key, String date, String region,
-			String type1, String type2, String typeid, String detail, String address, String state,String images[],
+					String type1, String type2, String typeid, 
+					String detail, String address, String coordinates, String state,String images[],
 			String other) {
 		this.key = key;
 		this.date = date;
@@ -51,6 +53,7 @@ public class GAENode {
 		this.typeid = typeid;
 		this.detail = detail;
 		this.address = address;
+		this.coordinates = coordinates;
 		this.state = state;
 		this.images = images;
 		this.other = new Text(other);
@@ -73,6 +76,7 @@ public class GAENode {
 
 			o.accumulate("detail", detail);
 			o.accumulate("address",address);
+			o.accumulate("coordinates",coordinates);
 			o.accumulate("state", state);
 
 			// o.accumulate("other", other.getValue());
