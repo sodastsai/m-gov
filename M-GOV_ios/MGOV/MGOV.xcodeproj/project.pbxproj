@@ -16,7 +16,6 @@
 		2A097062122B60200048D841 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A097061122B60200048D841 /* QuartzCore.framework */; };
 		2A0974F4122BC7270048D841 /* LocationSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0974F2122BC7270048D841 /* LocationSelectorViewController.m */; };
 		2A0974F5122BC7270048D841 /* LocationSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */; };
-		2A47D964122D458E0018107A /* AppMKAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A47D962122D458E0018107A /* AppMKAnnotationView.m */; };
 		2A560EA71226A60A00F3800F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A560EA61226A60A00F3800F /* CoreData.framework */; };
 		2A560ED41226A6E700F3800F /* MGOVGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A560ED31226A6E700F3800F /* MGOVGeocoder.m */; };
 		2A79AC231223FB7C00F140A2 /* CaseAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */; };
@@ -72,8 +71,6 @@
 		2A0974F1122BC7270048D841 /* LocationSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSelectorViewController.h; sourceTree = "<group>"; };
 		2A0974F2122BC7270048D841 /* LocationSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSelectorViewController.m; sourceTree = "<group>"; };
 		2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LocationSelectorViewController.xib; path = Classes/LocationSelectorViewController.xib; sourceTree = "<group>"; };
-		2A47D962122D458E0018107A /* AppMKAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppMKAnnotationView.m; sourceTree = "<group>"; };
-		2A47D963122D458E0018107A /* AppMKAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMKAnnotationView.h; sourceTree = "<group>"; };
 		2A560EA61226A60A00F3800F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2A560ED21226A6E700F3800F /* MGOVGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOVGeocoder.h; sourceTree = "<group>"; };
 		2A560ED31226A6E700F3800F /* MGOVGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGOVGeocoder.m; sourceTree = "<group>"; };
@@ -242,8 +239,6 @@
 				2A0974F2122BC7270048D841 /* LocationSelectorViewController.m */,
 				FEE81536122791BF00D82E46 /* AppMKAnnotation.h */,
 				FEE81537122791BF00D82E46 /* AppMKAnnotation.m */,
-				2A47D963122D458E0018107A /* AppMKAnnotationView.h */,
-				2A47D962122D458E0018107A /* AppMKAnnotationView.m */,
 			);
 			name = "Location Selector";
 			sourceTree = "<group>";
@@ -476,7 +471,6 @@
 				FE1747A9122D2D6B00641599 /* LocationSelectorTableCell.m in Sources */,
 				FE1747DD122D303500641599 /* NameFieldTableCell.m in Sources */,
 				FE174803122D329C00641599 /* DescriptionTableCell.m in Sources */,
-				2A47D964122D458E0018107A /* AppMKAnnotationView.m in Sources */,
 				FE3FFE14122F7904008B0E48 /* CaseViewerViewController.m in Sources */,
 				2A9961B6122FDA550092C0D0 /* QueryViewController.m in Sources */,
 				2A85D6CB123097E7008A4AD1 /* CaseDisplayView.m in Sources */,

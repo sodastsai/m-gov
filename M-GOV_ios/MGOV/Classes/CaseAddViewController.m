@@ -178,13 +178,15 @@
 	[photoCell.photoButton setImage:[selectedImage fitToSize:CGSizeMake(300, 250)] forState:UIControlStateNormal];
 	[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];		
 	
-	// Close Picker and Reload Data
+	// Close Picker,Reload Data, and Call Location Selector
 	[picker dismissModalViewControllerAnimated:YES];
 	[self.tableView reloadData];
+	[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(openLocationSelector) userInfo:nil repeats:NO];
 }
 
 #pragma mark -
 #pragma mark UITextFieldDelegate
+
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	// End editing
@@ -231,7 +233,7 @@
 			// User does not enter his email. Close the Alert
 		}
 		// Maintain the responder chain
-		[alertEmailInputField removeFromSuperview];
+		[alertEmailInputField resignFirstResponder];
 	}
 }
 
@@ -240,23 +242,29 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	
-	UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-	picker.delegate = self;
-	
 	if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
 		if (buttonIndex == 0) {
+			UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+			picker.delegate = self;
 			picker.sourceType = UIImagePickerControllerSourceTypeCamera;
 			[self presentModalViewController:picker animated:YES];
-		} else if ( buttonIndex == 1 ){
+			[picker release];
+		} else if ( buttonIndex == 1 ) {
+			UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+			picker.delegate = self;
 			picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
 			[self presentModalViewController:picker animated:YES];
+			[picker release];	
 		}
 	} else {
-		picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-		[self presentModalViewController:picker animated:YES];
+		if (buttonIndex == 0) {
+			UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+			picker.delegate = self;
+			picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+			[self presentModalViewController:picker animated:YES];
+			[picker release];
+		}
 	}
-	
-	[picker release];	
 }
 
 #pragma mark -

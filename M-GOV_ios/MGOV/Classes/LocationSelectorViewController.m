@@ -9,7 +9,6 @@
 #import "LocationSelectorViewController.h"
 #import "MGOVGeocoder.h"
 #import "AppMKAnnotation.h"
-#import "AppMKAnnotationView.h"
 
 @implementation LocationSelectorViewController
 
@@ -21,18 +20,22 @@
 #pragma mark -
 #pragma mark MKMapViewDelegate
 
-- (MKAnnotationView *)mapView:(MKMapView *)MapView viewForAnnotation:(id <MKAnnotation>)annotation {
-	static NSString * const kPinAnnotationIdentifier = @"PinIdentifier";
-	MKAnnotationView *draggablePinView = [MapView dequeueReusableAnnotationViewWithIdentifier:kPinAnnotationIdentifier];
-	
+- (MKAnnotationView *)mapView:(MKMapView *)MapView viewForAnnotation:(id<MKAnnotation>)annotation {
+	// Act like table view cells
+	static NSString * const pinAnnotationIdentifier = @"PinIdentifier";
+	MKPinAnnotationView *draggablePinView = (MKPinAnnotationView *)[MapView dequeueReusableAnnotationViewWithIdentifier:pinAnnotationIdentifier];
+
 	if (draggablePinView) {
+		// Already exists
 		draggablePinView.annotation = annotation;
 	} else {		
-		draggablePinView = [[[AppMKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:kPinAnnotationIdentifier] autorelease];
-		if ([draggablePinView isKindOfClass:[AppMKAnnotationView class]]) {
-			((AppMKAnnotationView *)draggablePinView).AmapView = MapView;
-		}
+		// Renew
+		draggablePinView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pinAnnotationIdentifier] autorelease];
+		draggablePinView.draggable = YES;
+		draggablePinView.canShowCallout = YES;
+		draggablePinView.animatesDrop = YES;
 	}
+	
 	return draggablePinView;
 }
 
@@ -52,7 +55,7 @@
 - (void) updatingAddress:(AppMKAnnotation *)annotation{
 	NSString *address = [[NSString alloc]initWithString:[NSString stringWithFormat:@"%@", [MGOVGeocoder returnFullAddress:annotation.coordinate]]];
 	selectedAddress.text = address;
-	[annotation setSubtitle:address];
+	annotation.annotationSubtitle = address;
 	[address release];
 	selectedCoord = annotation.coordinate;
 }
@@ -85,7 +88,7 @@
 	[mapView addAnnotation:casePlace];
 	[self updatingAddress:casePlace];
 	[casePlace release];
-	
+		
 	// OK, Cancel
 	UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"確定" style:UIBarButtonItemStyleBordered target:self action:@selector(transformCoordinate)];
 	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleBordered target:delegate action:@selector(userDidSelectCancel)];
