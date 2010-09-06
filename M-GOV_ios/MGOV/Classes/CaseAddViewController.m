@@ -194,7 +194,6 @@
 		alertEmailPopupBox.message = textField.text;
 		// close the alert
 		[alertEmailPopupBox dismissWithClickedButtonIndex:0 animated:YES];
-		[self submitCase];
 		return NO;
 	}
 	return YES;
@@ -207,13 +206,22 @@
 	if ([alertView.title isEqualToString:alertRequestEmailTitle]) {
 		if (buttonIndex) {
 			if ([alertEmailInputField.text length]) {
-				// Write email to plist
-				NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-				NSMutableDictionary *dictUserInformation = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
-				[dictUserInformation setValue:alertEmailInputField.text forKey:@"User Email"];
-				// Write to File
-				[dictUserInformation writeToFile:plistPathInAppDocuments atomically:YES];
-				[self submitCase];
+				NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9.-]";
+				NSRange r;
+				r = [alertEmailInputField.text rangeOfString:emailRegex options:NSRegularExpressionSearch];
+				if (r.location != NSNotFound) {
+					// Write email to plist
+					NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
+					NSMutableDictionary *dictUserInformation = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
+					[dictUserInformation setValue:alertEmailInputField.text forKey:@"User Email"];
+					// Write to File
+					[dictUserInformation writeToFile:plistPathInAppDocuments atomically:YES];
+					[self submitCase];
+				} else {
+					UIAlertView *errorEmail = [[UIAlertView alloc] initWithTitle:@"E-Mail格式錯誤" message:@"請輸入正確的E-Mail！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
+					[errorEmail show];
+					[errorEmail release];
+				}
 			} else {
 				UIAlertView *emptyEmail = [[UIAlertView alloc] initWithTitle:@"E-Mail為必填項目" message:@"請輸入您的E-Mail，否則無法報案！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
 				[emptyEmail show];

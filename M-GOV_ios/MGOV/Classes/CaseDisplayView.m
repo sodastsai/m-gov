@@ -12,7 +12,49 @@
 @implementation CaseDisplayView
 
 @synthesize mapView, listView;
+@synthesize transitioning;
 
+#pragma mark -
+#pragma mark ViewTransition
+
+-(void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
+{
+	transitioning = NO;
+}
+
+-(void)performTransition
+{
+	// First create a CATransition object to describe the transition
+	CATransition *transition = [CATransition animation];
+	// Animate over 0.5 of a second
+	transition.duration = 0.5;
+	// using the ease in/out timing function
+	transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+	
+	transition.type = kCATransitionFade;
+	
+	// Finally, to avoid overlapping transitions we assign ourselves as the delegate for the animation and wait for the
+	// -animationDidStop:finished: message. When it comes in, we will flag that we are no longer transitioning.
+	transitioning = YES;
+	transition.delegate = self;
+	
+	// Next add it to the containerView's layer. This will perform the transition based on how we change its contents.
+	[self.layer addAnimation:transition forKey:nil];
+	
+	// Here we hide view1, and show view2, which will cause Core Animation to animate view1 away and view2 in.
+	if (mapView.hidden) {
+		mapView.hidden = NO;
+		listView.hidden = YES;
+	}
+	else {
+		mapView.hidden = YES;
+		listView.hidden = NO;
+	}	
+}
+
+-(void)loadCaseData:(NSDictionary *)dict {
+	caseData = [NSDictionary dictionaryWithDictionary:dict];
+}
 
 
 #pragma mark -
@@ -61,7 +103,6 @@
 }
 
 
-
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
         // Initialization code
@@ -71,17 +112,10 @@
 		[self addSubview:listView];
 		[self addSubview:mapView];
 		listView.hidden = YES;
+		transitioning = NO;
     }
     return self;
 }
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 
 - (void)dealloc {
 	[mapView release];

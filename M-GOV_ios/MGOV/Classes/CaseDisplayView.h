@@ -8,14 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface CaseDisplayView : UIView {
 	MKMapView *mapView;
 	UITableView *listView;
 	NSMutableArray *caseData;
+	BOOL transitioning;
 }
 
 @property (nonatomic, retain) MKMapView *mapView;
 @property (nonatomic, retain) UITableView *listView;
+@property BOOL transitioning;
+
+-(void)performTransition;
 
 @end

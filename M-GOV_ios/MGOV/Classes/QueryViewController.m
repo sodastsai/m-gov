@@ -16,8 +16,8 @@
 #pragma mark -
 #pragma mark QueryView method
 
-- (IBAction)openPhotoDialogAction {
-	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"" delegate:self cancelButtonTitle:@"回到當下位置" destructiveButtonTitle:nil otherButtonTitles:@"地圖模式", @"清單模式", nil];
+- (IBAction)openSearchDialogAction {
+	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"設定搜尋條件" delegate:self cancelButtonTitle:@"重設所有搜尋條件" destructiveButtonTitle:nil otherButtonTitles:@"設定種類", @"回到現在位置", nil];
 	actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
 	// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
 	[actionSheet showInView:self.tabBarController.view];
@@ -37,17 +37,17 @@
 }
 
 - (void)modeChange {
-	if (caseDisplayView.listView.hidden) {
-		caseDisplayView.listView.hidden = NO;
-		caseDisplayView.mapView.hidden = YES;
-		self.navigationItem.leftBarButtonItem.title = @"地圖";
+	if (!caseDisplayView.transitioning) {
+		[caseDisplayView performTransition];
+		if (caseDisplayView.listView.hidden) {
+			self.navigationItem.leftBarButtonItem.title = @"列表";
+			self.navigationItem.rightBarButtonItem = nil;
+		}
+		else {
+			self.navigationItem.leftBarButtonItem.title = @"地圖";
+			self.navigationItem.rightBarButtonItem = caseTypeSelector;
+		}
 	}
-	else {
-		caseDisplayView.mapView.hidden = NO;
-		caseDisplayView.listView.hidden = YES;
-		self.navigationItem.leftBarButtonItem.title = @"清單";
-	}
-	
 }
 
 - (void)typeSelect {
@@ -62,7 +62,6 @@
 	typesView.navigationItem.leftBarButtonItem = backBuuton;
 	[backBuuton release];
 	[typesView release];
-	
 }
 
 
@@ -72,13 +71,16 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	
 	if (buttonIndex == 0) {
-		
+		[self typeSelect];
 	} else if (buttonIndex == 1) {
-		
-	} else {
 		[self backToCurrentLocation];
-	}
+	} 
 	
+}
+
+- (void)actionSheetCancel:(UIActionSheet *)actionSheet {
+	
+	[self backToCurrentLocation];
 }
 
 #pragma mark -
@@ -109,13 +111,19 @@
 	[caseDisplayView release];
 	[self backToCurrentLocation];
 		
-	UIBarButtonItem *modeChangeButton = [[UIBarButtonItem alloc] initWithTitle:@"清單" style:UIBarButtonItemStyleBordered target:self action:@selector(modeChange)];
+	UIBarButtonItem *modeChangeButton = [[UIBarButtonItem alloc] initWithTitle:@"列表" style:UIBarButtonItemStyleBordered target:self action:@selector(modeChange)];
 	self.navigationItem.leftBarButtonItem = modeChangeButton;
 	[modeChangeButton release];
 	
-	UIBarButtonItem *caseTypeSelector = [[UIBarButtonItem alloc] initWithTitle:@"種類" style:UIBarButtonItemStyleBordered target:self action:@selector(typeSelect)];
-	self.navigationItem.rightBarButtonItem = caseTypeSelector;
-	[caseTypeSelector release];
+	
+	caseTypeSelector = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(typeSelect)];
+	//self.navigationItem.rightBarButtonItem = caseTypeSelector;
+	
+	
+	UIButton *searchCriteria = [UIButton buttonWithType:UIButtonTypeInfoDark];
+	searchCriteria.frame = CGRectMake(290, 340, 20, 20);
+	[caseDisplayView.mapView addSubview:searchCriteria];
+	[searchCriteria addTarget:self action:@selector(openSearchDialogAction) forControlEvents:UIControlEventTouchUpInside];
 	
 }
 
@@ -138,6 +146,9 @@
 
 - (void)dealloc {
     [super dealloc];
+	[caseTypeSelector release];
+	[selectedTypeTitle release];
+	[caseDisplayView release];
 }
 
 

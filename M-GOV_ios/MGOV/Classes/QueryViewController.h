@@ -15,12 +15,13 @@
 	NSString *selectedTypeTitle;
 	NSInteger qid;
 	CaseDisplayView *caseDisplayView;
+	UIBarButtonItem *caseTypeSelector;
 }
 
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
 
-- (IBAction)openPhotoDialogAction;
+- (IBAction)openSearchDialogAction;
 - (void)backToCurrentLocation;
 - (void)modeChange;
 - (void)typeSelect;
