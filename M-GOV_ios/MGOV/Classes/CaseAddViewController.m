@@ -18,6 +18,7 @@
 
 @synthesize selectedTypeTitle;
 @synthesize qid;
+@synthesize delegate;
 
 #pragma mark -
 #pragma mark CaseAddMethod
@@ -47,6 +48,7 @@
 	
 	if ([[dictUserInformation valueForKey:@"User Email"] length]) {
 		// Return to MyCase
+		[delegate refreshData];
 		[self.navigationController popViewControllerAnimated:YES];
 		return YES;
 	}
@@ -176,7 +178,7 @@
 	
 	// Fit the Button
 	[photoCell.photoButton setImage:[selectedImage fitToSize:CGSizeMake(300, 200)] forState:UIControlStateNormal];
-	[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];		
+	[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];
 	
 	// Close Picker,Reload Data, and Call Location Selector
 	[picker dismissModalViewControllerAnimated:YES];

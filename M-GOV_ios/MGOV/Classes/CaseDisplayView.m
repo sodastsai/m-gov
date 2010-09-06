@@ -13,6 +13,7 @@
 
 @synthesize mapView, listView;
 @synthesize transitioning;
+@synthesize delegate;
 
 #pragma mark -
 #pragma mark ViewTransition
@@ -56,7 +57,7 @@
 	caseData = [NSDictionary dictionaryWithDictionary:dict];
 }
 
-
+/*
 #pragma mark -
 #pragma mark Table view data source
 
@@ -74,32 +75,31 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    static NSString *CellIdentifier = @"Cell";
+    NSLog(@"XD");
+	static NSString *CellIdentifier = @"Cell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-    
+    cell.textLabel.text = @"!!";
     // Configure the cell...
     
     return cell;
 }
-
+*/
 
 #pragma mark -
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Navigation logic may go here. Create and push another view controller.
-	/*
-	 <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-	 [self.navigationController pushViewController:detailViewController animated:YES];
-	 [detailViewController release];
-	 */
+	 
+	CaseViewerViewController *detailViewController = [[CaseViewerViewController alloc] initWithCaseID:@"09909-500718"];
+	// ...
+	// Pass the selected object to the new view controller.
+	[delegate pushViewController:detailViewController animated:YES];
+	[detailViewController release];
 }
 
 
@@ -113,6 +113,15 @@
 		[self addSubview:mapView];
 		listView.hidden = YES;
 		transitioning = NO;
+		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];	
+		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
+		MKCoordinateRegion region;
+		region.center = shared.locationManager.location.coordinate;
+		MKCoordinateSpan span;
+		span.latitudeDelta = 0.004;
+		span.longitudeDelta = 0.004;
+		region.span = span;
+		[mapView setRegion:region];
     }
     return self;
 }

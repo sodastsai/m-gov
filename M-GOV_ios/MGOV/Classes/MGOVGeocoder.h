@@ -20,5 +20,7 @@
 + (MGOVGeocoder *)sharedVariable;
 + (NSString *) returnFullAddress:(CLLocationCoordinate2D)coordinate;
 + (NSString *) returnRegion:(CLLocationCoordinate2D)coordinate;
++ (NSString *) returnFullAddressWithCommaSperatedCoordinate:(NSString *)coord;
++ (CLLocationCoordinate2D) convertCommaSeperatedCoordinate:(NSString *)coord;
 
 @end

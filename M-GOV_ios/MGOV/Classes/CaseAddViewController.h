@@ -19,6 +19,14 @@
 
 #import "AppClassExtension.h"
 
+@protocol CaseAddViewControllerProtocol
+
+- (void)refreshData;
+
+@end
+
+
+
 @interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, PhotoPickerTableCellDelegate, LocationSelectorTableCellDelegate, LocationSelectorViewControllerDelegate>  {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
@@ -38,8 +46,10 @@
 	
 	UIToolbar *keyboardToolbar;
 	UIView *keyboard;
+	id<CaseAddViewControllerProtocol> delegate;
 }
 
+@property (retain, nonatomic) id<CaseAddViewControllerProtocol> delegate;
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
 

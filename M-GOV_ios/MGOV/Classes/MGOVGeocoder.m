@@ -46,5 +46,22 @@ static MGOVGeocoder *sharedVariable = nil;
 	return [NSString stringWithFormat:@"%@", [[[[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"address_components" ] objectAtIndex:2] objectForKey:@"long_name"]];
 }
 
++ (NSString *) returnFullAddressWithCommaSperatedCoordinate:(NSString *)coord {
+	return [MGOVGeocoder returnFullAddress:[MGOVGeocoder convertCommaSeperatedCoordinate:coord]];
+}
+
++ (CLLocationCoordinate2D) convertCommaSeperatedCoordinate:(NSString *)coord {
+	NSString *regEx1= @"^[0-9.]*";
+	NSRange regexpResult = [coord rangeOfString:regEx1 options:NSRegularExpressionSearch];
+	double longitude = [[coord substringWithRange:regexpResult] doubleValue];
+	NSString *regEx2 = @"[0-9.]*$";
+	regexpResult = [coord rangeOfString:regEx2 options:NSRegularExpressionSearch];
+	double latitude = [[coord substringWithRange:regexpResult] doubleValue];
+	CLLocationCoordinate2D finalCoord;
+	finalCoord.longitude = longitude;
+	finalCoord.latitude = latitude;
+	return finalCoord;
+}
+
 
 @end

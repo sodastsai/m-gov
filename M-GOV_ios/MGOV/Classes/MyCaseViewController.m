@@ -13,6 +13,45 @@
 @implementation MyCaseViewController
 
 #pragma mark -
+#pragma mark MyCaseViewController Method
+
+- (void)modeChange {
+	if (!caseDisplayView.transitioning) {
+		[caseDisplayView performTransition];
+		if (caseDisplayView.listView.hidden) {
+			self.navigationItem.leftBarButtonItem.title = @"列表";
+		}
+		else {
+			self.navigationItem.leftBarButtonItem.title = @"地圖";
+		}
+	}
+}
+
+- (void) addCase {
+	// Call the add case view
+	CaseAddViewController *caseAdder = [[CaseAddViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	caseAdder.delegate = self;
+	[self.navigationController pushViewController:caseAdder animated:YES];	
+	[caseAdder release];
+}
+
+#pragma mark -
+#pragma mark CaseAddViewControllerProtocol
+
+- (void)refreshData {
+	if (caseDisplayView==nil) {
+		[[self.view.subviews lastObject] removeFromSuperview];
+		caseDisplayView = [[CaseDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, 367)];
+		[self.view addSubview:caseDisplayView];
+		caseDisplayView.mapView.hidden = YES;
+		caseDisplayView.listView.hidden = NO;
+		UIBarButtonItem *modeChangeButton = [[UIBarButtonItem alloc] initWithTitle:@"地圖" style:UIBarButtonItemStylePlain target:self action:@selector(modeChange)];
+		self.navigationItem.leftBarButtonItem =modeChangeButton;
+		[modeChangeButton release];
+	}
+}
+
+#pragma mark -
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
@@ -26,16 +65,27 @@
 	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
 	userEmail = [[NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments] valueForKey:@"User Email"];
 	
-	if (![userEmail length]) self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+	if (![userEmail length]) {
+		UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, 320, 367)];
+		UIImageView *firstRunView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NoMyCase.png"]];
+		[scrollView setContentSize:firstRunView.frame.size];
+		[scrollView addSubview:firstRunView];
+		[self.view addSubview:scrollView];
+		[firstRunView release];
+		[scrollView release];
+	} else {
+		caseDisplayView = [[CaseDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, 367)];
+		[self.view addSubview:caseDisplayView];
+		caseDisplayView.mapView.hidden = YES;
+		caseDisplayView.listView.hidden = NO;
+		UIBarButtonItem *modeChangeButton = [[UIBarButtonItem alloc] initWithTitle:@"地圖" style:UIBarButtonItemStylePlain target:self action:@selector(modeChange)];
+		self.navigationItem.leftBarButtonItem =modeChangeButton;
+		[modeChangeButton release];
+	}
+
 }
 
-- (void) addCase {
-	// Call the add case view
-	CaseAddViewController *caseAdder = [[CaseAddViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	[self.navigationController pushViewController:caseAdder animated:YES];	
-	[caseAdder release];
-}
-
+/*
 #pragma mark -
 #pragma mark Table view data source
 
@@ -90,6 +140,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // To call the case viewer
 }
+*/
+
 
 #pragma mark -
 #pragma mark Memory management
@@ -102,6 +154,7 @@
 }
 
 - (void)dealloc {
+	[caseDisplayView release];
     [super dealloc];
 }
 

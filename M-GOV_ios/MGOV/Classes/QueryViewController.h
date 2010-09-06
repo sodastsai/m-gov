@@ -10,12 +10,14 @@
 #import <MapKit/MapKit.h>
 #import "typesViewController.h"
 #import "CaseDisplayView.h"
+#import "LocationSelectorTableCell.h"
 
-@interface QueryViewController : UIViewController <UIActionSheetDelegate, TypeSelectorDelegateProtocol> {
+@interface QueryViewController : UIViewController <UIActionSheetDelegate, TypeSelectorDelegateProtocol, CaseDisplayDelegate, UITableViewDataSource> {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
 	CaseDisplayView *caseDisplayView;
 	UIBarButtonItem *caseTypeSelector;
+	
 }
 
 @property (retain, nonatomic) NSString *selectedTypeTitle;

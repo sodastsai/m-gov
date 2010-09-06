@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import <QuartzCore/QuartzCore.h>
+#import "JSON.h"
+#import "LocationSelectorTableCell.h"
+#import "AppClassExtension.h"
 
 @interface CaseViewerViewController : UITableViewController {
-
+	NSString *ID;
+	NSDictionary *caseData;
+	UIImageView *photoView;
+	
+	LocationSelectorTableCell *locationCell;
 }
+
+- (id)initWithCaseID:(NSString *)caseID;
 
 @end

@@ -13,6 +13,40 @@
 
 @synthesize qid, selectedTypeTitle;
 
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)boolean {
+	[self.navigationController pushViewController:viewController animated:boolean];
+}
+
+
+#pragma mark -
+#pragma mark Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // Return the number of sections.
+    return 1;
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    // Return the number of rows in the section.
+    return 1;
+}
+
+
+// Customize the appearance of table view cells.
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	static NSString *CellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    }
+    // Configure the cell...
+    
+    return cell;
+}
+
+
 #pragma mark -
 #pragma mark QueryView method
 
@@ -25,15 +59,8 @@
 }
 
 - (void)backToCurrentLocation {
-	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];	
-	[caseDisplayView.mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
-	MKCoordinateRegion region;
-	region.center = shared.locationManager.location.coordinate;
-	MKCoordinateSpan span;
-	span.latitudeDelta = 0.004;
-	span.longitudeDelta = 0.004;
-	region.span = span;
-	[caseDisplayView.mapView setRegion:region];
+	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+	[caseDisplayView.mapView setCenterCoordinate:shared.locationManager.location.coordinate];
 }
 
 - (void)modeChange {
@@ -107,18 +134,17 @@
     [super viewDidLoad];
 	
 	caseDisplayView = [[CaseDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, 367)];
+	caseDisplayView.delegate = self;
+	caseDisplayView.listView.dataSource = self;
+	caseDisplayView.listView.delegate = caseDisplayView;
 	[self.view addSubview:caseDisplayView];
 	[caseDisplayView release];
-	[self backToCurrentLocation];
-		
+	
 	UIBarButtonItem *modeChangeButton = [[UIBarButtonItem alloc] initWithTitle:@"列表" style:UIBarButtonItemStyleBordered target:self action:@selector(modeChange)];
 	self.navigationItem.leftBarButtonItem = modeChangeButton;
 	[modeChangeButton release];
 	
-	
-	caseTypeSelector = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(typeSelect)];
-	//self.navigationItem.rightBarButtonItem = caseTypeSelector;
-	
+	caseTypeSelector = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(typeSelect)];	
 	
 	UIButton *searchCriteria = [UIButton buttonWithType:UIButtonTypeInfoDark];
 	searchCriteria.frame = CGRectMake(290, 340, 20, 20);

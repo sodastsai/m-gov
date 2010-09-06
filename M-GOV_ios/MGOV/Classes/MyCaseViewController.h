@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "CaseAddViewController.h"
+#import "CaseDisplayView.h"
 
-@interface MyCaseViewController : UITableViewController {
+@interface MyCaseViewController : UIViewController <CaseAddViewControllerProtocol> {
 	NSString *userEmail;
+	CaseDisplayView *caseDisplayView;
 }
 
 - (void) addCase;
+- (void) modeChange;
 
 @end
