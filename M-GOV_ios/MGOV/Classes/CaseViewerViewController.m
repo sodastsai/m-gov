@@ -92,8 +92,11 @@
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			if (indexPath.row == 0) {
+				// Fetch type from plist
+				NSString *caseType = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[caseData objectForKey:@"typeid"]];
+				
 				cell.textLabel.text = @"案件種類";
-				cell.detailTextLabel.text = @"";
+				cell.detailTextLabel.text = caseType;
 			} else {
 				cell.textLabel.text = @"案件描述";
 				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"detail"]];
@@ -129,6 +132,7 @@
 	[caseID release];
 	[caseData release];
 	[locationCell release];
+	[photoView release];
     [super dealloc];
 }
 
