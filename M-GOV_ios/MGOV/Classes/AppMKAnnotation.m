@@ -13,6 +13,10 @@
 @synthesize coordinate;
 @synthesize annotationSubtitle, annotationTitle;
 
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coord {
+	return [self initWithCoordinate:coord andTitle:nil andSubtitle:nil];
+}
+
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coord andTitle:(NSString *)t andSubtitle:(NSString *)st {
 	if (self = [super init]) {
 		coordinate = coord;

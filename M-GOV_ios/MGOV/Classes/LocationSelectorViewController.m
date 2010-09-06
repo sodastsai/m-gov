@@ -34,8 +34,8 @@
 		draggablePinView.draggable = YES;
 		draggablePinView.canShowCallout = YES;
 		draggablePinView.animatesDrop = YES;
+		draggablePinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure] ;
 	}
-	
 	return draggablePinView;
 }
 
@@ -84,7 +84,7 @@
 	region.span = span;
 	[mapView setRegion:region];
 	
-	AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:selectedCoord andTitle:@"Title test" andSubtitle:@"科科"];
+	AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:selectedCoord andTitle:@"XX" andSubtitle:@""];
 	[mapView addAnnotation:casePlace];
 	[self updatingAddress:casePlace];
 	[casePlace release];

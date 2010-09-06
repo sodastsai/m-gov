@@ -12,13 +12,15 @@
 
 @synthesize delegate;
 
-- (id)initWithHeight:(CGFloat)h {
+- (id)initWithHeight:(CGFloat)h andCoordinate:(CLLocationCoordinate2D)coord actionTarget:(id)perfomer setAction:(SEL)action {
 	mapViewHeight = h;
+	mapButtonTarget = perfomer;
+	mapButtonAction = action;
+	mapCoordinate = coord;
 	return [self init];
 }
 
 - (void)updatingCoordinate:(CLLocationCoordinate2D)coordinate {
-
 	[mapView setCenterCoordinate:coordinate];
 	casePlace.coordinate = coordinate;
 }
@@ -27,10 +29,12 @@
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, mapViewHeight-1)];
 		mapView.mapType = MKMapTypeStandard;
-		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
-		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
+		//MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+		//[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
+		[mapView setCenterCoordinate:mapCoordinate animated:YES];
 		MKCoordinateRegion region;
-		region.center = shared.locationManager.location.coordinate;
+		//region.center = shared.locationManager.location.coordinate;
+		region.center = mapCoordinate;
 		MKCoordinateSpan span;
 		span.latitudeDelta = 0.004;
 		span.longitudeDelta = 0.004;
@@ -42,7 +46,7 @@
 		UIButton *mapButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];
 		mapButton.backgroundColor = [UIColor clearColor];
 		[self.contentView addSubview:mapButton];
-		[mapButton addTarget:delegate action:@selector(openLocationSelector) forControlEvents:UIControlEventTouchUpInside];
+		[mapButton addTarget:mapButtonTarget action:mapButtonAction forControlEvents:UIControlEventTouchUpInside];
 
 		
 		// TODO: correct the title: 現在位置or照片位置
@@ -52,7 +56,6 @@
 		
 		self.backgroundView = mapView;
 		[mapView release];
-		
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;

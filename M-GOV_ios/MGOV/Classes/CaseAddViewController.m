@@ -87,7 +87,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {	
 	// Set the height according to the edit area size
     if (indexPath.section == 0) {
-		return 250;
+		return 200;
 	} else if (indexPath.section == 1) {
 		return 100;
 	} else if (indexPath.section == 2 ){
@@ -175,7 +175,7 @@
 	}
 	
 	// Fit the Button
-	[photoCell.photoButton setImage:[selectedImage fitToSize:CGSizeMake(300, 250)] forState:UIControlStateNormal];
+	[photoCell.photoButton setImage:[selectedImage fitToSize:CGSizeMake(300, 200)] forState:UIControlStateNormal];
 	[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];		
 	
 	// Close Picker,Reload Data, and Call Location Selector
@@ -364,7 +364,8 @@
 	// Add Component
 	photoCell = [[PhotoPickerTableCell alloc] init];
 	photoCell.delegate = self;
-	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:100];
+	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:100 andCoordinate:shared.locationManager.location.coordinate actionTarget:self setAction:@selector(openLocationSelector)];
 	locationCell.delegate = self;
 	nameFieldCell = [[NameFieldTableCell alloc] init];
 	descriptionCell = [[DescriptionTableCell alloc] init];
@@ -396,7 +397,7 @@
 	[flexibleItem release];
 	[optionalHint release];
 	
-	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+	//MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 	selectedCoord = shared.locationManager.location.coordinate;
 	shared = nil;
 	[shared release];

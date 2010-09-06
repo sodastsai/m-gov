@@ -16,7 +16,7 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
-        photoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, 250)];
+        photoButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, 200)];
 		
 		[photoButton setTitle:@"按一下以加入照片..." forState:UIControlStateNormal];
 		photoButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];

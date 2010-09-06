@@ -27,8 +27,8 @@
 	CLLocationCoordinate2D selectedCoord;
 	UIToolbar *bottomBar;
 }
-@property (nonatomic, retain) id<LocationSelectorViewControllerDelegate> delegate;
 
+@property (nonatomic, retain) id<LocationSelectorViewControllerDelegate> delegate;
 @property (nonatomic, retain) IBOutlet UIToolbar *bottomBar;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) IBOutlet UINavigationBar *titleBar;
