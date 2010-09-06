@@ -50,10 +50,11 @@ public class ReadUrlByPOST {
 		conn.setRequestProperty("Content-Type",
 				"application/x-www-form-urlencoded");
 
-		// conn.setRequestProperty("Cookie", "CFTOKEN=27012071; CFID=280040");
+		String cookie = "CFID="+CookiesInURL.CFID+";CFTOKEN="+CookiesInURL.CFTOKEN;
+		conn.setRequestProperty("Cookie",cookie);
 
 		DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-
+		
 		Set keys = data.keySet();
 		Iterator keyIter = keys.iterator();
 		String content = "";
@@ -62,7 +63,7 @@ public class ReadUrlByPOST {
 			if (i != 0) {
 				content += "&";
 			}
-			content += key + "=" + URLEncoder.encode(data.get(key), "UTF-8");
+			content += key + "=" + URLEncoder.encode(data.get(key), "big5");
 		}
 		
 		out.writeBytes(content);
@@ -70,18 +71,17 @@ public class ReadUrlByPOST {
 		out.close();
 		String line = "", res = "";
 		try {
-
+/*
+			for (int i = 0; i< 15; i++)
+				System.out.println(conn.getHeaderField(i));
+*/
 			BufferedReader in = new BufferedReader(new InputStreamReader(conn
 					.getInputStream(), "big5"));
 			while ((line = in.readLine()) != null) {
 				res += line + "\n";
-				// System.out.println(line);
 			}
 			in.close();
-			
-			
-			for (int i = 0; i< 15; i++)
-				System.out.println(conn.getHeaderField(i));
+						
 
 		} catch (Exception e) {
 			e.printStackTrace();

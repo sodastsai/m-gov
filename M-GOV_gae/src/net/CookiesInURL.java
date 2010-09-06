@@ -2,17 +2,23 @@
 
 package net;
 
+import gae.GAENode;
+import gae.GAENodeCookie;
+import gae.PMF;
+
 import java.net.*;
 import java.io.*;
 import java.util.*;
+
+import javax.jdo.PersistenceManager;
 
 public class CookiesInURL {
 
 	Hashtable theCookies = new Hashtable();
 	public URLConnection connection;
 	// test
-	static String CFID = "315832";
-	static String CFTOKEN = "12514745";
+	public static String CFID = "315832";
+	public static String CFTOKEN = "12514745";
 
 	public static void main(String args[]) throws IOException, Exception {
 		try {
@@ -44,9 +50,17 @@ public class CookiesInURL {
 	}
 
 	private void setDefaultCookie() {
+
+		GAENodeCookie c1,c2;
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		c1 = pm.getObjectById(GAENodeCookie.class,"CFID");
+		c2 = pm.getObjectById(GAENodeCookie.class,"CFTOKEN");
+		
+		CFID = c1.getValue();
+		CFTOKEN = c2.getValue();
+		
 		addCookie("CFID", CFID, false);
 		addCookie("CFTOKEN", CFTOKEN, false);
-
 	}
 
 	public URLConnection getConnection() {

@@ -41,6 +41,15 @@ public class HtmlFilter {
 		return visitor.getExtractedText();
 	}
 
+	public static String parseQueryResult(String htmlstr)
+	{
+		String res = "";
+		Matcher matcher = Pattern.compile("[0-9]{5,5}-[0-9]{6,6}").matcher(htmlstr);
+
+		while (matcher.find())
+			res += matcher.group() + "\n";
+		return res;
+	}
 
 	private static String makeImageURL(String str) {
 		String res = "";

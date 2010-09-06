@@ -11,7 +11,7 @@ public class WriteFile {
 		BufferedWriter bfw = new BufferedWriter(fw);
 
 
-		in = new String(in.getBytes("GBK"));
+//		in = new String(in.getBytes("GBK"));
 
 		// String textcontent=new
 		// String(request.getParameter("boy").getBytes("UTF-8")).trim();
