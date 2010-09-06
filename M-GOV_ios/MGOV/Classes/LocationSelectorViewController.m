@@ -8,7 +8,6 @@
 
 #import "LocationSelectorViewController.h"
 #import "MGOVGeocoder.h"
-#import "AppMKAnnotation.h"
 
 @implementation LocationSelectorViewController
 
@@ -52,10 +51,9 @@
 #pragma mark -
 #pragma mark Location Selector method
 
-- (void) updatingAddress:(AppMKAnnotation *)annotation{
+- (void) updatingAddress:(AppMKAnnotation *)annotation {
 	NSString *address = [[NSString alloc]initWithString:[NSString stringWithFormat:@"%@", [MGOVGeocoder returnFullAddress:annotation.coordinate]]];
 	selectedAddress.text = address;
-	annotation.annotationSubtitle = address;
 	[address release];
 	selectedCoord = annotation.coordinate;
 }
@@ -66,6 +64,13 @@
 
 - (id) initWithCoordinate:(CLLocationCoordinate2D)coordinate {
 	selectedCoord = coordinate;
+	caseImage = nil;
+	return [self init];
+}
+
+- (id) initWithCoordinate:(CLLocationCoordinate2D)coordinate andImage:(UIImage *)image {
+	selectedCoord = coordinate;
+	caseImage = image;
 	return [self init];
 }
 
@@ -84,7 +89,7 @@
 	region.span = span;
 	[mapView setRegion:region];
 	
-	AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:selectedCoord andTitle:@"XX" andSubtitle:@""];
+	AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:selectedCoord andTitle:@" " andSubtitle:@""];
 	[mapView addAnnotation:casePlace];
 	[self updatingAddress:casePlace];
 	[casePlace release];

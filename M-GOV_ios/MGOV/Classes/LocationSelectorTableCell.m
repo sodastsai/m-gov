@@ -29,11 +29,8 @@
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, mapViewHeight-1)];
 		mapView.mapType = MKMapTypeStandard;
-		//MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
-		//[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
 		[mapView setCenterCoordinate:mapCoordinate animated:YES];
 		MKCoordinateRegion region;
-		//region.center = shared.locationManager.location.coordinate;
 		region.center = mapCoordinate;
 		MKCoordinateSpan span;
 		span.latitudeDelta = 0.004;
@@ -48,10 +45,7 @@
 		[self.contentView addSubview:mapButton];
 		[mapButton addTarget:mapButtonTarget action:mapButtonAction forControlEvents:UIControlEventTouchUpInside];
 
-		
-		// TODO: correct the title: 現在位置or照片位置
-		// TODO: correct the subtitle: 地址
-		casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"Title test" andSubtitle:@""];
+		casePlace = [[AppMKAnnotation alloc] initWithCoordinate:region.center andTitle:@"" andSubtitle:@""];
 		[mapView addAnnotation:casePlace];
 		
 		self.backgroundView = mapView;

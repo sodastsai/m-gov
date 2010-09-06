@@ -18,13 +18,11 @@
 #pragma mark -
 #pragma mark ViewTransition
 
--(void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
-{
+-(void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
 	transitioning = NO;
 }
 
--(void)performTransition
-{
+-(void)performTransition {
 	// First create a CATransition object to describe the transition
 	CATransition *transition = [CATransition animation];
 	// Animate over 0.5 of a second
@@ -57,53 +55,19 @@
 	caseData = [NSDictionary dictionaryWithDictionary:dict];
 }
 
-/*
-#pragma mark -
-#pragma mark Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
-    return 1;
-}
-
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
-    return 1;
-}
-
-
-// Customize the appearance of table view cells.
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"XD");
-	static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-    }
-    cell.textLabel.text = @"!!";
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
 #pragma mark -
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Navigation logic may go here. Create and push another view controller.
-	 
 	CaseViewerViewController *detailViewController = [[CaseViewerViewController alloc] initWithCaseID:@"09909-500718"];
-	// ...
+	
 	// Pass the selected object to the new view controller.
 	[delegate pushViewController:detailViewController animated:YES];
 	[detailViewController release];
 }
 
-
 - (id)initWithFrame:(CGRect)frame {
+	// TODO: should be set to default
     if ((self = [super initWithFrame:frame])) {
         // Initialization code
 		caseData = [[NSMutableArray alloc] init];

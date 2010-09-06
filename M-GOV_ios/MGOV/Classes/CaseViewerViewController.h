@@ -13,13 +13,13 @@
 #import "AppClassExtension.h"
 
 @interface CaseViewerViewController : UITableViewController {
-	NSString *ID;
+	NSString *caseID;
 	NSDictionary *caseData;
 	UIImageView *photoView;
 	
 	LocationSelectorTableCell *locationCell;
 }
 
-- (id)initWithCaseID:(NSString *)caseID;
+- (id)initWithCaseID:(NSString *)cid;
 
 @end

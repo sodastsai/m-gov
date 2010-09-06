@@ -34,9 +34,9 @@
 			<key>Detail10</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>寬路面(8m以上)市區道路坑洞</string>
+				<string>寬路面(8m以上)山區鄰里道路坑洞</string>
 				<key>SecondDetail1</key>
-				<string>一般路面市區道路坑洞</string>
+				<string>一般路面山區鄰里道路坑洞</string>
 			</dict>
 		</dict>
 		<key>Type1</key>
@@ -48,14 +48,14 @@
 			<key>Detail2</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>寬路面道路側溝溝蓋損壞</string>
+				<string>寬路面(8m以上)道路側溝溝蓋損壞</string>
 				<key>SecondDetail1</key>
 				<string>一般路面道路側溝溝蓋損壞</string>
 			</dict>
 			<key>Detail3</key>
 			<dict>
 				<key>SecondDetail0</key>
-				<string>寬路面山區鄰里道路溝蓋損壞</string>
+				<string>寬路面(8m以上)山區鄰里道路溝蓋損壞</string>
 				<key>SecondDetail1</key>
 				<string>一般路面山區鄰里道路溝蓋損壞</string>
 			</dict>

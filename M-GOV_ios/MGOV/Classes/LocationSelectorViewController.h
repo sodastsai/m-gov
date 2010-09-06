@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "JSON.h"
+#import "AppMKAnnotation.h"
 
 @protocol LocationSelectorViewControllerDelegate
 
@@ -26,6 +27,7 @@
 	UILabel *selectedAddress, *barTitle;
 	CLLocationCoordinate2D selectedCoord;
 	UIToolbar *bottomBar;
+	UIImage *caseImage;
 }
 
 @property (nonatomic, retain) id<LocationSelectorViewControllerDelegate> delegate;
@@ -36,7 +38,8 @@
 @property (nonatomic) CLLocationCoordinate2D selectedCoord;
 
 - (id) initWithCoordinate:(CLLocationCoordinate2D)coordinate;
-- (void) updatingAddress:(id <MKAnnotation>)annotation;
+- (id) initWithCoordinate:(CLLocationCoordinate2D)coordinate andImage:(UIImage *)image;
+- (void) updatingAddress:(AppMKAnnotation *)annotation;
 - (void) transformCoordinate;
 
 
