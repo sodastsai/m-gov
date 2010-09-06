@@ -34,7 +34,7 @@ public class GAENode {
 	@Persistent
 	public String coordinates;
 	@Persistent
-	public String state;
+	public String status;
 	
 	@Persistent
 	public String images[];
@@ -43,7 +43,7 @@ public class GAENode {
 
 	public GAENode(String key, String date, String region,
 					String type1, String type2, String typeid, 
-					String detail, String address, String coordinates, String state,String images[],
+					String detail, String address, String coordinates, String status,String images[],
 			String other) {
 		this.key = key;
 		this.date = date;
@@ -54,7 +54,7 @@ public class GAENode {
 		this.detail = detail;
 		this.address = address;
 		this.coordinates = coordinates;
-		this.state = state;
+		this.status = status;
 		this.images = images;
 		this.other = new Text(other);
 	}
@@ -69,7 +69,7 @@ public class GAENode {
 
 			o.accumulate("key", key);
 			o.accumulate("date", date);
-			o.accumulate("region", region);
+//			o.accumulate("region", region);
 			o.accumulate("type1", type1);
 			o.accumulate("type2", type2);
 			o.accumulate("typeid", typeid);
@@ -77,9 +77,9 @@ public class GAENode {
 			o.accumulate("detail", detail);
 			o.accumulate("address",address);
 			o.accumulate("coordinates",coordinates);
-			o.accumulate("state", state);
+			o.accumulate("status", status);
 
-			// o.accumulate("other", other.getValue());
+//			o.accumulate("other", other.getValue());
 			for (int i = 0; i < images.length; i++)
 				o.accumulate("image", images[i]);
 			// System.out.println(a);
@@ -93,7 +93,7 @@ public class GAENode {
 
 	@Override
 	public String toString() {
-		return key + " " + date + " " + region + " " + type1 + " "
-				+ type2 + " " + other;
+		return key + " " + date + " " + typeid + " "
+				+ status + " " + other;
 	}
 }

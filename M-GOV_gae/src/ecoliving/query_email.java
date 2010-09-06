@@ -20,7 +20,7 @@ public class query_email {
 	@Path("{c1}")
 	public static String go(@PathParam("c1") String cmd) {
 
-		String url = "http://www.czone.tcg.gov.tw/tp88-1/sys/guest_query_open.cfm";
+		String url = "http://www.czone2.tcg.gov.tw/tp88-1/sys/guest_query_open.cfm";
 		HashMap<String, String> forms = new HashMap();
 		
 		forms.put("sql_str","1=1 and cfcma_email='abc@bbc.com'");
@@ -41,7 +41,7 @@ public class query_email {
 
 	public static void main (String args[])
 	{
-		String url = "http://www.czone.tcg.gov.tw/tp88-1/sys/guest_query_open.cfm";
+		String url = "http://www.czone2.tcg.gov.tw/tp88-1/sys/guest_query_open.cfm";
 		HashMap<String, String> forms = new HashMap();
 		
 		forms.put("sql_str","1=1 and cfcma_email='abc@bbc.com'");

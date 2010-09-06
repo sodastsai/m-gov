@@ -20,7 +20,6 @@ public class LocalQuery {
 		for (int i = 0; i < admin_region.length; i++) {
 			res += query_admin(admin_region[i])+"\n\n";
 		}
-
 		WriteFile.write(res, out_path);
 	}
 

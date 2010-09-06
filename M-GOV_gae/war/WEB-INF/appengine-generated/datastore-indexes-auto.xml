@@ -1,11 +1,4 @@
-<!-- Indices written at Sun, 5 Sep 2010 09:34:37 UTC -->
+<!-- Indices written at Mon, 6 Sep 2010 18:55:48 UTC -->
 
-<datastore-indexes>
+<datastore-indexes/>
 
-    <!-- Used 2 times in query history -->
-    <datastore-index kind="GAENodeSimple" ancestor="false" source="auto">
-        <property name="region" direction="asc"/>
-        <property name="__key__" direction="desc"/>
-    </datastore-index>
-
-</datastore-indexes>

@@ -1,11 +1,13 @@
 package ecoliving;
 
-import java.util.Iterator;
-import java.util.List;
-
+import gae.GAEDateBase;
+import gae.GAENode;
 import gae.GAENodeSimple;
 import gae.PMF;
 
+import java.util.List;
+
+import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.ws.rs.GET;
@@ -15,8 +17,10 @@ import javax.ws.rs.core.MediaType;
 
 import org.json.JSONArray;
 
-@Path("/list")
-public class ListAll {
+@Path("/update")
+public class UpdateDB {
+
+	static String strurl;
 
 	@SuppressWarnings("unchecked")
 	@GET
@@ -26,14 +30,15 @@ public class ListAll {
 		Query query = pm.newQuery(GAENodeSimple.class);
 
 		List<GAENodeSimple> list = (List<GAENodeSimple>) query.execute();
-		
-		JSONArray array = new JSONArray();
-		
-		for(GAENodeSimple ob:list){
-			array.put(ob.toJson());
-			System.out.print(ob.toJson());
+		GAENode e;
+		System.out.println(list.size());
+		for (GAENodeSimple ob : list) {
+			e = pm.getObjectById(GAENode.class, ob.getKey());
+
+			ob.status = e.status;
+			GAEDateBase.store(ob.clone());
 		}
-		return array.toString() + "\nsize: " +list.size();
+		return "done";
 	}
 
 }

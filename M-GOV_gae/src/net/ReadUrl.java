@@ -12,10 +12,10 @@ public class ReadUrl {
 
 	public static void main(String[] args) throws UnsupportedEncodingException,
 			IOException {
-		String strurl = "http://www.czone.tcg.gov.tw/tp88-1/sys/begin_frameset.cfm?CFID=315830&CFTOKEN=20797666";
+		String strurl = "http://www.czone.tcg.gov.tw/tp88-1/sys/query_memo_a.cfm?h_id=09908-521175";
 		URL siteUrl = new URL(strurl);
 		HttpURLConnection conn = (HttpURLConnection) siteUrl.openConnection();
-
+		conn.setRequestProperty("Cookie","CFID=316970;CFTOKEN=23019116");
 		BufferedReader in = new BufferedReader(new InputStreamReader(conn
 				.getInputStream(), "big5"));
 		String line, res = "";

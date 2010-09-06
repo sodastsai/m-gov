@@ -1,7 +1,6 @@
 //http://www.rgagnon.com/javadetails/java-0092.html
 
 package net;
-
 import gae.GAENode;
 import gae.GAENodeCookie;
 import gae.PMF;
@@ -17,8 +16,8 @@ public class CookiesInURL {
 	Hashtable theCookies = new Hashtable();
 	public URLConnection connection;
 	// test
-	public static String CFID = "315832";
-	public static String CFTOKEN = "12514745";
+	public static String CFID = "316970";
+	public static String CFTOKEN = "23019116";
 
 	public static void main(String args[]) throws IOException, Exception {
 		try {
@@ -27,9 +26,9 @@ public class CookiesInURL {
 
 			CookiesInURL cookurl = new CookiesInURL(url.openConnection());
 
-			String r = null;
+			String r;
 			r = net.ReadUrl.process(cookurl.connection);
-			// r = net.HtmlFilter.praseByCoordinates(r);
+			
 			System.out.println(r);
 
 		} catch (MalformedURLException e) {

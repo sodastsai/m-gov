@@ -21,9 +21,9 @@ public class query_type {
 	@SuppressWarnings("unchecked")
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path("{c1}")		
+	@Path("{c1}/{c2}")		
 
-	public static String go(@PathParam("c1") String cmd)
+	public static String go(@PathParam("c1") String cmd,@PathParam("c2") String size)
 	{
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Query query = pm.newQuery(GAENodeSimple.class);
@@ -31,13 +31,16 @@ public class query_type {
 		query.setOrdering("key desc");
 		query.declareParameters("String typeidParam");
 		
-		List<GAENodeSimple> list = (List<GAENodeSimple>) query.execute("1110");
+		List<GAENodeSimple> list = (List<GAENodeSimple>) query.execute(cmd);
 		
 		JSONArray array = new JSONArray();
-		
+		int count=Integer.parseInt(size);
 		for(GAENodeSimple ob:list){
 			array.put(ob.toJson());
 			System.out.print(ob.toJson());
+			
+			count--;
+			if(count<=0) break;
 		}
 		return array.toString();
 		

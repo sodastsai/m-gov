@@ -22,7 +22,7 @@ public class set_cookie {
 	public static String go(@PathParam("c1") String CFID,@PathParam("c2") String CFTOKEN)
 	{
 		GAENodeCookie node1 = new GAENodeCookie("CFID",CFID);		
-		GAENodeCookie node2 = new GAENodeCookie("CFTOKEN",CFID);
+		GAENodeCookie node2 = new GAENodeCookie("CFTOKEN",CFTOKEN);
 		
 		GAEDateBase.store(node1);
 		GAEDateBase.store(node2);

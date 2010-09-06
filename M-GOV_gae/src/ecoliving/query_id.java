@@ -33,6 +33,7 @@ public class query_id {
 
 			String res="",res2;
 			res = net.ReadUrl.process(urlcon.connection);
+			System.out.println(res);
 			res = HtmlFilter.parseHTMLStr(res);
 			res = HtmlFilter.delSpace(res);
 			
@@ -98,7 +99,8 @@ public class query_id {
 				afterColon(line[i+1]),
 				TypeFilter.Type2Id(afterColon(line[i+6])),
 				afterColon(line[i+3]),
-				res2
+				res2,
+				afterColon(line[i+12])
 		);
 		
 		// System.out.println(node.getKey());

@@ -17,14 +17,13 @@ import org.json.JSONArray;
 @Path("/query_region")
 
 public class query_region {
-
 	
 	@SuppressWarnings("unchecked")
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path("{c1}")		
+	@Path("{c1}/{c2}")		
 
-	public static String go(@PathParam("c1") String cmd)
+	public static String go(@PathParam("c1") String cmd,@PathParam("c2") String size)
 	{
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Query query = pm.newQuery(GAENodeSimple.class);
@@ -35,10 +34,12 @@ public class query_region {
 		List<GAENodeSimple> list = (List<GAENodeSimple>) query.execute(cmd);
 		
 		JSONArray array = new JSONArray();
-		
+		int count = Integer.parseInt(size);
 		for(GAENodeSimple ob:list){
 			array.put(ob.toJson());
 			System.out.print(ob.toJson());
+			count--;
+			if(count<=0) break;
 		}
 		return array.toString();
 		

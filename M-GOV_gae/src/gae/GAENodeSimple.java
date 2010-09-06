@@ -7,8 +7,8 @@ import javax.jdo.annotations.PrimaryKey;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-@PersistenceCapable(identityType = IdentityType.APPLICATION)
 
+@PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class GAENodeSimple {
 
 	@PrimaryKey
@@ -20,24 +20,32 @@ public class GAENodeSimple {
 	public String region;
 	@Persistent
 	public String coordinates;
-	
-	
-	public GAENodeSimple(String key,String typeid,String region, String coordinates)
-	{
+	@Persistent
+	public String status;
+
+	public GAENodeSimple(String key, String typeid, String region,
+			String coordinates, String status) {
 		this.key = key;
 		this.typeid = typeid;
 		this.region = region;
 		this.coordinates = coordinates;
+		this.status = status;
+	}
+
+	public String getKey() {
+		return key;
+
 	}
 
 	public JSONObject toJson() {
-		JSONObject o = new JSONObject();
 		try {
 
+			JSONObject o = new JSONObject();
 			o.accumulate("key", key);
 			o.accumulate("coordinates", coordinates);
 			o.accumulate("region", region);
 			o.accumulate("typeid", typeid);
+			o.accumulate("status", status);
 
 			return o;
 		} catch (JSONException e) {
@@ -46,11 +54,14 @@ public class GAENodeSimple {
 			return null;
 		}
 	}
+	
+	public GAENodeSimple clone(){
+		return new GAENodeSimple(key,typeid,region,coordinates,status);
+	}
 
 	@Override
 	public String toString() {
 		return key + "  " + coordinates + "  " + typeid;
 	}
-	
-	
+
 }
