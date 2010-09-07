@@ -2,7 +2,7 @@
 //  QueryViewController.m
 //  MGOV
 //
-//  Created by iphone on 2010/9/2.
+//  Created by Shou on 2010/9/2.
 //  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
 //
 
@@ -13,36 +13,51 @@
 
 @synthesize qid, selectedTypeTitle;
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)boolean {
-	[self.navigationController pushViewController:viewController animated:boolean];
-}
+#pragma mark -
+#pragma mark CaseDisplayView Delegate
 
+- (void) pushToCaseViewerAtCaseID:(int)caseID {
+	
+	CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:[[caseData objectAtIndex:caseID]objectForKey:@"key"]];
+	[self.navigationController pushViewController:caseViewer animated:YES];
+	[caseViewer release];
+}
 
 #pragma mark -
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 1;
+	return 1;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 1;
+    if (![caseData count]) return 1;
+    return [caseData count];
 }
 
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+
+    CaseDisplayTableCell *cell = (CaseDisplayTableCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[CaseDisplayTableCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     // Configure the cell...
-    
+    if ([caseData count] != 0) {
+		NSString *caseType = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[[caseData objectAtIndex:indexPath.row] objectForKey:@"typeid"]];
+		cell.typeLabel.text = caseType;
+		
+		CLLocationCoordinate2D coordinate;
+		coordinate.longitude = [[[[caseData objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
+		coordinate.latitude = [[[[caseData objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
+		cell.addressLabel.text = [NSString stringWithFormat:@"%@", [MGOVGeocoder returnFullAddress:coordinate]];
+	}
+	
     return cell;
 }
 
@@ -50,7 +65,7 @@
 #pragma mark -
 #pragma mark QueryView method
 
-- (IBAction)openSearchDialogAction {
+- (void)openSearchDialogAction {
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"設定搜尋條件" delegate:self cancelButtonTitle:@"重設所有搜尋條件" destructiveButtonTitle:nil otherButtonTitles:@"設定種類", @"回到現在位置", nil];
 	actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
 	// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
@@ -133,10 +148,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
-	caseDisplayView = [[CaseDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, 367)];
+	caseDisplayView = [[CaseDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, 367) andDefaultView:@"mapView"];
 	caseDisplayView.delegate = self;
 	caseDisplayView.listView.dataSource = self;
-	caseDisplayView.listView.delegate = caseDisplayView;
+	//caseDisplayView.listView.delegate = caseDisplayView;
 	[self.view addSubview:caseDisplayView];
 	[caseDisplayView release];
 	
@@ -144,13 +159,21 @@
 	self.navigationItem.leftBarButtonItem = modeChangeButton;
 	[modeChangeButton release];
 	
-	caseTypeSelector = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(typeSelect)];	
+	caseTypeSelector = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(openSearchDialogAction)];	
 	
 	UIButton *searchCriteria = [UIButton buttonWithType:UIButtonTypeInfoDark];
 	searchCriteria.frame = CGRectMake(290, 340, 20, 20);
 	[caseDisplayView.mapView addSubview:searchCriteria];
 	[searchCriteria addTarget:self action:@selector(openSearchDialogAction) forControlEvents:UIControlEventTouchUpInside];
+
+	NSString *str = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/ecoliving/query_region/%E6%9D%BE%E5%B1%B1%E5%8D%80/10"] encoding:NSUTF8StringEncoding error:nil];
+	caseData = [[NSArray alloc] initWithArray:[str JSONValue]];	
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:YES];
 	
+	[caseDisplayView.listView reloadData];
 }
 
 #pragma mark -

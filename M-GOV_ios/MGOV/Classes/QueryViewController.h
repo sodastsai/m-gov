@@ -2,7 +2,7 @@
 //  QueryViewController.h
 //  MGOV
 //
-//  Created by iphone on 2010/9/2.
+//  Created by Shou on 2010/9/2.
 //  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "typesViewController.h"
 #import "CaseDisplayView.h"
-#import "LocationSelectorTableCell.h"
+#import "CaseDisplayTableCell.h"
 
 @interface QueryViewController : UIViewController <UIActionSheetDelegate, TypeSelectorDelegateProtocol, CaseDisplayDelegate, UITableViewDataSource> {
 	NSString *selectedTypeTitle;
@@ -18,6 +18,7 @@
 	CaseDisplayView *caseDisplayView;
 	UIBarButtonItem *caseTypeSelector;
 	
+	NSArray *caseData;
 }
 
 @property (retain, nonatomic) NSString *selectedTypeTitle;

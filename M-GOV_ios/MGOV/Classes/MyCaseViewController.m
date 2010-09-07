@@ -41,10 +41,9 @@
 - (void)refreshData {
 	if (caseDisplayView==nil) {
 		[[self.view.subviews lastObject] removeFromSuperview];
-		caseDisplayView = [[CaseDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, 367)];
+		caseDisplayView = [[CaseDisplayView alloc] initWithFrame:CGRectMake(0, 0, 320, 367) andDefaultView:@"listView"];
 		[self.view addSubview:caseDisplayView];
-		caseDisplayView.mapView.hidden = YES;
-		caseDisplayView.listView.hidden = NO;
+
 		UIBarButtonItem *modeChangeButton = [[UIBarButtonItem alloc] initWithTitle:@"地圖" style:UIBarButtonItemStylePlain target:self action:@selector(modeChange)];
 		self.navigationItem.leftBarButtonItem =modeChangeButton;
 		[modeChangeButton release];

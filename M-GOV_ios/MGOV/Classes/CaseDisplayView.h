@@ -2,7 +2,7 @@
 //  CaseDisplayView.h
 //  MGOV
 //
-//  Created by iphone on 2010/9/3.
+//  Created by Shou on 2010/9/3.
 //  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
 //
 
@@ -13,7 +13,7 @@
 
 @protocol CaseDisplayDelegate
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)boolean;
+- (void) pushToCaseViewerAtCaseID:(int)caseID;
 
 @end
 
@@ -33,5 +33,6 @@
 @property BOOL transitioning;
 
 -(void)performTransition;
+- (id)initWithFrame:(CGRect)frame andDefaultView:(NSString *)defaultView;
 
 @end

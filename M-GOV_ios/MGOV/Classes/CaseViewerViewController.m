@@ -29,15 +29,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+	activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+	activityIndicator.frame = CGRectMake(141, 141, 37, 37);
+	[self.view addSubview:activityIndicator];
+	[activityIndicator startAnimating];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	
 	NSString *str = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ntu-ecoliving.appspot.com/ecoliving/get_id/%@", caseID]] encoding:NSUTF8StringEncoding error:nil];
 	caseData = [[NSDictionary alloc] initWithDictionary:[str JSONValue]];
-	str = [caseData objectForKey:@"coordinates"];
-	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:200 andCoordinate:[MGOVGeocoder convertCommaSeperatedCoordinate:str] actionTarget:nil setAction:nil];
+	CLLocationCoordinate2D coordinate;
+	coordinate.longitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
+	coordinate.latitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
+	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:200 andCoordinate:coordinate actionTarget:nil setAction:nil];
 	str = [caseData objectForKey:@"image"];
 	str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
 	photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
 	photoView.layer.cornerRadius = 10.0;
 	photoView.layer.masksToBounds = YES;
+	[activityIndicator stopAnimating];
+	[self.tableView reloadData];
 }
 
 
@@ -45,13 +57,12 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 4;
+	return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section == 0 || section == 1) return 2;
 	else if (section == 2 || section == 3) return 1;
-	
 	return 1;
 }
 
@@ -71,15 +82,18 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    static NSString *CellIdentifier = @"Cell";
+	if (!caseData) {
+		UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+		return cell;
+	}
 	
 	if (indexPath.section == 3) return locationCell;
-    	
-    static NSString *CellIdentifier = @"Cell";
-    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
+    //if (cell == nil) {
 		if (indexPath.section == 0) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+			//cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			if (indexPath.row == 0) {
 				cell.textLabel.text = @"案件編號";
@@ -89,7 +103,7 @@
 				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"state"]];
 			}
 		} else if (indexPath.section == 1) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+			//cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			if (indexPath.row == 0) {
 				// Fetch type from plist
@@ -107,7 +121,7 @@
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			cell.backgroundView = photoView;
 		}
-	}
+	//}
     
     return cell;
 }

@@ -2,7 +2,7 @@
 //  CaseDisplayView.m
 //  MGOV
 //
-//  Created by iphone on 2010/9/3.
+//  Created by Shou on 2010/9/3.
 //  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
 //
 
@@ -59,11 +59,21 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	CaseViewerViewController *detailViewController = [[CaseViewerViewController alloc] initWithCaseID:@"09909-500718"];
 	
+	//CaseViewerViewController *detailViewController = [[CaseViewerViewController alloc] initWithNibName:@"CaseViewer" bundle:nil];
+	//[detailViewController initWithCaseID:@"09909-500718"];
+	//CaseViewerViewController *detailViewController = [[CaseViewerViewController alloc] initWithCaseID:@"09909-500718"];
 	// Pass the selected object to the new view controller.
-	[delegate pushViewController:detailViewController animated:YES];
-	[detailViewController release];
+	[delegate pushToCaseViewerAtCaseID:indexPath.row];
+	//[detailViewController release];
+}
+
+- (id)initWithFrame:(CGRect)frame andDefaultView:(NSString *)defaultView {
+	if ([self initWithFrame:frame]) {
+		if ([defaultView isEqualToString:@"mapView"])listView.hidden = YES;
+		if ([defaultView isEqualToString:@"listView"]) mapView.hidden = YES;
+	}
+	return self;
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -73,9 +83,9 @@
 		caseData = [[NSMutableArray alloc] init];
 		mapView = [[MKMapView alloc] initWithFrame:frame];
 		listView = [[UITableView alloc] initWithFrame:frame];
+		listView.delegate = self;
 		[self addSubview:listView];
 		[self addSubview:mapView];
-		listView.hidden = YES;
 		transitioning = NO;
 		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];	
 		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];

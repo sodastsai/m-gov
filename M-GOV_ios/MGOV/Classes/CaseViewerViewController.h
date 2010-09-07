@@ -17,6 +17,7 @@
 	NSDictionary *caseData;
 	UIImageView *photoView;
 	
+	UIActivityIndicatorView *activityIndicator;
 	LocationSelectorTableCell *locationCell;
 }
 
