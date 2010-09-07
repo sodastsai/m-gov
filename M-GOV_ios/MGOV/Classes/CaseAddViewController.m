@@ -292,7 +292,7 @@
 #pragma mark LocationSelectorTableCellDelegate
 
 - (void)openLocationSelector {
-	LocationSelectorViewController *locationSelector = [[LocationSelectorViewController alloc] initWithCoordinate:selectedCoord];
+	LocationSelectorViewController *locationSelector = [[LocationSelectorViewController alloc] initWithCoordinate:selectedCoord andImage:selectedImage];
 	locationSelector.delegate = self;
 	[self presentModalViewController:locationSelector animated:YES];
 	[locationSelector release];
@@ -375,6 +375,7 @@
 	selectedTypeTitle = @"";
 	alertRequestEmailTitle = @"歡迎使用烏賊車";
 	alertRequestEmailPlaceholder = @"請輸入您的E-Mail";
+	selectedImage = nil;
 	
 	// Set keyboard bar
 	// Prepare Keyboard

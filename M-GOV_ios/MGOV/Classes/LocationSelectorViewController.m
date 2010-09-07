@@ -8,6 +8,7 @@
 
 #import "LocationSelectorViewController.h"
 #import "MGOVGeocoder.h"
+#import "AppClassExtension.h"
 
 @implementation LocationSelectorViewController
 
@@ -33,7 +34,8 @@
 		draggablePinView.draggable = YES;
 		draggablePinView.canShowCallout = YES;
 		draggablePinView.animatesDrop = YES;
-		draggablePinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure] ;
+		draggablePinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+		//draggablePinView.image = [caseImage fitToSize:CGSizeMake(20, 20)];
 	}
 	return draggablePinView;
 }
@@ -89,7 +91,9 @@
 	region.span = span;
 	[mapView setRegion:region];
 	
-	AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:selectedCoord andTitle:@" " andSubtitle:@""];
+	AppMKAnnotation *casePlace;
+	if (caseImage==nil) casePlace = [[AppMKAnnotation alloc] initWithCoordinate:selectedCoord andTitle:@"案件地點" andSubtitle:@""];
+	else casePlace = [[AppMKAnnotation alloc] initWithCoordinate:selectedCoord andTitle:@" " andSubtitle:@""];
 	[mapView addAnnotation:casePlace];
 	[self updatingAddress:casePlace];
 	[casePlace release];
