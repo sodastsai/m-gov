@@ -19,16 +19,23 @@ public class GAENodeSimple {
 	@Persistent
 	public String region;
 	@Persistent
-	public String coordinates;
+	public double coordinates[];
 	@Persistent
 	public String status;
 
+	public GAENodeSimple(){}
+	
 	public GAENodeSimple(String key, String typeid, String region,
 			String coordinates, String status) {
 		this.key = key;
 		this.typeid = typeid;
 		this.region = region;
-		this.coordinates = coordinates;
+
+		String str[]=coordinates.split(",");
+		this.coordinates = new double[2]; 
+		this.coordinates[0]=Double.parseDouble(str[0]);
+		this.coordinates[1]=Double.parseDouble(str[1]);
+
 		this.status = status;
 	}
 
@@ -56,12 +63,18 @@ public class GAENodeSimple {
 	}
 	
 	public GAENodeSimple clone(){
-		return new GAENodeSimple(key,typeid,region,coordinates,status);
+		GAENodeSimple e = new GAENodeSimple();
+		e.key = key ;
+		e.typeid = typeid;
+		e.region = region;
+		e.coordinates = coordinates;
+		e.status = status;
+		return e;
 	}
 
 	@Override
 	public String toString() {
-		return key + "  " + coordinates + "  " + typeid;
+		return toJson().toString();
 	}
 
 }

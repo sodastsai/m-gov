@@ -35,7 +35,7 @@ public class UpdateDB {
 		for (GAENodeSimple ob : list) {
 			e = pm.getObjectById(GAENode.class, ob.getKey());
 
-			ob.status = e.status;
+			ob.status = e.getStatus();
 			GAEDateBase.store(ob.clone());
 		}
 		return "done";

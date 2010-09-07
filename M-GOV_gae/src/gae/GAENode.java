@@ -18,24 +18,23 @@ public class GAENode {
 	@Persistent
 	private String key;
 	@Persistent
-	public String date;
+	private String date;
 	@Persistent
-	public String region;
+	private String region;
+//	@Persistent
+//	private String type1;
+//	@Persistent
+//	private String type2;
 	@Persistent
-	public String type1;
+	private String typeid;
 	@Persistent
-	public String type2;
+	private String detail;
 	@Persistent
-	public String typeid;
+	private String address;
 	@Persistent
-	public String detail;
+	private double coordinates[];
 	@Persistent
-	public String address;
-	@Persistent
-	public String coordinates;
-	@Persistent
-	public String status;
-	
+	private String status;
 	@Persistent
 	public String images[];
 	@Persistent
@@ -48,12 +47,17 @@ public class GAENode {
 		this.key = key;
 		this.date = date;
 		this.region = region;
-		this.type1 = type1;
-		this.type2 = type2;
+//		this.type1 = type1;
+//		this.type2 = type2;
 		this.typeid = typeid;
 		this.detail = detail;
 		this.address = address;
-		this.coordinates = coordinates;
+		
+		String str[]=coordinates.split(",");
+		this.coordinates = new double[2]; 
+		this.coordinates[0]=Double.parseDouble(str[0]);
+		this.coordinates[1]=Double.parseDouble(str[1]);
+		
 		this.status = status;
 		this.images = images;
 		this.other = new Text(other);
@@ -63,6 +67,11 @@ public class GAENode {
 		return key;
 	};
 
+	public String getStatus() {
+		return status;
+	};
+
+	
 	public String toJson() {
 		JSONObject o = new JSONObject();
 		try {
@@ -70,8 +79,8 @@ public class GAENode {
 			o.accumulate("key", key);
 			o.accumulate("date", date);
 //			o.accumulate("region", region);
-			o.accumulate("type1", type1);
-			o.accumulate("type2", type2);
+//			o.accumulate("type1", type1);
+//			o.accumulate("type2", type2);
 			o.accumulate("typeid", typeid);
 
 			o.accumulate("detail", detail);

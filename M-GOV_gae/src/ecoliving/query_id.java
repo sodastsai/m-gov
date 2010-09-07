@@ -37,8 +37,12 @@ public class query_id {
 			res = HtmlFilter.parseHTMLStr(res);
 			res = HtmlFilter.delSpace(res);
 			
+			if(res.contains("未經授權無法存取此頁"))
+				return "未經授權無法存取此頁";
+			if(res.contains("資料已刪除"))
+				return "資料已刪除";			
 			if(res.contains("查報案件")==false)
-				return "Not Found.";
+				return "未知錯誤";
 			
 			res2=getCoordinates();
 			storeResult(res,res2);
