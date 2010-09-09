@@ -1,4 +1,17 @@
-<!-- Indices written at Tue, 7 Sep 2010 02:22:20 UTC -->
+<!-- Indices written at Thu, 9 Sep 2010 15:05:24 UTC -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 2 times in query history -->
+    <datastore-index kind="GAENodeSimple" ancestor="false" source="auto">
+        <property name="typeid" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+    <!-- Used 1 time in query history -->
+    <datastore-index kind="GAENodeSimple" ancestor="false" source="auto">
+        <property name="status" direction="asc"/>
+        <property name="__key__" direction="desc"/>
+    </datastore-index>
+
+</datastore-indexes>

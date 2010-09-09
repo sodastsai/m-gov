@@ -102,7 +102,7 @@ public class query_id {
 		GAENodeSimple node2 = new GAENodeSimple(
 				afterColon(line[i+1]),
 				TypeFilter.Type2Id(afterColon(line[i+6])),
-				afterColon(line[i+3]),
+				afterColon(line[i+2]),
 				res2,
 				afterColon(line[i+12])
 		);

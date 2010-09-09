@@ -6,6 +6,7 @@ import java.util.List;
 import gae.GAENodeSimple;
 import gae.PMF;
 
+import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.ws.rs.GET;
@@ -23,17 +24,21 @@ public class ListAll {
 	@Produces(MediaType.TEXT_PLAIN)
 	public static String go() {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-		Query query = pm.newQuery(GAENodeSimple.class);
 
-		List<GAENodeSimple> list = (List<GAENodeSimple>) query.execute();
+		Extent extent = pm.getExtent(GAENodeSimple.class, false);
+		Iterator it = extent.iterator();
 		
 		JSONArray array = new JSONArray();
-		
-		for(GAENodeSimple ob:list){
-			array.put(ob.toJson());
-			System.out.print(ob.toJson());
+
+		GAENodeSimple e;
+		while(it.hasNext())
+		{
+			e = (GAENodeSimple) it.next();
+			array.put(e.toJson());
 		}
-		return array.toString() + "\nsize: " +list.size();
+		
+		extent.closeAll();
+		return array.toString();
 	}
 
 }

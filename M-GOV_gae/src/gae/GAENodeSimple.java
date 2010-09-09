@@ -17,7 +17,7 @@ public class GAENodeSimple {
 	@Persistent
 	public String typeid;
 	@Persistent
-	public String region;
+	public String date;
 	@Persistent
 	public double coordinates[];
 	@Persistent
@@ -25,11 +25,11 @@ public class GAENodeSimple {
 
 	public GAENodeSimple(){}
 	
-	public GAENodeSimple(String key, String typeid, String region,
+	public GAENodeSimple(String key, String typeid, String date,
 			String coordinates, String status) {
 		this.key = key;
 		this.typeid = typeid;
-		this.region = region;
+		this.date = date;
 
 		String str[]=coordinates.split(",");
 		this.coordinates = new double[2]; 
@@ -50,7 +50,7 @@ public class GAENodeSimple {
 			JSONObject o = new JSONObject();
 			o.accumulate("key", key);
 			o.accumulate("coordinates", coordinates);
-			o.accumulate("region", region);
+			o.accumulate("date", date);
 			o.accumulate("typeid", typeid);
 			o.accumulate("status", status);
 
@@ -66,7 +66,7 @@ public class GAENodeSimple {
 		GAENodeSimple e = new GAENodeSimple();
 		e.key = key ;
 		e.typeid = typeid;
-		e.region = region;
+		e.date = date;
 		e.coordinates = coordinates;
 		e.status = status;
 		return e;

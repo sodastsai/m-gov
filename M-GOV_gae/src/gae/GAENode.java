@@ -67,8 +67,8 @@ public class GAENode {
 		return key;
 	};
 
-	public String getStatus() {
-		return status;
+	public String getDate() {
+		return date;
 	};
 
 	
