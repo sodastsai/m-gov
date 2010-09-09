@@ -36,7 +36,7 @@ public class get_id {
 				return e.toJson() ;
 
 			} catch (Exception E2) {
-				return "{\"empty\":\"true\"}";
+				return "{\"error\":\"null\"}";
 			}
 			// return "Not Found!";
 		}

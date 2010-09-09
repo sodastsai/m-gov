@@ -37,28 +37,23 @@ public class QueryAll {
 		{
 			if(i!=0)
 				filter += '&';
-			if(methods[i].equals("coordinates") )
-			{	
+			if(methods[i].equals("coordinates") ){	
 				//TODO 
 			}
 			
-			filter = methods[i] + " == '" + args[i]+"'";
+			filter = methods[i] + " == '" + args[i] + "'";
 		}
 		System.out.println(filter);
 		query.setFilter(filter);
 		List<GAENodeSimple> list = (List<GAENodeSimple>) query.execute();
+		if(list.size()==0)
+			return "{\"error\":\"null\"}";
 		
 		JSONArray array = new JSONArray();
-		int count=10;
 		for(GAENodeSimple ob:list){
 			array.put(ob.toJson());
-			System.out.print(ob.toJson());
-			
-			count--;
-			if(count<=0) break;
+//			System.out.print(ob.toJson());
 		}
 		return array.toString();
-		
-		
 	}
 }

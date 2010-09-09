@@ -26,19 +26,21 @@ public class ListAll {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 
 		Extent extent = pm.getExtent(GAENodeSimple.class, false);
+		
+		int cnt=0;
 		Iterator it = extent.iterator();
 		
 		JSONArray array = new JSONArray();
-
 		GAENodeSimple e;
 		while(it.hasNext())
 		{
 			e = (GAENodeSimple) it.next();
 			array.put(e.toJson());
+			cnt ++ ;
 		}
-		
 		extent.closeAll();
-		return array.toString();
+		
+		return array.toString() + "\n" +cnt;
 	}
 
 }
