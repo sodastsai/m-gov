@@ -2,31 +2,20 @@
 //  QueryViewController.h
 //  MGOV
 //
-//  Created by Shou on 2010/9/2.
+//  Created by sodas on 2010/9/9.
 //  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import <MapKit/MapKit.h>
-#import "typesViewController.h"
-#import "CaseDisplayView.h"
-#import "CaseDisplayTableCell.h"
+#import "CaseSelectorViewController.h"
+#import "QueryGoogleAppEngine.h"
 
-@interface QueryViewController : UIViewController <UIActionSheetDelegate, TypeSelectorDelegateProtocol, CaseDisplayDelegate, UITableViewDataSource> {
-	NSString *selectedTypeTitle;
-	NSInteger qid;
-	CaseDisplayView *caseDisplayView;
-	UIBarButtonItem *caseTypeSelector;
-	
-	NSArray *caseData;
+@interface QueryViewController : CaseSelectorViewController <CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever> {
+	NSArray *queryCaseSource;
 }
 
-@property (retain, nonatomic) NSString *selectedTypeTitle;
-@property (nonatomic) NSInteger qid;
+@property (retain, nonatomic) NSArray *queryCaseSource;
 
-- (IBAction)openSearchDialogAction;
-- (void)backToCurrentLocation;
-- (void)modeChange;
-- (void)typeSelect;
+- (void)setQueryCondition;
 
 @end

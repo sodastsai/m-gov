@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MyCaseViewController.h"
-#import "QueryViewController.h"
+#import "CaseSelectorViewController.h"
 
 @interface MGOVAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;

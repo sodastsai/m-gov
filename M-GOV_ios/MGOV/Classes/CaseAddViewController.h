@@ -20,9 +20,9 @@
 
 #import "AppClassExtension.h"
 
-@protocol CaseAddViewControllerProtocol
+@protocol CaseAddViewControllerDelegate
 
-- (void)refreshData;
+//- (void)refreshData;
 
 @end
 
@@ -47,10 +47,10 @@
 	
 	UIToolbar *keyboardToolbar;
 	UIView *keyboard;
-	id<CaseAddViewControllerProtocol> delegate;
+	id<CaseAddViewControllerDelegate> delegate;
 }
 
-@property (retain, nonatomic) id<CaseAddViewControllerProtocol> delegate;
+@property (retain, nonatomic) id<CaseAddViewControllerDelegate> delegate;
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
 @property (retain, nonatomic) UIImage *selectedImage;

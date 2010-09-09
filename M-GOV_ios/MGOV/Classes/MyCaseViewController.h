@@ -2,20 +2,21 @@
 //  MyCaseViewController.h
 //  MGOV
 //
-//  Created by Shou 2010/8/24.
+//  Created by sodas on 2010/9/9.
 //  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "CaseSelectorViewController.h"
 #import "CaseAddViewController.h"
-#import "CaseDisplayView.h"
+#import "QueryGoogleAppEngine.h"
 
-@interface MyCaseViewController : UIViewController <CaseAddViewControllerProtocol> {
-	NSString *userEmail;
-	CaseDisplayView *caseDisplayView;
+@interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever> {
+	NSArray *myCaseSource;
 }
 
-- (void) addCase;
-- (void) modeChange;
+@property (nonatomic, retain) NSArray *myCaseSource;
+
+- (void)addCase;
 
 @end

@@ -16,13 +16,10 @@
 		2A097062122B60200048D841 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A097061122B60200048D841 /* QuartzCore.framework */; };
 		2A0974F4122BC7270048D841 /* LocationSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0974F2122BC7270048D841 /* LocationSelectorViewController.m */; };
 		2A0974F5122BC7270048D841 /* LocationSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */; };
-		2A52761C12360AA1002B77A7 /* CaseDisplayTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52761B12360AA1002B77A7 /* CaseDisplayTableCell.m */; };
 		2A560EA71226A60A00F3800F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A560EA61226A60A00F3800F /* CoreData.framework */; };
 		2A560ED41226A6E700F3800F /* MGOVGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A560ED31226A6E700F3800F /* MGOVGeocoder.m */; };
 		2A79AC231223FB7C00F140A2 /* CaseAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */; };
 		2A79AC241223FB7C00F140A2 /* CaseAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */; };
-		2A85D6CB123097E7008A4AD1 /* CaseDisplayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A85D6CA123097E7008A4AD1 /* CaseDisplayView.m */; };
-		2A9961B6122FDA550092C0D0 /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9961B4122FDA550092C0D0 /* QueryViewController.m */; };
 		2A9961B7122FDA550092C0D0 /* QueryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A9961B5122FDA550092C0D0 /* QueryViewController.xib */; };
 		2AC8B454122CB478007E3FC8 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B447122CB478007E3FC8 /* SBJsonWriter.m */; };
 		2AC8B455122CB478007E3FC8 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B449122CB478007E3FC8 /* SBJsonParser.m */; };
@@ -32,10 +29,7 @@
 		2AC8B459122CB478007E3FC8 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B451122CB478007E3FC8 /* NSObject+SBJSON.m */; };
 		2AE35A181226B02F00B37A4B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE35A171226B02F00B37A4B /* MapKit.framework */; };
 		2AEBA5EA1225FE95000A4D21 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEBA5E91225FE95000A4D21 /* CoreLocation.framework */; };
-		FE174377122CC80B00641599 /* MyCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE174375122CC80B00641599 /* MyCaseViewController.m */; };
 		FE174378122CC80B00641599 /* MyCaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE174376122CC80B00641599 /* MyCaseViewController.xib */; };
-		FE1745EF122CF3DD00641599 /* FirstRunCellViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1745ED122CF3DD00641599 /* FirstRunCellViewController.m */; };
-		FE1745F0122CF3DD00641599 /* FirstRunCellViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE1745EE122CF3DD00641599 /* FirstRunCellViewController.xib */; };
 		FE17463C122D179C00641599 /* NoMyCase.png in Resources */ = {isa = PBXBuildFile; fileRef = FE17463B122D179C00641599 /* NoMyCase.png */; };
 		FE174735122D276400641599 /* PhotoPickerTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE174734122D276400641599 /* PhotoPickerTableCell.m */; };
 		FE1747A9122D2D6B00641599 /* LocationSelectorTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1747A8122D2D6B00641599 /* LocationSelectorTableCell.m */; };
@@ -55,6 +49,10 @@
 		FE4EE7811223F72E00737028 /* secondDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */; };
 		FE4EE7821223F72E00737028 /* typesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77F1223F72E00737028 /* typesViewController.xib */; };
 		FE7D048312352AA5007FA0A1 /* QidToType.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE7D048212352AA5007FA0A1 /* QidToType.plist */; };
+		FEB39A5C1237EF70007359AB /* QueryGoogleAppEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */; };
+		FEB39BD212388842007359AB /* MyCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39BD112388842007359AB /* MyCaseViewController.m */; };
+		FEB39CA412389597007359AB /* CaseSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39CA312389597007359AB /* CaseSelectorViewController.m */; };
+		FEB39FE71238CF32007359AB /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39FE61238CF32007359AB /* QueryViewController.m */; };
 		FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */ = {isa = PBXBuildFile; fileRef = FED3DDE71224EA3A001D3C73 /* UserInformation.plist */; };
 		FEE81538122791BF00D82E46 /* AppMKAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE81537122791BF00D82E46 /* AppMKAnnotation.m */; };
 		FEF0D2C01230CACA000317C5 /* AppClassExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */; };
@@ -73,18 +71,12 @@
 		2A0974F1122BC7270048D841 /* LocationSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSelectorViewController.h; sourceTree = "<group>"; };
 		2A0974F2122BC7270048D841 /* LocationSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSelectorViewController.m; sourceTree = "<group>"; };
 		2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LocationSelectorViewController.xib; path = Classes/LocationSelectorViewController.xib; sourceTree = "<group>"; };
-		2A52761A12360AA1002B77A7 /* CaseDisplayTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseDisplayTableCell.h; sourceTree = "<group>"; };
-		2A52761B12360AA1002B77A7 /* CaseDisplayTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseDisplayTableCell.m; sourceTree = "<group>"; };
 		2A560EA61226A60A00F3800F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2A560ED21226A6E700F3800F /* MGOVGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOVGeocoder.h; sourceTree = "<group>"; };
 		2A560ED31226A6E700F3800F /* MGOVGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGOVGeocoder.m; sourceTree = "<group>"; };
 		2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseAddViewController.m; sourceTree = "<group>"; };
 		2A79AC1E1223FB7C00F140A2 /* CaseAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseAddViewController.h; sourceTree = "<group>"; };
 		2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CaseAddViewController.xib; path = Classes/CaseAddViewController.xib; sourceTree = "<group>"; };
-		2A85D6C9123097E7008A4AD1 /* CaseDisplayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseDisplayView.h; sourceTree = "<group>"; };
-		2A85D6CA123097E7008A4AD1 /* CaseDisplayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseDisplayView.m; sourceTree = "<group>"; };
-		2A9961B3122FDA550092C0D0 /* QueryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryViewController.h; sourceTree = "<group>"; };
-		2A9961B4122FDA550092C0D0 /* QueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryViewController.m; sourceTree = "<group>"; };
 		2A9961B5122FDA550092C0D0 /* QueryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = QueryViewController.xib; path = Classes/QueryViewController.xib; sourceTree = "<group>"; };
 		2AC8B447122CB478007E3FC8 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonWriter.m; path = Classes/SBJsonWriter.m; sourceTree = SOURCE_ROOT; };
 		2AC8B448122CB478007E3FC8 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonWriter.h; path = Classes/SBJsonWriter.h; sourceTree = SOURCE_ROOT; };
@@ -103,12 +95,7 @@
 		2AEBA5E91225FE95000A4D21 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* MGOV_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOV_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MGOV-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MGOV-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		FE174374122CC80B00641599 /* MyCaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCaseViewController.h; sourceTree = "<group>"; };
-		FE174375122CC80B00641599 /* MyCaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCaseViewController.m; sourceTree = "<group>"; };
 		FE174376122CC80B00641599 /* MyCaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MyCaseViewController.xib; path = Classes/MyCaseViewController.xib; sourceTree = "<group>"; };
-		FE1745EC122CF3DD00641599 /* FirstRunCellViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirstRunCellViewController.h; sourceTree = "<group>"; };
-		FE1745ED122CF3DD00641599 /* FirstRunCellViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirstRunCellViewController.m; sourceTree = "<group>"; };
-		FE1745EE122CF3DD00641599 /* FirstRunCellViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = FirstRunCellViewController.xib; path = Classes/FirstRunCellViewController.xib; sourceTree = "<group>"; };
 		FE17463B122D179C00641599 /* NoMyCase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoMyCase.png; sourceTree = "<group>"; };
 		FE174733122D276400641599 /* PhotoPickerTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoPickerTableCell.h; sourceTree = "<group>"; };
 		FE174734122D276400641599 /* PhotoPickerTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoPickerTableCell.m; sourceTree = "<group>"; };
@@ -137,6 +124,14 @@
 		FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = secondDetailViewController.xib; sourceTree = "<group>"; };
 		FE4EE77F1223F72E00737028 /* typesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = typesViewController.xib; sourceTree = "<group>"; };
 		FE7D048212352AA5007FA0A1 /* QidToType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QidToType.plist; sourceTree = "<group>"; };
+		FEB39A5A1237EF70007359AB /* QueryGoogleAppEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryGoogleAppEngine.h; sourceTree = "<group>"; };
+		FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryGoogleAppEngine.m; sourceTree = "<group>"; };
+		FEB39BD012388842007359AB /* MyCaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCaseViewController.h; sourceTree = "<group>"; };
+		FEB39BD112388842007359AB /* MyCaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCaseViewController.m; sourceTree = "<group>"; };
+		FEB39CA212389597007359AB /* CaseSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseSelectorViewController.h; sourceTree = "<group>"; };
+		FEB39CA312389597007359AB /* CaseSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseSelectorViewController.m; sourceTree = "<group>"; };
+		FEB39FE51238CF32007359AB /* QueryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryViewController.h; sourceTree = "<group>"; };
+		FEB39FE61238CF32007359AB /* QueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryViewController.m; sourceTree = "<group>"; };
 		FED3DDE71224EA3A001D3C73 /* UserInformation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInformation.plist; sourceTree = "<group>"; };
 		FEE81536122791BF00D82E46 /* AppMKAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMKAnnotation.h; sourceTree = "<group>"; };
 		FEE81537122791BF00D82E46 /* AppMKAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppMKAnnotation.m; sourceTree = "<group>"; };
@@ -165,9 +160,9 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FEB391BA123677A9007359AB /* Case Selector */,
 				FEF0D2BE1230CACA000317C5 /* AppClassExtension.h */,
 				FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */,
-				FEF0D2BD1230CAAA000317C5 /* Case Display */,
 				FE3FFE10122F78D0008B0E48 /* Case Viewer */,
 				2AC8B441122CB3CC007E3FC8 /* SBJSON */,
 				2A0974F6122BC7300048D841 /* Location Selector */,
@@ -252,7 +247,6 @@
 			isa = PBXGroup;
 			children = (
 				FE3FFE13122F7904008B0E48 /* CaseViewerViewController.xib */,
-				FE1745EE122CF3DD00641599 /* FirstRunCellViewController.xib */,
 				FE174376122CC80B00641599 /* MyCaseViewController.xib */,
 				2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */,
 				2A9961B5122FDA550092C0D0 /* QueryViewController.xib */,
@@ -279,10 +273,8 @@
 			isa = PBXGroup;
 			children = (
 				2A79AC2E1223FBB500F140A2 /* Add Case */,
-				FE174374122CC80B00641599 /* MyCaseViewController.h */,
-				FE174375122CC80B00641599 /* MyCaseViewController.m */,
-				FE1745EC122CF3DD00641599 /* FirstRunCellViewController.h */,
-				FE1745ED122CF3DD00641599 /* FirstRunCellViewController.m */,
+				FEB39BD012388842007359AB /* MyCaseViewController.h */,
+				FEB39BD112388842007359AB /* MyCaseViewController.m */,
 			);
 			name = "My Case";
 			sourceTree = "<group>";
@@ -290,8 +282,8 @@
 		2A79AC301223FBCF00F140A2 /* Query Case */ = {
 			isa = PBXGroup;
 			children = (
-				2A9961B3122FDA550092C0D0 /* QueryViewController.h */,
-				2A9961B4122FDA550092C0D0 /* QueryViewController.m */,
+				FEB39FE51238CF32007359AB /* QueryViewController.h */,
+				FEB39FE61238CF32007359AB /* QueryViewController.m */,
 			);
 			name = "Query Case";
 			sourceTree = "<group>";
@@ -375,15 +367,15 @@
 			name = "Types and Detail Strings";
 			sourceTree = "<group>";
 		};
-		FEF0D2BD1230CAAA000317C5 /* Case Display */ = {
+		FEB391BA123677A9007359AB /* Case Selector */ = {
 			isa = PBXGroup;
 			children = (
-				2A85D6C9123097E7008A4AD1 /* CaseDisplayView.h */,
-				2A85D6CA123097E7008A4AD1 /* CaseDisplayView.m */,
-				2A52761A12360AA1002B77A7 /* CaseDisplayTableCell.h */,
-				2A52761B12360AA1002B77A7 /* CaseDisplayTableCell.m */,
+				FEB39A5A1237EF70007359AB /* QueryGoogleAppEngine.h */,
+				FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */,
+				FEB39CA212389597007359AB /* CaseSelectorViewController.h */,
+				FEB39CA312389597007359AB /* CaseSelectorViewController.m */,
 			);
-			name = "Case Display";
+			name = "Case Selector";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -444,7 +436,6 @@
 				FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */,
 				2A0974F5122BC7270048D841 /* LocationSelectorViewController.xib in Resources */,
 				FE174378122CC80B00641599 /* MyCaseViewController.xib in Resources */,
-				FE1745F0122CF3DD00641599 /* FirstRunCellViewController.xib in Resources */,
 				FE17463C122D179C00641599 /* NoMyCase.png in Resources */,
 				FE3FFE15122F7904008B0E48 /* CaseViewerViewController.xib in Resources */,
 				2A9961B7122FDA550092C0D0 /* QueryViewController.xib in Resources */,
@@ -474,17 +465,16 @@
 				2AC8B457122CB478007E3FC8 /* SBJSON.m in Sources */,
 				2AC8B458122CB478007E3FC8 /* NSString+SBJSON.m in Sources */,
 				2AC8B459122CB478007E3FC8 /* NSObject+SBJSON.m in Sources */,
-				FE174377122CC80B00641599 /* MyCaseViewController.m in Sources */,
-				FE1745EF122CF3DD00641599 /* FirstRunCellViewController.m in Sources */,
 				FE174735122D276400641599 /* PhotoPickerTableCell.m in Sources */,
 				FE1747A9122D2D6B00641599 /* LocationSelectorTableCell.m in Sources */,
 				FE1747DD122D303500641599 /* NameFieldTableCell.m in Sources */,
 				FE174803122D329C00641599 /* DescriptionTableCell.m in Sources */,
 				FE3FFE14122F7904008B0E48 /* CaseViewerViewController.m in Sources */,
-				2A9961B6122FDA550092C0D0 /* QueryViewController.m in Sources */,
-				2A85D6CB123097E7008A4AD1 /* CaseDisplayView.m in Sources */,
 				FEF0D2C01230CACA000317C5 /* AppClassExtension.m in Sources */,
-				2A52761C12360AA1002B77A7 /* CaseDisplayTableCell.m in Sources */,
+				FEB39A5C1237EF70007359AB /* QueryGoogleAppEngine.m in Sources */,
+				FEB39BD212388842007359AB /* MyCaseViewController.m in Sources */,
+				FEB39CA412389597007359AB /* CaseSelectorViewController.m in Sources */,
+				FEB39FE71238CF32007359AB /* QueryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,7 +485,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: def abc (HU4T39MR82)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dian-je Tsai (52BES94NYL)";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -503,7 +493,7 @@
 				GCC_PREFIX_HEADER = MGOV_Prefix.pch;
 				INFOPLIST_FILE = "MGOV-Info.plist";
 				PRODUCT_NAME = MGOV;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8C06F644-B578-42E5-B280-92C68E9A47C0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FA290118-DBD1-4EF1-9B3F-13FD1B7EA4A8";
 			};
 			name = Debug;
 		};

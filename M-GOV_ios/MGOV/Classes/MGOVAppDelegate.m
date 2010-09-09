@@ -7,6 +7,9 @@
 //
 
 #import "MGOVAppDelegate.h"
+#import "MyCaseViewController.h"
+#import "QueryViewController.h"
+#import "QueryGoogleAppEngine.h"
 
 @implementation MGOVAppDelegate
 
@@ -16,7 +19,6 @@
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-	
 	// Set the locationManager be a global variable, and init
 	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 	shared.locationManager = [[CLLocationManager alloc] init];
@@ -25,36 +27,33 @@
 	// Define File Path
 	NSString *userInformationPlistPathInAppBundle = [[NSBundle mainBundle] pathForResource:@"UserInformation" ofType:@"plist"];
 	NSString *userInformationPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-	
 	// Copy plist file
-	if (![[NSFileManager defaultManager] fileExistsAtPath:userInformationPlistPathInAppDocuments]) {
+	if (![[NSFileManager defaultManager] fileExistsAtPath:userInformationPlistPathInAppDocuments]) 
 		[[NSFileManager defaultManager] copyItemAtPath:userInformationPlistPathInAppBundle toPath:userInformationPlistPathInAppDocuments error:nil];
-	}
-	
-	// Main tab
-	tabBarController = [[UITabBarController alloc] init];
 	
 	// My Case
-	MyCaseViewController *myCase = [[MyCaseViewController alloc] init];
-	myCase.title = @"我的案件";
-	UINavigationController *myCaseNavigation = [[UINavigationController alloc] initWithRootViewController:myCase];
-	
+	MyCaseViewController *myCase = [[MyCaseViewController alloc] initWithMode:CaseSelectorListMode andTitle:@"我的案件"];
+	myCase.dataSource = myCase;
+	myCase.selectorDelegate = myCase;
+		
 	// Query
-	QueryViewController *query = [[QueryViewController alloc] init];
-	query.title = @"查詢案件";
-	UINavigationController *queryNavigation = [[UINavigationController alloc] initWithRootViewController:query];
+	QueryViewController *queryCase = [[QueryViewController alloc] initWithMode:CaseSelectorMapMode andTitle:@"查詢案件"];
+	queryCase.dataSource = queryCase;
+	queryCase.selectorDelegate = queryCase;
 	
 	// Add tabs and view
-	tabBarController.viewControllers = [NSArray arrayWithObjects:myCaseNavigation, queryNavigation, nil];
+	tabBarController = [[UITabBarController alloc] init];
+	tabBarController.viewControllers = [NSArray arrayWithObjects:myCase, queryCase, nil];
+	
+	// Set window property and show
+	window.backgroundColor = [UIColor viewFlipsideBackgroundColor];
 	[window addSubview:tabBarController.view];
+	[window makeKeyAndVisible];
 	
 	// Release
-	[query release];
 	[myCase release];
-	[queryNavigation release];
-	[myCaseNavigation release];
+	[queryCase release];
 	
-	[window makeKeyAndVisible];
 	return YES;
 }
 
