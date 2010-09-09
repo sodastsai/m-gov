@@ -41,6 +41,7 @@
 - (id) initWithCoordinate:(CLLocationCoordinate2D)coordinate andImage:(UIImage *)image;
 - (void) updatingAddress:(AppMKAnnotation *)annotation;
 - (void) transformCoordinate;
+- (void) showAnnotationCallout;
 
 
 @end

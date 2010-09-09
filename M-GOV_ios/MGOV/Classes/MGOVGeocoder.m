@@ -28,11 +28,12 @@ static MGOVGeocoder *sharedVariable = nil;
 
 
 + (NSString *) returnFullAddress:(CLLocationCoordinate2D)coordinate {
-	// Use Google API to transform Latitude & Longitude to the corresponding address  
+	// Use Google API to transform Latitude & Longitude to the corresponding address
 	NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?latlng=%f,%f&sensor=true&language=zh-TW", coordinate.latitude, coordinate.longitude]];
 	NSString *str = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-	NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:[str JSONValue]];	
+	NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:[str JSONValue]];
 	[url release];
+	if (![[dict objectForKey:@"status"] isEqual:@"OK"]) return nil;
 	str = [[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"formatted_address"];
 	return [NSString stringWithFormat:@"%@", str];
 }
@@ -42,8 +43,9 @@ static MGOVGeocoder *sharedVariable = nil;
 	NSString *str = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
 	NSDictionary *dict = [str JSONValue];	
 	[url release];
+	if (![[dict objectForKey:@"status"] isEqual:@"OK"]) return nil;
 	[str release];	
-	return [NSString stringWithFormat:@"%@", [[[[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"address_components" ] objectAtIndex:2] objectForKey:@"long_name"]];
+	return [NSString stringWithFormat:@"%@ %@", [[[[[dict objectForKey:@"results"] objectAtIndex:1] objectForKey:@"address_components" ] objectAtIndex:1] objectForKey:@"long_name"], [[[[[dict objectForKey:@"results"] objectAtIndex:1] objectForKey:@"address_components" ] objectAtIndex:0] objectForKey:@"long_name"]];
 }
 
 + (NSString *) returnFullAddressWithCommaSperatedCoordinate:(NSString *)coord {

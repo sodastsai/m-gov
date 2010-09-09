@@ -17,6 +17,14 @@
 @synthesize selectedAddress, selectedCoord;
 @synthesize bottomBar;
 
+- (void)showAnnotationCallout {
+	[mapView selectAnnotation:[mapView.annotations lastObject] animated:YES];
+}
+
+- (void)mapView:(MKMapView *)MapView didAddAnnotationViews:(NSArray *)views {
+	[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(showAnnotationCallout) userInfo:nil repeats:NO];
+}
+
 #pragma mark -
 #pragma mark MKMapViewDelegate
 
@@ -34,18 +42,28 @@
 		draggablePinView.draggable = YES;
 		draggablePinView.canShowCallout = YES;
 		draggablePinView.animatesDrop = YES;
-		draggablePinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+		//draggablePinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 		//draggablePinView.image = [caseImage fitToSize:CGSizeMake(20, 20)];
+		UIImageView *imageView = [[UIImageView alloc] initWithImage:[caseImage fitToSize:CGSizeMake(40, 29)]];
+		draggablePinView.leftCalloutAccessoryView = imageView;
+		[imageView release];
 	}
 	return draggablePinView;
 }
 
 - (void)mapView:(MKMapView *)MapView annotationView:(MKAnnotationView *)annotationView didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
 	if ( oldState == MKAnnotationViewDragStateDragging && newState == MKAnnotationViewDragStateEnding ) {
-		// Update annotation subtitle
-		[self updatingAddress:annotationView.annotation];
-		// Update the center of mapview to annotation point
-		[MapView setCenterCoordinate:annotationView.annotation.coordinate animated:YES];
+		if ([[MGOVGeocoder returnFullAddress:annotationView.annotation.coordinate] rangeOfString:@"台北市"].location == NSNotFound || [MGOVGeocoder returnFullAddress:annotationView.annotation.coordinate] == nil) {
+			annotationView.annotation.coordinate = selectedCoord;
+			UIAlertView *outofTaipeiCity = [[UIAlertView alloc] initWithTitle:@"超出台北市範圍" message:@"1999只目前只支援台北市！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
+			[outofTaipeiCity show];
+			[outofTaipeiCity release];			
+		} else {
+			// Update annotation subtitle
+			[self updatingAddress:annotationView.annotation];
+			// Update the center of mapview to annotation point
+			//[MapView setCenterCoordinate:selectedCoord animated:YES];
+		}
 	}
 }
 
@@ -91,9 +109,7 @@
 	region.span = span;
 	[mapView setRegion:region];
 	
-	AppMKAnnotation *casePlace;
-	if (caseImage==nil) casePlace = [[AppMKAnnotation alloc] initWithCoordinate:selectedCoord andTitle:@"案件地點" andSubtitle:@""];
-	else casePlace = [[AppMKAnnotation alloc] initWithCoordinate:selectedCoord andTitle:@" " andSubtitle:@""];
+	AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:selectedCoord andTitle:@"案件地點" andSubtitle:@""];
 	[mapView addAnnotation:casePlace];
 	[self updatingAddress:casePlace];
 	[casePlace release];

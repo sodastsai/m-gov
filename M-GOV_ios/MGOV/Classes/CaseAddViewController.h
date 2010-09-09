@@ -16,6 +16,7 @@
 #import "NameFieldTableCell.h"
 #import "DescriptionTableCell.h"
 #import "LocationSelectorViewController.h"
+#import "JSON.h"
 
 #import "AppClassExtension.h"
 
@@ -52,6 +53,7 @@
 @property (retain, nonatomic) id<CaseAddViewControllerProtocol> delegate;
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
+@property (retain, nonatomic) UIImage *selectedImage;
 
 - (BOOL)submitCase;
 - (void)keyboardWillShow:(NSNotification *)note;

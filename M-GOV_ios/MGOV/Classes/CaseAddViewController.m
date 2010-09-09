@@ -19,6 +19,7 @@
 @synthesize selectedTypeTitle;
 @synthesize qid;
 @synthesize delegate;
+@synthesize selectedImage;
 
 #pragma mark -
 #pragma mark CaseAddMethod
@@ -49,6 +50,25 @@
 	if ([[dictUserInformation valueForKey:@"User Email"] length]) {
 		// Return to MyCase
 		[delegate refreshData];
+		
+		NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+		[dict setValue:[NSString stringWithFormat:@"%d" ,qid] forKey:@"typeid"];
+		[dict setValue:[MGOVGeocoder returnFullAddress:selectedCoord] forKey:@"address"];
+		[dict setValue:[MGOVGeocoder returnRegion:selectedCoord] forKey:@"region"];
+		[dict setValue:[dictUserInformation valueForKey:@"User Email"] forKey:@"email"];
+		[dict setValue:nameFieldCell.nameField.text forKey:@"name"];
+		[dict setValue:descriptionCell.descriptionField.text forKey:@"detail"];
+		NSString *str = [dict JSONFragment];
+		//NSLog(@"%@", str);
+		//NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://ntu-ecoliving.appspot.com/ecoliving/send/%@", str]];
+		NSURL *url = [NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/ecoliving/send/%7B%22detail%22:%22%E8%AB%8B%E8%BC%B8%E5%85%A5%E6%8F%8F%E8%BF%B0%E5%8F%8A%E5%BB%BA%E8%AD%B0%22,%22region%22:%22%E5%A4%A7%E5%AE%89%E5%8D%80%20%E5%AD%B8%E5%BA%9C%E9%87%8C%22,%22typeid%22:%221301%22,%22address%22:%22106%E5%8F%B0%E7%81%A3%E5%8F%B0%E5%8C%97%E5%B8%82%E5%A4%A7%E5%AE%89%E5%8D%80%E8%BE%9B%E4%BA%A5%E8%B7%AF%E4%BA%8C%E6%AE%B5%22,%22email%22:%22a@a..%22%7D"];
+		NSString *ret = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+		NSLog(@"%@", url);
+		
+		
+		NSLog(@"%@", ret);
+
+		
 		[self.navigationController popViewControllerAnimated:YES];
 		return YES;
 	}
@@ -162,7 +182,8 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	// Get New photo
-	selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+	// Use property for retain
+	self.selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
 	
 	// Process for New photo
 	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
@@ -175,7 +196,7 @@
 		// Save to Camera Roll
 		UIImageWriteToSavedPhotosAlbum(selectedImage, self, nil, nil);
 	}
-	
+
 	// Fit the Button
 	[photoCell.photoButton setImage:[selectedImage fitToSize:CGSizeMake(300, 200)] forState:UIControlStateNormal];
 	[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];
