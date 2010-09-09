@@ -20,7 +20,6 @@
 		2A560ED41226A6E700F3800F /* MGOVGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A560ED31226A6E700F3800F /* MGOVGeocoder.m */; };
 		2A79AC231223FB7C00F140A2 /* CaseAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */; };
 		2A79AC241223FB7C00F140A2 /* CaseAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */; };
-		2A9961B7122FDA550092C0D0 /* QueryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A9961B5122FDA550092C0D0 /* QueryViewController.xib */; };
 		2AC8B454122CB478007E3FC8 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B447122CB478007E3FC8 /* SBJsonWriter.m */; };
 		2AC8B455122CB478007E3FC8 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B449122CB478007E3FC8 /* SBJsonParser.m */; };
 		2AC8B456122CB478007E3FC8 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B44B122CB478007E3FC8 /* SBJsonBase.m */; };
@@ -29,7 +28,6 @@
 		2AC8B459122CB478007E3FC8 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B451122CB478007E3FC8 /* NSObject+SBJSON.m */; };
 		2AE35A181226B02F00B37A4B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE35A171226B02F00B37A4B /* MapKit.framework */; };
 		2AEBA5EA1225FE95000A4D21 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEBA5E91225FE95000A4D21 /* CoreLocation.framework */; };
-		FE174378122CC80B00641599 /* MyCaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE174376122CC80B00641599 /* MyCaseViewController.xib */; };
 		FE17463C122D179C00641599 /* NoMyCase.png in Resources */ = {isa = PBXBuildFile; fileRef = FE17463B122D179C00641599 /* NoMyCase.png */; };
 		FE174735122D276400641599 /* PhotoPickerTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE174734122D276400641599 /* PhotoPickerTableCell.m */; };
 		FE1747A9122D2D6B00641599 /* LocationSelectorTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1747A8122D2D6B00641599 /* LocationSelectorTableCell.m */; };
@@ -55,6 +53,10 @@
 		FEB39FE71238CF32007359AB /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39FE61238CF32007359AB /* QueryViewController.m */; };
 		FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */ = {isa = PBXBuildFile; fileRef = FED3DDE71224EA3A001D3C73 /* UserInformation.plist */; };
 		FEE81538122791BF00D82E46 /* AppMKAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE81537122791BF00D82E46 /* AppMKAnnotation.m */; };
+		FEEB1FEE12392E6B00B24560 /* CaseSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEB1FED12392E6B00B24560 /* CaseSelectorCell.m */; };
+		FEEB20CF12394EDB00B24560 /* fail.png in Resources */ = {isa = PBXBuildFile; fileRef = FEEB20CC12394EDB00B24560 /* fail.png */; };
+		FEEB20D012394EDB00B24560 /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = FEEB20CD12394EDB00B24560 /* ok.png */; };
+		FEEB20D112394EDB00B24560 /* unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = FEEB20CE12394EDB00B24560 /* unknown.png */; };
 		FEF0D2C01230CACA000317C5 /* AppClassExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */; };
 /* End PBXBuildFile section */
 
@@ -77,7 +79,6 @@
 		2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseAddViewController.m; sourceTree = "<group>"; };
 		2A79AC1E1223FB7C00F140A2 /* CaseAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseAddViewController.h; sourceTree = "<group>"; };
 		2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CaseAddViewController.xib; path = Classes/CaseAddViewController.xib; sourceTree = "<group>"; };
-		2A9961B5122FDA550092C0D0 /* QueryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = QueryViewController.xib; path = Classes/QueryViewController.xib; sourceTree = "<group>"; };
 		2AC8B447122CB478007E3FC8 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonWriter.m; path = Classes/SBJsonWriter.m; sourceTree = SOURCE_ROOT; };
 		2AC8B448122CB478007E3FC8 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SBJsonWriter.h; path = Classes/SBJsonWriter.h; sourceTree = SOURCE_ROOT; };
 		2AC8B449122CB478007E3FC8 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SBJsonParser.m; path = Classes/SBJsonParser.m; sourceTree = SOURCE_ROOT; };
@@ -95,7 +96,6 @@
 		2AEBA5E91225FE95000A4D21 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* MGOV_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOV_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MGOV-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MGOV-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		FE174376122CC80B00641599 /* MyCaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = MyCaseViewController.xib; path = Classes/MyCaseViewController.xib; sourceTree = "<group>"; };
 		FE17463B122D179C00641599 /* NoMyCase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NoMyCase.png; sourceTree = "<group>"; };
 		FE174733122D276400641599 /* PhotoPickerTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoPickerTableCell.h; sourceTree = "<group>"; };
 		FE174734122D276400641599 /* PhotoPickerTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoPickerTableCell.m; sourceTree = "<group>"; };
@@ -135,6 +135,11 @@
 		FED3DDE71224EA3A001D3C73 /* UserInformation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInformation.plist; sourceTree = "<group>"; };
 		FEE81536122791BF00D82E46 /* AppMKAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMKAnnotation.h; sourceTree = "<group>"; };
 		FEE81537122791BF00D82E46 /* AppMKAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppMKAnnotation.m; sourceTree = "<group>"; };
+		FEEB1FEC12392E6B00B24560 /* CaseSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseSelectorCell.h; sourceTree = "<group>"; };
+		FEEB1FED12392E6B00B24560 /* CaseSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseSelectorCell.m; sourceTree = "<group>"; };
+		FEEB20CC12394EDB00B24560 /* fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fail.png; sourceTree = "<group>"; };
+		FEEB20CD12394EDB00B24560 /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
+		FEEB20CE12394EDB00B24560 /* unknown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unknown.png; sourceTree = "<group>"; };
 		FEF0D2BE1230CACA000317C5 /* AppClassExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppClassExtension.h; sourceTree = "<group>"; };
 		FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppClassExtension.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -247,9 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				FE3FFE13122F7904008B0E48 /* CaseViewerViewController.xib */,
-				FE174376122CC80B00641599 /* MyCaseViewController.xib */,
 				2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */,
-				2A9961B5122FDA550092C0D0 /* QueryViewController.xib */,
 				2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */,
 				FE4EE77D1223F72E00737028 /* detailViewController.xib */,
 				FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */,
@@ -311,6 +314,9 @@
 		FE17463D122D17A400641599 /* Icon And Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				FEEB20CC12394EDB00B24560 /* fail.png */,
+				FEEB20CD12394EDB00B24560 /* ok.png */,
+				FEEB20CE12394EDB00B24560 /* unknown.png */,
 				FE17463B122D179C00641599 /* NoMyCase.png */,
 			);
 			name = "Icon And Pictures";
@@ -374,6 +380,8 @@
 				FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */,
 				FEB39CA212389597007359AB /* CaseSelectorViewController.h */,
 				FEB39CA312389597007359AB /* CaseSelectorViewController.m */,
+				FEEB1FEC12392E6B00B24560 /* CaseSelectorCell.h */,
+				FEEB1FED12392E6B00B24560 /* CaseSelectorCell.m */,
 			);
 			name = "Case Selector";
 			sourceTree = "<group>";
@@ -408,7 +416,14 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MGOV" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -435,11 +450,12 @@
 				2A79AC241223FB7C00F140A2 /* CaseAddViewController.xib in Resources */,
 				FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */,
 				2A0974F5122BC7270048D841 /* LocationSelectorViewController.xib in Resources */,
-				FE174378122CC80B00641599 /* MyCaseViewController.xib in Resources */,
 				FE17463C122D179C00641599 /* NoMyCase.png in Resources */,
 				FE3FFE15122F7904008B0E48 /* CaseViewerViewController.xib in Resources */,
-				2A9961B7122FDA550092C0D0 /* QueryViewController.xib in Resources */,
 				FE7D048312352AA5007FA0A1 /* QidToType.plist in Resources */,
+				FEEB20CF12394EDB00B24560 /* fail.png in Resources */,
+				FEEB20D012394EDB00B24560 /* ok.png in Resources */,
+				FEEB20D112394EDB00B24560 /* unknown.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -475,6 +491,7 @@
 				FEB39BD212388842007359AB /* MyCaseViewController.m in Sources */,
 				FEB39CA412389597007359AB /* CaseSelectorViewController.m in Sources */,
 				FEB39FE71238CF32007359AB /* QueryViewController.m in Sources */,
+				FEEB1FEE12392E6B00B24560 /* CaseSelectorCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,7 +537,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEABC31E-4D43-44BB-B889-ADCFF07F642A";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
 		};

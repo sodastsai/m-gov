@@ -302,9 +302,9 @@
 		[actionSheet showInView:self.parentViewController.tabBarController.view];
 	} else {
 		UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"選擇現有的照片", nil];
-		actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
+		actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
 		// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
-		[actionSheet showInView:self.parentViewController.tabBarController.view];
+		[actionSheet showFromTabBar:self.parentViewController.tabBarController.tabBar];
 	}
 	[actionSheet release];
 }

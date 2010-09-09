@@ -13,6 +13,7 @@ typedef enum {
 	DataSourceGAEQueryByEmail,
 	DataSourceGAEQueryByCoordinate,
 	DataSourceGAEQueryByType,
+	DataSourceGAEQueryByStatus,
 } DataSourceGAEQueryTypes;
 
 typedef enum {

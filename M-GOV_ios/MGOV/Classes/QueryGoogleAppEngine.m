@@ -38,7 +38,6 @@
 	}
 	
 	[resultTarget recieveQueryResultType:returnType withResult:queryResult];
-	
 	return YES;
 }
 
@@ -46,18 +45,17 @@
 #pragma mark Parse Query Conditions
 
 - (NSString *)convertConditionTypeToString {
-	if (conditionType == DataSourceGAEQueryByID) return @"get_id";
-	else if (conditionType == DataSourceGAEQueryByType) return @"query_type";
-	else if (conditionType == DataSourceGAEQueryByEmail) return @"query_email";
-	else if (conditionType == DataSourceGAEQueryByCoordinate) return @"query_region";
+	if (conditionType == DataSourceGAEQueryByID) return @"get/id";
+	else if (conditionType == DataSourceGAEQueryByType) return @"query/typeid";
+	else if (conditionType == DataSourceGAEQueryByEmail) return @"query/email";
+	else if (conditionType == DataSourceGAEQueryByCoordinate) return @"query/coordinate";
+	else if (conditionType == DataSourceGAEQueryByStatus) return @"query/status";
 	
 	return nil;
 }
 
 - (NSString *)convertNSRangeToString {
-	// TODO: Ask for ggm: Range search
-	//return [NSString stringWithFormat:@"%d/%d", resultRange.location+1, resultRange.length];
-	return [NSString stringWithFormat:@"%d", resultRange.length];
+	return [NSString stringWithFormat:@"%d/%d", resultRange.location, resultRange.length];
 }
 
 - (NSURL *)generateSingleConditionURL {
@@ -72,7 +70,7 @@
 }
 
 - (NSURL *)generateMultiConditionsURL {
-	// TODO: Ask for ggm: Multi-condition
+	// NSDictionary to String
 	return nil;
 }
 

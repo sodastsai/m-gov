@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "CaseSelectorViewController.h"
 #import "QueryGoogleAppEngine.h"
+#import "CaseSelectorCell.h"
+#import "MGOVGeocoder.h"
 
-@interface QueryViewController : CaseSelectorViewController <CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever> {
+@interface QueryViewController : CaseSelectorViewController <CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever, UIActionSheetDelegate> {
 	NSArray *queryCaseSource;
 }
 

@@ -42,6 +42,7 @@
 		[changeMode release];
 		mapViewController.navigationItem.title = self.title;
 		mapViewController.navigationItem.rightBarButtonItem = rightButtonItem;
+		mapViewController.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 	}
 	return mapViewController;
 }
@@ -57,6 +58,7 @@
 		[changeMode release];
 		listViewController.navigationItem.title = self.title;
 		listViewController.navigationItem.rightBarButtonItem = rightButtonItem;
+		listViewController.navigationController.navigationBar.barStyle = UIBarStyleDefault;
 	}
 	return listViewController;
 }

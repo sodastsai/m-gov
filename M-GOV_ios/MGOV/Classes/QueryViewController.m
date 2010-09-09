@@ -1,4 +1,4 @@
-    //
+//
 //  QueryViewController.m
 //  MGOV
 //
@@ -17,7 +17,7 @@
 
 // Override the super class
 - (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title {
-	UIBarButtonItem *setConditionButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(setQueryCondition)] autorelease];
+	UIBarButtonItem *setConditionButton = [[[UIBarButtonItem alloc] initWithTitle:@"設定條件" style:UIBarButtonItemStyleBordered target:self action:@selector(setQueryCondition)] autorelease];
 	
 	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
 	qGAE.conditionType = DataSourceGAEQueryByType;
@@ -35,7 +35,9 @@
 #pragma mark Method
 
 - (void)setQueryCondition {
-	NSLog(@"XD");
+	UIActionSheet *setCondition = [[UIActionSheet alloc] initWithTitle:@"設定搜尋條件" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"重設所有搜尋條件" otherButtonTitles:@"設定案件種類", @"回到現在位置", nil];
+	[setCondition showFromTabBar:self.tabBarController.tabBar];
+	[setCondition release];
 }
 
 #pragma mark -
@@ -45,6 +47,21 @@
 	// Accept Array only
 	if (type == DataSourceGAEReturnByNSArray) {
 		self.queryCaseSource = result;
+	}
+}
+
+#pragma mark -
+#pragma mark UIActionSheetDelegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if (buttonIndex==0) {
+		NSLog(@"Reset");
+	} else if (buttonIndex==1) {
+		NSLog(@"Type");
+	} else if (buttonIndex==2) {
+		NSLog(@"Back");
+	} else if (buttonIndex==3) {
+		// Do nothing but cancel
 	}
 }
 
@@ -67,7 +84,7 @@
 }
 
 - (CGFloat)heightForRowAtIndexPathInList:(NSIndexPath *)indexPath {
-	return 44;
+	return [CaseSelectorCell cellHeight];
 }
 
 - (NSString *)titleForHeaderInSectionInList:(NSInteger)section {
@@ -77,11 +94,19 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *CellIdentifier = @"Cell";
 	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	}
-	cell.textLabel.text = @"XDDD";
+	
+	NSString *caseTypeText = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[[queryCaseSource objectAtIndex:indexPath.row] valueForKey:@"typeid"]];
+	cell.caseType.text = caseTypeText;
+	cell.caseDate.text = @"兩天前";
+	CLLocationCoordinate2D caseCoord;
+	caseCoord.longitude  = [[[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
+	caseCoord.latitude = [[[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
+	cell.caseAddress.text = [MGOVGeocoder returnFullAddress:caseCoord];
+	
 	return cell;
 }
 
