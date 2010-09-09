@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent">
+  
+  <ScrollView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_weight="1"
+		android:paddingTop="10dip">
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="vertical" android:id="@+id/introLinearLayout0121"
+			android:layout_height="wrap_content" android:layout_width="fill_parent"
+			android:layout_margin="3dip">
+			
+			<TextView android:layout_height="wrap_content" android:text="Click to select or take a picture"
+					android:layout_width="fill_parent" android:layout_gravity="center_horizontal" 
+					android:id="@+id/pic_title" android:textSize="20dip"
+					android:layout_marginBottom="2dip" android:layout_margin="5dip">
+			</TextView>
+			
+			<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+				android:layout_width="fill_parent" android:layout_height="200dip"
+				android:gravity="center_vertical" android:background="@drawable/pic_background">
+				
+				<ImageView android:layout_height="fill_parent" 
+					android:layout_width="fill_parent" android:layout_gravity="center_horizontal" 
+					android:id="@+id/pic" android:layout_margin="10dip"
+					>
+				</ImageView>
+				
+			</LinearLayout>
+			
+<!--		<FrameLayout  -->
+<!--			android:id="@+id/home_container" -->
+<!--			android:layout_width="wrap_content" -->
+<!--			android:layout_height="wrap_content"-->
+<!--			>-->
+			<tw.edu.ntu.csie.mgov.maplocationviewer
+			android:id="@+id/mapview" android:layout_width="fill_parent" android:layout_height="300dip"
+			android:layout_margin="10dip"/>
+<!--        	</FrameLayout>-->
+        	
+        	<TextView android:layout_height="wrap_content" android:text="Click to select a type"
+					android:layout_width="fill_parent" android:layout_gravity="center_horizontal" 
+					android:id="@+id/type" android:textSize="20dip"
+					android:layout_margin="10dip">
+			</TextView>
+			
+			<Button android:id="@+id/submit_type_btn" android:layout_width="100dip"
+			android:layout_height="wrap_content"
+			></Button>
+			        	
+        	<TextView android:layout_height="wrap_content" android:text="Please enter your name"
+					android:layout_width="fill_parent" android:layout_gravity="center_horizontal" 
+					android:id="@+id/name" android:textSize="20dip"
+					android:layout_margin="10dip">
+			</TextView>
+			
+			
+			<EditText android:id="@+id/submit_name" android:layout_width="200dip"
+			android:layout_height="wrap_content"  android:layout_below="@id/t1_email">
+			</EditText>
+	
+			<TextView android:layout_height="wrap_content" android:text="Description"
+					android:layout_width="fill_parent" android:layout_gravity="center_horizontal" 
+					android:id="@+id/suggestion" android:textSize="20dip"
+					android:layout_margin="10dip">
+			</TextView>
+			
+			<EditText android:id="@+id/submit_suggestion" android:layout_width="fill_parent"
+			android:layout_height="300dip"
+			>
+			</EditText>
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>

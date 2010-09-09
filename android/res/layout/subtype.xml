@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:id="@+id/main_layout">
+
+	<ScrollView android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_weight="1"
+		android:paddingTop="10dip">
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:orientation="vertical" android:id="@+id/introLinearLayout0121"
+			android:layout_height="wrap_content" android:layout_width="fill_parent"
+			android:layout_margin="3dip">
+			
+			<TextView android:layout_width="fill_parent" android:layout_height="1dip"
+			android:background="@drawable/gray" android:layout_margin="1dip"></TextView>
+			
+			<TextView android:id="@+id/sec1_2" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:textSize="20dip" android:layout_margin="5dip"></TextView>
+			
+			<TextView android:layout_width="fill_parent" android:layout_height="1dip"
+			android:background="@drawable/gray" android:layout_margin="1dip"></TextView>
+			
+			<TextView android:id="@+id/sec1_3" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:textSize="20dip" android:layout_margin="5dip"></TextView>
+			
+		</LinearLayout>
+	</ScrollView>
+
+</LinearLayout>
