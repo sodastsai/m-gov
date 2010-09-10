@@ -23,7 +23,7 @@
 	qGAE.conditionType = DataSourceGAEQueryByType;
 	qGAE.returnType = DataSourceGAEReturnByNSArray;
 	qGAE.resultTarget = self;
-	qGAE.queryCondition = @"1110";
+	qGAE.queryCondition = @"4106";
 	qGAE.resultRange = NSRangeFromString(@"0,10");
 	[qGAE startQuery];
 	[qGAE release];
@@ -69,7 +69,8 @@
 #pragma mark CaseSelectorDelegate
 
 - (void)didSelectRowAtIndexPathInList:(NSIndexPath *)indexPath {
-	NSLog(@"Hit");
+	CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:[[queryCaseSource objectAtIndex:indexPath.row] valueForKey:@"key"]];
+	[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
 }
 
 #pragma mark -

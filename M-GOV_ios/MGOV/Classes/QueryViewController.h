@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "CaseSelectorViewController.h"
+#import "CaseViewerViewController.h"
 #import "QueryGoogleAppEngine.h"
 #import "CaseSelectorCell.h"
 #import "MGOVGeocoder.h"

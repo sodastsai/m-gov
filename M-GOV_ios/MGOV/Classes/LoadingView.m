@@ -54,7 +54,7 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius) {
 //	(and hence retained by the superview)
 //
 + (id)loadingViewInView:(UIView *)aSuperview {
-	LoadingView *loadingView = [[[LoadingView alloc] initWithFrame:[aSuperview bounds]] autorelease];
+	LoadingView *loadingView = [[[LoadingView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)] autorelease];
 	if (!loadingView) {
 		return nil;
 	}
@@ -126,7 +126,7 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius) {
 //
 
 - (void)drawRect:(CGRect)rect {
-	rect = CGRectInset(rect, 40, 160);
+	rect = CGRectInset(rect, 40, 180);
 	CGPathRef roundRectPath = NewPathWithRoundRect(rect, 10.0);
 	
 	CGContextRef context = UIGraphicsGetCurrentContext();

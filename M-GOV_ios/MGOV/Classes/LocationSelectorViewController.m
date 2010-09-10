@@ -17,6 +17,7 @@
 @synthesize bottomBar, selectedCoord;
 @synthesize annotationAddress;
 @synthesize loading;
+@synthesize selectedAddress, barTitle;
 
 
 #pragma mark -
@@ -52,11 +53,11 @@
 }
 
 - (void)mapView:(MKMapView *)MapView annotationView:(MKAnnotationView *)annotationView didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
-	if ( oldState == MKAnnotationViewDragStateEnding && newState == MKAnnotationViewDragStateNone ) {
+	if ( newState == MKAnnotationViewDragStateNone ) {
 		NSString *tempAddress = [MGOVGeocoder returnFullAddress:annotationView.annotation.coordinate];
 		if ([tempAddress rangeOfString:@"台北市"].location == NSNotFound || tempAddress == nil) {
 			annotationView.annotation.coordinate = selectedCoord;
-			UIAlertView *outofTaipeiCity = [[UIAlertView alloc] initWithTitle:@"超出台北市範圍" message:@"1999只目前只支援台北市！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
+			UIAlertView *outofTaipeiCity = [[UIAlertView alloc] initWithTitle:@"超出服務範圍" message:@"您選擇的地點已超出台北市，但1999的服務範圍僅限於台北市內！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
 			[outofTaipeiCity show];
 			[outofTaipeiCity release];		
 		} else {
@@ -66,7 +67,7 @@
 		[loading removeView];
 		
 	}
-	if ( oldState == MKAnnotationViewDragStateDragging && newState == MKAnnotationViewDragStateEnding ) {
+	if ( newState == MKAnnotationViewDragStateEnding ) {
 		loading = [LoadingView loadingViewInView:[self.view.window.subviews objectAtIndex:0]];
 	}
 }

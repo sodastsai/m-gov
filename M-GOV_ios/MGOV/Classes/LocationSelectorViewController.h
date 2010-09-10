@@ -26,7 +26,8 @@
 	id<LocationSelectorViewControllerDelegate> delegate;
 	MKMapView *mapView;
 	UINavigationBar *titleBar;
-	UILabel *selectedAddress, *barTitle;
+	UILabel *selectedAddress;
+	UILabel *barTitle;
 	CLLocationCoordinate2D selectedCoord;
 	UIToolbar *bottomBar;
 	UIImage *caseImage;
@@ -38,6 +39,8 @@
 @property (nonatomic, retain) IBOutlet UIToolbar *bottomBar;
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) IBOutlet UINavigationBar *titleBar;
+@property (nonatomic, retain) IBOutlet UILabel *selectedAddress;
+@property (nonatomic, retain) IBOutlet UILabel *barTitle;
 @property (nonatomic) CLLocationCoordinate2D selectedCoord;
 @property (nonatomic, retain) NSString *annotationAddress;
 @property (nonatomic, retain) LoadingView *loading;

@@ -11,6 +11,8 @@
 
 @implementation CaseViewerViewController
 
+@synthesize loading, caseData;
+
 #pragma mark -
 #pragma mark CaseViewerViewController Method
 
@@ -21,37 +23,46 @@
 	return self;
 }
 
+#pragma mark -
+#pragma mark QueryGAEReciever
+
+- (void)recieveQueryResultType:(DataSourceGAEReturnTypes)type withResult:(id)result {
+	if (type == DataSourceGAEReturnByNSDictionary) {
+		self.caseData = result;
+	}
+}
 
 #pragma mark -
 #pragma mark View lifecycle
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
-	activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-	activityIndicator.frame = CGRectMake(141, 141, 37, 37);
-	[self.view addSubview:activityIndicator];
-	[activityIndicator startAnimating];
+	self.title = @"案件資料";
+	loading = [LoadingView loadingViewInView:self.navigationController.view];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+	qGAE.conditionType = DataSourceGAEQueryByID;
+	qGAE.queryCondition = caseID;
+	qGAE.returnType = DataSourceGAEReturnByNSDictionary;
+	qGAE.resultTarget = self;
+	[qGAE startQuery];
+	[qGAE release];
 	
-	NSString *str = [[NSString alloc] initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"http://ntu-ecoliving.appspot.com/ecoliving/get_id/%@", caseID]] encoding:NSUTF8StringEncoding error:nil];
-	caseData = [[NSDictionary alloc] initWithDictionary:[str JSONValue]];
 	CLLocationCoordinate2D coordinate;
 	coordinate.longitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 	coordinate.latitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
 	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:200 andCoordinate:coordinate actionTarget:nil setAction:nil];
-	str = [caseData objectForKey:@"image"];
+	NSString *str = [caseData objectForKey:@"image"];
 	str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
 	photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
 	photoView.layer.cornerRadius = 10.0;
 	photoView.layer.masksToBounds = YES;
-	[activityIndicator stopAnimating];
 	[self.tableView reloadData];
+	
+	[loading removeView];
 }
-
 
 #pragma mark -
 #pragma mark Table view data source
@@ -100,7 +111,7 @@
 				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"key"]];
 			} else {
 				cell.textLabel.text = @"處理狀態";
-				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"state"]];
+				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"status"]];
 			}
 		} else if (indexPath.section == 1) {
 			//cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];

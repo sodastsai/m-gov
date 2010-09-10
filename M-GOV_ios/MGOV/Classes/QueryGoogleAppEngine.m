@@ -26,7 +26,7 @@
 	}
 	
 	// GO
-	NSString *str = [[NSString alloc] initWithContentsOfURL:queryURL encoding:NSUTF8StringEncoding error:nil];
+	NSString *str = [NSString stringWithContentsOfURL:queryURL encoding:NSUTF8StringEncoding error:nil];
 	// TODO: ask for ggm: Fail return
 	
 	if (returnType == DataSourceGAEReturnByNSArray) {
@@ -45,7 +45,7 @@
 #pragma mark Parse Query Conditions
 
 - (NSString *)convertConditionTypeToString {
-	if (conditionType == DataSourceGAEQueryByID) return @"get/id";
+	if (conditionType == DataSourceGAEQueryByID) return @"get_id";
 	else if (conditionType == DataSourceGAEQueryByType) return @"query/typeid";
 	else if (conditionType == DataSourceGAEQueryByEmail) return @"query/email";
 	else if (conditionType == DataSourceGAEQueryByCoordinate) return @"query/coordinate";

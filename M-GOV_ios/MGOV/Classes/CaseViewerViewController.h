@@ -11,15 +11,20 @@
 #import "JSON.h"
 #import "LocationSelectorTableCell.h"
 #import "AppClassExtension.h"
+#import "LoadingView.h"
+#import "QueryGoogleAppEngine.h"
 
-@interface CaseViewerViewController : UITableViewController {
+@interface CaseViewerViewController : UITableViewController <QueryGAEReciever> {
 	NSString *caseID;
 	NSDictionary *caseData;
 	UIImageView *photoView;
 	
-	UIActivityIndicatorView *activityIndicator;
+	LoadingView *loading;
 	LocationSelectorTableCell *locationCell;
 }
+
+@property (nonatomic, retain) LoadingView *loading;
+@property (nonatomic, retain) NSDictionary *caseData;
 
 - (id)initWithCaseID:(NSString *)cid;
 
