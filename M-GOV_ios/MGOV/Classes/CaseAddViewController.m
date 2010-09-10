@@ -59,16 +59,7 @@
 		[dict setValue:nameFieldCell.nameField.text forKey:@"name"];
 		[dict setValue:descriptionCell.descriptionField.text forKey:@"detail"];
 		//NSString *str = [dict JSONFragment];
-		//NSLog(@"%@", str);
-		//NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://ntu-ecoliving.appspot.com/ecoliving/send/%@", str]];
-		NSURL *url = [NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/ecoliving/send/%7B%22detail%22:%22%E8%AB%8B%E8%BC%B8%E5%85%A5%E6%8F%8F%E8%BF%B0%E5%8F%8A%E5%BB%BA%E8%AD%B0%22,%22region%22:%22%E5%A4%A7%E5%AE%89%E5%8D%80%20%E5%AD%B8%E5%BA%9C%E9%87%8C%22,%22typeid%22:%221301%22,%22address%22:%22106%E5%8F%B0%E7%81%A3%E5%8F%B0%E5%8C%97%E5%B8%82%E5%A4%A7%E5%AE%89%E5%8D%80%E8%BE%9B%E4%BA%A5%E8%B7%AF%E4%BA%8C%E6%AE%B5%22,%22email%22:%22a@a..%22%7D"];
-		NSString *ret = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-		NSLog(@"%@", url);
-		
-		
-		NSLog(@"%@", ret);
-
-		
+				
 		[self.navigationController popViewControllerAnimated:YES];
 		return YES;
 	}

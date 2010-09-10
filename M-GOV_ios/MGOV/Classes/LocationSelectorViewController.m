@@ -13,20 +13,22 @@
 @implementation LocationSelectorViewController
 
 @synthesize delegate;
-@synthesize titleBar, mapView, barTitle;
-@synthesize selectedAddress, selectedCoord;
-@synthesize bottomBar;
+@synthesize titleBar, mapView;
+@synthesize bottomBar, selectedCoord;
+@synthesize annotationAddress;
+@synthesize loading;
 
-- (void)showAnnotationCallout {
-	[mapView selectAnnotation:[mapView.annotations lastObject] animated:YES];
-}
+
+#pragma mark -
+#pragma mark MKMapViewDelegate
 
 - (void)mapView:(MKMapView *)MapView didAddAnnotationViews:(NSArray *)views {
 	[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(showAnnotationCallout) userInfo:nil repeats:NO];
 }
 
-#pragma mark -
-#pragma mark MKMapViewDelegate
+- (void)showAnnotationCallout {
+	[mapView selectAnnotation:[mapView.annotations lastObject] animated:YES];
+}
 
 - (MKAnnotationView *)mapView:(MKMapView *)MapView viewForAnnotation:(id<MKAnnotation>)annotation {
 	// Act like table view cells
@@ -42,8 +44,6 @@
 		draggablePinView.draggable = YES;
 		draggablePinView.canShowCallout = YES;
 		draggablePinView.animatesDrop = YES;
-		//draggablePinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-		//draggablePinView.image = [caseImage fitToSize:CGSizeMake(20, 20)];
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:[caseImage fitToSize:CGSizeMake(40, 29)]];
 		draggablePinView.leftCalloutAccessoryView = imageView;
 		[imageView release];
@@ -52,18 +52,22 @@
 }
 
 - (void)mapView:(MKMapView *)MapView annotationView:(MKAnnotationView *)annotationView didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
-	if ( oldState == MKAnnotationViewDragStateDragging && newState == MKAnnotationViewDragStateEnding ) {
-		if ([[MGOVGeocoder returnFullAddress:annotationView.annotation.coordinate] rangeOfString:@"台北市"].location == NSNotFound || [MGOVGeocoder returnFullAddress:annotationView.annotation.coordinate] == nil) {
+	if ( oldState == MKAnnotationViewDragStateEnding && newState == MKAnnotationViewDragStateNone ) {
+		NSString *tempAddress = [MGOVGeocoder returnFullAddress:annotationView.annotation.coordinate];
+		if ([tempAddress rangeOfString:@"台北市"].location == NSNotFound || tempAddress == nil) {
 			annotationView.annotation.coordinate = selectedCoord;
 			UIAlertView *outofTaipeiCity = [[UIAlertView alloc] initWithTitle:@"超出台北市範圍" message:@"1999只目前只支援台北市！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
 			[outofTaipeiCity show];
-			[outofTaipeiCity release];			
+			[outofTaipeiCity release];		
 		} else {
 			// Update annotation subtitle
 			[self updatingAddress:annotationView.annotation];
-			// Update the center of mapview to annotation point
-			//[MapView setCenterCoordinate:selectedCoord animated:YES];
 		}
+		[loading removeView];
+		
+	}
+	if ( oldState == MKAnnotationViewDragStateDragging && newState == MKAnnotationViewDragStateEnding ) {
+		loading = [LoadingView loadingViewInView:[self.view.window.subviews objectAtIndex:0]];
 	}
 }
 
@@ -72,9 +76,8 @@
 #pragma mark Location Selector method
 
 - (void) updatingAddress:(AppMKAnnotation *)annotation {
-	NSString *address = [[NSString alloc]initWithString:[NSString stringWithFormat:@"%@", [MGOVGeocoder returnFullAddress:annotation.coordinate]]];
-	selectedAddress.text = address;
-	[address release];
+	annotationAddress = [MGOVGeocoder returnFullAddress:annotation.coordinate];
+	selectedAddress.text = annotationAddress;
 	selectedCoord = annotation.coordinate;
 }
 
