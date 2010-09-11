@@ -27,7 +27,7 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
-        mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, mapViewHeight-1)];
+        mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 300, mapViewHeight)];
 		mapView.mapType = MKMapTypeStandard;
 		[mapView setCenterCoordinate:mapCoordinate animated:YES];
 		MKCoordinateRegion region;

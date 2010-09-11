@@ -13,11 +13,10 @@
 @implementation LocationSelectorViewController
 
 @synthesize delegate;
-@synthesize titleBar, mapView;
-@synthesize bottomBar, selectedCoord;
+@synthesize mapView;
+@synthesize bottomBar, selectedCoord, caseImage;
 @synthesize annotationAddress;
 @synthesize loading;
-@synthesize selectedAddress, barTitle;
 
 
 #pragma mark -
@@ -57,7 +56,7 @@
 		NSString *tempAddress = [MGOVGeocoder returnFullAddress:annotationView.annotation.coordinate];
 		if ([tempAddress rangeOfString:@"台北市"].location == NSNotFound || tempAddress == nil) {
 			annotationView.annotation.coordinate = selectedCoord;
-			UIAlertView *outofTaipeiCity = [[UIAlertView alloc] initWithTitle:@"超出服務範圍" message:@"您選擇的地點已超出台北市，但1999的服務範圍僅限於台北市內！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
+			UIAlertView *outofTaipeiCity = [[UIAlertView alloc] initWithTitle:@"超出服務範圍" message:@"1999的服務範圍僅限於台北市內！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
 			[outofTaipeiCity show];
 			[outofTaipeiCity release];		
 		} else {
@@ -78,11 +77,13 @@
 
 - (void) updatingAddress:(AppMKAnnotation *)annotation {
 	annotationAddress = [MGOVGeocoder returnFullAddress:annotation.coordinate];
-	selectedAddress.text = annotationAddress;
-	selectedCoord = annotation.coordinate;
-	NSString *address = [[NSString alloc] initWithString:[annotationAddress substringFromIndex:5]];
-	annotation.annotationSubtitle = address;
-	[address release];
+	// Network
+	if (annotationAddress!=nil) {
+		selectedCoord = annotation.coordinate;
+		NSString *address = [[NSString alloc] initWithString:[annotationAddress substringFromIndex:5]];
+		annotation.annotationSubtitle = address;
+		[address release];
+	}
 }
 
 - (void) transformCoordinate {
@@ -97,7 +98,7 @@
 
 - (id) initWithCoordinate:(CLLocationCoordinate2D)coordinate andImage:(UIImage *)image {
 	selectedCoord = coordinate;
-	caseImage = image;
+	self.caseImage = image;
 	return [self init];
 }
 
@@ -142,9 +143,6 @@
 
 - (void)dealloc {
 	// MapView could not release
-	[titleBar release];
-	[barTitle release];
-	[selectedAddress release];
 	[bottomBar release];
     [super dealloc];
 }

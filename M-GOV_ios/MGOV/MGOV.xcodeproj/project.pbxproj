@@ -59,6 +59,58 @@
 		FEEB20D012394EDB00B24560 /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = FEEB20CD12394EDB00B24560 /* ok.png */; };
 		FEEB20D112394EDB00B24560 /* unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = FEEB20CE12394EDB00B24560 /* unknown.png */; };
 		FEF0D2C01230CACA000317C5 /* AppClassExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */; };
+		FEF0DC90123B4A1200CA48B2 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
+		FEF0DC91123B4A1200CA48B2 /* reportDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76A1223F68F00737028 /* reportDetails.plist */; };
+		FEF0DC92123B4A1200CA48B2 /* reportQid.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76B1223F68F00737028 /* reportQid.plist */; };
+		FEF0DC93123B4A1200CA48B2 /* reportSecondDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76C1223F68F00737028 /* reportSecondDetails.plist */; };
+		FEF0DC94123B4A1200CA48B2 /* reportSections.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76D1223F68F00737028 /* reportSections.plist */; };
+		FEF0DC95123B4A1200CA48B2 /* reportTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76E1223F68F00737028 /* reportTypes.plist */; };
+		FEF0DC96123B4A1200CA48B2 /* detailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77D1223F72E00737028 /* detailViewController.xib */; };
+		FEF0DC97123B4A1200CA48B2 /* secondDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */; };
+		FEF0DC98123B4A1200CA48B2 /* typesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77F1223F72E00737028 /* typesViewController.xib */; };
+		FEF0DC99123B4A1200CA48B2 /* CaseAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */; };
+		FEF0DC9A123B4A1200CA48B2 /* UserInformation.plist in Resources */ = {isa = PBXBuildFile; fileRef = FED3DDE71224EA3A001D3C73 /* UserInformation.plist */; };
+		FEF0DC9B123B4A1200CA48B2 /* LocationSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */; };
+		FEF0DC9C123B4A1200CA48B2 /* NoMyCase.png in Resources */ = {isa = PBXBuildFile; fileRef = FE17463B122D179C00641599 /* NoMyCase.png */; };
+		FEF0DC9D123B4A1200CA48B2 /* CaseViewerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE3FFE13122F7904008B0E48 /* CaseViewerViewController.xib */; };
+		FEF0DC9E123B4A1200CA48B2 /* QidToType.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE7D048212352AA5007FA0A1 /* QidToType.plist */; };
+		FEF0DC9F123B4A1200CA48B2 /* fail.png in Resources */ = {isa = PBXBuildFile; fileRef = FEEB20CC12394EDB00B24560 /* fail.png */; };
+		FEF0DCA0123B4A1200CA48B2 /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = FEEB20CD12394EDB00B24560 /* ok.png */; };
+		FEF0DCA1123B4A1200CA48B2 /* unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = FEEB20CE12394EDB00B24560 /* unknown.png */; };
+		FEF0DCA3123B4A1200CA48B2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		FEF0DCA4123B4A1200CA48B2 /* MGOVAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* MGOVAppDelegate.m */; };
+		FEF0DCA5123B4A1200CA48B2 /* detailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7751223F6D100737028 /* detailViewController.m */; };
+		FEF0DCA6123B4A1200CA48B2 /* secondDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7771223F6D100737028 /* secondDetailViewController.m */; };
+		FEF0DCA7123B4A1200CA48B2 /* typesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7791223F6D100737028 /* typesViewController.m */; };
+		FEF0DCA8123B4A1200CA48B2 /* CaseAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */; };
+		FEF0DCA9123B4A1200CA48B2 /* MGOVGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A560ED31226A6E700F3800F /* MGOVGeocoder.m */; };
+		FEF0DCAA123B4A1200CA48B2 /* AppMKAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE81537122791BF00D82E46 /* AppMKAnnotation.m */; };
+		FEF0DCAB123B4A1200CA48B2 /* LocationSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0974F2122BC7270048D841 /* LocationSelectorViewController.m */; };
+		FEF0DCAC123B4A1200CA48B2 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B447122CB478007E3FC8 /* SBJsonWriter.m */; };
+		FEF0DCAD123B4A1200CA48B2 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B449122CB478007E3FC8 /* SBJsonParser.m */; };
+		FEF0DCAE123B4A1200CA48B2 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B44B122CB478007E3FC8 /* SBJsonBase.m */; };
+		FEF0DCAF123B4A1200CA48B2 /* SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B44D122CB478007E3FC8 /* SBJSON.m */; };
+		FEF0DCB0123B4A1200CA48B2 /* NSString+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B44F122CB478007E3FC8 /* NSString+SBJSON.m */; };
+		FEF0DCB1123B4A1200CA48B2 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AC8B451122CB478007E3FC8 /* NSObject+SBJSON.m */; };
+		FEF0DCB2123B4A1200CA48B2 /* PhotoPickerTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE174734122D276400641599 /* PhotoPickerTableCell.m */; };
+		FEF0DCB3123B4A1200CA48B2 /* LocationSelectorTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1747A8122D2D6B00641599 /* LocationSelectorTableCell.m */; };
+		FEF0DCB4123B4A1200CA48B2 /* NameFieldTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1747DC122D303500641599 /* NameFieldTableCell.m */; };
+		FEF0DCB5123B4A1200CA48B2 /* DescriptionTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE174802122D329C00641599 /* DescriptionTableCell.m */; };
+		FEF0DCB6123B4A1200CA48B2 /* CaseViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3FFE12122F7904008B0E48 /* CaseViewerViewController.m */; };
+		FEF0DCB7123B4A1200CA48B2 /* AppClassExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */; };
+		FEF0DCB8123B4A1200CA48B2 /* QueryGoogleAppEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */; };
+		FEF0DCB9123B4A1200CA48B2 /* MyCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39BD112388842007359AB /* MyCaseViewController.m */; };
+		FEF0DCBA123B4A1200CA48B2 /* CaseSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39CA312389597007359AB /* CaseSelectorViewController.m */; };
+		FEF0DCBB123B4A1200CA48B2 /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39FE61238CF32007359AB /* QueryViewController.m */; };
+		FEF0DCBC123B4A1200CA48B2 /* CaseSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEB1FED12392E6B00B24560 /* CaseSelectorCell.m */; };
+		FEF0DCBD123B4A1200CA48B2 /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A85D1671239BA3800DB99C2 /* LoadingView.m */; };
+		FEF0DCBF123B4A1200CA48B2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		FEF0DCC0123B4A1200CA48B2 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		FEF0DCC1123B4A1200CA48B2 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		FEF0DCC2123B4A1200CA48B2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEBA5E91225FE95000A4D21 /* CoreLocation.framework */; };
+		FEF0DCC3123B4A1200CA48B2 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A560EA61226A60A00F3800F /* CoreData.framework */; };
+		FEF0DCC4123B4A1200CA48B2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE35A171226B02F00B37A4B /* MapKit.framework */; };
+		FEF0DCC5123B4A1200CA48B2 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A097061122B60200048D841 /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -145,6 +197,8 @@
 		FEEB20CE12394EDB00B24560 /* unknown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unknown.png; sourceTree = "<group>"; };
 		FEF0D2BE1230CACA000317C5 /* AppClassExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppClassExtension.h; sourceTree = "<group>"; };
 		FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppClassExtension.m; sourceTree = "<group>"; };
+		FEF0DCC9123B4A1200CA48B2 /* MGOV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MGOV.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FEF0DCCB123B4A1200CA48B2 /* MGOV-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MGOV-Info copy.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,15 +216,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FEF0DCBE123B4A1200CA48B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FEF0DCBF123B4A1200CA48B2 /* Foundation.framework in Frameworks */,
+				FEF0DCC0123B4A1200CA48B2 /* UIKit.framework in Frameworks */,
+				FEF0DCC1123B4A1200CA48B2 /* CoreGraphics.framework in Frameworks */,
+				FEF0DCC2123B4A1200CA48B2 /* CoreLocation.framework in Frameworks */,
+				FEF0DCC3123B4A1200CA48B2 /* CoreData.framework in Frameworks */,
+				FEF0DCC4123B4A1200CA48B2 /* MapKit.framework in Frameworks */,
+				FEF0DCC5123B4A1200CA48B2 /* QuartzCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				FEB391BA123677A9007359AB /* Case Selector */,
 				FEF0D2BE1230CACA000317C5 /* AppClassExtension.h */,
 				FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */,
+				FEB391BA123677A9007359AB /* Case Selector */,
 				FE3FFE10122F78D0008B0E48 /* Case Viewer */,
 				2AC8B441122CB3CC007E3FC8 /* SBJSON */,
 				2A0974F6122BC7300048D841 /* Location Selector */,
@@ -189,6 +257,7 @@
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* MGOV.app */,
+				FEF0DCC9123B4A1200CA48B2 /* MGOV.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -222,6 +291,7 @@
 				FE4EE75F1223F5F700737028 /* Types and Detail Strings */,
 				8D1107310486CEB800E47090 /* MGOV-Info.plist */,
 				FED3DDE71224EA3A001D3C73 /* UserInformation.plist */,
+				FEF0DCCB123B4A1200CA48B2 /* MGOV-Info copy.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -411,6 +481,23 @@
 			productReference = 1D6058910D05DD3D006BFB54 /* MGOV.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FEF0DC8E123B4A1200CA48B2 /* Optimized */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FEF0DCC6123B4A1200CA48B2 /* Build configuration list for PBXNativeTarget "Optimized" */;
+			buildPhases = (
+				FEF0DC8F123B4A1200CA48B2 /* Resources */,
+				FEF0DCA2123B4A1200CA48B2 /* Sources */,
+				FEF0DCBE123B4A1200CA48B2 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Optimized;
+			productName = MGOV;
+			productReference = FEF0DCC9123B4A1200CA48B2 /* MGOV.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -421,6 +508,7 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MGOV" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -433,6 +521,7 @@
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* MGOV */,
+				FEF0DC8E123B4A1200CA48B2 /* Optimized */,
 			);
 		};
 /* End PBXProject section */
@@ -460,6 +549,31 @@
 				FEEB20CF12394EDB00B24560 /* fail.png in Resources */,
 				FEEB20D012394EDB00B24560 /* ok.png in Resources */,
 				FEEB20D112394EDB00B24560 /* unknown.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FEF0DC8F123B4A1200CA48B2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FEF0DC90123B4A1200CA48B2 /* MainWindow.xib in Resources */,
+				FEF0DC91123B4A1200CA48B2 /* reportDetails.plist in Resources */,
+				FEF0DC92123B4A1200CA48B2 /* reportQid.plist in Resources */,
+				FEF0DC93123B4A1200CA48B2 /* reportSecondDetails.plist in Resources */,
+				FEF0DC94123B4A1200CA48B2 /* reportSections.plist in Resources */,
+				FEF0DC95123B4A1200CA48B2 /* reportTypes.plist in Resources */,
+				FEF0DC96123B4A1200CA48B2 /* detailViewController.xib in Resources */,
+				FEF0DC97123B4A1200CA48B2 /* secondDetailViewController.xib in Resources */,
+				FEF0DC98123B4A1200CA48B2 /* typesViewController.xib in Resources */,
+				FEF0DC99123B4A1200CA48B2 /* CaseAddViewController.xib in Resources */,
+				FEF0DC9A123B4A1200CA48B2 /* UserInformation.plist in Resources */,
+				FEF0DC9B123B4A1200CA48B2 /* LocationSelectorViewController.xib in Resources */,
+				FEF0DC9C123B4A1200CA48B2 /* NoMyCase.png in Resources */,
+				FEF0DC9D123B4A1200CA48B2 /* CaseViewerViewController.xib in Resources */,
+				FEF0DC9E123B4A1200CA48B2 /* QidToType.plist in Resources */,
+				FEF0DC9F123B4A1200CA48B2 /* fail.png in Resources */,
+				FEF0DCA0123B4A1200CA48B2 /* ok.png in Resources */,
+				FEF0DCA1123B4A1200CA48B2 /* unknown.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +611,40 @@
 				FEB39FE71238CF32007359AB /* QueryViewController.m in Sources */,
 				FEEB1FEE12392E6B00B24560 /* CaseSelectorCell.m in Sources */,
 				2A85D1691239BA3800DB99C2 /* LoadingView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FEF0DCA2123B4A1200CA48B2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FEF0DCA3123B4A1200CA48B2 /* main.m in Sources */,
+				FEF0DCA4123B4A1200CA48B2 /* MGOVAppDelegate.m in Sources */,
+				FEF0DCA5123B4A1200CA48B2 /* detailViewController.m in Sources */,
+				FEF0DCA6123B4A1200CA48B2 /* secondDetailViewController.m in Sources */,
+				FEF0DCA7123B4A1200CA48B2 /* typesViewController.m in Sources */,
+				FEF0DCA8123B4A1200CA48B2 /* CaseAddViewController.m in Sources */,
+				FEF0DCA9123B4A1200CA48B2 /* MGOVGeocoder.m in Sources */,
+				FEF0DCAA123B4A1200CA48B2 /* AppMKAnnotation.m in Sources */,
+				FEF0DCAB123B4A1200CA48B2 /* LocationSelectorViewController.m in Sources */,
+				FEF0DCAC123B4A1200CA48B2 /* SBJsonWriter.m in Sources */,
+				FEF0DCAD123B4A1200CA48B2 /* SBJsonParser.m in Sources */,
+				FEF0DCAE123B4A1200CA48B2 /* SBJsonBase.m in Sources */,
+				FEF0DCAF123B4A1200CA48B2 /* SBJSON.m in Sources */,
+				FEF0DCB0123B4A1200CA48B2 /* NSString+SBJSON.m in Sources */,
+				FEF0DCB1123B4A1200CA48B2 /* NSObject+SBJSON.m in Sources */,
+				FEF0DCB2123B4A1200CA48B2 /* PhotoPickerTableCell.m in Sources */,
+				FEF0DCB3123B4A1200CA48B2 /* LocationSelectorTableCell.m in Sources */,
+				FEF0DCB4123B4A1200CA48B2 /* NameFieldTableCell.m in Sources */,
+				FEF0DCB5123B4A1200CA48B2 /* DescriptionTableCell.m in Sources */,
+				FEF0DCB6123B4A1200CA48B2 /* CaseViewerViewController.m in Sources */,
+				FEF0DCB7123B4A1200CA48B2 /* AppClassExtension.m in Sources */,
+				FEF0DCB8123B4A1200CA48B2 /* QueryGoogleAppEngine.m in Sources */,
+				FEF0DCB9123B4A1200CA48B2 /* MyCaseViewController.m in Sources */,
+				FEF0DCBA123B4A1200CA48B2 /* CaseSelectorViewController.m in Sources */,
+				FEF0DCBB123B4A1200CA48B2 /* QueryViewController.m in Sources */,
+				FEF0DCBC123B4A1200CA48B2 /* CaseSelectorCell.m in Sources */,
+				FEF0DCBD123B4A1200CA48B2 /* LoadingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,21 +690,54 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "BEABC31E-4D43-44BB-B889-ADCFF07F642A";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
 		};
 		C01FCF5008A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dian-je Tsai (52BES94NYL)";
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FA290118-DBD1-4EF1-9B3F-13FD1B7EA4A8";
+				SDKROOT = iphoneos4.1;
+			};
+			name = Release;
+		};
+		FEF0DCC7123B4A1200CA48B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dian-je Tsai (52BES94NYL)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MGOV_Prefix.pch;
+				INFOPLIST_FILE = "MGOV-Info copy.plist";
+				PRODUCT_NAME = MGOV;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "FA290118-DBD1-4EF1-9B3F-13FD1B7EA4A8";
+			};
+			name = Debug;
+		};
+		FEF0DCC8123B4A1200CA48B2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = MGOV_Prefix.pch;
+				INFOPLIST_FILE = "MGOV-Info copy.plist";
+				PRODUCT_NAME = MGOV;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -577,6 +758,15 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FEF0DCC6123B4A1200CA48B2 /* Build configuration list for PBXNativeTarget "Optimized" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FEF0DCC7123B4A1200CA48B2 /* Debug */,
+				FEF0DCC8123B4A1200CA48B2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

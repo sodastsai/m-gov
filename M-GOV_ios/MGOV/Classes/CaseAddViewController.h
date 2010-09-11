@@ -26,8 +26,6 @@
 
 @end
 
-
-
 @interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, PhotoPickerTableCellDelegate, LocationSelectorTableCellDelegate, LocationSelectorViewControllerDelegate>  {
 	NSString *selectedTypeTitle;
 	NSInteger qid;

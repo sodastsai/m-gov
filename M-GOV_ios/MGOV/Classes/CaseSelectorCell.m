@@ -13,13 +13,13 @@
 @synthesize caseType, caseDate, caseAddress;
 
 + (CGFloat)cellHeight {
-	return 56;
+	return kCaseSelectorCellHeight;
 }
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
         // Set cell size
-		self.frame = CGRectMake(0, 0, 320, 56);
+		self.frame = CGRectMake(0, 0, 320, kCaseSelectorCellHeight);
 		
 		// Set labels
 		caseType = [[UILabel alloc] initWithFrame:CGRectMake(40, 10, 200, 20)];

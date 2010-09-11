@@ -12,13 +12,15 @@
 #import "QueryGoogleAppEngine.h"
 #import "CaseSelectorCell.h"
 #import "MGOVGeocoder.h"
+#import "typesViewController.h"
 
-@interface QueryViewController : CaseSelectorViewController <CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever, UIActionSheetDelegate> {
+@interface QueryViewController : CaseSelectorViewController <CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever, UIActionSheetDelegate, TypeSelectorDelegateProtocol> {
 	NSArray *queryCaseSource;
 }
 
 @property (retain, nonatomic) NSArray *queryCaseSource;
 
 - (void)setQueryCondition;
+- (void)startQueryToGAE:(QueryGoogleAppEngine *)qGAE;
 
 @end

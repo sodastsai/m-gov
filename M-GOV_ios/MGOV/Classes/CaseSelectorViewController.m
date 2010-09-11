@@ -34,6 +34,8 @@
 		
 		mapViewController = [[UIViewController alloc] init];
 		mapViewController.view = mapView;
+		mapViewController.view.autoresizesSubviews = YES;
+		mapViewController.view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
 		[mapView release];
 		
 		// Set Bar
@@ -59,6 +61,9 @@
 		listViewController.navigationItem.title = self.title;
 		listViewController.navigationItem.rightBarButtonItem = rightButtonItem;
 		listViewController.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+		
+		listViewController.view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
+		listViewController.view.autoresizesSubviews = YES;
 	}
 	return listViewController;
 }

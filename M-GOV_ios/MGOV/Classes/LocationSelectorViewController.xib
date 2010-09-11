@@ -71,14 +71,14 @@
 					<object class="IBUILabel" id="75006476">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 27}, {280, 12}}</string>
+						<string key="NSFrame">{{20, 24}, {280, 15}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText"/>
+						<string key="IBUIText">請拖曳大頭針到案件的發生地點</string>
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">12</double>
@@ -108,14 +108,14 @@
 					<object class="IBUILabel" id="606583658">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{20, 0}, {91, 22}}</string>
+						<string key="NSFrame">{{20, 0}, {119, 22}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<int key="IBUIContentMode">7</int>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-						<string key="IBUIText">請選擇地點</string>
+						<string key="IBUIText">請選擇案件地點</string>
 						<object class="NSFont" key="IBUIFont">
 							<string key="NSName">Helvetica-Bold</string>
 							<double key="NSSize">17</double>
@@ -158,14 +158,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">titleBar</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="539533185"/>
-					</object>
-					<int key="connectionID">64</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
 						<reference key="source" ref="315499922"/>
 						<reference key="destination" ref="372490531"/>
@@ -179,22 +171,6 @@
 						<reference key="destination" ref="919760799"/>
 					</object>
 					<int key="connectionID">69</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">barTitle</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="606583658"/>
-					</object>
-					<int key="connectionID">71</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">selectedAddress</string>
-						<reference key="source" ref="372490531"/>
-						<reference key="destination" ref="75006476"/>
-					</object>
-					<int key="connectionID">72</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -288,7 +264,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>LocationSelectorViewController</string>
 					<string>UIResponder</string>
-					<string>{{368, 307}, {320, 480}}</string>
+					<string>{{600, 236}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
@@ -326,40 +302,27 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>barTitle</string>
 							<string>bottomBar</string>
 							<string>delegate</string>
 							<string>mapView</string>
-							<string>selectedAddress</string>
-							<string>titleBar</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>UILabel</string>
 							<string>UIToolbar</string>
 							<string>id</string>
 							<string>MKMapView</string>
-							<string>UILabel</string>
-							<string>UINavigationBar</string>
 						</object>
 					</object>
 					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<string>barTitle</string>
 							<string>bottomBar</string>
 							<string>delegate</string>
 							<string>mapView</string>
-							<string>selectedAddress</string>
-							<string>titleBar</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBToOneOutletInfo">
-								<string key="name">barTitle</string>
-								<string key="candidateClassName">UILabel</string>
-							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">bottomBar</string>
 								<string key="candidateClassName">UIToolbar</string>
@@ -371,14 +334,6 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">mapView</string>
 								<string key="candidateClassName">MKMapView</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">selectedAddress</string>
-								<string key="candidateClassName">UILabel</string>
-							</object>
-							<object class="IBToOneOutletInfo">
-								<string key="name">titleBar</string>
-								<string key="candidateClassName">UINavigationBar</string>
 							</object>
 						</object>
 					</object>

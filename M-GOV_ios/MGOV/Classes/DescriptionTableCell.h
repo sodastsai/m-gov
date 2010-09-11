@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#define kTextFieldWidth 284.0
+#define kDescriptionFieldCellHeight 160
 
 @interface DescriptionTableCell : UITableViewCell <UITextViewDelegate> {
 	UITextView *descriptionField;
@@ -15,5 +15,7 @@
 }
 
 @property (nonatomic, retain) UITextView *descriptionField;
+
++ (CGFloat)cellHeight;
 
 @end

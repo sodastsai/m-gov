@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#define kCaseSelectorCellHeight 56
 
 @interface CaseSelectorCell : UITableViewCell {
 	UILabel *caseType;

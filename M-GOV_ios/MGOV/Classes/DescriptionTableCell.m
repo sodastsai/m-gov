@@ -12,11 +12,15 @@
 
 @synthesize descriptionField;
 
++ (CGFloat)cellHeight {
+	return kDescriptionFieldCellHeight;
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
 		textViewPlaceholder = YES;
 		
-		descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, 140)];
+		descriptionField = [[UITextView alloc] initWithFrame:CGRectMake(8.0, 8.0, 284, kDescriptionFieldCellHeight-14)];
 		if (textViewPlaceholder) {
 			descriptionField.contentInset = UIEdgeInsetsMake(-7,-7,-7,-7);
 			descriptionField.text = @"請輸入描述及建議";

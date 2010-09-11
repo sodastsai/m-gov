@@ -13,7 +13,6 @@
 //
 
 #import "LoadingView.h"
-#import <QuartzCore/QuartzCore.h>
 
 //
 // NewPathWithRoundRect
@@ -107,8 +106,7 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius) {
 // Animates the view out from the superview. As the view is removed from the
 // superview, it will be released.
 //
-- (void)removeView
-{
+- (void)removeView {
 	UIView *aSuperview = [self superview];
 	[super removeFromSuperview];
 	
@@ -136,20 +134,20 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius) {
 	CGContextAddPath(context, roundRectPath);
 	CGContextFillPath(context);
 	
-	const CGFloat STROKE_OPACITY = 0.25;
-	CGContextSetRGBStrokeColor(context, 1, 1, 1, STROKE_OPACITY);
+	const CGFloat STROKE_OPACITY = 0.4;
+	CGContextSetRGBStrokeColor(context, 0.5, 0.5, 0.5, STROKE_OPACITY);
 	CGContextAddPath(context, roundRectPath);
 	CGContextStrokePath(context);
 	
 	CGPathRelease(roundRectPath);
 }
 
- 
 //
 // dealloc
 //
 // Release instance memory.
 //
+
 - (void)dealloc {
     [super dealloc];
 }

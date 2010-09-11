@@ -18,16 +18,7 @@
 // Override the super class
 - (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title {
 	UIBarButtonItem *setConditionButton = [[[UIBarButtonItem alloc] initWithTitle:@"設定條件" style:UIBarButtonItemStyleBordered target:self action:@selector(setQueryCondition)] autorelease];
-	
-	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
-	qGAE.conditionType = DataSourceGAEQueryByType;
-	qGAE.returnType = DataSourceGAEReturnByNSArray;
-	qGAE.resultTarget = self;
-	qGAE.queryCondition = @"4106";
-	qGAE.resultRange = NSRangeFromString(@"0,10");
-	[qGAE startQuery];
-	[qGAE release];
-	
+	queryCaseSource = nil;	
 	return [self initWithMode:mode andTitle:title withRightBarButtonItem:setConditionButton];
 }
 
@@ -38,6 +29,10 @@
 	UIActionSheet *setCondition = [[UIActionSheet alloc] initWithTitle:@"設定搜尋條件" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"重設所有搜尋條件" otherButtonTitles:@"設定案件種類", @"回到現在位置", nil];
 	[setCondition showFromTabBar:self.tabBarController.tabBar];
 	[setCondition release];
+}
+
+- (void)startQueryToGAE:(QueryGoogleAppEngine *)qGAE {
+	[qGAE startQuery];
 }
 
 #pragma mark -
@@ -57,12 +52,28 @@
 	if (buttonIndex==0) {
 		NSLog(@"Reset");
 	} else if (buttonIndex==1) {
-		NSLog(@"Type");
+		typesViewController *typeSelector = [[typesViewController alloc] init];
+		typeSelector.delegate = self;
+		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typeSelector];
+		[self presentModalViewController:typeAndDetailSelector animated:YES];
+		[typeSelector release];
+		[typeAndDetailSelector release];
 	} else if (buttonIndex==2) {
 		NSLog(@"Back");
 	} else if (buttonIndex==3) {
 		// Do nothing but cancel
 	}
+}
+
+#pragma mark -
+#pragma mark TypeSelectorDelegate
+
+- (void)typeSelectorDidSelectWithTitle:(NSString *)t andQid:(NSInteger)q {
+	NSLog(@"%@, %d", t, q);
+}
+
+- (void)leaveSelectorWithoutTitleAndQid {
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark -

@@ -15,8 +15,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface LoadingView : UIView
-{
+@interface LoadingView : UIView {
 	
 }
 

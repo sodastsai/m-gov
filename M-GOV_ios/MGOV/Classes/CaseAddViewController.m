@@ -100,15 +100,15 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {	
 	// Set the height according to the edit area size
     if (indexPath.section == 0) {
-		return 200;
+		return [PhotoPickerTableCell cellHeight];
 	} else if (indexPath.section == 1) {
 		return 100;
 	} else if (indexPath.section == 2 ){
-		return 45;
+		return 44;
 	} else if (indexPath.section == 3 ){
-		return 40;
+		return [NameFieldTableCell cellHeight];
 	} else if (indexPath.section == 4 ){
-		return 156;
+		return [DescriptionTableCell cellHeight];
 	}
 	
 	return 0;
@@ -155,15 +155,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section==2 && indexPath.row==0) {
 		typesViewController *typesView = [[typesViewController alloc] init];
-		typesView.title = @"請選擇案件種類";
 		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typesView];
 		// Show the view
 		typesView.delegate = self;
 		[self presentModalViewController:typeAndDetailSelector animated:YES];
-		// Add Back button
-		UIBarButtonItem *backBuuton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:typesView.delegate action:@selector(leaveSelectorWithoutTitleAndQid)];
-		typesView.navigationItem.leftBarButtonItem = backBuuton;
-		[backBuuton release];
 		[typesView release];
 	}
 }
@@ -189,13 +184,13 @@
 	}
 
 	// Fit the Button
-	[photoCell.photoButton setImage:[selectedImage fitToSize:CGSizeMake(300, 200)] forState:UIControlStateNormal];
+	[photoCell.photoButton setImage:[selectedImage fitToSize:CGSizeMake(300, [PhotoPickerTableCell cellHeight])] forState:UIControlStateNormal];
 	[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];
 	
 	// Close Picker,Reload Data, and Call Location Selector
 	[picker dismissModalViewControllerAnimated:YES];
 	[self.tableView reloadData];
-	[NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(openLocationSelector) userInfo:nil repeats:NO];
+	[NSTimer scheduledTimerWithTimeInterval:0.75 target:self selector:@selector(openLocationSelector) userInfo:nil repeats:NO];
 }
 
 #pragma mark -
@@ -412,7 +407,6 @@
 	[flexibleItem release];
 	[optionalHint release];
 	
-	//MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 	selectedCoord = shared.locationManager.location.coordinate;
 	shared = nil;
 	[shared release];

@@ -12,9 +12,13 @@
 
 @synthesize nameField;
 
++ (CGFloat)cellHeight {
+	return kNameFieldCellHeight;
+}
+
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
-        nameField = [[UITextField alloc] initWithFrame:CGRectMake(8.0, 8.0, kTextFieldWidth, kTextFieldHeight)];
+        nameField = [[UITextField alloc] initWithFrame:CGRectMake(8.0, 8.0, 284, kNameFieldCellHeight-14)];
 		nameField.tag = 100;
 		nameField.placeholder = @"請輸入您的姓名";
 		nameField.autocorrectionType = UITextAutocorrectionTypeNo;

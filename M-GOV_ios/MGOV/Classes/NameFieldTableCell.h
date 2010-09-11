@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-#define kTextFieldHeight 30.0
-#define kTextFieldWidth 284.0
+#define kNameFieldCellHeight 40
 
 @interface NameFieldTableCell : UITableViewCell <UITextFieldDelegate> {
 	UITextField *nameField;
 }
 
 @property (nonatomic, retain) UITextField *nameField;
+
++ (CGFloat)cellHeight;
 
 @end

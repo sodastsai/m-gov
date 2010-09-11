@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kPhotoViewHeight 200.0
+#define kPhotoPickerCellHeight 225.0
 
 @protocol PhotoPickerTableCellDelegate
 
@@ -25,5 +25,7 @@
 
 @property (retain, nonatomic) id<PhotoPickerTableCellDelegate> delegate;
 @property (retain, nonatomic) UIButton *photoButton;
+
++ (CGFloat)cellHeight;
 
 @end
