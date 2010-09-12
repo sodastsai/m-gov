@@ -8,7 +8,6 @@
 
 #import "MyCaseViewController.h"
 
-
 @implementation MyCaseViewController
 
 @synthesize myCaseSource;
@@ -22,10 +21,9 @@
 	
 	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
 	qGAE.conditionType = DataSourceGAEQueryByType;
-	qGAE.returnType = DataSourceGAEReturnByNSArray;
 	qGAE.resultTarget = self;
 	qGAE.queryCondition = @"1110";
-	qGAE.resultRange = NSRangeFromString(@"0,10");
+	qGAE.resultRange = NSRangeFromString(@"0,50");
 	[qGAE startQuery];
 	[qGAE release];
 	
@@ -52,14 +50,18 @@
 	// Accept Array only
 	if (type == DataSourceGAEReturnByNSArray) {
 		self.myCaseSource = result;
+	} else {
+		myCaseSource = nil;
 	}
+
 }
 
 #pragma mark -
 #pragma mark CaseSelectorDelegate
 
 - (void)didSelectRowAtIndexPathInList:(NSIndexPath *)indexPath {
-	NSLog(@"Hit");
+	CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:[[myCaseSource objectAtIndex:indexPath.row] valueForKey:@"key"]];
+	[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
 }
 
 #pragma mark -
@@ -74,7 +76,7 @@
 }
 
 - (CGFloat)heightForRowAtIndexPathInList:(NSIndexPath *)indexPath {
-	return 44;
+	return [CaseSelectorCell cellHeight];
 }
 
 - (NSString *)titleForHeaderInSectionInList:(NSInteger)section {
@@ -84,11 +86,54 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *CellIdentifier = @"Cell";
 	
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	}
-	cell.textLabel.text = @"XDDD";
+	
+	// Case ID
+	cell.caseID.text = [[myCaseSource objectAtIndex:indexPath.row] objectForKey:@"key"];
+	// Case Type
+	NSString *caseTypeText = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[[myCaseSource objectAtIndex:indexPath.row] valueForKey:@"typeid"]];
+	cell.caseType.text = caseTypeText;
+	// Case Date
+	if ([[myCaseSource objectAtIndex:indexPath.row] objectForKey:@"date"]!=nil) {
+		// Original ROC Format
+		NSString *originalDate = [[[[[myCaseSource objectAtIndex:indexPath.row] objectForKey:@"date"] stringByReplacingOccurrencesOfString:@"年" withString:@"/"]
+									stringByReplacingOccurrencesOfString:@"月" withString:@"/"] 
+								  stringByReplacingOccurrencesOfString:@"日" withString:@""];
+		NSString *originalLongDate = [originalDate stringByAppendingString:@" 23:59:59"];
+		// Convert to Common Era
+		NSDate *formattedDate = [NSDate dateFromROCFormatString:originalLongDate];
+		
+		// Make today's end
+		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+		[dateFormatter setDateFormat:@"yyyy-MM-dd"];
+		NSString *todayDate = [[dateFormatter stringFromDate:[NSDate date]] stringByAppendingString:@" 23:59:59"];
+		[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+		NSDate *todayEnd = [dateFormatter dateFromString:todayDate];
+		[dateFormatter release];
+		
+		// Check Interval
+		if ([todayEnd timeIntervalSinceDate:formattedDate] < 86400) {
+			cell.caseDate.text = @"今天";
+		} else if ([todayEnd timeIntervalSinceDate:formattedDate]  < 86400*2) {
+			cell.caseDate.text = @"昨天";
+		} else if ([todayEnd timeIntervalSinceDate:formattedDate]  < 86400*3) {
+			cell.caseDate.text = @"兩天前";
+		} else {
+			cell.caseDate.text = originalDate;
+		}
+	} else {
+		// No Date
+		cell.caseDate.text = @"";
+	}
+	// Case Address
+	CLLocationCoordinate2D caseCoord;
+	caseCoord.longitude  = [[[[myCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
+	caseCoord.latitude = [[[[myCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
+	cell.caseAddress.text = [[MGOVGeocoder returnFullAddress:caseCoord] substringFromIndex:5];
+	
 	return cell;
 }
 

@@ -198,7 +198,6 @@
 		FEF0D2BE1230CACA000317C5 /* AppClassExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppClassExtension.h; sourceTree = "<group>"; };
 		FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppClassExtension.m; sourceTree = "<group>"; };
 		FEF0DCC9123B4A1200CA48B2 /* MGOV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MGOV.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		FEF0DCCB123B4A1200CA48B2 /* MGOV-Info copy.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MGOV-Info copy.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,7 +290,6 @@
 				FE4EE75F1223F5F700737028 /* Types and Detail Strings */,
 				8D1107310486CEB800E47090 /* MGOV-Info.plist */,
 				FED3DDE71224EA3A001D3C73 /* UserInformation.plist */,
-				FEF0DCCB123B4A1200CA48B2 /* MGOV-Info copy.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -735,7 +733,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MGOV_Prefix.pch;
-				INFOPLIST_FILE = "MGOV-Info copy.plist";
+				INFOPLIST_FILE = "MGOV-Info.plist";
 				PRODUCT_NAME = MGOV;
 				VALIDATE_PRODUCT = YES;
 			};

@@ -7,15 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#define kCaseSelectorCellHeight 56
+#define kCaseSelectorCellHeight 76
 
 @interface CaseSelectorCell : UITableViewCell {
+	UILabel *caseID;
 	UILabel *caseType;
 	UILabel *caseDate;
 	UILabel *caseAddress;
 	UIImageView *caseStatus;
 }
 
+@property (nonatomic, retain) UILabel *caseID;
 @property (nonatomic, retain) UILabel *caseType;
 @property (nonatomic, retain) UILabel *caseDate;
 @property (nonatomic, retain) UILabel *caseAddress;

@@ -19,7 +19,7 @@ typedef enum {
 typedef enum {
 	DataSourceGAEReturnByNSArray,
 	DataSourceGAEReturnByNSDictionary,
-	DataSourceGAEReturnByNSString,
+	DataSourceGAEReturnTypeUnkonwn,
 } DataSourceGAEReturnTypes;
 
 @protocol QueryGAEReciever
@@ -46,7 +46,7 @@ typedef enum {
 }
 
 @property (nonatomic) DataSourceGAEQueryTypes conditionType;
-@property (nonatomic) DataSourceGAEReturnTypes returnType;
+@property (nonatomic, readonly) DataSourceGAEReturnTypes returnType;
 @property (retain,nonatomic) NSString *queryCondition;
 @property (retain,nonatomic) NSDictionary *queryConditions;
 @property (nonatomic) NSRange resultRange;

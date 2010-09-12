@@ -80,9 +80,7 @@
 	// Network
 	if (annotationAddress!=nil) {
 		selectedCoord = annotation.coordinate;
-		NSString *address = [[NSString alloc] initWithString:[annotationAddress substringFromIndex:5]];
-		annotation.annotationSubtitle = address;
-		[address release];
+		annotation.annotationSubtitle = [annotationAddress substringFromIndex:5];
 	}
 }
 

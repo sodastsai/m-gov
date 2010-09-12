@@ -10,6 +10,9 @@
 #import "CaseSelectorViewController.h"
 #import "CaseAddViewController.h"
 #import "QueryGoogleAppEngine.h"
+#import "CaseSelectorCell.h"
+#import "CaseViewerViewController.h"
+#import "AppClassExtension.h"
 
 @interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever> {
 	NSArray *myCaseSource;

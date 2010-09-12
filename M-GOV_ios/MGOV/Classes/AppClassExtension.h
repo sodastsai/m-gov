@@ -18,3 +18,9 @@
 - (UIImage*)fixImageSize;
 
 @end
+
+@interface NSDate (AppExtension)
+
++ (NSDate *)dateFromROCFormatString:(NSString *)ROCdate;
+
+@end

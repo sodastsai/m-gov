@@ -117,7 +117,7 @@
 	CLLocationCoordinate2D caseCoord;
 	caseCoord.longitude  = [[[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 	caseCoord.latitude = [[[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
-	cell.caseAddress.text = [MGOVGeocoder returnFullAddress:caseCoord];
+	cell.caseAddress.text = [[MGOVGeocoder returnFullAddress:caseCoord] substringFromIndex:5];
 	
 	return cell;
 }

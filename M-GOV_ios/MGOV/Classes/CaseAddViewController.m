@@ -196,7 +196,6 @@
 #pragma mark -
 #pragma mark UITextFieldDelegate
 
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	// End editing
 	if (textField.placeholder == alertRequestEmailPlaceholder) {
@@ -377,6 +376,7 @@
 	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:100 andCoordinate:shared.locationManager.location.coordinate actionTarget:self setAction:@selector(openLocationSelector)];
 	locationCell.delegate = self;
 	nameFieldCell = [[NameFieldTableCell alloc] init];
+	nameFieldCell.nameField.delegate = self;
 	descriptionCell = [[DescriptionTableCell alloc] init];
 	
 	selectedTypeTitle = @"";

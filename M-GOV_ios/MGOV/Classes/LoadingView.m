@@ -63,7 +63,7 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius) {
 	UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	[aSuperview addSubview:loadingView];
 	
-	const CGFloat DEFAULT_LABEL_WIDTH = 100.0;
+	const CGFloat DEFAULT_LABEL_WIDTH = 85.0;
 	const CGFloat DEFAULT_LABEL_HEIGHT = 50.0;
 	CGRect labelFrame = CGRectMake(0, 0, DEFAULT_LABEL_WIDTH, DEFAULT_LABEL_HEIGHT);
 	 
@@ -81,15 +81,19 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius) {
 	activityIndicatorView.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
 	[activityIndicatorView startAnimating];
 	
-	CGFloat totalHeight = loadingLabel.frame.size.height + activityIndicatorView.frame.size.height;
-	labelFrame.origin.x = floor(0.5 * (loadingView.frame.size.width - DEFAULT_LABEL_WIDTH));
-	labelFrame.origin.y = floor(0.5 * (loadingView.frame.size.height - totalHeight)) -7;
+	//CGFloat totalHeight = loadingLabel.frame.size.height + activityIndicatorView.frame.size.height;
+	//labelFrame.origin.x = floor(0.5 * (loadingView.frame.size.width - DEFAULT_LABEL_WIDTH));
+	//labelFrame.origin.y = floor(0.5 * (loadingView.frame.size.height - totalHeight)) -7;
+	labelFrame.origin.x = loadingView.frame.size.width/2 - DEFAULT_LABEL_WIDTH/2 + (activityIndicatorView.frame.size.width)/2;
+	labelFrame.origin.y = loadingView.frame.size.height/2 - DEFAULT_LABEL_HEIGHT/2;
 	loadingLabel.frame = labelFrame;
 	
 	CGRect activityIndicatorRect = activityIndicatorView.frame;
 	// Set the activity origin
 	activityIndicatorRect.origin.x = 0.5 * (loadingView.frame.size.width - activityIndicatorRect.size.width);
-	activityIndicatorRect.origin.y = loadingLabel.frame.origin.y + loadingLabel.frame.size.height -4;
+	//activityIndicatorRect.origin.y = loadingLabel.frame.origin.y + loadingLabel.frame.size.height -4;
+	activityIndicatorRect.origin.x = loadingView.frame.size.width/2 - activityIndicatorRect.size.width - DEFAULT_LABEL_WIDTH/2;
+	activityIndicatorRect.origin.y = loadingView.frame.size.height/2 - activityIndicatorRect.size.height/2;
 	activityIndicatorView.frame = activityIndicatorRect;
 	
 	// Set up the fade-in animation
@@ -124,12 +128,12 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius) {
 //
 
 - (void)drawRect:(CGRect)rect {
-	rect = CGRectInset(rect, 40, 180);
+	rect = CGRectInset(rect, 40, 200);
 	CGPathRef roundRectPath = NewPathWithRoundRect(rect, 10.0);
 	
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	
-	const CGFloat BACKGROUND_OPACITY = 0.6;
+	const CGFloat BACKGROUND_OPACITY = 0.75;
 	CGContextSetRGBFillColor(context, 0, 0, 0, BACKGROUND_OPACITY);
 	CGContextAddPath(context, roundRectPath);
 	CGContextFillPath(context);

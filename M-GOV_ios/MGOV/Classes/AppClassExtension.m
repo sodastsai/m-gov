@@ -133,3 +133,22 @@
 }
 
 @end
+
+@implementation NSDate (AppExtension)
+
++ (NSDate *)dateFromROCFormatString:(NSString *)ROCdate {
+	NSString *regEx1 = @"^[0-9.]*";
+	NSRange yearRange = [ROCdate rangeOfString:regEx1 options:NSRegularExpressionSearch];
+	NSInteger formattedYear = [[ROCdate substringWithRange:yearRange] intValue];
+	NSString *restString = [ROCdate substringFromIndex:yearRange.length];
+	formattedYear += 1911;
+	NSString *formattedDateString = [NSString stringWithFormat:@"%d%@", formattedYear, restString];
+	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+	[dateFormatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
+	NSDate *formattedDate = [dateFormatter dateFromString:formattedDateString];
+	[dateFormatter release];
+	return formattedDate;
+}
+
+@end
+ 

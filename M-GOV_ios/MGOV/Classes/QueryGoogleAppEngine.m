@@ -24,17 +24,23 @@
 	} else {
 		return NO;
 	}
+	NSLog(@"%@", queryURL);
 	
 	// GO
-	NSString *str = [NSString stringWithContentsOfURL:queryURL encoding:NSUTF8StringEncoding error:nil];
 	// TODO: ask for ggm: Fail return
+	NSString *str = [NSString stringWithContentsOfURL:queryURL encoding:NSUTF8StringEncoding error:nil];
 	
-	if (returnType == DataSourceGAEReturnByNSArray) {
-		queryResult = [[[NSArray alloc] initWithArray:[str JSONValue]] autorelease];
-	} else if (returnType == DataSourceGAEReturnByNSDictionary) {
-		queryResult = [[[NSDictionary alloc] initWithDictionary:[str JSONValue]] autorelease];
+	if (str!=nil) {
+		queryResult = [str JSONValue];
+		if ([queryResult isKindOfClass:[NSDictionary class]]) {
+			returnType = DataSourceGAEReturnByNSDictionary;
+		} else if ([queryResult isKindOfClass:[NSArray class]]) {
+			returnType = DataSourceGAEReturnByNSArray;
+		} else {
+			returnType = DataSourceGAEReturnTypeUnkonwn;
+		}
 	} else {
-		queryResult = str;
+		queryResult = nil;
 	}
 	
 	[resultTarget recieveQueryResultType:returnType withResult:queryResult];
