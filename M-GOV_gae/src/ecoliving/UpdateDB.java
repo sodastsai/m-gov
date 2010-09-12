@@ -34,9 +34,10 @@ public class UpdateDB {
 		System.out.println(list.size());
 		for (GAENodeSimple ob : list) {
 			e = pm.getObjectById(GAENode.class, ob.getKey());
-
-			ob.date = e.getDate();
-			GAEDateBase.store(ob.clone());
+			if (ob.date == null) {
+				ob.date = e.getDate();
+				GAEDateBase.store(ob.clone());
+			}
 		}
 		return "done";
 	}

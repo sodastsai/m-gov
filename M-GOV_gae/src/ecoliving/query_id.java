@@ -32,7 +32,7 @@ public class query_id {
 			CookiesInURL urlcon = new CookiesInURL (strurl); 
 
 			String res="",res2;
-			res = net.ReadUrl.process(urlcon.connection);
+			res = net.ReadUrl.process(urlcon.connection,"big5");
 			System.out.println(res);
 			res = HtmlFilter.parseHTMLStr(res);
 			res = HtmlFilter.delSpace(res);
@@ -61,7 +61,7 @@ public class query_id {
 		CookiesInURL cookurl = new CookiesInURL(str);
 
 		String r = "";
-		r = net.ReadUrl.process(cookurl.connection);
+		r = net.ReadUrl.process(cookurl.connection,"big5");
 		r = net.HtmlFilter.praseCoordinates(r);
 			
 		return r;

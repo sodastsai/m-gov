@@ -27,7 +27,7 @@ public class CookiesInURL {
 			CookiesInURL cookurl = new CookiesInURL(url.openConnection());
 
 			String r;
-			r = net.ReadUrl.process(cookurl.connection);
+			r = net.ReadUrl.process(cookurl.connection,"big5");
 			
 			System.out.println(r);
 

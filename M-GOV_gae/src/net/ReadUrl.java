@@ -32,21 +32,21 @@ public class ReadUrl {
 
 	}
 
-	public static String process(String strUrl)
+	public static String process(String strUrl,String encode)
 			throws UnsupportedEncodingException, IOException {
 		URL url = new URL(strUrl);
 		URLConnection connection = url.openConnection();
-		return process(connection);
+		return process(connection,encode);
 	}
 
-	public static String process(URLConnection connection)
+	public static String process(URLConnection connection,String encode)
 			throws UnsupportedEncodingException, IOException {
 
 		String line;
 		StringBuilder builder = new StringBuilder();
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(
-				connection.getInputStream(), "big5"));
+				connection.getInputStream(), encode));
 
 		while ((line = reader.readLine()) != null) {
 			builder.append(line + "\n");
