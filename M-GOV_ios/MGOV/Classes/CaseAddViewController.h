@@ -18,8 +18,6 @@
 #import "LocationSelectorViewController.h"
 #import "JSON.h"
 
-#import "AppClassExtension.h"
-
 @protocol CaseAddViewControllerDelegate
 
 //- (void)refreshData;

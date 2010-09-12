@@ -8,7 +8,6 @@
 
 #import "LocationSelectorViewController.h"
 #import "MGOVGeocoder.h"
-#import "AppClassExtension.h"
 
 @implementation LocationSelectorViewController
 

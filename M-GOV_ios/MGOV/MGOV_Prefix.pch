@@ -8,4 +8,5 @@
 	#import <CoreLocation/CoreLocation.h>
 	#import <CoreData/CoreData.h>
 	#import "MGOVGeocoder.h"
+	#import "AppClassExtension.h"
 #endif

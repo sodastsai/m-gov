@@ -10,7 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "JSON.h"
 #import "LocationSelectorTableCell.h"
-#import "AppClassExtension.h"
 #import "LoadingView.h"
 #import "QueryGoogleAppEngine.h"
 

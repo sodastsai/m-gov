@@ -85,7 +85,9 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	if (section == 2) return @"案件照片";
+	if (section==0) return @"基本資料";
+	else if (section == 1) return @"案件種類與描述";
+	else if (section == 2) return @"案件照片";
 	else if(section == 3) return @"案件地點";
 	
 	return nil;
