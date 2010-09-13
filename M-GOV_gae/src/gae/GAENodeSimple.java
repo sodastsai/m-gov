@@ -21,6 +21,9 @@ public class GAENodeSimple {
 	@Persistent
 	public double coordinates[];
 	@Persistent
+	public double coord_mul;
+	
+	@Persistent
 	public String status;
 
 	public GAENodeSimple(){}
@@ -33,15 +36,18 @@ public class GAENodeSimple {
 
 		String str[]=coordinates.split(",");
 		this.coordinates = new double[2]; 
-		this.coordinates[0]=Double.parseDouble(str[0]);
-		this.coordinates[1]=Double.parseDouble(str[1]);
+		
+		double d1=Double.parseDouble(str[0]);
+		double d2=Double.parseDouble(str[1]);
 
+		this.coordinates[0]=d1;
+		this.coordinates[1]=d2;
+		this.coord_mul = d1 * d2; 
 		this.status = status;
 	}
 
 	public String getKey() {
 		return key;
-
 	}
 
 	public JSONObject toJson() {
@@ -50,6 +56,8 @@ public class GAENodeSimple {
 			JSONObject o = new JSONObject();
 			o.accumulate("key", key);
 			o.accumulate("coordinates", coordinates);
+			o.accumulate("coord_mul", coord_mul);
+
 			o.accumulate("date", date);
 			o.accumulate("typeid", typeid);
 			o.accumulate("status", status);

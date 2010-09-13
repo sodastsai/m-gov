@@ -30,12 +30,11 @@ public class UpdateDB {
 		Query query = pm.newQuery(GAENodeSimple.class);
 
 		List<GAENodeSimple> list = (List<GAENodeSimple>) query.execute();
-		GAENode e;
 		System.out.println(list.size());
+
 		for (GAENodeSimple ob : list) {
-			e = pm.getObjectById(GAENode.class, ob.getKey());
-			if (ob.date == null) {
-				ob.date = e.getDate();
+			if (ob.coord_mul == 0) {
+				ob.coord_mul = ob.coordinates[0] * ob.coordinates[1];
 				GAEDateBase.store(ob.clone());
 			}
 		}

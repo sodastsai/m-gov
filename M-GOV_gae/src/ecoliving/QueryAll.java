@@ -29,29 +29,40 @@ public class QueryAll {
 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Query query = pm.newQuery(GAENodeSimple.class);
-		query.setOrdering("key desc");
 		query.setRange(Integer.parseInt(st), Integer.parseInt(ed));
 
-		for (int i = 0; i < methods.length; i++) {
+		int i,j;
+		for (i=j=0; i < methods.length; i++, j++) {
 			if (i != 0)
-				filter += '&';
-			if ("coordinates".equals(methods[i])) {
-				// TODO
-			} else if ("region".equals(methods[i])) {
-				// TODO
-			} else if ("status".equals(methods[i])) {
-				int j=Integer.parseInt(args[i]);
-				if(j<tool.StaticValue.status.length)
-					filter = methods[i] + " == '" + tool.StaticValue.status[j] + "'";
+				filter += "& ";
+
+			if ("coord_mul".equals(methods[i])) {
+				double p1 = Double.parseDouble(args[j]) - 0.000001;
+				double p2 = Double.parseDouble(args[j]) + 0.000001;
 				
+				filter += methods[i] + " > " + p1;
+				filter += "& ";
+				filter += methods[i] + " < " + p2;
+
+			} else if ("status".equals(methods[i])) {
+				
+				int k=Integer.parseInt(args[j]);
+				if( k < tool.StaticValue.status.length)
+					filter = methods[i] + " == '" + tool.StaticValue.status[k] + "'";
 			} else {
-				filter = methods[i] + " == '" + args[i] + "'";
+				filter = methods[i] + " == '" + args[j] + "'";
 			}
+
 		}
 		System.out.println(filter);
 		query.setFilter(filter);
+//		query.setOrdering("key desc");
+
+		
 		List<GAENodeSimple> list = (List<GAENodeSimple>) query.execute();
-		if (list.size() == 0)
+//		List<GAENodeSimple> list = null;
+
+ 		if (list ==null || list.size() == 0 )
 			return "{\"error\":\"null\"}";
 
 		JSONArray array = new JSONArray();
