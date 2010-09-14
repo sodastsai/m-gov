@@ -14,6 +14,12 @@
 @synthesize listViewController, mapViewController;
 @synthesize selectorDelegate, dataSource;
 @synthesize rightButtonItem;
+@synthesize caseID, annotationData;
+
+- (void)dropAnnotation:(NSArray *)data{
+	[mapView addAnnotations:data];
+	annotationData = data;
+}
 
 #pragma mark -
 #pragma mark Two views
@@ -21,7 +27,8 @@
 - (UIViewController *)initialMapViewController {
 	if (mapViewController == nil) {
 		
-		MKMapView *mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 342)];
+		mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 342)];
+		mapView.delegate = self;
 		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];	
 		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
 		MKCoordinateRegion region;
@@ -36,7 +43,7 @@
 		mapViewController.view = mapView;
 		mapViewController.view.autoresizesSubviews = YES;
 		mapViewController.view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
-		[mapView release];
+		//[mapView release];
 		
 		// Set Bar
 		UIBarButtonItem *changeMode = [[UIBarButtonItem alloc] initWithTitle:@"列表模式" style:UIBarButtonItemStyleBordered target:self action:@selector(changeToAnotherMode)];
@@ -100,6 +107,8 @@
         [listViewController viewDidDisappear:YES];
         [mapViewController viewDidAppear:YES];
 		menuMode = CaseSelectorMapMode;
+		NSArray *annotationArray = [self annotationArrayForMapView];
+		[self dropAnnotation:annotationArray];
 	}
 }
 
@@ -154,6 +163,47 @@
     rootViewController.navigationItem.hidesBackButton = YES;
     [self popToViewController:emptyRootViewController animated:NO];
     [self pushViewController:rootViewController animated:NO];
+}
+
+#pragma mark -
+#pragma mark MapView data source
+
+- (NSArray *)annotationArrayForMapView {
+	return [dataSource setupAnnotationArrayForMapView];
+}
+
+
+#pragma mark -
+#pragma mark MapViewDelegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)MapView viewForAnnotation:(id <MKAnnotation>)annotation {
+	// Act like table view cells
+	static NSString * const pinAnnotationIdentifier = @"PinIdentifier";
+	MKPinAnnotationView *caseAnnotationView = (MKPinAnnotationView *)[MapView dequeueReusableAnnotationViewWithIdentifier:pinAnnotationIdentifier];
+	
+	if (caseAnnotationView) {
+		// Already exists
+		caseAnnotationView.annotation = annotation;
+	} else {		
+		// Renew
+		caseAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pinAnnotationIdentifier] autorelease];
+		caseAnnotationView.draggable = NO;
+		caseAnnotationView.canShowCallout = YES;
+		caseAnnotationView.animatesDrop = YES;
+		UIButton *detailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+		caseAnnotationView.rightCalloutAccessoryView = detailButton;
+		[detailButton addTarget:self action:@selector(pushToCaseViewer) forControlEvents:UIControlEventTouchUpInside];
+	}
+	return caseAnnotationView;
+}
+
+- (void)mapView:(MKMapView *)MapView didSelectAnnotationView:(MKAnnotationView *)annotationView {
+	caseID = [(AppMKAnnotation *)annotationView.annotation annotationID];
+}
+
+- (void) pushToCaseViewer {
+	CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:caseID];
+	[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
 }
 
 #pragma mark -

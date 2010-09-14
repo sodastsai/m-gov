@@ -393,6 +393,8 @@
 	// Prepare Buttons
 	UIBarButtonItem *doneEditing = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(endEditingText)];
 	UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+	//UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"mm" style:UIBarButtonItemStylePlain target:nil action:nil];
+	//self.navigationItem.leftBarButtonItem = backButton;
 	
 	// Prepare Labels
 	UILabel *optionalHint = [[UILabel alloc] initWithFrame:CGRectMake(10, 14, 250, 16)];
@@ -421,7 +423,16 @@
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 	// Stop monitor keyboard
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	//[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	// Define File Path
+	NSString *userInformationPlistPathInAppBundle = [[NSBundle mainBundle] pathForResource:@"UserInformation" ofType:@"plist"];
+	NSString *userInformationPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
+	// Copy plist file
+	if (![[NSFileManager defaultManager] fileExistsAtPath:userInformationPlistPathInAppDocuments]) 
+		[[NSFileManager defaultManager] copyItemAtPath:userInformationPlistPathInAppBundle toPath:userInformationPlistPathInAppDocuments error:nil];
+	
+	
 }
 
 #pragma mark -

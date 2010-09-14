@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import <QuartzCore/QuartzCore.h>
+#import "AppMKAnnotation.h"
+#import "CaseViewerViewController.h"
 
 // Case Selector Mode
 typedef enum {
@@ -32,15 +34,20 @@ typedef enum {
 - (CGFloat)heightForRowAtIndexPathInList:(NSIndexPath *)indexPath;
 - (NSString *)titleForHeaderInSectionInList:(NSInteger)section;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (NSArray *)setupAnnotationArrayForMapView;
 
 @end
 
-@interface CaseSelectorViewController : UINavigationController <UITableViewDelegate, UITableViewDataSource> {
+@interface CaseSelectorViewController : UINavigationController <UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate> {
 	// Basic View
 	UIViewController *emptyRootViewController;
 	UITableViewController *listViewController;
 	UIViewController *mapViewController;
 	UIBarButtonItem *rightButtonItem;
+	
+	MKMapView *mapView;
+	NSString *caseID;
+	NSArray *annotationData;
 	
 	// Mode
 	CaseSelectorMenuMode menuMode;
@@ -55,6 +62,8 @@ typedef enum {
 @property (retain, nonatomic) id<CaseSelectorDelegate> selectorDelegate;
 @property (retain, nonatomic) id<CaseSelectorDataSource> dataSource;
 @property (retain, nonatomic) UIBarButtonItem *rightButtonItem;
+@property (retain, nonatomic) NSString *caseID;
+@property (retain, nonatomic) NSArray *annotationData;
 
 // Initialize
 - (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title;
@@ -64,5 +73,8 @@ typedef enum {
 - (UIViewController *)initialMapViewController;
 - (void)changeToAnotherMode;
 - (void)setRootViewController:(UIViewController *)rootViewController;
+- (void)dropAnnotation:(NSArray *)data;
+- (NSArray *)annotationArrayForMapView;
+- (void)pushToCaseViewer;
 
 @end

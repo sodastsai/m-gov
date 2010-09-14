@@ -87,6 +87,19 @@
 #pragma mark -
 #pragma mark  CaseSelectorDataSource
 
+- (NSArray *) setupAnnotationArrayForMapView {
+	CLLocationCoordinate2D coordinate;
+	NSMutableArray *annotationArray = [[[NSMutableArray alloc] init] autorelease];
+	for (int i = 0; i < [queryCaseSource count]; i++) {
+		coordinate.longitude = [[[[queryCaseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
+		coordinate.latitude = [[[[queryCaseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
+		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:[[queryCaseSource objectAtIndex:i] objectForKey:@"key"] andSubtitle:@""];
+		[annotationArray addObject:casePlace];
+		[casePlace release];
+	}
+	return annotationArray;
+}
+
 - (NSInteger)numberOfSectionsInList {
 	return 1;
 }

@@ -12,13 +12,18 @@
 #import "QueryGoogleAppEngine.h"
 #import "CaseSelectorCell.h"
 #import "CaseViewerViewController.h"
+#import "AppMKAnnotation.h"
+#import "LoadingView.h"
+
 
 @interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever> {
 	NSArray *myCaseSource;
+	LoadingView *loading;
 }
 
 @property (nonatomic, retain) NSArray *myCaseSource;
 
 - (void)addCase;
+- (void)refresh;
 
 @end

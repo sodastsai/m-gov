@@ -54,7 +54,7 @@
 	if (conditionType == DataSourceGAEQueryByID) return @"get_id";
 	else if (conditionType == DataSourceGAEQueryByType) return @"query/typeid";
 	else if (conditionType == DataSourceGAEQueryByEmail) return @"query/email";
-	else if (conditionType == DataSourceGAEQueryByCoordinate) return @"query/coordinate";
+	else if (conditionType == DataSourceGAEQueryByCoordinate) return @"query/coord_mul";
 	else if (conditionType == DataSourceGAEQueryByStatus) return @"query/status";
 	
 	return nil;

@@ -15,19 +15,39 @@
 #pragma mark -
 #pragma mark Lifecycle
 
-// Override the super class
-- (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title {
-	UIBarButtonItem *addCaseButton = [[[UIBarButtonItem alloc] initWithTitle:@"新增案件" style:UIBarButtonItemStyleBordered target:self action:@selector(addCase)] autorelease];
+- (void) refresh {
+	//MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+	//double coord_mul = (shared.locationManager.location.coordinate.latitude)*(shared.locationManager.location.coordinate.longitude);
+	//NSLog(@"%f,%f", shared.locationManager.location.coordinate.latitude, shared.locationManager.location.coordinate.longitude);
 	
 	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
 	qGAE.conditionType = DataSourceGAEQueryByType;
 	qGAE.resultTarget = self;
-	qGAE.queryCondition = @"1110";
+	qGAE.queryCondition = [NSString stringWithFormat:@"1110"];
 	qGAE.resultRange = NSRangeFromString(@"0,50");
-	[qGAE startQuery];
+	//[qGAE startQuery];
 	[qGAE release];
-	
+	[listViewController.tableView reloadData];
+}
+
+// Override the super class
+- (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title {
+	UIBarButtonItem *addCaseButton = [[[UIBarButtonItem alloc] initWithTitle:@"新增案件" style:UIBarButtonItemStyleBordered target:self action:@selector(addCase)] autorelease];
+	loading = [LoadingView loadingViewInView:self.navigationController.view];
 	return [self initWithMode:mode andTitle:title withRightBarButtonItem:addCaseButton];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	//[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
+	//[loading removeView];
+}
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	[self refresh];
+	[loading removeView];
 }
 
 #pragma mark -
@@ -53,7 +73,6 @@
 	} else {
 		myCaseSource = nil;
 	}
-
 }
 
 #pragma mark -
@@ -62,10 +81,23 @@
 - (void)didSelectRowAtIndexPathInList:(NSIndexPath *)indexPath {
 	CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:[[myCaseSource objectAtIndex:indexPath.row] valueForKey:@"key"]];
 	[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
-}
+} 
 
 #pragma mark -
 #pragma mark  CaseSelectorDataSource
+
+- (NSArray *) setupAnnotationArrayForMapView {
+	CLLocationCoordinate2D coordinate;
+	NSMutableArray *annotationArray = [[[NSMutableArray alloc] init] autorelease];
+	for (int i = 0; i < [myCaseSource count]; i++) {
+		coordinate.longitude = [[[[myCaseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
+		coordinate.latitude = [[[[myCaseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
+		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:[[myCaseSource objectAtIndex:i] objectForKey:@"key"] andSubtitle:@"" andCaseID:[[myCaseSource objectAtIndex:i] objectForKey:@"key"]];
+		[annotationArray addObject:casePlace];
+		[casePlace release];
+	}
+	return annotationArray;
+}
 
 - (NSInteger)numberOfSectionsInList {
 	return 1;
@@ -132,7 +164,7 @@
 	CLLocationCoordinate2D caseCoord;
 	caseCoord.longitude  = [[[[myCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 	caseCoord.latitude = [[[[myCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
-	cell.caseAddress.text = [[MGOVGeocoder returnFullAddress:caseCoord] substringFromIndex:5];
+	//cell.caseAddress.text = [[MGOVGeocoder returnFullAddress:caseCoord] substringFromIndex:5];
 	
 	return cell;
 }
