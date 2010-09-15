@@ -5,6 +5,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -88,9 +89,11 @@ public class GAENode {
 			o.accumulate("coordinates",coordinates);
 			o.accumulate("status", status);
 
+			JSONArray array = new JSONArray();
 //			o.accumulate("other", other.getValue());
 			for (int i = 0; i < images.length; i++)
-				o.accumulate("image", images[i]);
+				array.put(images[i]);
+			o.accumulate("image",array);
 			// System.out.println(a);
 			return o.toString();
 		} catch (JSONException e) {

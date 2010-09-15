@@ -12,10 +12,10 @@ public class ReadUrl {
 
 	public static void main(String[] args) throws UnsupportedEncodingException,
 			IOException {
-		String strurl = "http://www.czone.tcg.gov.tw/tp88-1/sys/query_memo_a.cfm?h_id=09908-521175";
+		String strurl = "http://www.nownews.com.tw/2009/12/15/334-2546270.htm";
 		URL siteUrl = new URL(strurl);
 		HttpURLConnection conn = (HttpURLConnection) siteUrl.openConnection();
-		conn.setRequestProperty("Cookie","CFID=316970;CFTOKEN=23019116");
+//		conn.setRequestProperty("Cookie","CFID=316970;CFTOKEN=23019116");
 		BufferedReader in = new BufferedReader(new InputStreamReader(conn
 				.getInputStream(), "big5"));
 		String line, res = "";

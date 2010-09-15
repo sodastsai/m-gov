@@ -37,13 +37,18 @@ public class QueryAll {
 				filter += "& ";
 
 			if ("coord_mul".equals(methods[i])) {
-				double p1 = Double.parseDouble(args[j]) - 0.000001;
-				double p2 = Double.parseDouble(args[j]) + 0.000001;
-				
+				double x = Double.parseDouble(args[j]);
+				double y = Double.parseDouble(args[j+1]);
+				double r = Double.parseDouble(args[j+2]);
+
+				double p1 = (x-r)*(y-r);
+				double p2 = (x+r)*(y+r);
+
+
 				filter += methods[i] + " > " + p1;
 				filter += "& ";
 				filter += methods[i] + " < " + p2;
-
+				++j;
 			} else if ("status".equals(methods[i])) {
 				
 				int k=Integer.parseInt(args[j]);

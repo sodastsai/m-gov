@@ -17,7 +17,6 @@ public class GAENodeCookie {
 	public GAENodeCookie(String key, String value) {
 		this.key = key;
 		this.value = value;
-
 	}
 
 	public String getValue() {
