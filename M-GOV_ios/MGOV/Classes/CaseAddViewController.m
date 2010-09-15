@@ -328,6 +328,12 @@
 - (void)typeSelectorDidSelectWithTitle:(NSString *)t andQid:(NSInteger)q {
 	self.selectedTypeTitle = t;
 	self.qid = q;
+	
+	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+	[dict setObject:[NSNumber numberWithInt:q] forKey:@"TypeID"];
+	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+	
 	// Dismiss the view
 	[self dismissModalViewControllerAnimated:YES];
 	// Reload tableview after selected
@@ -362,8 +368,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+
 	self.title = @"報案";
+	
+	
+	NSString *tempPlistPathInAppBundle = [[NSBundle mainBundle] pathForResource:@"UserInformation" ofType:@"plist"];
+	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
+	// Copy plist file
+	if (![[NSFileManager defaultManager] fileExistsAtPath:tempPlistPathInAppDocuments]) 
+		[[NSFileManager defaultManager] copyItemAtPath:tempPlistPathInAppBundle toPath:tempPlistPathInAppDocuments error:nil];
 	
 	UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithTitle:@"送出案件" style:UIBarButtonItemStylePlain target:self action:@selector(submitCase)];
 	self.navigationItem.rightBarButtonItem = submitButton;
@@ -418,21 +431,13 @@
 	[super viewWillAppear:animated];
 	// Modify Keyboard
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 	// Stop monitor keyboard
 	//[[NSNotificationCenter defaultCenter] removeObserver:self];
-	
-	// Define File Path
-	NSString *userInformationPlistPathInAppBundle = [[NSBundle mainBundle] pathForResource:@"UserInformation" ofType:@"plist"];
-	NSString *userInformationPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-	// Copy plist file
-	if (![[NSFileManager defaultManager] fileExistsAtPath:userInformationPlistPathInAppDocuments]) 
-		[[NSFileManager defaultManager] copyItemAtPath:userInformationPlistPathInAppBundle toPath:userInformationPlistPathInAppDocuments error:nil];
-	
-	
 }
 
 #pragma mark -
