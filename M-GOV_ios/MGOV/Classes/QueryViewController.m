@@ -60,6 +60,8 @@
 		[typeAndDetailSelector release];
 	} else if (buttonIndex==2) {
 		NSLog(@"Back");
+		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
 	} else if (buttonIndex==3) {
 		// Do nothing but cancel
 	}
@@ -69,7 +71,18 @@
 #pragma mark TypeSelectorDelegate
 
 - (void)typeSelectorDidSelectWithTitle:(NSString *)t andQid:(NSInteger)q {
-	NSLog(@"%@, %d", t, q);
+	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+	qGAE.conditionType = DataSourceGAEQueryByType;
+	qGAE.resultTarget = self;
+	qGAE.queryCondition = [NSString stringWithFormat:@"%d", q];
+	qGAE.resultRange = NSRangeFromString(@"0,10");
+	[qGAE startQuery];
+	[qGAE release];
+	NSArray *annotationArray = [self annotationArrayForMapView];
+	[self dropAnnotation:annotationArray];
+	[self.listViewController.tableView reloadData];
+	[self.mapView setCenterCoordinate:self.mapView.region.center animated:YES];
+	[self dismissModalViewControllerAnimated:YES];
 }
 
 - (void)leaveSelectorWithoutTitleAndQid {
@@ -93,7 +106,7 @@
 	for (int i = 0; i < [queryCaseSource count]; i++) {
 		coordinate.longitude = [[[[queryCaseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 		coordinate.latitude = [[[[queryCaseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
-		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:[[queryCaseSource objectAtIndex:i] objectForKey:@"key"] andSubtitle:@""];
+		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:[[queryCaseSource objectAtIndex:i] objectForKey:@"key"] andSubtitle:@"" andCaseID:[[queryCaseSource objectAtIndex:i] objectForKey:@"key"]];
 		[annotationArray addObject:casePlace];
 		[casePlace release];
 	}
@@ -124,13 +137,48 @@
 		cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	}
 	
+	// Case ID
+	cell.caseID.text = [[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"key"];
+	// Case Type
 	NSString *caseTypeText = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[[queryCaseSource objectAtIndex:indexPath.row] valueForKey:@"typeid"]];
 	cell.caseType.text = caseTypeText;
-	cell.caseDate.text = @"兩天前";
+	// Case Date
+	if ([[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"date"]!=nil) {
+		// Original ROC Format
+		NSString *originalDate = [[[[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"date"] stringByReplacingOccurrencesOfString:@"年" withString:@"/"]
+								   stringByReplacingOccurrencesOfString:@"月" withString:@"/"] 
+								  stringByReplacingOccurrencesOfString:@"日" withString:@""];
+		NSString *originalLongDate = [originalDate stringByAppendingString:@" 23:59:59"];
+		// Convert to Common Era
+		NSDate *formattedDate = [NSDate dateFromROCFormatString:originalLongDate];
+		
+		// Make today's end
+		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+		[dateFormatter setDateFormat:@"yyyy-MM-dd"];
+		NSString *todayDate = [[dateFormatter stringFromDate:[NSDate date]] stringByAppendingString:@" 23:59:59"];
+		[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+		NSDate *todayEnd = [dateFormatter dateFromString:todayDate];
+		[dateFormatter release];
+		
+		// Check Interval
+		if ([todayEnd timeIntervalSinceDate:formattedDate] < 86400) {
+			cell.caseDate.text = @"今天";
+		} else if ([todayEnd timeIntervalSinceDate:formattedDate]  < 86400*2) {
+			cell.caseDate.text = @"昨天";
+		} else if ([todayEnd timeIntervalSinceDate:formattedDate]  < 86400*3) {
+			cell.caseDate.text = @"兩天前";
+		} else {
+			cell.caseDate.text = originalDate;
+		}
+	} else {
+		// No Date
+		cell.caseDate.text = @"";
+	}
+	// Case Address
 	CLLocationCoordinate2D caseCoord;
 	caseCoord.longitude  = [[[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 	caseCoord.latitude = [[[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
-	cell.caseAddress.text = [[MGOVGeocoder returnFullAddress:caseCoord] substringFromIndex:5];
+	//cell.caseAddress.text = [[MGOVGeocoder returnFullAddress:caseCoord] substringFromIndex:5];
 	
 	return cell;
 }

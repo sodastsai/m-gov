@@ -18,7 +18,8 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions { 
+	
 	// Set the locationManager be a global variable, and init
 	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 	shared.locationManager = [[CLLocationManager alloc] init];
@@ -30,6 +31,13 @@
 	// Copy plist file
 	if (![[NSFileManager defaultManager] fileExistsAtPath:userInformationPlistPathInAppDocuments]) 
 		[[NSFileManager defaultManager] copyItemAtPath:userInformationPlistPathInAppBundle toPath:userInformationPlistPathInAppDocuments error:nil];
+	// Define File Path
+	NSString *tempPlistPathInAppBundle = [[NSBundle mainBundle] pathForResource:@"UserInformation" ofType:@"plist"];
+	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
+	// Copy plist file
+	if (![[NSFileManager defaultManager] fileExistsAtPath:tempPlistPathInAppDocuments]) 
+		[[NSFileManager defaultManager] copyItemAtPath:tempPlistPathInAppBundle toPath:tempPlistPathInAppDocuments error:nil];
+	
 	
 	// My Case
 	MyCaseViewController *myCase = [[MyCaseViewController alloc] initWithMode:CaseSelectorListMode andTitle:@"我的案件"];
@@ -55,6 +63,19 @@
 	[queryCase release];
 	
 	return YES;
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+	[dict setObject:@"" forKey:@"Photo"];
+	[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
+	[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
+	[dict setValue:@"" forKey:@"Name"];
+	[dict setValue:@"" forKey:@"Description"];
+	[dict setValue:@"" forKey:@"TypeTitle"];
+	[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
+	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
 }
 
 #pragma mark -

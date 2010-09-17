@@ -10,6 +10,8 @@
 	<string></string>
 	<key>TypeID</key>
 	<integer>0</integer>
+	<key>TypeTitle</key>
+	<string></string>
 	<key>Latitude</key>
 	<integer>0</integer>
 	<key>Longitude</key>

@@ -17,5 +17,6 @@
 @property (nonatomic, retain) UITextView *descriptionField;
 
 + (CGFloat)cellHeight;
+- (void)setPlaceholder:(NSString *)s;
 
 @end

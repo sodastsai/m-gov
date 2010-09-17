@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <SystemConfiguration/SystemConfiguration.h>
 #import "JSON.h"
 
 @interface MGOVGeocoder : NSObject {
@@ -17,6 +18,7 @@
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
 
++ (BOOL)isNetworkAvailable;
 + (MGOVGeocoder *)sharedVariable;
 + (NSString *) returnFullAddress:(CLLocationCoordinate2D)coordinate;
 + (NSString *) returnRegion:(CLLocationCoordinate2D)coordinate;

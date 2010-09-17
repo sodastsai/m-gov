@@ -38,6 +38,7 @@
 		region.span = span;
 		mapView.layer.cornerRadius = 10.0;
 		mapView.layer.masksToBounds = YES;
+		mapView.scrollEnabled = NO;
 		[mapView setRegion:region];
 		
 		UIButton *mapButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 300, 300)];

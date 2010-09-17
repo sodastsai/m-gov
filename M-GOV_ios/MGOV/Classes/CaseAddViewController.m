@@ -51,6 +51,18 @@
 		// Return to MyCase
 		//[delegate refreshData];
 		
+		NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
+		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+		[dict setObject:@"" forKey:@"Photo"];
+		[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
+		[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
+		[dict setValue:@"" forKey:@"Name"];
+		[dict setValue:@"" forKey:@"Description"];
+		[dict setValue:@"" forKey:@"TypeTitle"];
+		[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
+		[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+		
+		/*
 		NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
 		[dict setValue:[NSString stringWithFormat:@"%d" ,qid] forKey:@"typeid"];
 		[dict setValue:[MGOVGeocoder returnFullAddress:selectedCoord] forKey:@"address"];
@@ -59,7 +71,7 @@
 		[dict setValue:nameFieldCell.nameField.text forKey:@"name"];
 		[dict setValue:descriptionCell.descriptionField.text forKey:@"detail"];
 		//NSString *str = [dict JSONFragment];
-				
+		*/
 		[self.navigationController popViewControllerAnimated:YES];
 		return YES;
 	}
@@ -187,10 +199,16 @@
 	[photoCell.photoButton setImage:[selectedImage fitToSize:CGSizeMake(300, [PhotoPickerTableCell cellHeight])] forState:UIControlStateNormal];
 	[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];
 	
+	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+	NSData *data = UIImagePNGRepresentation(selectedImage);
+	[dict setObject:data forKey:@"Photo"];
+	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];	
+	
 	// Close Picker,Reload Data, and Call Location Selector
 	[picker dismissModalViewControllerAnimated:YES];
 	[self.tableView reloadData];
-	[NSTimer scheduledTimerWithTimeInterval:0.75 target:self selector:@selector(openLocationSelector) userInfo:nil repeats:NO];
+	[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(openLocationSelector) userInfo:nil repeats:NO];
 }
 
 #pragma mark -
@@ -298,7 +316,7 @@
 #pragma mark LocationSelectorTableCellDelegate
 
 - (void)openLocationSelector {
-	LocationSelectorViewController *locationSelector = [[LocationSelectorViewController alloc] initWithCoordinate:selectedCoord andImage:selectedImage];
+	LocationSelectorViewController *locationSelector = [[LocationSelectorViewController alloc] initWithCoordinate:selectedCoord];
 	locationSelector.delegate = self;
 	[self presentModalViewController:locationSelector animated:YES];
 	[locationSelector release];
@@ -314,6 +332,13 @@
 }
 
 - (void)userDidSelectDone:(CLLocationCoordinate2D)coordinate {
+	
+	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+	[dict setObject:[NSNumber numberWithDouble:coordinate.longitude] forKey:@"Longitude"];
+	[dict setObject:[NSNumber numberWithDouble:coordinate.latitude] forKey:@"Latitude"];
+	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+	
 	// Dismiss the view
 	[locationCell updatingCoordinate:coordinate];
 	// Set Geo information
@@ -332,6 +357,7 @@
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
 	[dict setObject:[NSNumber numberWithInt:q] forKey:@"TypeID"];
+	[dict setValue:t forKey:@"TypeTitle"];
 	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
 	
 	// Dismiss the view
@@ -368,16 +394,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+	
 	self.title = @"報案";
-	
-	
-	NSString *tempPlistPathInAppBundle = [[NSBundle mainBundle] pathForResource:@"UserInformation" ofType:@"plist"];
-	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-	// Copy plist file
-	if (![[NSFileManager defaultManager] fileExistsAtPath:tempPlistPathInAppDocuments]) 
-		[[NSFileManager defaultManager] copyItemAtPath:tempPlistPathInAppBundle toPath:tempPlistPathInAppDocuments error:nil];
-	
+		
 	UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithTitle:@"送出案件" style:UIBarButtonItemStylePlain target:self action:@selector(submitCase)];
 	self.navigationItem.rightBarButtonItem = submitButton;
 	[submitButton release];
@@ -431,13 +450,41 @@
 	[super viewWillAppear:animated];
 	// Modify Keyboard
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
-
+	
+	// Fetch the data user key in last time
+	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+	self.qid = [[dict objectForKey:@"TypeID"] intValue];
+	self.selectedTypeTitle = [dict valueForKey:@"TypeTitle"];
+	nameFieldCell.nameField.text = [dict valueForKey:@"Name"];
+	[descriptionCell setPlaceholder:[dict valueForKey:@"Description"]];
+	
+	if ([[dict objectForKey:@"Latitude"] doubleValue]!=0 && [[dict objectForKey:@"Longitude"] doubleValue]!=0) {
+		selectedCoord.latitude = [[dict objectForKey:@"Latitude"] doubleValue];
+		selectedCoord.longitude = [[dict objectForKey:@"Longitude"] doubleValue];
+		[locationCell updatingCoordinate:selectedCoord];
+	}
+	
+	UIImage *image = [UIImage imageWithData:[dict objectForKey:@"Photo"]];
+	[photoCell.photoButton setImage:[image fitToSize:CGSizeMake(300, [PhotoPickerTableCell cellHeight])] forState:UIControlStateNormal];
+	if (image != nil) {
+		[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];
+	}
+	
+	[self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
 	// Stop monitor keyboard
-	//[[NSNotificationCenter defaultCenter] removeObserver:self];
+	[[NSNotificationCenter defaultCenter] removeObserver:self];
+	
+	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
+	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+	[dict setValue:nameFieldCell.nameField.text forKey:@"Name"];
+	if (![descriptionCell.descriptionField.text isEqualToString:@"請輸入描述及建議"]) [dict setValue:descriptionCell.descriptionField.text forKey:@"Description"];
+	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+	
 }
 
 #pragma mark -

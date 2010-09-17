@@ -26,6 +26,24 @@ static MGOVGeocoder *sharedVariable = nil;
 	return sharedVariable;
 }
 
++ (BOOL)isNetworkAvailable {  
+	
+    static BOOL checkNetwork = YES;  
+	static BOOL _isNetworkAvailable = NO;  
+    if (checkNetwork) { // Since checking the reachability of a host can be expensive, cache the result and perform the reachability check once.  
+        checkNetwork = NO;  
+        Boolean success;  
+        const char *host_name = "google.com"; //pretty reliable :)  
+        SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, host_name);  
+        SCNetworkReachabilityFlags flags;  
+        success = SCNetworkReachabilityGetFlags(reachability, &flags);  
+        _isNetworkAvailable = success && (flags & kSCNetworkFlagsReachable) && !(flags & kSCNetworkFlagsConnectionRequired);  
+        CFRelease(reachability);  
+    } 
+	
+    return _isNetworkAvailable;  
+}  
+
 
 + (NSString *) returnFullAddress:(CLLocationCoordinate2D)coordinate {
 	// Use Google API to transform Latitude & Longitude to the corresponding address

@@ -16,6 +16,7 @@
 		2A097062122B60200048D841 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A097061122B60200048D841 /* QuartzCore.framework */; };
 		2A0974F4122BC7270048D841 /* LocationSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0974F2122BC7270048D841 /* LocationSelectorViewController.m */; };
 		2A0974F5122BC7270048D841 /* LocationSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */; };
+		2A4CD56D1240FDA000991E98 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A4CD56C1240FDA000991E98 /* SystemConfiguration.framework */; };
 		2A560EA71226A60A00F3800F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A560EA61226A60A00F3800F /* CoreData.framework */; };
 		2A560ED41226A6E700F3800F /* MGOVGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A560ED31226A6E700F3800F /* MGOVGeocoder.m */; };
 		2A79AC231223FB7C00F140A2 /* CaseAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */; };
@@ -127,6 +128,7 @@
 		2A0974F1122BC7270048D841 /* LocationSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSelectorViewController.h; sourceTree = "<group>"; };
 		2A0974F2122BC7270048D841 /* LocationSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSelectorViewController.m; sourceTree = "<group>"; };
 		2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LocationSelectorViewController.xib; path = Classes/LocationSelectorViewController.xib; sourceTree = "<group>"; };
+		2A4CD56C1240FDA000991E98 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		2A560EA61226A60A00F3800F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2A560ED21226A6E700F3800F /* MGOVGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOVGeocoder.h; sourceTree = "<group>"; };
 		2A560ED31226A6E700F3800F /* MGOVGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGOVGeocoder.m; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				2A560EA71226A60A00F3800F /* CoreData.framework in Frameworks */,
 				2AE35A181226B02F00B37A4B /* MapKit.framework in Frameworks */,
 				2A097062122B60200048D841 /* QuartzCore.framework in Frameworks */,
+				2A4CD56D1240FDA000991E98 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +303,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2A4CD56C1240FDA000991E98 /* SystemConfiguration.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
@@ -509,7 +513,6 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MGOV" */;
 			compatibilityVersion = "Xcode 3.1";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -666,6 +669,7 @@
 				INFOPLIST_FILE = "MGOV-Info.plist";
 				PRODUCT_NAME = MGOV;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
 		};
@@ -680,6 +684,7 @@
 				INFOPLIST_FILE = "MGOV-Info.plist";
 				PRODUCT_NAME = MGOV;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

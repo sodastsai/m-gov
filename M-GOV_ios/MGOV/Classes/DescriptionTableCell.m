@@ -71,4 +71,17 @@
 	return YES;
 }
 
+- (void)setPlaceholder:(NSString *)s {
+	descriptionField.contentInset = UIEdgeInsetsMake(-7,-7,-7,-7);
+	if ([s isEqualToString:@""] || [s isEqualToString:@"請輸入描述及建議"]) {
+		descriptionField.text = @"請輸入描述及建議";
+		descriptionField.textColor = [UIColor lightGrayColor];
+		textViewPlaceholder = YES;
+	} else {
+		descriptionField.text = s;
+		descriptionField.textColor = [UIColor blackColor];
+		textViewPlaceholder = NO;
+	}
+}
+
 @end

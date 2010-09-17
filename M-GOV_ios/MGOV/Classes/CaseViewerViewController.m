@@ -53,11 +53,11 @@
 	coordinate.longitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 	coordinate.latitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
 	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:200 andCoordinate:coordinate actionTarget:nil setAction:nil];
-	NSString *str = [caseData objectForKey:@"image"];
-	str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
-	photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
-	photoView.layer.cornerRadius = 10.0;
-	photoView.layer.masksToBounds = YES;
+	//NSString *str = [caseData objectForKey:@"image"];
+	//str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
+	//photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
+	//photoView.layer.cornerRadius = 10.0;
+	//photoView.layer.masksToBounds = YES;
 	[self.tableView reloadData];
 	
 	[loading removeView];
@@ -136,7 +136,7 @@
 		} else if (indexPath.section == 2) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.backgroundView = photoView;
+			//cell.backgroundView = photoView;
 		}
 	//}
     

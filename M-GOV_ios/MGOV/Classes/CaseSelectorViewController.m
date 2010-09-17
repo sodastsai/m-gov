@@ -15,8 +15,10 @@
 @synthesize selectorDelegate, dataSource;
 @synthesize rightButtonItem;
 @synthesize caseID, annotationData;
+@synthesize mapView;
 
 - (void)dropAnnotation:(NSArray *)data{
+	[mapView removeAnnotations:mapView.annotations];
 	[mapView addAnnotations:data];
 	annotationData = data;
 }

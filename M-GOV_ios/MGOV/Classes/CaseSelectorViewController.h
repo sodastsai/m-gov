@@ -64,6 +64,7 @@ typedef enum {
 @property (retain, nonatomic) UIBarButtonItem *rightButtonItem;
 @property (retain, nonatomic) NSString *caseID;
 @property (retain, nonatomic) NSArray *annotationData;
+@property (retain, nonatomic) MKMapView *mapView;
 
 // Initialize
 - (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title;
