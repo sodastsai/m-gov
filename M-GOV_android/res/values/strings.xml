@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="hello">Hello World, mgov!</string>
-    <string name="app_name">mgov</string>
-<string name="info">information</string>
-<string name="info_unit_list">Unit List</string>
-</resources>
