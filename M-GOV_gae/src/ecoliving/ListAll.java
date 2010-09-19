@@ -15,6 +15,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 @Path("/list")
 public class ListAll {
@@ -40,7 +42,17 @@ public class ListAll {
 		}
 		extent.closeAll();
 		
-		return array.toString() + "\n" +cnt;
+		JSONObject res = new JSONObject();
+		
+		try {
+			res.put("result",array);
+			res.put("length",array.length());
+		} catch (JSONException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		return res.toString();
 	}
 
 }

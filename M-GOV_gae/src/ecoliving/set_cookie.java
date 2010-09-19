@@ -27,6 +27,6 @@ public class set_cookie {
 		GAEDateBase.store(node1);
 		GAEDateBase.store(node2);
 		
-		return CookiesInURL.CFID + " ; " + CookiesInURL.CFTOKEN;
+		return get_cookie.go();
 	}
 }

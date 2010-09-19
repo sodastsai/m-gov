@@ -65,7 +65,6 @@ public class ReadUrlByPOST {
 			}
 			content += key + "=" + URLEncoder.encode(data.get(key), "big5");
 		}
-		
 		out.writeBytes(content);
 		out.flush();
 		out.close();
@@ -76,7 +75,6 @@ public class ReadUrlByPOST {
 			for (int i = 0; i< 15; i++)
 				System.out.println(conn.getHeaderField(i));
 */
-
 			BufferedReader in = new BufferedReader(new InputStreamReader(conn
 					.getInputStream(), "big5"));
 			while ((line = in.readLine()) != null) {

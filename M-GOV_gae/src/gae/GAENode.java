@@ -5,7 +5,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -22,10 +21,6 @@ public class GAENode {
 	private String date;
 	@Persistent
 	private String region;
-//	@Persistent
-//	private String type1;
-//	@Persistent
-//	private String type2;
 	@Persistent
 	private String typeid;
 	@Persistent
@@ -33,7 +28,10 @@ public class GAENode {
 	@Persistent
 	private String address;
 	@Persistent
-	private double coordinates[];
+	private double coordx;
+	@Persistent
+	private double coordy;
+
 	@Persistent
 	private String status;
 	@Persistent
@@ -48,16 +46,13 @@ public class GAENode {
 		this.key = key;
 		this.date = date;
 		this.region = region;
-//		this.type1 = type1;
-//		this.type2 = type2;
 		this.typeid = typeid;
 		this.detail = detail;
 		this.address = address;
 		
 		String str[]=coordinates.split(",");
-		this.coordinates = new double[2]; 
-		this.coordinates[0]=Double.parseDouble(str[0]);
-		this.coordinates[1]=Double.parseDouble(str[1]);
+		this.coordx=Double.parseDouble(str[0]);
+		this.coordy=Double.parseDouble(str[1]);
 		
 		this.status = status;
 		this.images = images;
@@ -80,20 +75,17 @@ public class GAENode {
 			o.accumulate("key", key);
 			o.accumulate("date", date);
 //			o.accumulate("region", region);
-//			o.accumulate("type1", type1);
-//			o.accumulate("type2", type2);
 			o.accumulate("typeid", typeid);
 
 			o.accumulate("detail", detail);
 			o.accumulate("address",address);
-			o.accumulate("coordinates",coordinates);
+			o.accumulate("coordinates",coordx);
+			o.accumulate("coordinates",coordy);
+
 			o.accumulate("status", status);
 
-			JSONArray array = new JSONArray();
 //			o.accumulate("other", other.getValue());
-			for (int i = 0; i < images.length; i++)
-				array.put(images[i]);
-			o.accumulate("image",array);
+			o.accumulate("image",images);
 			// System.out.println(a);
 			return o.toString();
 		} catch (JSONException e) {
