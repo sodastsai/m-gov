@@ -18,7 +18,7 @@ public class LocalCornJob {
 			while (i + 1 < ids.length && ids[i].equals(ids[i + 1])) {
 				i++;
 			}
-			String strurl = "http://ntu-ecoliving.appspot.com/ecoliving/query_id/" + ids[i];
+			String strurl = "http://ntu-ecoliving.appspot.com/ecoliving/get_id/" + ids[i];
 			if(ids[i].length()<=5)
 				continue;
 			URL url = new URL(strurl);

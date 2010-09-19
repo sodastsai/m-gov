@@ -1,24 +1,110 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<!-- The HTML 4.01 Transitional DOCTYPE declaration-->
-<!-- above set at the top of the file will set     -->
-<!-- the browser's rendering engine into           -->
-<!-- "Quirks Mode". Replacing this declaration     -->
-<!-- with a "Standards Mode" doctype is supported, -->
-<!-- but may lead to some differences in layout.   -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
 
 <html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Hello App Engine</title>
-  </head>
 
-  <body>
-    <h1>Hello App Engine!</h1>
+<head>
+<title>NTU-ecoliving </title>
+<link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+
+<body>
+
+<div id="page">
+	<div id="header">
+			<a href="#"><h1>NTU-ecoliving </h1></a>
+			<div class="description">How to use </div>
+	</div>
 	
-    <table>
-      <tr>
-        <td colspan="2" style="font-weight:bold;">Available Servlets:</td>        
-      </tr>
-    </table>
-  </body>
+	<div id="menulinks">
+		<a class="active" href="#"><span>GAE</span></a>	
+		<div class="menulines"></div>
+
+		<a href="#"><span>JSON</span></a>
+		<div class="menulines"></div>
+
+		<a href="#"><span>Contact Us</span></a>
+		<div class="menulines"></div>
+	</div>
+	
+	<div id="mainarea">
+	<div id="contentarea">
+		<h2>list</h2>
+		<div class="content">
+		<a href="http://ntu-ecoliving.appspot.com/ecoliving/list" target="_blank">http://ntu-ecoliving.appspot.com/ecoliving/list</a><br/> 
+		參數：無<br/>
+		回傳值：GAE裡所有簡易資料欄位JSON形式<br/>
+		說明：如上<br/>
+		<br/>
+		</div>
+		
+		<h2>query_id</h2>
+		<div class="content">
+		<a href="http://ntu-ecoliving.appspot.com/ecoliving/query_id/09909-507968" target="_blank">http://ntu-ecoliving.appspot.com/ecoliving/query_id/09909-507968</a><br/>
+		參數：09909-507968<br/>
+		回傳值：分析案件編號09909-507968的結果<br/>
+		說明：如上<br/>		
+		<br/>
+		</div>
+		
+		<h2>get_id</h2>
+		<div class="content">
+		<a href="http://ntu-ecoliving.appspot.com/ecoliving/get_id/09909-507968" target="_blank">http://ntu-ecoliving.appspot.com/ecoliving/get_id/09909-507968</a><br/>
+		參數：09909-507968<br/>
+		回傳值：從GAE拿取案件編號為09909-507968的詳細資料欄位<br/>
+		說明：若GAE無此資料，則以此參數執行query_id<br/>
+		<br/>
+		</div>
+
+		<h2>query</h2>
+		<div class="content">
+		<a href="http://ntu-ecoliving.appspot.com/ecoliving/query/typeid&status/1110&0/0/10" target="_blank">http://ntu-ecoliving.appspot.com/ecoliving/query/typeid&status/1110&0/0/10</a><br/>
+		參數1：typeid&status<br/>
+		參數2：1110&0<br/>
+		參數3：0<br/>
+		參數4：10<br/>
+		回傳值：查詢結果JSON形式<br/>
+		說明：<br/>
+		　　參數1－有四種形態typeid、status、region、coordinates，可交叉查詢用&符號相連<br/>
+		　　參數2－根據型態的順序填入所需要的參數，用&符號相連<br/>
+		　　參數3－回傳的資料起始位置<br/>
+		　　參數4－回傳的資料終止位置<br/>
+		<br/>
+		typeid 參數為4位整數。可參考此表：<a href="./file/types and details.pdf">types and details</a><br/>
+		status 參數為整數0~6。依序代表 結案,收件,長期計畫,短期計畫,轉府外單位,無法辦理,退回區公所<br/>
+		region 參數為整數0~11。依序代表 松山,信義,大安,中山,中正,大同,萬華,文山,南港,內湖,士林,北投<br/>		
+		coordinates 四個參數各為幅點數，用&隔開，如：121.547521502&25.0504485424&0.01&0.0001<br/>
+		　　　　　 分別代表經度、緯度、經度範圍、緯度範圍<br/>
+		<br/>
+		<br/>
+		More Sample<br/>
+		<a href="http://ntu-ecoliving.appspot.com/ecoliving/query/coordinates/121.49194182&25.0244748909&0.1&0.1/5/20" target="_blank">/query/coordinates/121.49194182&25.0244748909&0.1&0.1/5/20</a><br/>
+		<a href="http://ntu-ecoliving.appspot.com/ecoliving/query/typeid/1110/0/10" target="_blank">/query/typeid/1110/0/10</a><br/>
+		<a href="http://ntu-ecoliving.appspot.com/ecoliving/query/status/2/0/10" target="_blank">/query/status/2/0/10</a><br/>
+		<a href="http://ntu-ecoliving.appspot.com/ecoliving/query/region/5/0/10" target="_blank">/query/region/5/0/10</a><br/>
+		
+		</div>
+		
+	</div>
+	
+	<div id="sidebar">
+		<div class="sidebarheader">NEWS</div>
+		<div class="content">
+		<div class="newsdate">09/20/2010</div>
+		modified query type <br/>
+		modified algorithm (query coordinates)
+		<br/><br/>
+	
+	</div></div>
+	
+	<div id="footer">
+          
+		<div id="footerleft">c 2008. All Rights Reserved.</div>
+		<div id="footerright">Designed by <a href="http://www.free-css-templates.com/">Free CSS Templates</a>, Thanks to <a href="http://www.openwebdesign.org/">Web Design Dubai</a></div>
+	</div>
+
+</div>
+
+</body>
+
 </html>
