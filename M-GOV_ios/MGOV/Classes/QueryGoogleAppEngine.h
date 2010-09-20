@@ -14,6 +14,7 @@ typedef enum {
 	DataSourceGAEQueryByCoordinate,
 	DataSourceGAEQueryByType,
 	DataSourceGAEQueryByStatus,
+	DataSourceGAEQueryByCoordinateAndType,
 } DataSourceGAEQueryTypes;
 
 typedef enum {

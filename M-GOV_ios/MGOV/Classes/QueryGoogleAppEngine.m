@@ -17,6 +17,7 @@
 
 - (BOOL)startQuery {
 	// Set condition
+	NSLog(@"startQuery");
 	if (queryCondition!=nil && queryConditions==nil) {
 		queryURL = [self generateSingleConditionURL];
 	} else if (queryConditions!=nil && queryCondition==nil) {
@@ -42,7 +43,6 @@
 	} else {
 		queryResult = nil;
 	}
-	
 	[resultTarget recieveQueryResultType:returnType withResult:queryResult];
 	return YES;
 }
@@ -54,8 +54,9 @@
 	if (conditionType == DataSourceGAEQueryByID) return @"get_id";
 	else if (conditionType == DataSourceGAEQueryByType) return @"query/typeid";
 	else if (conditionType == DataSourceGAEQueryByEmail) return @"query/email";
-	else if (conditionType == DataSourceGAEQueryByCoordinate) return @"query/coord_mul";
+	else if (conditionType == DataSourceGAEQueryByCoordinate) return @"query/coordinates";
 	else if (conditionType == DataSourceGAEQueryByStatus) return @"query/status";
+	else if (conditionType == DataSourceGAEQueryByCoordinateAndType) return @"query/coordinates&typeid";
 	
 	return nil;
 }

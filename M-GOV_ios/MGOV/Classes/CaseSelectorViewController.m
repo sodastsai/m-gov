@@ -14,13 +14,15 @@
 @synthesize listViewController, mapViewController;
 @synthesize selectorDelegate, dataSource;
 @synthesize rightButtonItem;
-@synthesize caseID, annotationData;
+@synthesize caseID;
 @synthesize mapView;
 
-- (void)dropAnnotation:(NSArray *)data{
+- (void)dropAnnotation:(NSArray *)data withRange:(NSRange)range{
 	[mapView removeAnnotations:mapView.annotations];
-	[mapView addAnnotations:data];
-	annotationData = data;
+	if ([data count] != 0) {
+		NSArray *array = [data objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range]];
+		[mapView addAnnotations:array];
+	}
 }
 
 #pragma mark -
@@ -109,8 +111,8 @@
         [listViewController viewDidDisappear:YES];
         [mapViewController viewDidAppear:YES];
 		menuMode = CaseSelectorMapMode;
-		NSArray *annotationArray = [self annotationArrayForMapView];
-		[self dropAnnotation:annotationArray];
+		//NSArray *annotationArray = [self annotationArrayForMapView];
+		//[self dropAnnotation:annotationArray withRange:NSRangeFromString(@"0,10")];
 	}
 }
 

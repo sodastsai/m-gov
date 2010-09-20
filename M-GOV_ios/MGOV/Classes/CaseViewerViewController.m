@@ -38,10 +38,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = @"案件資料";
+	
 	loading = [LoadingView loadingViewInView:self.navigationController.view];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+}
+
+
 - (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
 	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
 	qGAE.conditionType = DataSourceGAEQueryByID;
 	qGAE.queryCondition = caseID;
@@ -53,11 +61,11 @@
 	coordinate.longitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 	coordinate.latitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
 	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:200 andCoordinate:coordinate actionTarget:nil setAction:nil];
-	//NSString *str = [caseData objectForKey:@"image"];
-	//str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
-	//photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
-	//photoView.layer.cornerRadius = 10.0;
-	//photoView.layer.masksToBounds = YES;
+	NSString *str = [[caseData objectForKey:@"image"] objectAtIndex:0];
+	str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
+	photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
+	photoView.layer.cornerRadius = 10.0;
+	photoView.layer.masksToBounds = YES;
 	[self.tableView reloadData];
 	
 	[loading removeView];
@@ -101,16 +109,17 @@
 		UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
 		return cell;
 	}
-	
+
 	if (indexPath.section == 3) return locationCell;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     //if (cell == nil) {
 		if (indexPath.section == 0) {
-			//cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			if (indexPath.row == 0) {
 				cell.textLabel.text = @"案件編號";
-				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"key"]];
+				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"key"]];				
+
 			} else if (indexPath.row ==1) {
 				cell.textLabel.text = @"報案日期";
 				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"date"]];
@@ -120,7 +129,7 @@
 			}
 
 		} else if (indexPath.section == 1) {
-			//cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			if (indexPath.row == 0) {
 				// Fetch type from plist
@@ -136,10 +145,9 @@
 		} else if (indexPath.section == 2) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			//cell.backgroundView = photoView;
+			cell.backgroundView = photoView;
 		}
 	//}
-    
     return cell;
 }
 

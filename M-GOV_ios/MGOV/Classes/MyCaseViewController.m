@@ -16,17 +16,17 @@
 #pragma mark Lifecycle
 
 - (void) refresh {
-	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+	//MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 	//double coord_mul = (shared.locationManager.location.coordinate.latitude)*(shared.locationManager.location.coordinate.longitude);
 	//NSLog(@"%f,%f", shared.locationManager.location.coordinate.latitude, shared.locationManager.location.coordinate.longitude);
 	
-	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
-	qGAE.conditionType = DataSourceGAEQueryByCoordinate;
-	qGAE.resultTarget = self;
-	qGAE.queryCondition = [NSString stringWithFormat:@"%f&%f&0,001", shared.locationManager.location.coordinate.longitude, shared.locationManager.location.coordinate.latitude];
-	qGAE.resultRange = NSRangeFromString(@"0,1");
-	[qGAE startQuery];
-	[qGAE release];
+	//QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+	//qGAE.conditionType = DataSourceGAEQueryByCoordinate;
+	//qGAE.resultTarget = self;
+	//qGAE.queryCondition = [NSString stringWithFormat:@"%f&%f&0,01", shared.locationManager.location.coordinate.longitude, shared.locationManager.location.coordinate.latitude];
+	//qGAE.resultRange = NSRangeFromString(@"0,1");
+	//[qGAE startQuery];
+	//[qGAE release];
 	[listViewController.tableView reloadData];
 }
 
@@ -39,7 +39,7 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
-	[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
+	//[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
 	//[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
 	//[loading removeView];
 }

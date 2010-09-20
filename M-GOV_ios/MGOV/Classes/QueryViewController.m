@@ -11,6 +11,7 @@
 @implementation QueryViewController
 
 @synthesize queryCaseSource;
+@synthesize typeID;
 
 #pragma mark -
 #pragma mark Lifecycle
@@ -18,15 +19,72 @@
 // Override the super class
 - (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title {
 	UIBarButtonItem *setConditionButton = [[[UIBarButtonItem alloc] initWithTitle:@"設定條件" style:UIBarButtonItemStyleBordered target:self action:@selector(setQueryCondition)] autorelease];
-	queryCaseSource = nil;	
+	queryCaseSource = nil;
 	return [self initWithMode:mode andTitle:title withRightBarButtonItem:setConditionButton];
+}
+
+- (void)viewDidLoad {
+	[super viewDidLoad];
+	
+	UIView *queryConditionBar = [[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 44)];
+	queryConditionBar.backgroundColor = [UIColor colorWithHue:0.5944 saturation:0.35 brightness:0.7 alpha:0.7];
+	UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+	nextButton.frame = CGRectMake(17, 6, 29, 31);
+	UIButton *lastButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+	lastButton.frame = CGRectMake(274, 6, 29, 31);
+	[queryConditionBar addSubview:nextButton];
+	[queryConditionBar addSubview:lastButton];
+	queryTypeLabel  = [[UILabel alloc] initWithFrame:CGRectMake(51, 3, 218, 21)];
+	numberDisplayLabel  = [[UILabel alloc] initWithFrame:CGRectMake(51, 20, 218, 21)];
+	queryTypeLabel.backgroundColor = [UIColor clearColor];
+	numberDisplayLabel.backgroundColor = [UIColor clearColor];
+	queryTypeLabel.textColor = [UIColor whiteColor];
+	numberDisplayLabel.textColor = [UIColor whiteColor];
+	queryTypeLabel.textAlignment = UITextAlignmentCenter;
+	numberDisplayLabel.textAlignment = UITextAlignmentCenter;
+	queryTypeLabel.font = [UIFont systemFontOfSize:14];
+	numberDisplayLabel.font = [UIFont systemFontOfSize:14];
+	queryTypeLabel.text = @"所有案件種類";
+	numberDisplayLabel.text = @"1-10 筆，共 100 筆";
+	[queryConditionBar addSubview:queryTypeLabel];
+	[queryConditionBar addSubview:numberDisplayLabel];
+	
+	[self.view addSubview:queryConditionBar];
+	
+	[queryConditionBar release];
+	//[nextButton release];
+	//[lastButton release];
+	
+	typeID = 0;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	//[[self.view.subviews lastObject] setHidden:NO];
 }
 
 #pragma mark -
 #pragma mark Method
 
+- (void)sendQueryWithConditionType:(DataSourceGAEQueryTypes)conditionType Condition:(NSString *)condition Range:(NSRange)range {
+	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+	qGAE.conditionType = conditionType;
+	qGAE.resultTarget = self;
+	qGAE.queryCondition = condition;
+	qGAE.resultRange = range;
+	[qGAE startQuery];
+	[qGAE release];
+	if ([queryCaseSource count] < 10) {
+		queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", [queryCaseSource count]]);
+	} else queryRange = NSRangeFromString(@"0,10");
+	NSArray *annotationArray = [self annotationArrayForMapView];
+	[self dropAnnotation:annotationArray withRange:queryRange];
+	[self.mapView setCenterCoordinate:self.mapView.region.center animated:YES];
+	[listViewController.tableView reloadData];
+}
+
 - (void)setQueryCondition {
-	UIActionSheet *setCondition = [[UIActionSheet alloc] initWithTitle:@"設定搜尋條件" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"重設所有搜尋條件" otherButtonTitles:@"設定案件種類", @"回到現在位置", nil];
+	UIActionSheet *setCondition = [[UIActionSheet alloc] initWithTitle:@"設定搜尋條件" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"設定案件種類", @"回到現在位置", nil];
 	[setCondition showFromTabBar:self.tabBarController.tabBar];
 	[setCondition release];
 }
@@ -40,8 +98,19 @@
 
 - (void)recieveQueryResultType:(DataSourceGAEReturnTypes)type withResult:(id)result {
 	// Accept Array only
-	if (type == DataSourceGAEReturnByNSArray) {
-		self.queryCaseSource = result;
+	if (type == DataSourceGAEReturnByNSDictionary) {
+		self.queryCaseSource = [result objectForKey:@"result"];
+	}
+}
+
+#pragma mark -
+#pragma mark MKMapViewDelegate
+
+- (void)mapView:(MKMapView *)MapView regionDidChangeAnimated:(BOOL)animated {
+	if (!typeID) {
+		[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinate Condition:[NSString stringWithFormat:@"%f&%f&%f&%f", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2, self.mapView.region.span.latitudeDelta/2] Range:NSRangeFromString(@"0,10000")];
+	} else {
+		[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinateAndType Condition:[NSString stringWithFormat:@"%f&%f&%f&%f&%d", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2, self.mapView.region.span.latitudeDelta/2, typeID] Range:NSRangeFromString(@"0,10000")];	
 	}
 }
 
@@ -50,19 +119,17 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex==0) {
-		NSLog(@"Reset");
-	} else if (buttonIndex==1) {
 		typesViewController *typeSelector = [[typesViewController alloc] init];
 		typeSelector.delegate = self;
 		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typeSelector];
 		[self presentModalViewController:typeAndDetailSelector animated:YES];
 		[typeSelector release];
 		[typeAndDetailSelector release];
-	} else if (buttonIndex==2) {
+	} else if (buttonIndex==1) {
 		NSLog(@"Back");
 		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
-	} else if (buttonIndex==3) {
+	} else if (buttonIndex==2) {
 		// Do nothing but cancel
 	}
 }
@@ -71,17 +138,9 @@
 #pragma mark TypeSelectorDelegate
 
 - (void)typeSelectorDidSelectWithTitle:(NSString *)t andQid:(NSInteger)q {
-	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
-	qGAE.conditionType = DataSourceGAEQueryByType;
-	qGAE.resultTarget = self;
-	qGAE.queryCondition = [NSString stringWithFormat:@"%d", q];
-	qGAE.resultRange = NSRangeFromString(@"0,10");
-	[qGAE startQuery];
-	[qGAE release];
-	NSArray *annotationArray = [self annotationArrayForMapView];
-	[self dropAnnotation:annotationArray];
-	[self.listViewController.tableView reloadData];
-	[self.mapView setCenterCoordinate:self.mapView.region.center animated:YES];
+	typeID = q;
+	[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinateAndType Condition:[NSString stringWithFormat:@"%f&%f&%f&%f&%d", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2, self.mapView.region.span.latitudeDelta/2, typeID] Range:NSRangeFromString(@"0,10000")];
+	queryTypeLabel.text = t;
 	[self dismissModalViewControllerAnimated:YES];
 }
 
@@ -94,7 +153,8 @@
 
 - (void)didSelectRowAtIndexPathInList:(NSIndexPath *)indexPath {
 	CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:[[queryCaseSource objectAtIndex:indexPath.row] valueForKey:@"key"]];
-	[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
+	//[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
+	[self pushViewController:caseViewer animated:YES];
 }
 
 #pragma mark -

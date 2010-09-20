@@ -47,7 +47,6 @@ typedef enum {
 	
 	MKMapView *mapView;
 	NSString *caseID;
-	NSArray *annotationData;
 	
 	// Mode
 	CaseSelectorMenuMode menuMode;
@@ -63,7 +62,6 @@ typedef enum {
 @property (retain, nonatomic) id<CaseSelectorDataSource> dataSource;
 @property (retain, nonatomic) UIBarButtonItem *rightButtonItem;
 @property (retain, nonatomic) NSString *caseID;
-@property (retain, nonatomic) NSArray *annotationData;
 @property (retain, nonatomic) MKMapView *mapView;
 
 // Initialize
@@ -74,7 +72,7 @@ typedef enum {
 - (UIViewController *)initialMapViewController;
 - (void)changeToAnotherMode;
 - (void)setRootViewController:(UIViewController *)rootViewController;
-- (void)dropAnnotation:(NSArray *)data;
+- (void)dropAnnotation:(NSArray *)data withRange:(NSRange)range;
 - (NSArray *)annotationArrayForMapView;
 - (void)pushToCaseViewer;
 

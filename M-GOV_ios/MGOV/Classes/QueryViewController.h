@@ -16,11 +16,18 @@
 
 @interface QueryViewController : CaseSelectorViewController <CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever, UIActionSheetDelegate, TypeSelectorDelegateProtocol> {
 	NSArray *queryCaseSource;
+	
+	NSInteger typeID;
+	NSRange queryRange;
+	UILabel *queryTypeLabel;
+	UILabel *numberDisplayLabel;
 }
 
 @property (retain, nonatomic) NSArray *queryCaseSource;
+@property (nonatomic) NSInteger typeID;
 
 - (void)setQueryCondition;
 - (void)startQueryToGAE:(QueryGoogleAppEngine *)qGAE;
+- (void)sendQueryWithConditionType:(DataSourceGAEQueryTypes)conditionType Condition:(NSString *)condition Range:(NSRange)range;
 
 @end
