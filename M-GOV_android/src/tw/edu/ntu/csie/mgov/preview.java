@@ -6,9 +6,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.hardware.Camera;
-import android.hardware.Camera.PreviewCallback;
 import android.hardware.Camera.Size;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 

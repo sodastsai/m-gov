@@ -1,27 +1,27 @@
 package tw.edu.ntu.csie.mgov;
 
-import java.io.File;
-import java.util.zip.Inflater;
-
-import com.google.android.maps.MapActivity;
-import com.google.android.maps.MapView;
-
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
 
 public class submit extends MapActivity {
 
@@ -29,32 +29,36 @@ public class submit extends MapActivity {
 	final int select_click_pic = 1;
 	String pic_dialog_option = "";
 	TextView take_pic, select_pic;
-	private maplocationviewer mpviewLayout;
-	private MapView mapview;
+	MapView mapview;
 	private EditText submit_name,submit_desc;
 	Button submit_type_btn;
+	Bitmap myBitmap;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.submit);
 		
-		findview();
+		findview();		
+		setlistener();
 		
+		myBitmap = BitmapFactory.decodeFile(getIntent().getStringExtra("currentPic"));
+		myImage.setImageBitmap(myBitmap);		
 		
-		Bitmap myBitmap = BitmapFactory.decodeFile("/sdcard/myImage.jpg");
-		myImage.setImageBitmap(myBitmap);
-		
+	}
+
+	void setlistener() {
+
 		myImage.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				showDialog(select_click_pic);
 			}
 		});
-		
+
 		submit_type_btn.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent();
@@ -71,7 +75,6 @@ public class submit extends MapActivity {
 		switch (id) {
 		case select_click_pic:
 			return submitDialog();
-		
 		}
 		return super.onCreateDialog(id);
 	}
@@ -123,9 +126,9 @@ public class submit extends MapActivity {
 						}
 						else
 						{
-//							Intent intent = new Intent();
-//							intent.setClass(submit.this, CameraActivity.class);
-//							startActivity(intent);
+							Intent intent = new Intent();
+							intent.setClass(submit.this, photoGallery.class);
+							startActivity(intent);
 						}
 					}
 				});
@@ -142,18 +145,51 @@ public class submit extends MapActivity {
 	}
 	
 	void findview(){
-		myImage = (ImageView) findViewById(R.id.pic);		
-		mpviewLayout = (maplocationviewer) findViewById(R.id.mapview);
-		mpviewLayout.setcontext(submit.this);
-		mapview = mpviewLayout.getMapView();
+		myImage = (ImageView) findViewById(R.id.pic);	
+		mapview = (MapView) findViewById(R.id.myMapView1);
+		
+//		double src_lat1 = 25.04202; // the testing source
+//		double src_long1 = 121.534761;
+//		double dest_lat = 25.05202; // the testing destination
+//		double dest_long = 121.554761;
+//		GeoPoint srcGeoPoint1 = new GeoPoint((int) (src_lat1 * 1E6),
+//		(int) (src_long1 * 1E6));
+		
+		
+		LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		Location center = getLocationProvider(lm);
+		GeoPoint gpoint = new GeoPoint((int) (center.getLatitude() * 1e6),(int) (center.getLongitude() * 1e6));
+		mapview.getOverlays().add(new MyOverLay(gpoint,submit.this));
+//		mapview.getController().animateTo(gpoint);
+		mapview.getController().setZoom(15);
+		
 		submit_name = (EditText)findViewById(R.id.submit_name);
 		submit_desc = (EditText)findViewById(R.id.submit_suggestion);
 		submit_type_btn = (Button)findViewById(R.id.submit_type_btn);
 	}
 
+	public Location getLocationProvider(LocationManager lm) {
+		Location retLocation = null;
+		try {
+
+			Criteria mCriteria01 = new Criteria();
+//			mCriteria01.setAccuracy(Criteria.ACCURACY_FINE);
+			 mCriteria01.setAccuracy(Criteria.ACCURACY_COARSE);
+			mCriteria01.setAltitudeRequired(false);
+			mCriteria01.setBearingRequired(false);
+			mCriteria01.setCostAllowed(true);
+			mCriteria01.setPowerRequirement(Criteria.POWER_LOW);
+			String strLocationProvider = lm.getBestProvider(mCriteria01, true);
+			retLocation = lm.getLastKnownLocation(strLocationProvider);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return retLocation;
+	};
+	
 	@Override
 	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

@@ -1,7 +1,5 @@
 package tw.edu.ntu.csie.mgov;
 
-
-//import android.app.Activity;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -33,10 +31,9 @@ public class mgov extends TabActivity {
         tabHost.addTab(spec);
         
         intent = new Intent().setClass(this, submit.class);
+        intent.putExtra("currentPic", getIntent().getStringExtra("currentPic"));
         spec = tabHost.newTabSpec("submit").setIndicator("Submit").setContent(intent);
         tabHost.addTab(spec);
-        
-        
         
         tabHost.setCurrentTab(2);
 
