@@ -7,6 +7,7 @@
 
 <string name="type">Search by Type</string>
 <string name="Submit">Submit</string>
+<string name="sdcard">/sdcard/</string>
 
 <string name="sec1_title">道路、橋樑、水溝與堤防</string>
 <string name="sec1_1">道路橋梁損壞</string>
