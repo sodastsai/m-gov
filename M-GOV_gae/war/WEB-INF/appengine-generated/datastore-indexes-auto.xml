@@ -1,4 +1,11 @@
-<!-- Indices written at Tue, 21 Sep 2010 09:05:43 UTC -->
+<!-- Indices written at Tue, 21 Sep 2010 11:08:05 UTC -->
 
-<datastore-indexes/>
+<datastore-indexes>
 
+    <!-- Used 3 times in query history -->
+    <datastore-index kind="GAENodeSimple" ancestor="false" source="auto">
+        <property name="typeid" direction="asc"/>
+        <property name="coordx" direction="asc"/>
+    </datastore-index>
+
+</datastore-indexes>

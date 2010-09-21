@@ -9,7 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class GAENodeSimple {
+public class GAENodeSimple implements Comparable<GAENodeSimple>{
 
 	@PrimaryKey
 	@Persistent
@@ -19,11 +19,12 @@ public class GAENodeSimple {
 	@Persistent
 	public String date;
 	@Persistent
+	public String status;
+
+	@Persistent
 	public double coordx,coordy;
 
 	
-	@Persistent
-	public String status;
 
 	public GAENodeSimple(){}
 	
@@ -82,6 +83,12 @@ public class GAENodeSimple {
 	@Override
 	public String toString() {
 		return toJson().toString();
+	}
+
+	@Override
+	public int compareTo(GAENodeSimple o) {
+		// TODO Auto-generated method stub
+		return this.key.compareTo(o.getKey());
 	}
 
 }

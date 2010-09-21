@@ -9,8 +9,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import net.CookiesInURL;
-
 @Path("/set_cookie")
 
 public class SetCookie {

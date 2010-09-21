@@ -17,12 +17,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 
 	<servlet>
-		<servlet-name>Case</servlet-name>
-		<servlet-class>addcase.CaseServlet</servlet-class>
+		<servlet-name>case</servlet-name>
+		<servlet-class>tmpcase.CaseServlet</servlet-class>
 
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Case</servlet-name>
+		<servlet-name>case</servlet-name>
 		<url-pattern>/case/*</url-pattern>
 	</servlet-mapping>
 	

@@ -9,13 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.*;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
@@ -35,14 +28,9 @@ public class CaseServlet extends HttpServlet {
 	}
 
 	
-	@POST
-	@Path("/case/add")
-	@Produces("text/plain")
-	@Consumes("application/xml")	
-	public void doPost(@FormParam("sno") String sno)
+	public void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-		System.out.println(sno);
-		//		uploadData(req, resp);
+			uploadData(req, resp);
 	}
 
 	private void uploadData(HttpServletRequest req, HttpServletResponse resp)
@@ -80,7 +68,7 @@ public class CaseServlet extends HttpServlet {
 						else if ("h_admit_name".equals(field)) 	node.h_admit_name = value;
 						else if ("h_admiv_name".equals(field)) 	node.h_admiv_name = value;
 						else if ("h_summary".equals(field)) 	node.h_summary = value;
-						else if ("memo".equals(field))			node.h_memo = value;
+						else if ("h_memo".equals(field))		node.h_memo = value;
 						else if ("h_x1".equals(field))			node.h_x1 = value;
 						else if ("h_y1".equals(field))			node.h_y1 = value;
 
@@ -107,7 +95,6 @@ public class CaseServlet extends HttpServlet {
 				resp.setContentType("image/jpeg;charset=utf-8");
 				resp.getOutputStream().write(b.getBytes());
 				resp.getOutputStream().close();
-
 				
 			} catch (FileUploadException e) {
 				e.printStackTrace();

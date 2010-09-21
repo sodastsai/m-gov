@@ -1,4 +1,4 @@
-package tmpcase;
+package ecoliving;
 
 import java.util.Iterator;
 
@@ -12,10 +12,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import org.json.JSONArray;
-
 @Path("/case_list")
-public class List {
+public class CaseList {
 
 	@SuppressWarnings("unchecked")
 	@GET
@@ -28,7 +26,6 @@ public class List {
 		int cnt=0;
 		Iterator it = extent.iterator();
 		
-		JSONArray array = new JSONArray();
 		GAENodeCase e;
 		
 		String res = "";

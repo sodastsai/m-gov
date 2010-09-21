@@ -107,9 +107,11 @@ public class GAENodeCase {
 			o.accumulate("h_summary",h_summary);
 			o.accumulate("h_memo",h_memo);
 
+			o.accumulate("h_x1", h_x1);
+			o.accumulate("h_y1", h_y1);			
+			
 			o.accumulate("date", date);
 			o.accumulate("photo", photo);
-			
 			
 			System.out.println(o.toString());
 			return o;
