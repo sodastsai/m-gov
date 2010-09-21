@@ -19,5 +19,7 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/mimepull-1.4.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/htmllexer.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/htmlparser.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-fileupload-1.2.1.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/commons-io-1.4.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>

@@ -1,6 +1,6 @@
 package ecoliving;
 
-import gae.GAEDateBase;
+import gae.GAEDataBase;
 import gae.GAENodeCookie;
 
 import javax.ws.rs.GET;
@@ -24,8 +24,8 @@ public class set_cookie {
 		GAENodeCookie node1 = new GAENodeCookie("CFID",CFID);		
 		GAENodeCookie node2 = new GAENodeCookie("CFTOKEN",CFTOKEN);
 		
-		GAEDateBase.store(node1);
-		GAEDateBase.store(node2);
+		GAEDataBase.store(node1);
+		GAEDataBase.store(node2);
 		
 		return get_cookie.go();
 	}

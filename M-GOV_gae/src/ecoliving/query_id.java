@@ -2,7 +2,7 @@ package ecoliving;
 
 import java.io.IOException;
 
-import gae.GAEDateBase;
+import gae.GAEDataBase;
 import gae.GAENode;
 import gae.GAENodeSimple;
 
@@ -108,8 +108,8 @@ public class query_id {
 		);
 		
 		// System.out.println(node.getKey());
-		GAEDateBase.store(node);
-		GAEDateBase.store(node2);
+		GAEDataBase.store(node);
+		GAEDataBase.store(node2);
 	}
 	
 	private static String afterColon(String str){

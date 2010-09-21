@@ -26,22 +26,32 @@ public class SendImageTest2 {
 	Map<String, File> fileparams = new HashMap<String, File>();
 	DataOutputStream ds;
 
+	public static void main(String[] args) throws Exception {
+		SendImageTest2 u = new SendImageTest2("http://ggm-test.appspot.com/photo?method=upload");
+		u.addFileParameter("photo", new File("/Users/wildmind5/Desktop/image.jpg"));
+		u.addTextParameter("description", "測試");
+		byte[] b = u.send();
+		String result = new String(b);
+		System.out.println(result);
+
+	}
+	
 	public SendImageTest2(String url) throws Exception {
 		this.url = new URL(url);
 	}
-    //重新设置要请求的服务器地址，即上传文件的地址。
+
 	public void setUrl(String url) throws Exception {
 		this.url = new URL(url);
 	}
-    //增加一个普通字符串数据到form表单数据中
+
 	public void addTextParameter(String name, String value) {
 		textParams.put(name, value);
 	}
-    //增加一个文件到form表单数据中
+
 	public void addFileParameter(String name, File value) {
 		fileparams.put(name, value);
 	}
-    // 清空所有已添加的form表单数据
+
 	public void clearAllParameters() {
 		textParams.clear();
 		fileparams.clear();
@@ -144,15 +154,6 @@ public class SendImageTest2 {
     private String encode(String value) throws Exception{
     	return URLEncoder.encode(value, "UTF-8");
     }
-	public static void main(String[] args) throws Exception {
-		SendImageTest2 u = new SendImageTest2("http://ggm-test.appspot.com/photo?method=upload");
-		u.addFileParameter("photo", new File(
-				"/Users/wildmind5/Desktop/NTU/mobileHCI/summer project/m-gov/trunk/M-GOV_gae/war/image.png"));
-//		u.addTextParameter("text", "中文");
-		byte[] b = u.send();
-		String result = new String(b);
-		System.out.println(result);
 
-	}
 
 }

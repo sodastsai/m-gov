@@ -32,7 +32,7 @@ public class UpdateDB {
 //			GAENodeSimple e;
 //			if (ob.coord_mul == 0) {
 //				ob.coord_mul = ob.coordinates[0] * ob.coordinates[1];
-//				GAEDateBase.store(ob.clone());
+//				GAEDataBase.store(ob.clone());
 //			}
 //		}
 		return "done";

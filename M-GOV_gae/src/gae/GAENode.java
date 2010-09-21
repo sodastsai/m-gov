@@ -68,7 +68,7 @@ public class GAENode {
 	};
 
 	
-	public String toJson() {
+	public JSONObject toJson() {
 		JSONObject o = new JSONObject();
 		try {
 
@@ -87,11 +87,11 @@ public class GAENode {
 //			o.accumulate("other", other.getValue());
 			o.accumulate("image",images);
 			// System.out.println(a);
-			return o.toString();
+			return o;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return "Failure";
+			return null;
 		}
 	}
 

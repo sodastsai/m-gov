@@ -25,7 +25,7 @@ public class get_id {
 		try {
 			e = pm.getObjectById(GAENode.class, id);
 			System.out.println(e.toJson());
-			return e.toJson();
+			return e.toJson().toString();
 
 		} catch (Exception E) {
 			// TODO: handle exception
@@ -33,7 +33,7 @@ public class get_id {
 				query_id.go(id);
 				e = pm.getObjectById(GAENode.class, id);
 				System.out.println(e.toJson());
-				return e.toJson() ;
+				return e.toJson().toString();
 
 			} catch (Exception E2) {
 				return "{\"error\":\"null\"}";
