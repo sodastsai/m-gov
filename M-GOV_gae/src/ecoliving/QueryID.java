@@ -18,7 +18,7 @@ import javax.ws.rs.core.MediaType;
 import tool.TypeFilter;
 
 @Path("/query_id")
-public class query_id {
+public class QueryID {
 
 	static String strurl ;
 

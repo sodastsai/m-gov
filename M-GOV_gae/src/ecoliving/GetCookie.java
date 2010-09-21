@@ -12,7 +12,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/get_cookie")
 
-public class get_cookie {
+public class GetCookie {
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)

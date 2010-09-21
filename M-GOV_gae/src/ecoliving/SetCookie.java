@@ -13,7 +13,7 @@ import net.CookiesInURL;
 
 @Path("/set_cookie")
 
-public class set_cookie {
+public class SetCookie {
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -27,6 +27,6 @@ public class set_cookie {
 		GAEDataBase.store(node1);
 		GAEDataBase.store(node2);
 		
-		return get_cookie.go();
+		return GetCookie.go();
 	}
 }

@@ -10,8 +10,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/get_id")
-public class get_id {
+@Path("get_id")
+public class GetID {
 
 	@SuppressWarnings("unchecked")
 	@GET
@@ -30,7 +30,7 @@ public class get_id {
 		} catch (Exception E) {
 			// TODO: handle exception
 			try {
-				query_id.go(id);
+				QueryID.go(id);
 				e = pm.getObjectById(GAENode.class, id);
 				System.out.println(e.toJson());
 				return e.toJson().toString();

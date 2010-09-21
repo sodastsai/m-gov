@@ -1,4 +1,4 @@
-package addcase;
+package tmpcase;
 
 import gae.GAEDataBase;
 import gae.GAENodeCase;
@@ -9,6 +9,13 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.servlet.http.*;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
@@ -20,15 +27,22 @@ import com.google.appengine.api.datastore.Blob;
 
 @SuppressWarnings("serial")
 public class CaseServlet extends HttpServlet {
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 		resp.setContentType("text/plain");
 		resp.getWriter().println("Hello, world!");
 	}
 
-	public void doPost(HttpServletRequest req, HttpServletResponse resp)
+	
+	@POST
+	@Path("/case/add")
+	@Produces("text/plain")
+	@Consumes("application/xml")	
+	public void doPost(@FormParam("sno") String sno)
 			throws IOException {
-		uploadData(req, resp);
+		System.out.println(sno);
+		//		uploadData(req, resp);
 	}
 
 	private void uploadData(HttpServletRequest req, HttpServletResponse resp)
@@ -54,9 +68,9 @@ public class CaseServlet extends HttpServlet {
 
 					if (item.isFormField()) {
 						String field = item.getFieldName();
-						byte b[] = new byte[15];
+						byte b[] = new byte[100];
 						stream.read(b);
-						String value = new String(b);
+						String value = new String(b,"utf-8");
 						value= value.trim();
 						
 						if ("sno".equals(field)) 				node.sno = value;

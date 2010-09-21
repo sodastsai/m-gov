@@ -18,16 +18,16 @@ public class LocalGenData {
 
 	public static String go()
 	{
-		set_cookie.go(CFID, CFTOKEN);
-		query_id.go("09909-501655");
-		query_id.go("09909-500718");
-		query_id.go("09909-500714");
-		query_id.go("09909-006416");
-		query_id.go("09909-006413");
-		query_id.go("09909-006340");
-		query_id.go("09909-006222");
-		query_id.go("09909-006203");
-		query_id.go("09909-006131");
+		SetCookie.go(CFID, CFTOKEN);
+		QueryID.go("09909-501655");
+		QueryID.go("09909-500718");
+		QueryID.go("09909-500714");
+		QueryID.go("09909-006416");
+		QueryID.go("09909-006413");
+		QueryID.go("09909-006340");
+		QueryID.go("09909-006222");
+		QueryID.go("09909-006203");
+		QueryID.go("09909-006131");
 		
 		return "done";
 	}
