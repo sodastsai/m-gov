@@ -19,6 +19,7 @@
 @interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever> {
 	NSArray *myCaseSource;
 	LoadingView *loading;
+	NSDictionary *dictUserInformation;
 }
 
 @property (nonatomic, retain) NSArray *myCaseSource;

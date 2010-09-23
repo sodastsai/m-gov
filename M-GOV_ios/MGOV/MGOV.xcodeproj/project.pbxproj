@@ -740,7 +740,7 @@
 				INFOPLIST_FILE = "MGOV-Info.plist";
 				PRODUCT_NAME = MGOV;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
 		};

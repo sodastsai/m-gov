@@ -9,12 +9,7 @@
 #import "CaseAddViewController.h"
 #import "AppMKAnnotation.h"
 
-#pragma mark Basic constants
-
 @implementation CaseAddViewController
-
-#pragma mark -
-#pragma mark Synthesize
 
 @synthesize selectedTypeTitle;
 @synthesize qid;

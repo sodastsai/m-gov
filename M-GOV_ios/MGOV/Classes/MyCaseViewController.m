@@ -48,6 +48,9 @@
 	[super viewDidLoad];
 	//[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
 	[loading removeView];
+	// Fetch User Information
+	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
+	dictUserInformation = [NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
 }
 
 #pragma mark -
@@ -92,7 +95,7 @@
 	for (int i = 0; i < [myCaseSource count]; i++) {
 		coordinate.longitude = [[[[myCaseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 		coordinate.latitude = [[[[myCaseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
-		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:[[myCaseSource objectAtIndex:i] objectForKey:@"key"] andSubtitle:@"" andCaseID:[[myCaseSource objectAtIndex:i] objectForKey:@"key"]];
+		AppMKAnnotation *casePlace=[[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:[[myCaseSource objectAtIndex:i] objectForKey:@"key"] andSubtitle:@"" andCaseID:[[myCaseSource objectAtIndex:i] objectForKey:@"key"]];
 		[annotationArray addObject:casePlace];
 		[casePlace release];
 	}
@@ -104,19 +107,34 @@
 }
 
 - (NSInteger)numberOfRowsInListSection:(NSInteger)section {
-	return [myCaseSource count];
+	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) return 1;
+	else return [myCaseSource count];
 }
 
 - (CGFloat)heightForRowAtIndexPathInList:(NSIndexPath *)indexPath {
-	return [CaseSelectorCell cellHeight];
+	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) return 372;
+	else return [CaseSelectorCell cellHeight];
 }
 
 - (NSString *)titleForHeaderInSectionInList:(NSInteger)section {
-	return @"XD";
+	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) return nil;
+	else return @"XD";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *CellIdentifier = @"Cell";
+	
+	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		if (cell==nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		}
+		UIImageView *background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NoMyCase.png"]];
+		cell.backgroundView = background;
+		[background release];
+		tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+		return cell;
+	}
 	
 	CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
