@@ -13,21 +13,29 @@
 #import "CaseSelectorCell.h"
 #import "MGOVGeocoder.h"
 #import "typesViewController.h"
+#import "LoadingView.h"
 
 @interface QueryViewController : CaseSelectorViewController <CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever, UIActionSheetDelegate, TypeSelectorDelegateProtocol> {
 	NSArray *queryCaseSource;
+	int queryTotalLength;
+	LoadingView *loading;
 	
 	NSInteger typeID;
 	NSRange queryRange;
 	UILabel *queryTypeLabel;
 	UILabel *numberDisplayLabel;
+	UIView *queryConditionBar;
 }
 
 @property (retain, nonatomic) NSArray *queryCaseSource;
 @property (nonatomic) NSInteger typeID;
+@property int queryTotalLength;
 
 - (void)setQueryCondition;
 - (void)startQueryToGAE:(QueryGoogleAppEngine *)qGAE;
 - (void)sendQueryWithConditionType:(DataSourceGAEQueryTypes)conditionType Condition:(NSString *)condition Range:(NSRange)range;
+- (void)nextCase;
+- (void)lastCase;
+- (void)setLoadingView;
 
 @end

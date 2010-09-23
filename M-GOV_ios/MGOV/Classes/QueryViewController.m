@@ -12,6 +12,13 @@
 
 @synthesize queryCaseSource;
 @synthesize typeID;
+@synthesize queryTotalLength;
+
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated {
+	[[self.view.subviews lastObject] setHidden:NO];
+	return [super popViewControllerAnimated:YES];
+}
+
 
 #pragma mark -
 #pragma mark Lifecycle
@@ -26,16 +33,22 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	UIView *queryConditionBar = [[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 44)];
+	queryConditionBar = [[[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 44)] autorelease];
 	queryConditionBar.backgroundColor = [UIColor colorWithHue:0.5944 saturation:0.35 brightness:0.7 alpha:0.7];
 	UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-	nextButton.frame = CGRectMake(17, 6, 29, 31);
+	nextButton.frame = CGRectMake(274, 6, 29, 31);
 	UIButton *lastButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-	lastButton.frame = CGRectMake(274, 6, 29, 31);
+	lastButton.frame = CGRectMake(17, 6, 29, 31);
+	[nextButton addTarget:self action:@selector(nextCase) forControlEvents:UIControlEventTouchUpInside];
+	[nextButton addTarget:self action:@selector(setLoadingView) forControlEvents:UIControlEventTouchDown];
+	[lastButton addTarget:self action:@selector(lastCase) forControlEvents:UIControlEventTouchUpInside];
+	[lastButton addTarget:self action:@selector(setLoadingView) forControlEvents:UIControlEventTouchDown];
 	[queryConditionBar addSubview:nextButton];
 	[queryConditionBar addSubview:lastButton];
-	queryTypeLabel  = [[UILabel alloc] initWithFrame:CGRectMake(51, 3, 218, 21)];
-	numberDisplayLabel  = [[UILabel alloc] initWithFrame:CGRectMake(51, 20, 218, 21)];
+	
+	
+	queryTypeLabel  = [[[UILabel alloc] initWithFrame:CGRectMake(51, 3, 218, 21)] autorelease];
+	numberDisplayLabel  = [[[UILabel alloc] initWithFrame:CGRectMake(51, 20, 218, 21)] autorelease];
 	queryTypeLabel.backgroundColor = [UIColor clearColor];
 	numberDisplayLabel.backgroundColor = [UIColor clearColor];
 	queryTypeLabel.textColor = [UIColor whiteColor];
@@ -45,22 +58,18 @@
 	queryTypeLabel.font = [UIFont systemFontOfSize:14];
 	numberDisplayLabel.font = [UIFont systemFontOfSize:14];
 	queryTypeLabel.text = @"所有案件種類";
-	numberDisplayLabel.text = @"1-10 筆，共 100 筆";
+	//numberDisplayLabel.text = @"1-10 筆，共 100 筆";
 	[queryConditionBar addSubview:queryTypeLabel];
 	[queryConditionBar addSubview:numberDisplayLabel];
 	
 	[self.view addSubview:queryConditionBar];
 	
-	[queryConditionBar release];
+	//[queryConditionBar release];
 	//[nextButton release];
 	//[lastButton release];
 	
 	typeID = 0;
-}
-
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	//[[self.view.subviews lastObject] setHidden:NO];
+	queryRange = NSRangeFromString(@"0,10");
 }
 
 #pragma mark -
@@ -74,11 +83,9 @@
 	qGAE.resultRange = range;
 	[qGAE startQuery];
 	[qGAE release];
-	if ([queryCaseSource count] < 10) {
-		queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", [queryCaseSource count]]);
-	} else queryRange = NSRangeFromString(@"0,10");
 	NSArray *annotationArray = [self annotationArrayForMapView];
-	[self dropAnnotation:annotationArray withRange:queryRange];
+	[self dropAnnotation:annotationArray];
+	numberDisplayLabel.text = [NSString stringWithFormat:@"%d-%d 筆，共 %d 筆", queryRange.location+1, queryRange.location+[queryCaseSource count], queryTotalLength];
 	[self.mapView setCenterCoordinate:self.mapView.region.center animated:YES];
 	[listViewController.tableView reloadData];
 }
@@ -93,6 +100,34 @@
 	[qGAE startQuery];
 }
 
+- (void)nextCase {
+	if (queryTotalLength > queryRange.location+queryRange.length) {
+		queryRange.location += 10;
+		//loading = [LoadingView loadingViewInView:self.view];
+		if (!typeID) {
+			[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinate Condition:[NSString stringWithFormat:@"%f&%f&%f&%f", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5] Range:queryRange];
+		} else {
+			[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinateAndType Condition:[NSString stringWithFormat:@"%f&%f&%f&%f&%d", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5, typeID] Range:queryRange];	
+		}
+	}
+}
+
+- (void)lastCase {
+	if (queryRange.location >= 10) {
+		queryRange.location -= 10;
+		//loading = [LoadingView loadingViewInView:self.view];
+		if (!typeID) {
+			[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinate Condition:[NSString stringWithFormat:@"%f&%f&%f&%f", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5] Range:queryRange];
+		} else {
+			[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinateAndType Condition:[NSString stringWithFormat:@"%f&%f&%f&%f&%d", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5, typeID] Range:queryRange];	
+		}		
+	}
+}
+
+- (void)setLoadingView {
+	loading = [LoadingView loadingViewInView:self.view];
+}
+
 #pragma mark -
 #pragma mark QueryGAEReciever
 
@@ -100,17 +135,24 @@
 	// Accept Array only
 	if (type == DataSourceGAEReturnByNSDictionary) {
 		self.queryCaseSource = [result objectForKey:@"result"];
+		self.queryTotalLength = [[result objectForKey:@"length"] intValue];
 	}
+	[loading removeView];
 }
 
 #pragma mark -
 #pragma mark MKMapViewDelegate
 
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+	loading = [LoadingView loadingViewInView:self.view];
+}
+
 - (void)mapView:(MKMapView *)MapView regionDidChangeAnimated:(BOOL)animated {
+	queryRange = NSRangeFromString(@"0,10");
 	if (!typeID) {
-		[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinate Condition:[NSString stringWithFormat:@"%f&%f&%f&%f", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2, self.mapView.region.span.latitudeDelta/2] Range:NSRangeFromString(@"0,10000")];
+		[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinate Condition:[NSString stringWithFormat:@"%f&%f&%f&%f", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5] Range:queryRange];
 	} else {
-		[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinateAndType Condition:[NSString stringWithFormat:@"%f&%f&%f&%f&%d", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2, self.mapView.region.span.latitudeDelta/2, typeID] Range:NSRangeFromString(@"0,10000")];	
+		[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinateAndType Condition:[NSString stringWithFormat:@"%f&%f&%f&%f&%d", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5, typeID] Range:queryRange];	
 	}
 }
 
@@ -139,7 +181,7 @@
 
 - (void)typeSelectorDidSelectWithTitle:(NSString *)t andQid:(NSInteger)q {
 	typeID = q;
-	[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinateAndType Condition:[NSString stringWithFormat:@"%f&%f&%f&%f&%d", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2, self.mapView.region.span.latitudeDelta/2, typeID] Range:NSRangeFromString(@"0,10000")];
+	[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinateAndType Condition:[NSString stringWithFormat:@"%f&%f&%f&%f&%d", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5, typeID] Range:queryRange];
 	queryTypeLabel.text = t;
 	[self dismissModalViewControllerAnimated:YES];
 }
@@ -152,9 +194,12 @@
 #pragma mark CaseSelectorDelegate
 
 - (void)didSelectRowAtIndexPathInList:(NSIndexPath *)indexPath {
-	CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:[[queryCaseSource objectAtIndex:indexPath.row] valueForKey:@"key"]];
-	//[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
-	[self pushViewController:caseViewer animated:YES];
+	if (indexPath.section == 1) {
+		[[self.view.subviews lastObject] setHidden:YES];
+		CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:[[queryCaseSource objectAtIndex:indexPath.row] valueForKey:@"key"]];
+		//[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
+		[self pushViewController:caseViewer animated:YES];
+	}
 }
 
 #pragma mark -
@@ -166,7 +211,8 @@
 	for (int i = 0; i < [queryCaseSource count]; i++) {
 		coordinate.longitude = [[[[queryCaseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 		coordinate.latitude = [[[[queryCaseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
-		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:[[queryCaseSource objectAtIndex:i] objectForKey:@"key"] andSubtitle:@"" andCaseID:[[queryCaseSource objectAtIndex:i] objectForKey:@"key"]];
+		NSString *typeStr = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[[queryCaseSource objectAtIndex:i] valueForKey:@"typeid"]];
+		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:typeStr andSubtitle:@"" andCaseID:[[queryCaseSource objectAtIndex:i] objectForKey:@"key"]];
 		[annotationArray addObject:casePlace];
 		[casePlace release];
 	}
@@ -174,23 +220,31 @@
 }
 
 - (NSInteger)numberOfSectionsInList {
-	return 1;
+	return 2;
 }
 
 - (NSInteger)numberOfRowsInListSection:(NSInteger)section {
+	if (section == 0) return 1;
 	return [queryCaseSource count];
 }
 
 - (CGFloat)heightForRowAtIndexPathInList:(NSIndexPath *)indexPath {
+	if (indexPath.section == 0) return 44;
 	return [CaseSelectorCell cellHeight];
 }
 
 - (NSString *)titleForHeaderInSectionInList:(NSInteger)section {
-	return @"XD";
+	if (section == 1) return @"XD";
+	return @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *CellIdentifier = @"Cell";
+	
+	if (indexPath.section == 0) {
+		UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		return cell;
+	}
 	
 	CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
@@ -241,6 +295,11 @@
 	//cell.caseAddress.text = [[MGOVGeocoder returnFullAddress:caseCoord] substringFromIndex:5];
 	
 	return cell;
+}
+
+
+- (void)dealloc {
+    [super dealloc];
 }
 
 @end

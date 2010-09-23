@@ -62,7 +62,7 @@
 }
 
 - (NSString *)convertNSRangeToString {
-	return [NSString stringWithFormat:@"%d/%d", resultRange.location, resultRange.length];
+	return [NSString stringWithFormat:@"%d/%d", resultRange.location, resultRange.location+resultRange.length-1];
 }
 
 - (NSURL *)generateSingleConditionURL {

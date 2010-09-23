@@ -17,12 +17,9 @@
 @synthesize caseID;
 @synthesize mapView;
 
-- (void)dropAnnotation:(NSArray *)data withRange:(NSRange)range{
+- (void)dropAnnotation:(NSArray *)data{
 	[mapView removeAnnotations:mapView.annotations];
-	if ([data count] != 0) {
-		NSArray *array = [data objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:range]];
-		[mapView addAnnotations:array];
-	}
+	[mapView addAnnotations:data];
 }
 
 #pragma mark -
@@ -111,8 +108,6 @@
         [listViewController viewDidDisappear:YES];
         [mapViewController viewDidAppear:YES];
 		menuMode = CaseSelectorMapMode;
-		//NSArray *annotationArray = [self annotationArrayForMapView];
-		//[self dropAnnotation:annotationArray withRange:NSRangeFromString(@"0,10")];
 	}
 }
 
@@ -206,6 +201,7 @@
 }
 
 - (void) pushToCaseViewer {
+	[[self.view.subviews lastObject] setHidden:YES];
 	CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:caseID];
 	[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
 }

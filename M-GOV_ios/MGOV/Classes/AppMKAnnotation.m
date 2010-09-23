@@ -29,9 +29,9 @@
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coord andTitle:(NSString *)t andSubtitle:(NSString *)st andCaseID:(NSString *)ID {
 	if (self = [super init]) {
-		coordinate = coord;
-		annotationTitle = t;
-		annotationSubtitle = st;
+		self.coordinate = coord;
+		self.annotationTitle = t;
+		self.annotationSubtitle = st;
 		annotationID = ID;
 	}
 	return self;

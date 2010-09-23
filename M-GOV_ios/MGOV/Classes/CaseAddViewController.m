@@ -62,14 +62,33 @@
 		[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 		[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
 		
+		
+		ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case?method=upload"]];
+		[request setFile:[[NSBundle mainBundle] pathForResource:@"IMG_0000" ofType:@"jpg"] forKey:@"photo"];
+		[request setPostValue:@"1" forKey:@"sno"];
+		[request setPostValue:@"1" forKey:@"unit"];
+		[request setPostValue:@"1" forKey:@"pic_check"];
+		[request setPostValue:[NSString stringWithFormat:@"%d" ,qid] forKey:@"h_item1"];
+		[request setPostValue:[NSString stringWithFormat:@"%d" ,qid] forKey:@"h_item2"];
+		[request setPostValue:[MGOVGeocoder returnRegion:selectedCoord] forKey:@"h_admit_name"];
+		[request setPostValue:[MGOVGeocoder returnRegion:selectedCoord] forKey:@"h_admiv_name"];
+		[request setPostValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
+		[request setPostValue:[NSString stringWithFormat:@"地點：%@",[MGOVGeocoder returnFullAddress:selectedCoord]] forKey:@"h_memo"];
+		[request setPostValue:[dictUserInformation valueForKey:@"User Email"] forKey:@"h_pemail"];
+		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"h_x1"];
+		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"h_y1"];
+		[request startAsynchronous];
+		
+		
+		
 		/*
-		NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
-		[dict setValue:[NSString stringWithFormat:@"%d" ,qid] forKey:@"typeid"];
-		[dict setValue:[MGOVGeocoder returnFullAddress:selectedCoord] forKey:@"address"];
-		[dict setValue:[MGOVGeocoder returnRegion:selectedCoord] forKey:@"region"];
-		[dict setValue:[dictUserInformation valueForKey:@"User Email"] forKey:@"email"];
-		[dict setValue:nameFieldCell.nameField.text forKey:@"name"];
-		[dict setValue:descriptionCell.descriptionField.text forKey:@"detail"];
+		NSMutableDictionary *dictSubmit = [[NSMutableDictionary alloc] init];
+		[dictSubmit setValue:[NSString stringWithFormat:@"%d" ,qid] forKey:@"typeid"];
+		[dictSubmit setValue:[NSString stringWithFormat:@"地點：%@",[MGOVGeocoder returnFullAddress:selectedCoord]] forKey:@"h_memo"];
+		[dictSubmit setValue:[MGOVGeocoder returnRegion:selectedCoord] forKey:@"h_admit_name"];
+		[dictSubmit setValue:[dictUserInformation valueForKey:@"User Email"] forKey:@"email"];
+		[dictSubmit setValue:nameFieldCell.nameField.text forKey:@"name"];
+		[dictSubmit setValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
 		//NSString *str = [dict JSONFragment];
 		*/
 		[self.navigationController popViewControllerAnimated:YES];

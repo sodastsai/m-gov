@@ -72,7 +72,7 @@ typedef enum {
 - (UIViewController *)initialMapViewController;
 - (void)changeToAnotherMode;
 - (void)setRootViewController:(UIViewController *)rootViewController;
-- (void)dropAnnotation:(NSArray *)data withRange:(NSRange)range;
+- (void)dropAnnotation:(NSArray *)data;
 - (NSArray *)annotationArrayForMapView;
 - (void)pushToCaseViewer;
 

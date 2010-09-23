@@ -17,6 +17,7 @@
 #import "DescriptionTableCell.h"
 #import "LocationSelectorViewController.h"
 #import "JSON.h"
+#import "ASIFormDataRequest.h"
 
 @protocol CaseAddViewControllerDelegate
 
