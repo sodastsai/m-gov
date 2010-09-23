@@ -16,6 +16,7 @@
 - (UIImage *)cropToRect:(CGRect)newRect;
 - (UIImage *)fitToSize:(CGSize)newSize;
 - (UIImage*)fixImageSize;
+- (UIImage *)cropToRect:(CGRect)newRect;
 
 @end
 
@@ -24,3 +25,5 @@
 + (NSDate *)dateFromROCFormatString:(NSString *)ROCdate;
 
 @end
+
+float DegreesToRadians(float degree);
