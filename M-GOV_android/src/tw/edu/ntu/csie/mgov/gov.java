@@ -135,7 +135,7 @@ public class gov extends MapActivity{
 	private void findViews() {
 		
 		
-		mpviewLoyout = (maplocationviewer) findViewById(R.id.mapview);
+//		mpviewLoyout = (maplocationviewer) findViewById(R.id.mapview);
 		mpviewLoyout.setcontext(gov.this);
 		mapview = mpviewLoyout.getMapView();
 		
