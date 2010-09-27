@@ -75,5 +75,6 @@ typedef enum {
 - (void)dropAnnotation:(NSArray *)data;
 - (NSArray *)annotationArrayForMapView;
 - (void)pushToCaseViewer;
+- (void)refreshViews;
 
 @end

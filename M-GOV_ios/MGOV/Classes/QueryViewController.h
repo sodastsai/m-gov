@@ -15,6 +15,8 @@
 #import "typesViewController.h"
 #import "LoadingView.h"
 
+#define kDataSectorSize 10
+
 @interface QueryViewController : CaseSelectorViewController <CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever, UIActionSheetDelegate, TypeSelectorDelegateProtocol> {
 	NSArray *queryCaseSource;
 	int queryTotalLength;
@@ -32,8 +34,6 @@
 @property int queryTotalLength;
 
 - (void)setQueryCondition;
-- (void)startQueryToGAE:(QueryGoogleAppEngine *)qGAE;
-- (void)sendQueryWithConditionType:(DataSourceGAEQueryTypes)conditionType Condition:(NSString *)condition Range:(NSRange)range;
 - (void)nextCase;
 - (void)lastCase;
 - (void)setLoadingView;

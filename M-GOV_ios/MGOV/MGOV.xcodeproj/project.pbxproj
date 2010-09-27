@@ -59,6 +59,8 @@
 		FE4EE7801223F72E00737028 /* detailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77D1223F72E00737028 /* detailViewController.xib */; };
 		FE4EE7811223F72E00737028 /* secondDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */; };
 		FE4EE7821223F72E00737028 /* typesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77F1223F72E00737028 /* typesViewController.xib */; };
+		FE71EE64125091E2008AF579 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FE71EE62125091E2008AF579 /* Icon.png */; };
+		FE71EE65125091E2008AF579 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE71EE63125091E2008AF579 /* Icon@2x.png */; };
 		FE7D048312352AA5007FA0A1 /* QidToType.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE7D048212352AA5007FA0A1 /* QidToType.plist */; };
 		FEB39A5C1237EF70007359AB /* QueryGoogleAppEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */; };
 		FEB39BD212388842007359AB /* MyCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39BD112388842007359AB /* MyCaseViewController.m */; };
@@ -213,6 +215,8 @@
 		FE4EE77D1223F72E00737028 /* detailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = detailViewController.xib; sourceTree = "<group>"; };
 		FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = secondDetailViewController.xib; sourceTree = "<group>"; };
 		FE4EE77F1223F72E00737028 /* typesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = typesViewController.xib; sourceTree = "<group>"; };
+		FE71EE62125091E2008AF579 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		FE71EE63125091E2008AF579 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		FE7D048212352AA5007FA0A1 /* QidToType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QidToType.plist; sourceTree = "<group>"; };
 		FEB39A5A1237EF70007359AB /* QueryGoogleAppEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryGoogleAppEngine.h; sourceTree = "<group>"; };
 		FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryGoogleAppEngine.m; sourceTree = "<group>"; };
@@ -324,6 +328,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FE71EE62125091E2008AF579 /* Icon.png */,
+				FE71EE63125091E2008AF579 /* Icon@2x.png */,
 				FE17463D122D17A400641599 /* Icon And Pictures */,
 				2A79AC2D1223FB9B00F140A2 /* Interface Builder */,
 				FE4EE75F1223F5F700737028 /* Types and Detail Strings */,
@@ -626,6 +632,8 @@
 				FEEB20D012394EDB00B24560 /* ok.png in Resources */,
 				FEEB20D112394EDB00B24560 /* unknown.png in Resources */,
 				2AE48A871240AE37005547F3 /* CaseAddTempInformation.plist in Resources */,
+				FE71EE64125091E2008AF579 /* Icon.png in Resources */,
+				FE71EE65125091E2008AF579 /* Icon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

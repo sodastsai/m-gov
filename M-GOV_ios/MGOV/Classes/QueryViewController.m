@@ -14,11 +14,6 @@
 @synthesize typeID;
 @synthesize queryTotalLength;
 
-- (UIViewController *)popViewControllerAnimated:(BOOL)animated {
-	[[self.view.subviews lastObject] setHidden:NO];
-	return [super popViewControllerAnimated:YES];
-}
-
 
 #pragma mark -
 #pragma mark Lifecycle
@@ -39,6 +34,7 @@
 	nextButton.frame = CGRectMake(274, 6, 29, 31);
 	UIButton *lastButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 	lastButton.frame = CGRectMake(17, 6, 29, 31);
+	// TODO: Discuss touch event
 	[nextButton addTarget:self action:@selector(nextCase) forControlEvents:UIControlEventTouchUpInside];
 	[nextButton addTarget:self action:@selector(setLoadingView) forControlEvents:UIControlEventTouchDown];
 	[lastButton addTarget:self action:@selector(lastCase) forControlEvents:UIControlEventTouchUpInside];
@@ -58,69 +54,69 @@
 	queryTypeLabel.font = [UIFont systemFontOfSize:14];
 	numberDisplayLabel.font = [UIFont systemFontOfSize:14];
 	queryTypeLabel.text = @"所有案件種類";
-	//numberDisplayLabel.text = @"1-10 筆，共 100 筆";
 	[queryConditionBar addSubview:queryTypeLabel];
 	[queryConditionBar addSubview:numberDisplayLabel];
 	
 	[self.view addSubview:queryConditionBar];
-	
-	//[queryConditionBar release];
-	//[nextButton release];
-	//[lastButton release];
-	
+		
 	typeID = 0;
-	queryRange = NSRangeFromString(@"0,10");
+	queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
 }
 
 #pragma mark -
 #pragma mark Method
 
-- (void)sendQueryWithConditionType:(DataSourceGAEQueryTypes)conditionType Condition:(NSString *)condition Range:(NSRange)range {
-	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
-	qGAE.conditionType = conditionType;
-	qGAE.resultTarget = self;
-	qGAE.queryCondition = condition;
-	qGAE.resultRange = range;
-	[qGAE startQuery];
-	[qGAE release];
-	NSArray *annotationArray = [self annotationArrayForMapView];
-	[self dropAnnotation:annotationArray];
-	numberDisplayLabel.text = [NSString stringWithFormat:@"%d-%d 筆，共 %d 筆", queryRange.location+1, queryRange.location+[queryCaseSource count], queryTotalLength];
-	[self.mapView setCenterCoordinate:self.mapView.region.center animated:YES];
-	[listViewController.tableView reloadData];
-}
-
 - (void)setQueryCondition {
-	UIActionSheet *setCondition = [[UIActionSheet alloc] initWithTitle:@"設定搜尋條件" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"設定案件種類", @"回到現在位置", nil];
+	UIActionSheet *setCondition = [[UIActionSheet alloc] initWithTitle:@"設定搜尋條件" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"重設搜尋條件" otherButtonTitles:@"依案件種類搜尋", nil];
 	[setCondition showFromTabBar:self.tabBarController.tabBar];
 	[setCondition release];
 }
 
-- (void)startQueryToGAE:(QueryGoogleAppEngine *)qGAE {
-	[qGAE startQuery];
-}
-
 - (void)nextCase {
 	if (queryTotalLength > queryRange.location+queryRange.length) {
-		queryRange.location += 10;
-		//loading = [LoadingView loadingViewInView:self.view];
+		// Move Sector
+		queryRange.location += kDataSectorSize;
+		// Start Query
+		QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+		qGAE.resultTarget = self;
+		qGAE.resultRange = queryRange;
 		if (!typeID) {
-			[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinate Condition:[NSString stringWithFormat:@"%f&%f&%f&%f", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5] Range:queryRange];
+			// Query without type
+			qGAE.conditionType = DataSourceGAEQueryByCoordinate;
+			qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
 		} else {
-			[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinateAndType Condition:[NSString stringWithFormat:@"%f&%f&%f&%f&%d", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5, typeID] Range:queryRange];	
+			// Query with type
+			NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
+			NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
+			qGAE.conditionType = DataSourceGAEQueryByMultiConditons;
+			qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
 		}
+		[qGAE startQuery];
+		[qGAE release];
 	}
 }
 
 - (void)lastCase {
-	if (queryRange.location >= 10) {
-		queryRange.location -= 10;
-		//loading = [LoadingView loadingViewInView:self.view];
+	if (queryRange.location >= kDataSectorSize) {
+		// Move Sector
+		queryRange.location -= kDataSectorSize;
+		// Start Query
+		QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+		qGAE.resultTarget = self;
+		qGAE.resultRange = queryRange;
 		if (!typeID) {
-			[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinate Condition:[NSString stringWithFormat:@"%f&%f&%f&%f", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5] Range:queryRange];
+			// Query without type
+			qGAE.conditionType = DataSourceGAEQueryByCoordinate;
+			qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
 		} else {
-			[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinateAndType Condition:[NSString stringWithFormat:@"%f&%f&%f&%f&%d", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5, typeID] Range:queryRange];	
-		}		
+			// Query with type
+			NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
+			NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
+			qGAE.conditionType = DataSourceGAEQueryByMultiConditons;
+			qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+		}
+		[qGAE startQuery];
+		[qGAE release];
 	}
 }
 
@@ -138,6 +134,10 @@
 		self.queryTotalLength = [[result objectForKey:@"length"] intValue];
 	}
 	[loading removeView];
+	// Refresh TableView and MapView
+	[self refreshViews];
+	// Refresh Condition Bar
+	numberDisplayLabel.text = [NSString stringWithFormat:@"%d-%d 筆，共 %d 筆", queryRange.location+1, queryRange.location+[queryCaseSource count], queryTotalLength];
 }
 
 #pragma mark -
@@ -148,27 +148,42 @@
 }
 
 - (void)mapView:(MKMapView *)MapView regionDidChangeAnimated:(BOOL)animated {
-	queryRange = NSRangeFromString(@"0,10");
+	// Initial
+	queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
+	// Start Query
+	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+	qGAE.resultTarget = self;
+	qGAE.resultRange = queryRange;
 	if (!typeID) {
-		[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinate Condition:[NSString stringWithFormat:@"%f&%f&%f&%f", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5] Range:queryRange];
+		// Query without type
+		qGAE.conditionType = DataSourceGAEQueryByCoordinate;
+		qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
 	} else {
-		[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinateAndType Condition:[NSString stringWithFormat:@"%f&%f&%f&%f&%d", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5, typeID] Range:queryRange];	
+		// Query with type
+		NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
+		NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
+		qGAE.conditionType = DataSourceGAEQueryByMultiConditons;
+		qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
 	}
+	[qGAE startQuery];
+	[qGAE release];
 }
 
 #pragma mark -
 #pragma mark UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if (buttonIndex==0) {
+	NSLog(@"%d", buttonIndex);
+	if (buttonIndex==1) {
+		// Select Type
 		typesViewController *typeSelector = [[typesViewController alloc] init];
 		typeSelector.delegate = self;
 		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typeSelector];
 		[self presentModalViewController:typeAndDetailSelector animated:YES];
 		[typeSelector release];
 		[typeAndDetailSelector release];
-	} else if (buttonIndex==1) {
-		NSLog(@"Back");
+	} else if (buttonIndex==0) {
+		// Reset
 		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
 	} else if (buttonIndex==2) {
@@ -180,10 +195,28 @@
 #pragma mark TypeSelectorDelegate
 
 - (void)typeSelectorDidSelectWithTitle:(NSString *)t andQid:(NSInteger)q {
+	// Update Selector
 	typeID = q;
-	[self sendQueryWithConditionType:DataSourceGAEQueryByCoordinateAndType Condition:[NSString stringWithFormat:@"%f&%f&%f&%f&%d", self.mapView.centerCoordinate.longitude, self.mapView.centerCoordinate.latitude, self.mapView.region.span.longitudeDelta/2.5, self.mapView.region.span.latitudeDelta/2.5, typeID] Range:queryRange];
 	queryTypeLabel.text = t;
 	[self dismissModalViewControllerAnimated:YES];
+	
+	// Start Query
+	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+	qGAE.resultTarget = self;
+	qGAE.resultRange = queryRange;
+	if (!typeID) {
+		// Query without type
+		qGAE.conditionType = DataSourceGAEQueryByCoordinate;
+		qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
+	} else {
+		// Query with type
+		NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
+		NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
+		qGAE.conditionType = DataSourceGAEQueryByMultiConditons;
+		qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+	}
+	[qGAE startQuery];
+	[qGAE release];
 }
 
 - (void)leaveSelectorWithoutTitleAndQid {
@@ -192,6 +225,11 @@
 
 #pragma mark -
 #pragma mark CaseSelectorDelegate
+
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated {
+	[[self.view.subviews lastObject] setHidden:NO];
+	return [super popViewControllerAnimated:YES];
+}
 
 - (void)didSelectRowAtIndexPathInList:(NSIndexPath *)indexPath {
 	if (indexPath.section == 1) {

@@ -17,9 +17,16 @@
 @synthesize caseID;
 @synthesize mapView;
 
-- (void)dropAnnotation:(NSArray *)data{
-	[mapView removeAnnotations:mapView.annotations];
-	[mapView addAnnotations:data];
+#pragma mark -
+#pragma mark Method
+
+- (void)refreshViews {
+	// Map View
+	NSArray *annotationArray = [self annotationArrayForMapView];
+	[self dropAnnotation:annotationArray];
+	[self.mapView setCenterCoordinate:self.mapView.region.center animated:YES];
+	// Table View
+	[listViewController.tableView reloadData];
 }
 
 #pragma mark -
@@ -167,10 +174,14 @@
 #pragma mark -
 #pragma mark MapView data source
 
+- (void)dropAnnotation:(NSArray *)data{
+	[mapView removeAnnotations:mapView.annotations];
+	[mapView addAnnotations:data];
+}
+
 - (NSArray *)annotationArrayForMapView {
 	return [dataSource setupAnnotationArrayForMapView];
 }
-
 
 #pragma mark -
 #pragma mark MapViewDelegate

@@ -10,20 +10,19 @@
 
 @implementation QueryGoogleAppEngine
 
-@synthesize conditionType, returnType, queryCondition, queryConditions, resultRange, resultTarget;
+@synthesize conditionType, returnType, queryCondition, queryMultiConditions, resultRange, resultTarget;
 
 #pragma mark -
 #pragma mark Action
 
 - (BOOL)startQuery {
 	// Set condition
-	NSLog(@"startQuery");
-	if (queryCondition!=nil && queryConditions==nil) {
+	if (conditionType!=DataSourceGAEQueryByMultiConditons) {
+		// Single conditon
 		queryURL = [self generateSingleConditionURL];
-	} else if (queryConditions!=nil && queryCondition==nil) {
-		
 	} else {
-		return NO;
+		// Multi conditions
+		queryURL = [self generateMultiConditionsURL];
 	}
 	NSLog(@"%@", queryURL);
 	
@@ -56,7 +55,6 @@
 	else if (conditionType == DataSourceGAEQueryByEmail) return @"query/email";
 	else if (conditionType == DataSourceGAEQueryByCoordinate) return @"query/coordinates";
 	else if (conditionType == DataSourceGAEQueryByStatus) return @"query/status";
-	else if (conditionType == DataSourceGAEQueryByCoordinateAndType) return @"query/coordinates&typeid";
 	
 	return nil;
 }
@@ -78,7 +76,63 @@
 
 - (NSURL *)generateMultiConditionsURL {
 	// NSDictionary to String
-	return nil;
+	NSString *queryEmail = [queryMultiConditions valueForKey:@"DataSourceGAEQueryByEmail"];
+	NSString *queryCoord = [queryMultiConditions valueForKey:@"DataSourceGAEQueryByCoordinate"];
+	NSString *queryTypes = [queryMultiConditions valueForKey:@"DataSourceGAEQueryByType"];
+	NSString *queryStatus = [queryMultiConditions valueForKey:@"DataSourceGAEQueryByStatus"];
+	
+	NSString *restURL = @"query/";
+	BOOL isFirstCondition = YES;
+	// Attach Condition Name
+	if (queryEmail!=nil) {
+		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
+		restURL = [restURL stringByAppendingString:@"email"];
+		isFirstCondition = NO;
+	}
+	if (queryTypes!=nil) {
+		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
+		restURL = [restURL stringByAppendingString:@"typeid"];
+		isFirstCondition = NO;
+	}
+	if (queryCoord!=nil) {
+		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
+		restURL = [restURL stringByAppendingString:@"coordinates"];
+		isFirstCondition = NO;
+	}
+	if (queryStatus!=nil) {
+		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
+		restURL = [restURL stringByAppendingString:@"status"];
+		isFirstCondition = NO;
+	}
+	// Attach Condition content
+	restURL = [restURL stringByAppendingString:@"/"];
+	isFirstCondition = YES;
+	if (queryEmail!=nil) {
+		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
+		restURL = [restURL stringByAppendingString:queryEmail];
+		isFirstCondition = NO;
+	}
+	if (queryTypes!=nil) {
+		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
+		restURL = [restURL stringByAppendingString:queryTypes];
+		isFirstCondition = NO;
+	}
+	if (queryCoord!=nil) {
+		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
+		restURL = [restURL stringByAppendingString:queryCoord];
+		isFirstCondition = NO;
+	}
+	if (queryStatus!=nil) {
+		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
+		restURL = [restURL stringByAppendingString:queryStatus];
+		isFirstCondition = NO;
+	}
+
+	return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", queryBaseURL, restURL]];
+}
+
++ (NSString *)generateMapQueryConditionFromRegion:(MKCoordinateRegion)mapRegion {
+	return [NSString stringWithFormat:@"%f&%f&%f&%f", mapRegion.center.longitude, mapRegion.center.latitude, mapRegion.span.longitudeDelta/2.5, mapRegion.span.latitudeDelta/2.5];
 }
 
 #pragma mark -

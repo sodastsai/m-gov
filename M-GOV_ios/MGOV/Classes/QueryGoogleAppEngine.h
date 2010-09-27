@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
 typedef enum {
 	DataSourceGAEQueryByID,
@@ -14,7 +15,7 @@ typedef enum {
 	DataSourceGAEQueryByCoordinate,
 	DataSourceGAEQueryByType,
 	DataSourceGAEQueryByStatus,
-	DataSourceGAEQueryByCoordinateAndType,
+	DataSourceGAEQueryByMultiConditons,
 } DataSourceGAEQueryTypes;
 
 typedef enum {
@@ -35,7 +36,7 @@ typedef enum {
 	DataSourceGAEQueryTypes conditionType;
 	DataSourceGAEReturnTypes returnType;
 	NSString *queryCondition;
-	NSDictionary *queryConditions;
+	NSDictionary *queryMultiConditions;
 	NSRange resultRange;
 	id<QueryGAEReciever> resultTarget;
 	
@@ -49,10 +50,11 @@ typedef enum {
 @property (nonatomic) DataSourceGAEQueryTypes conditionType;
 @property (nonatomic, readonly) DataSourceGAEReturnTypes returnType;
 @property (retain,nonatomic) NSString *queryCondition;
-@property (retain,nonatomic) NSDictionary *queryConditions;
+@property (retain,nonatomic) NSDictionary *queryMultiConditions;
 @property (nonatomic) NSRange resultRange;
 @property (retain,nonatomic) id resultTarget;
 
++ (NSString *)generateMapQueryConditionFromRegion:(MKCoordinateRegion)mapRegion;
 - (NSString *)convertConditionTypeToString;
 - (NSString *)convertNSRangeToString;
 - (NSURL *)generateSingleConditionURL;
