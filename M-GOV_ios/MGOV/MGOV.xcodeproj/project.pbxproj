@@ -38,7 +38,6 @@
 		2AEBFCD7124B22FF0047B3E6 /* ASIInputStream.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEBFCCD124B22FF0047B3E6 /* ASIInputStream.m */; };
 		2AEBFCD8124B22FF0047B3E6 /* ASINetworkQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEBFCCF124B22FF0047B3E6 /* ASINetworkQueue.m */; };
 		2AEBFCD9124B22FF0047B3E6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEBFCD2124B22FF0047B3E6 /* Reachability.m */; };
-		2AEBFCFC124B25110047B3E6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEBFCFB124B25110047B3E6 /* CFNetwork.framework */; };
 		2AEBFD00124B25270047B3E6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEBFCFF124B25270047B3E6 /* MobileCoreServices.framework */; };
 		2AEBFD03124B25410047B3E6 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEBFD02124B25410047B3E6 /* libz.1.2.3.dylib */; };
 		FE17463C122D179C00641599 /* NoMyCase.png in Resources */ = {isa = PBXBuildFile; fileRef = FE17463B122D179C00641599 /* NoMyCase.png */; };
@@ -67,6 +66,7 @@
 		FE71EED91250C7E2008AF579 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE71EED41250C7E2008AF579 /* Icon-Small@2x.png */; };
 		FE71EEDA1250C7E2008AF579 /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = FE71EED51250C7E2008AF579 /* iTunesArtwork */; };
 		FE7D048312352AA5007FA0A1 /* QidToType.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE7D048212352AA5007FA0A1 /* QidToType.plist */; };
+		FE8BF5191250D6FC009498CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8BF5181250D6FC009498CA /* CFNetwork.framework */; };
 		FEB39A5C1237EF70007359AB /* QueryGoogleAppEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */; };
 		FEB39BD212388842007359AB /* MyCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39BD112388842007359AB /* MyCaseViewController.m */; };
 		FEB39CA412389597007359AB /* CaseSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39CA312389597007359AB /* CaseSelectorViewController.m */; };
@@ -136,7 +136,6 @@
 		2AEBFCD0124B22FF0047B3E6 /* ASIProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIProgressDelegate.h; sourceTree = "<group>"; };
 		2AEBFCD1124B22FF0047B3E6 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		2AEBFCD2124B22FF0047B3E6 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		2AEBFCFB124B25110047B3E6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = iphoneos4.1/System/Library/Frameworks/CFNetwork.framework; sourceTree = "<group>"; };
 		2AEBFCFF124B25270047B3E6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2AEBFD02124B25410047B3E6 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* MGOV_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOV_Prefix.pch; sourceTree = "<group>"; };
@@ -177,6 +176,7 @@
 		FE71EED41250C7E2008AF579 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
 		FE71EED51250C7E2008AF579 /* iTunesArtwork */ = {isa = PBXFileReference; lastKnownFileType = file; path = iTunesArtwork; sourceTree = "<group>"; };
 		FE7D048212352AA5007FA0A1 /* QidToType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QidToType.plist; sourceTree = "<group>"; };
+		FE8BF5181250D6FC009498CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FEB39A5A1237EF70007359AB /* QueryGoogleAppEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryGoogleAppEngine.h; sourceTree = "<group>"; };
 		FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryGoogleAppEngine.m; sourceTree = "<group>"; };
 		FEB39BD012388842007359AB /* MyCaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCaseViewController.h; sourceTree = "<group>"; };
@@ -210,9 +210,9 @@
 				2AE35A181226B02F00B37A4B /* MapKit.framework in Frameworks */,
 				2A097062122B60200048D841 /* QuartzCore.framework in Frameworks */,
 				2A4CD56D1240FDA000991E98 /* SystemConfiguration.framework in Frameworks */,
-				2AEBFCFC124B25110047B3E6 /* CFNetwork.framework in Frameworks */,
 				2AEBFD00124B25270047B3E6 /* MobileCoreServices.framework in Frameworks */,
 				2AEBFD03124B25410047B3E6 /* libz.1.2.3.dylib in Frameworks */,
+				FE8BF5191250D6FC009498CA /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,7 +255,6 @@
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
-				FE71EEB01250C082008AF579 /* Entitlements.plist */,
 			);
 			name = CustomTemplate;
 			sourceTree = "<group>";
@@ -272,6 +271,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FE71EEB01250C082008AF579 /* Entitlements.plist */,
 				FE71EED11250C7E2008AF579 /* Icon-72.png */,
 				FE71EED21250C7E2008AF579 /* Icon-Small-50.png */,
 				FE71EED31250C7E2008AF579 /* Icon-Small.png */,
@@ -292,7 +292,6 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2AEBFCFB124B25110047B3E6 /* CFNetwork.framework */,
 				2A4CD56C1240FDA000991E98 /* SystemConfiguration.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
@@ -303,6 +302,7 @@
 				2A097061122B60200048D841 /* QuartzCore.framework */,
 				2AEBFCFF124B25270047B3E6 /* MobileCoreServices.framework */,
 				2AEBFD02124B25410047B3E6 /* libz.1.2.3.dylib */,
+				FE8BF5181250D6FC009498CA /* CFNetwork.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
