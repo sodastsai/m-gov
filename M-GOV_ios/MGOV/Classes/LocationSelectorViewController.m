@@ -104,7 +104,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-
+	
 	[mapView setCenterCoordinate:selectedCoord animated:YES];
 	MKCoordinateRegion region;
 	region.center = selectedCoord;
@@ -117,6 +117,25 @@
 	AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:selectedCoord andTitle:@"案件地點" andSubtitle:@""];
 	[mapView addAnnotation:casePlace];
 	[self updatingAddress:casePlace];
+	if ([annotationAddress rangeOfString:@"台北市"].location == NSNotFound || annotationAddress == nil) {
+		selectedCoord.latitude = 25.046337;
+		selectedCoord.longitude = 121.51745;
+		[mapView setCenterCoordinate:selectedCoord animated:YES];
+		MKCoordinateRegion region;
+		region.center = selectedCoord;
+		MKCoordinateSpan span;
+		span.latitudeDelta = 0.004;
+		span.longitudeDelta = 0.004;
+		region.span = span;
+		[mapView setRegion:region];
+		CLLocationCoordinate2D coord;
+		coord.latitude = 25.046337;
+		coord.longitude = 121.51745;
+		casePlace.coordinate = coord;
+		UIAlertView *outofTaipeiCity = [[UIAlertView alloc] initWithTitle:@"超出服務範圍" message:@"1999的服務範圍僅限於台北市內！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
+		[outofTaipeiCity show];
+		[outofTaipeiCity release];
+	}
 	[casePlace release];
 		
 	// OK, Cancel
