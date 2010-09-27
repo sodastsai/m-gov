@@ -46,22 +46,16 @@
 		// Return to MyCase
 		//[delegate refreshData];
 		
-		// After submit case, clean the temp infomation
 		NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
-		[dict setObject:@"" forKey:@"Photo"];
-		[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
-		[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
-		[dict setValue:@"" forKey:@"Name"];
-		[dict setValue:@"" forKey:@"Description"];
-		[dict setValue:@"" forKey:@"TypeTitle"];
-		[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
-		[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
 		
-		/*
+		// Convert Byte Data to Photo From Plist
+		NSData *photoData = [dict objectForKey:@"Photo"];
+		NSString *filename = [NSString stringWithFormat:@"%@-%d", [dictUserInformation valueForKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
+		
 		// Post the submt data to App Engine
 		ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case?method=upload"]];
-		[request setFile:[[NSBundle mainBundle] pathForResource:@"IMG_0000" ofType:@"jpg"] forKey:@"photo"];
+		[request setFile:photoData withFileName:filename andContentType:@"image/png" forKey:@"photo"];
 		[request setPostValue:@"1" forKey:@"sno"];
 		[request setPostValue:@"1" forKey:@"unit"];
 		[request setPostValue:@"1" forKey:@"pic_check"];
@@ -75,8 +69,16 @@
 		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"h_x1"];
 		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"h_y1"];
 		[request startAsynchronous];
-		*/
 		
+		// After submit case, clean the temp infomation
+		[dict setObject:@"" forKey:@"Photo"];
+		[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
+		[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
+		[dict setValue:@"" forKey:@"Name"];
+		[dict setValue:@"" forKey:@"Description"];
+		[dict setValue:@"" forKey:@"TypeTitle"];
+		[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
+		[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
 		
 		/*
 		NSMutableDictionary *dictSubmit = [[NSMutableDictionary alloc] init];

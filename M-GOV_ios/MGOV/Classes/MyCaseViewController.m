@@ -62,7 +62,6 @@
 	caseAdder.delegate = self;
 	
 	[self.topViewController.navigationController pushViewController:caseAdder animated:YES];
-		
 	[caseAdder release];
 }
 
@@ -82,8 +81,10 @@
 #pragma mark CaseSelectorDelegate
 
 - (void)didSelectRowAtIndexPathInList:(NSIndexPath *)indexPath {
-	CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:[[myCaseSource objectAtIndex:indexPath.row] valueForKey:@"key"]];
-	[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
+	if ([[dictUserInformation valueForKey:@"User Email"] length]!=0) {
+		CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:[[myCaseSource objectAtIndex:indexPath.row] valueForKey:@"key"]];
+		[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
+	}
 } 
 
 #pragma mark -
@@ -133,6 +134,7 @@
 		cell.backgroundView = background;
 		[background release];
 		tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		return cell;
 	}
 	
