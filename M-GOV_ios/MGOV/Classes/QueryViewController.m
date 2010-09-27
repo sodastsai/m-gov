@@ -60,11 +60,26 @@
 	[self.view addSubview:queryConditionBar];
 		
 	typeID = -1;
-	queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
+	//queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
+	
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+	loading = [LoadingView loadingViewInView:self.view];
+	[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(test) userInfo:nil repeats:NO];
+}
+
+- (void)test {
 	typeID = 0;
+	
+	queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
+	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+	qGAE.resultTarget = self;
+	qGAE.resultRange = queryRange;
+	qGAE.conditionType = DataSourceGAEQueryByCoordinate;
+	qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
+	[qGAE startQuery];
+	[qGAE release];
 }
 
 
@@ -156,6 +171,10 @@
 
 #pragma mark -
 #pragma mark MKMapViewDelegate
+
+- (void)mapViewWillStartLoadingMap:(MKMapView *)MapView {
+	NSLog(@"start");
+}
 
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
 	if (typeID != -1) loading = [LoadingView loadingViewInView:self.view];

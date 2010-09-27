@@ -39,17 +39,6 @@
     [super viewDidLoad];
 	self.title = @"案件資料";
 	
-	loading = [LoadingView loadingViewInView:self.navigationController.view];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-}
-
-
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	
 	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
 	qGAE.conditionType = DataSourceGAEQueryByID;
 	qGAE.queryCondition = caseID;
@@ -68,7 +57,20 @@
 	photoView.layer.masksToBounds = YES;
 	[self.tableView reloadData];
 	
-	[loading removeView];
+	//loading = [LoadingView loadingViewInView:self.navigationController.view];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+}
+
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	
+	
+	
+	//[loading removeView];
 }
 
 #pragma mark -

@@ -38,5 +38,6 @@
 - (void)lastCase;
 - (void)setLoadingViewForNextCase;
 - (void)setLoadingViewForLastCase;
+- (void)test;
 
 @end
