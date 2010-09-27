@@ -128,6 +128,7 @@ CGPathRef NewPathWithRoundRect(CGRect rect, CGFloat cornerRadius) {
 //
 
 - (void)drawRect:(CGRect)rect {
+	//rect = CGRectInset(rect, 0, 0);
 	rect = CGRectInset(rect, 40, 200);
 	CGPathRef roundRectPath = NewPathWithRoundRect(rect, 10.0);
 	

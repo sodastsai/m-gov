@@ -50,7 +50,7 @@
 	[loading removeView];
 	// Fetch User Information
 	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-	dictUserInformation = [NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
+	dictUserInformation = [[NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments] retain];
 }
 
 #pragma mark -
@@ -117,7 +117,7 @@
 }
 
 - (NSString *)titleForHeaderInSectionInList:(NSInteger)section {
-	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) return nil;
+	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) return @"";
 	else return @"XD";
 }
 
@@ -185,6 +185,11 @@
 	//cell.caseAddress.text = [[MGOVGeocoder returnFullAddress:caseCoord] substringFromIndex:5];
 	
 	return cell;
+}
+
+- (void)dealloc {
+	[dictUserInformation release];
+	[super dealloc];
 }
 
 @end

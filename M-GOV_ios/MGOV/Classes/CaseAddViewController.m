@@ -46,6 +46,7 @@
 		// Return to MyCase
 		//[delegate refreshData];
 		
+		// After submit case, clean the temp infomation
 		NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
 		[dict setObject:@"" forKey:@"Photo"];
@@ -57,7 +58,8 @@
 		[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 		[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
 		
-		
+		/*
+		// Post the submt data to App Engine
 		ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case?method=upload"]];
 		[request setFile:[[NSBundle mainBundle] pathForResource:@"IMG_0000" ofType:@"jpg"] forKey:@"photo"];
 		[request setPostValue:@"1" forKey:@"sno"];
@@ -73,7 +75,7 @@
 		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"h_x1"];
 		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"h_y1"];
 		[request startAsynchronous];
-		
+		*/
 		
 		
 		/*
@@ -347,6 +349,7 @@
 
 - (void)userDidSelectDone:(CLLocationCoordinate2D)coordinate {
 	
+	// Temporary store the coordinate selected by user to CaseAddTempInformation.plist
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
 	[dict setObject:[NSNumber numberWithDouble:coordinate.longitude] forKey:@"Longitude"];
@@ -368,6 +371,7 @@
 	self.selectedTypeTitle = t;
 	self.qid = q;
 	
+	// Temporary store the typeid & typetitle info. to CaseAddTempInformation.plist
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
 	[dict setObject:[NSNumber numberWithInt:q] forKey:@"TypeID"];
@@ -439,8 +443,6 @@
 	// Prepare Buttons
 	UIBarButtonItem *doneEditing = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(endEditingText)];
 	UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-	//UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"mm" style:UIBarButtonItemStylePlain target:nil action:nil];
-	//self.navigationItem.leftBarButtonItem = backButton;
 	
 	// Prepare Labels
 	UILabel *optionalHint = [[UILabel alloc] initWithFrame:CGRectMake(10, 14, 250, 16)];
@@ -468,22 +470,20 @@
 	// Fetch the data user key in last time
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
-	self.qid = [[dict objectForKey:@"TypeID"] intValue];
-	self.selectedTypeTitle = [dict valueForKey:@"TypeTitle"];
-	nameFieldCell.nameField.text = [dict valueForKey:@"Name"];
-	[descriptionCell setPlaceholder:[dict valueForKey:@"Description"]];
-	
-	if ([[dict objectForKey:@"Latitude"] doubleValue]!=0 && [[dict objectForKey:@"Longitude"] doubleValue]!=0) {
-		selectedCoord.latitude = [[dict objectForKey:@"Latitude"] doubleValue];
-		selectedCoord.longitude = [[dict objectForKey:@"Longitude"] doubleValue];
-		[locationCell updatingCoordinate:selectedCoord];
-	}
-	
 	UIImage *image = [UIImage imageWithData:[dict objectForKey:@"Photo"]];
 	[photoCell.photoButton setImage:[image fitToSize:CGSizeMake(300, [PhotoPickerTableCell cellHeight])] forState:UIControlStateNormal];
 	if (image != nil) {
 		[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];
 	}
+	self.qid = [[dict objectForKey:@"TypeID"] intValue];
+	self.selectedTypeTitle = [dict valueForKey:@"TypeTitle"];
+	if ([[dict objectForKey:@"Latitude"] doubleValue]!=0 && [[dict objectForKey:@"Longitude"] doubleValue]!=0) {
+		selectedCoord.latitude = [[dict objectForKey:@"Latitude"] doubleValue];
+		selectedCoord.longitude = [[dict objectForKey:@"Longitude"] doubleValue];
+		[locationCell updatingCoordinate:selectedCoord];
+	}
+	nameFieldCell.nameField.text = [dict valueForKey:@"Name"];
+	[descriptionCell setPlaceholder:[dict valueForKey:@"Description"]];
 	
 	[self.tableView reloadData];
 }
@@ -493,6 +493,7 @@
 	// Stop monitor keyboard
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
+	// Temporary store the name & description info. to CaseAddTempInformation.plist
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
 	[dict setValue:nameFieldCell.nameField.text forKey:@"Name"];

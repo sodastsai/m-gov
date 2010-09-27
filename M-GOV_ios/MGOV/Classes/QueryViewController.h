@@ -36,6 +36,7 @@
 - (void)setQueryCondition;
 - (void)nextCase;
 - (void)lastCase;
-- (void)setLoadingView;
+- (void)setLoadingViewForNextCase;
+- (void)setLoadingViewForLastCase;
 
 @end

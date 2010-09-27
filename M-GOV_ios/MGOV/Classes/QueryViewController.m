@@ -35,10 +35,10 @@
 	UIButton *lastButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 	lastButton.frame = CGRectMake(17, 6, 29, 31);
 	// TODO: Discuss touch event
-	[nextButton addTarget:self action:@selector(nextCase) forControlEvents:UIControlEventTouchUpInside];
-	[nextButton addTarget:self action:@selector(setLoadingView) forControlEvents:UIControlEventTouchDown];
-	[lastButton addTarget:self action:@selector(lastCase) forControlEvents:UIControlEventTouchUpInside];
-	[lastButton addTarget:self action:@selector(setLoadingView) forControlEvents:UIControlEventTouchDown];
+	[nextButton addTarget:self action:@selector(setLoadingViewForNextCase) forControlEvents:UIControlEventTouchUpInside];
+	//[nextButton addTarget:self action:@selector(setLoadingView) forControlEvents:UIControlEventTouchDown];
+	[lastButton addTarget:self action:@selector(setLoadingViewForLastCase) forControlEvents:UIControlEventTouchUpInside];
+	//[lastButton addTarget:self action:@selector(setLoadingView) forControlEvents:UIControlEventTouchDown];
 	[queryConditionBar addSubview:nextButton];
 	[queryConditionBar addSubview:lastButton];
 	
@@ -59,9 +59,14 @@
 	
 	[self.view addSubview:queryConditionBar];
 		
-	typeID = 0;
+	typeID = -1;
 	queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
 }
+
+- (void)viewDidAppear:(BOOL)animated {
+	typeID = 0;
+}
+
 
 #pragma mark -
 #pragma mark Method
@@ -73,6 +78,7 @@
 }
 
 - (void)nextCase {
+	NSLog(@"next");
 	if (queryTotalLength > queryRange.location+queryRange.length) {
 		// Move Sector
 		queryRange.location += kDataSectorSize;
@@ -97,6 +103,7 @@
 }
 
 - (void)lastCase {
+	NSLog(@"last");
 	if (queryRange.location >= kDataSectorSize) {
 		// Move Sector
 		queryRange.location -= kDataSectorSize;
@@ -120,8 +127,14 @@
 	}
 }
 
-- (void)setLoadingView {
-	loading = [LoadingView loadingViewInView:self.view];
+- (void)setLoadingViewForNextCase {
+	if (queryTotalLength > queryRange.location+queryRange.length) loading = [LoadingView loadingViewInView:self.view];
+	[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(nextCase) userInfo:nil repeats:NO];
+}
+
+- (void)setLoadingViewForLastCase {
+	if (queryRange.location >= kDataSectorSize) loading = [LoadingView loadingViewInView:self.view];
+	[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(lastCase) userInfo:nil repeats:NO];
 }
 
 #pragma mark -
@@ -137,36 +150,39 @@
 	// Refresh TableView and MapView
 	[self refreshViews];
 	// Refresh Condition Bar
-	numberDisplayLabel.text = [NSString stringWithFormat:@"%d-%d 筆，共 %d 筆", queryRange.location+1, queryRange.location+[queryCaseSource count], queryTotalLength];
+	if (![queryCaseSource count]) numberDisplayLabel.text = [NSString stringWithFormat:@"%d-%d 筆，共 %d 筆", 0, 0, 0];
+	else numberDisplayLabel.text = [NSString stringWithFormat:@"%d-%d 筆，共 %d 筆", queryRange.location+1, queryRange.location+[queryCaseSource count], queryTotalLength];
 }
 
 #pragma mark -
 #pragma mark MKMapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
-	loading = [LoadingView loadingViewInView:self.view];
+	if (typeID != -1) loading = [LoadingView loadingViewInView:self.view];
 }
 
 - (void)mapView:(MKMapView *)MapView regionDidChangeAnimated:(BOOL)animated {
-	// Initial
-	queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
-	// Start Query
-	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
-	qGAE.resultTarget = self;
-	qGAE.resultRange = queryRange;
-	if (!typeID) {
-		// Query without type
-		qGAE.conditionType = DataSourceGAEQueryByCoordinate;
-		qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
-	} else {
-		// Query with type
-		NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
-		NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
-		qGAE.conditionType = DataSourceGAEQueryByMultiConditons;
-		qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+	if (typeID != -1) {
+		// Initial
+		queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
+		// Start Query
+		QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+		qGAE.resultTarget = self;
+		qGAE.resultRange = queryRange;
+		if (!typeID) {
+			// Query without type
+			qGAE.conditionType = DataSourceGAEQueryByCoordinate;
+			qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
+		} else {
+			// Query with type
+			NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
+			NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
+			qGAE.conditionType = DataSourceGAEQueryByMultiConditons;
+			qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+		}
+		[qGAE startQuery];
+		[qGAE release];
 	}
-	[qGAE startQuery];
-	[qGAE release];
 }
 
 #pragma mark -
