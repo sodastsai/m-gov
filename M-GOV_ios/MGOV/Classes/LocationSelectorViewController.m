@@ -15,7 +15,6 @@
 @synthesize mapView;
 @synthesize bottomBar, selectedCoord, caseImage;
 @synthesize annotationAddress;
-@synthesize loading;
 
 
 #pragma mark -
@@ -62,11 +61,6 @@
 			// Update annotation subtitle
 			[self updatingAddress:annotationView.annotation];
 		}
-		[loading removeView];
-		
-	}
-	if ( newState == MKAnnotationViewDragStateEnding ) {
-		loading = [LoadingView loadingViewInView:[self.view.window.subviews objectAtIndex:0]];
 	}
 }
 

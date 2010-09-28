@@ -10,7 +10,6 @@
 #import <QuartzCore/QuartzCore.h>
 #import "JSON.h"
 #import "LocationSelectorTableCell.h"
-#import "LoadingView.h"
 #import "QueryGoogleAppEngine.h"
 
 @interface CaseViewerViewController : UITableViewController <QueryGAEReciever> {
@@ -18,11 +17,9 @@
 	NSDictionary *caseData;
 	UIImageView *photoView;
 	
-	LoadingView *loading;
 	LocationSelectorTableCell *locationCell;
 }
 
-@property (nonatomic, retain) LoadingView *loading;
 @property (nonatomic, retain) NSDictionary *caseData;
 
 - (id)initWithCaseID:(NSString *)cid;

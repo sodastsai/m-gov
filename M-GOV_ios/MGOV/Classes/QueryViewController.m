@@ -14,7 +14,6 @@
 @synthesize typeID;
 @synthesize queryTotalLength;
 
-
 #pragma mark -
 #pragma mark Lifecycle
 
@@ -34,14 +33,10 @@
 	nextButton.frame = CGRectMake(274, 6, 29, 31);
 	UIButton *lastButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
 	lastButton.frame = CGRectMake(17, 6, 29, 31);
-	// TODO: Discuss touch event
-	[nextButton addTarget:self action:@selector(setLoadingViewForNextCase) forControlEvents:UIControlEventTouchUpInside];
-	//[nextButton addTarget:self action:@selector(setLoadingView) forControlEvents:UIControlEventTouchDown];
-	[lastButton addTarget:self action:@selector(setLoadingViewForLastCase) forControlEvents:UIControlEventTouchUpInside];
-	//[lastButton addTarget:self action:@selector(setLoadingView) forControlEvents:UIControlEventTouchDown];
+	[nextButton addTarget:self action:@selector(nextCase) forControlEvents:UIControlEventTouchUpInside];
+	[lastButton addTarget:self action:@selector(lastCase) forControlEvents:UIControlEventTouchUpInside];
 	[queryConditionBar addSubview:nextButton];
 	[queryConditionBar addSubview:lastButton];
-	
 	
 	queryTypeLabel  = [[[UILabel alloc] initWithFrame:CGRectMake(51, 3, 218, 21)] autorelease];
 	numberDisplayLabel  = [[[UILabel alloc] initWithFrame:CGRectMake(51, 20, 218, 21)] autorelease];
@@ -59,29 +54,8 @@
 	
 	[self.view addSubview:queryConditionBar];
 		
-	typeID = -1;
-	//queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
-	
+	typeID = 0;	
 }
-
-- (void)viewDidAppear:(BOOL)animated {
-	loading = [LoadingView loadingViewInView:self.view];
-	[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(test) userInfo:nil repeats:NO];
-}
-
-- (void)test {
-	typeID = 0;
-	
-	queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
-	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
-	qGAE.resultTarget = self;
-	qGAE.resultRange = queryRange;
-	qGAE.conditionType = DataSourceGAEQueryByCoordinate;
-	qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
-	[qGAE startQuery];
-	[qGAE release];
-}
-
 
 #pragma mark -
 #pragma mark Method
@@ -93,13 +67,13 @@
 }
 
 - (void)nextCase {
-	NSLog(@"next");
 	if (queryTotalLength > queryRange.location+queryRange.length) {
 		// Move Sector
 		queryRange.location += kDataSectorSize;
 		// Start Query
-		QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+		QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
 		qGAE.resultTarget = self;
+		qGAE.indicatorTargetView = self.view;
 		qGAE.resultRange = queryRange;
 		if (!typeID) {
 			// Query without type
@@ -113,18 +87,17 @@
 			qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
 		}
 		[qGAE startQuery];
-		[qGAE release];
 	}
 }
 
 - (void)lastCase {
-	NSLog(@"last");
 	if (queryRange.location >= kDataSectorSize) {
 		// Move Sector
 		queryRange.location -= kDataSectorSize;
 		// Start Query
-		QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+		QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
 		qGAE.resultTarget = self;
+		qGAE.indicatorTargetView = self.view;
 		qGAE.resultRange = queryRange;
 		if (!typeID) {
 			// Query without type
@@ -138,33 +111,20 @@
 			qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
 		}
 		[qGAE startQuery];
-		[qGAE release];
 	}
-}
-
-- (void)setLoadingViewForNextCase {
-	if (queryTotalLength > queryRange.location+queryRange.length) loading = [LoadingView loadingViewInView:self.view];
-	[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(nextCase) userInfo:nil repeats:NO];
-}
-
-- (void)setLoadingViewForLastCase {
-	if (queryRange.location >= kDataSectorSize) loading = [LoadingView loadingViewInView:self.view];
-	[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(lastCase) userInfo:nil repeats:NO];
 }
 
 #pragma mark -
 #pragma mark QueryGAEReciever
 
 - (void)recieveQueryResultType:(DataSourceGAEReturnTypes)type withResult:(id)result {
-	// Accept Array only
+	// Check type
 	if (type == DataSourceGAEReturnByNSDictionary) {
 		self.queryCaseSource = [result objectForKey:@"result"];
 		self.queryTotalLength = [[result objectForKey:@"length"] intValue];
 	}
-	[loading removeView];
-	// Refresh TableView and MapView
+	// Refresh
 	[self refreshViews];
-	// Refresh Condition Bar
 	if (![queryCaseSource count]) numberDisplayLabel.text = [NSString stringWithFormat:@"%d-%d 筆，共 %d 筆", 0, 0, 0];
 	else numberDisplayLabel.text = [NSString stringWithFormat:@"%d-%d 筆，共 %d 筆", queryRange.location+1, queryRange.location+[queryCaseSource count], queryTotalLength];
 }
@@ -172,43 +132,32 @@
 #pragma mark -
 #pragma mark MKMapViewDelegate
 
-- (void)mapViewWillStartLoadingMap:(MKMapView *)MapView {
-	NSLog(@"start");
-}
-
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
-	if (typeID != -1) loading = [LoadingView loadingViewInView:self.view];
-}
-
 - (void)mapView:(MKMapView *)MapView regionDidChangeAnimated:(BOOL)animated {
-	if (typeID != -1) {
-		// Initial
-		queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
-		// Start Query
-		QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
-		qGAE.resultTarget = self;
-		qGAE.resultRange = queryRange;
-		if (!typeID) {
-			// Query without type
-			qGAE.conditionType = DataSourceGAEQueryByCoordinate;
-			qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
-		} else {
-			// Query with type
-			NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
-			NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
-			qGAE.conditionType = DataSourceGAEQueryByMultiConditons;
-			qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
-		}
-		[qGAE startQuery];
-		[qGAE release];
+	// Initial
+	queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
+	// Start Query
+	QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
+	qGAE.resultTarget = self;
+	qGAE.indicatorTargetView = self.view;
+	qGAE.resultRange = queryRange;
+	if (!typeID) {
+		// Query without type
+		qGAE.conditionType = DataSourceGAEQueryByCoordinate;
+		qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
+	} else {
+		// Query with type
+		NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
+		NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
+		qGAE.conditionType = DataSourceGAEQueryByMultiConditons;
+		qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
 	}
+	[qGAE startQuery];
 }
 
 #pragma mark -
 #pragma mark UIActionSheetDelegate
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	NSLog(@"%d", buttonIndex);
 	if (buttonIndex==1) {
 		// Select Type
 		typesViewController *typeSelector = [[typesViewController alloc] init];
@@ -236,8 +185,9 @@
 	[self dismissModalViewControllerAnimated:YES];
 	
 	// Start Query
-	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+	QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
 	qGAE.resultTarget = self;
+	qGAE.indicatorTargetView = self.view;
 	qGAE.resultRange = queryRange;
 	if (!typeID) {
 		// Query without type
@@ -251,7 +201,6 @@
 		qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
 	}
 	[qGAE startQuery];
-	[qGAE release];
 }
 
 - (void)leaveSelectorWithoutTitleAndQid {

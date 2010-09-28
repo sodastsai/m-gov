@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
+#import "ASIHTTPRequest.h"
+#import "LoadingOverlayView.h"
 
 typedef enum {
 	DataSourceGAEQueryByID,
@@ -24,14 +26,16 @@ typedef enum {
 	DataSourceGAEReturnTypeUnkonwn,
 } DataSourceGAEReturnTypes;
 
+
 @protocol QueryGAEReciever
 
+@required
 - (void)recieveQueryResultType:(DataSourceGAEReturnTypes)type withResult:(id)result;
 
 @end
 
 
-@interface QueryGoogleAppEngine : NSObject {
+@interface QueryGoogleAppEngine : NSObject <ASIHTTPRequestDelegate> {
 	// User Arguments
 	DataSourceGAEQueryTypes conditionType;
 	DataSourceGAEReturnTypes returnType;
@@ -45,6 +49,9 @@ typedef enum {
 	NSURL *queryURL;
 	NSString *queryType;
 	id queryResult;
+	
+	LoadingOverlayView *indicatorView;
+	UIView *indicatorTargetView;
 }
 
 @property (nonatomic) DataSourceGAEQueryTypes conditionType;
@@ -53,6 +60,7 @@ typedef enum {
 @property (retain,nonatomic) NSDictionary *queryMultiConditions;
 @property (nonatomic) NSRange resultRange;
 @property (retain,nonatomic) id resultTarget;
+@property (nonatomic, retain) UIView *indicatorTargetView;
 
 + (NSString *)generateMapQueryConditionFromRegion:(MKCoordinateRegion)mapRegion;
 - (NSString *)convertConditionTypeToString;
@@ -61,5 +69,6 @@ typedef enum {
 - (NSURL *)generateMultiConditionsURL;
 
 - (BOOL)startQuery;
++ (id)requestQuery;
 
 @end

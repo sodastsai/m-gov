@@ -11,7 +11,7 @@
 
 @implementation CaseViewerViewController
 
-@synthesize loading, caseData;
+@synthesize caseData;
 
 #pragma mark -
 #pragma mark CaseViewerViewController Method
@@ -30,6 +30,7 @@
 	if (type == DataSourceGAEReturnByNSDictionary) {
 		self.caseData = result;
 	}
+	[self.tableView reloadData];
 }
 
 #pragma mark -
@@ -39,12 +40,12 @@
     [super viewDidLoad];
 	self.title = @"案件資料";
 	
-	QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
+	QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
 	qGAE.conditionType = DataSourceGAEQueryByID;
 	qGAE.queryCondition = caseID;
+	qGAE.indicatorTargetView = self.navigationController.view;
 	qGAE.resultTarget = self;
 	[qGAE startQuery];
-	[qGAE release];
 	
 	CLLocationCoordinate2D coordinate;
 	coordinate.longitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
@@ -56,8 +57,6 @@
 	photoView.layer.cornerRadius = 10.0;
 	photoView.layer.masksToBounds = YES;
 	[self.tableView reloadData];
-	
-	//loading = [LoadingView loadingViewInView:self.navigationController.view];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -67,10 +66,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
-	
-	
-	
-	//[loading removeView];
 }
 
 #pragma mark -

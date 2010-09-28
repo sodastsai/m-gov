@@ -33,7 +33,6 @@
 // Override the super class
 - (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title {
 	UIBarButtonItem *addCaseButton = [[[UIBarButtonItem alloc] initWithTitle:@"新增案件" style:UIBarButtonItemStyleBordered target:self action:@selector(addCase)] autorelease];
-	loading = [LoadingView loadingViewInView:self.navigationController.view];
 	return [self initWithMode:mode andTitle:title withRightBarButtonItem:addCaseButton];
 }
 
@@ -47,7 +46,6 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	//[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
-	[loading removeView];
 	// Fetch User Information
 	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
 	dictUserInformation = [[NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments] retain];

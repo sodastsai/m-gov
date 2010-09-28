@@ -10,12 +10,15 @@
 
 @implementation QueryGoogleAppEngine
 
-@synthesize conditionType, returnType, queryCondition, queryMultiConditions, resultRange, resultTarget;
+@synthesize conditionType, queryCondition, queryMultiConditions, resultRange, resultTarget, returnType, indicatorTargetView;
 
 #pragma mark -
 #pragma mark Action
 
 - (BOOL)startQuery {
+	indicatorView = [[LoadingOverlayView alloc] initAtViewCenter:indicatorTargetView];
+	[indicatorTargetView addSubview:indicatorView];
+	[indicatorView startedLoad];
 	// Set condition
 	if (conditionType!=DataSourceGAEQueryByMultiConditons) {
 		// Single conditon
@@ -26,24 +29,37 @@
 	}
 	NSLog(@"%@", queryURL);
 	
-	// GO
+	// GO with ASIHttpRequest
 	// TODO: ask for ggm: Fail return
-	NSString *str = [NSString stringWithContentsOfURL:queryURL encoding:NSUTF8StringEncoding error:nil];
-	
-	if (str!=nil) {
-		queryResult = [str JSONValue];
-		if ([queryResult isKindOfClass:[NSDictionary class]]) {
-			returnType = DataSourceGAEReturnByNSDictionary;
-		} else if ([queryResult isKindOfClass:[NSArray class]]) {
-			returnType = DataSourceGAEReturnByNSArray;
-		} else {
-			returnType = DataSourceGAEReturnTypeUnkonwn;
-		}
-	} else {
-		queryResult = nil;
-	}
-	[resultTarget recieveQueryResultType:returnType withResult:queryResult];
+	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:queryURL];
+	[request setDelegate:self];
+	[request setTimeOutSeconds:60];
+	[request startAsynchronous];
 	return YES;
+}
+
+#pragma mark -
+#pragma mark ASIHTTPRequestDelegate
+
+- (void)requestFinished:(ASIHTTPRequest *)request {
+	queryResult = [[request responseString] JSONValue];
+	// Set type
+	if ([queryResult isKindOfClass:[NSDictionary class]]) returnType = DataSourceGAEReturnByNSDictionary;
+	else if ([queryResult isKindOfClass:[NSArray class]]) returnType = DataSourceGAEReturnByNSArray;
+	else returnType = DataSourceGAEReturnTypeUnkonwn;
+	// return to Data source
+	[resultTarget recieveQueryResultType:returnType withResult:queryResult];
+	[indicatorView finishedLoad];
+	[indicatorView removeFromSuperview];
+	[self autorelease];
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request {
+	queryResult = nil;
+	returnType = DataSourceGAEReturnTypeUnkonwn;
+	[indicatorView finishedLoad];
+	[indicatorView removeFromSuperview];
+	[self autorelease];
 }
 
 #pragma mark -
@@ -138,6 +154,10 @@
 #pragma mark -
 #pragma mark Provider Lifecycle
 
++ (id)requestQuery {
+	return [[self alloc] init];
+}
+
 - (id)init {
 	if (self = [super init]) {
 		queryBaseURL = @"http://ntu-ecoliving.appspot.com/ecoliving/";
@@ -152,6 +172,7 @@
 }
 
 - (void)dealloc {
+	[indicatorView release];
     [super dealloc];
 }
 

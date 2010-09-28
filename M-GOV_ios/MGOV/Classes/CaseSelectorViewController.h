@@ -44,7 +44,7 @@ typedef enum {
 	UITableViewController *listViewController;
 	UIViewController *mapViewController;
 	UIBarButtonItem *rightButtonItem;
-	
+
 	MKMapView *mapView;
 	NSString *caseID;
 	

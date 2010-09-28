@@ -13,14 +13,13 @@
 #import "CaseSelectorCell.h"
 #import "MGOVGeocoder.h"
 #import "typesViewController.h"
-#import "LoadingView.h"
+#import "ASIHTTPRequest.h"
 
 #define kDataSectorSize 10
 
 @interface QueryViewController : CaseSelectorViewController <CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever, UIActionSheetDelegate, TypeSelectorDelegateProtocol> {
 	NSArray *queryCaseSource;
 	int queryTotalLength;
-	LoadingView *loading;
 	
 	NSInteger typeID;
 	NSRange queryRange;
@@ -36,8 +35,5 @@
 - (void)setQueryCondition;
 - (void)nextCase;
 - (void)lastCase;
-- (void)setLoadingViewForNextCase;
-- (void)setLoadingViewForLastCase;
-- (void)test;
 
 @end

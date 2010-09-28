@@ -13,12 +13,10 @@
 #import "CaseSelectorCell.h"
 #import "CaseViewerViewController.h"
 #import "AppMKAnnotation.h"
-#import "LoadingView.h"
 
 
 @interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever> {
 	NSArray *myCaseSource;
-	LoadingView *loading;
 	NSDictionary *dictUserInformation;
 }
 

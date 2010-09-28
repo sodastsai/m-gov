@@ -10,8 +10,6 @@
 #import <MapKit/MapKit.h>
 #import "JSON.h"
 #import "AppMKAnnotation.h"
-#import "LoadingView.h"
-
 
 @protocol LocationSelectorViewControllerDelegate
 
@@ -29,7 +27,6 @@
 	UIToolbar *bottomBar;
 	UIImage *caseImage;
 	NSString *annotationAddress;
-	LoadingView *loading;
 }
 
 @property (nonatomic, retain) id<LocationSelectorViewControllerDelegate> delegate;
@@ -37,7 +34,6 @@
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 @property (nonatomic) CLLocationCoordinate2D selectedCoord;
 @property (nonatomic, retain) NSString *annotationAddress;
-@property (nonatomic, retain) LoadingView *loading;
 @property (nonatomic, retain) UIImage *caseImage;
 
 - (id) initWithCoordinate:(CLLocationCoordinate2D)coordinate;
