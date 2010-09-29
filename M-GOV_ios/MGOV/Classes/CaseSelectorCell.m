@@ -10,7 +10,7 @@
 
 @implementation CaseSelectorCell
 
-@synthesize caseID, caseType, caseDate, caseAddress;
+@synthesize caseID, caseType, caseDate, caseAddress, caseStatus;
 
 + (CGFloat)cellHeight {
 	return kCaseSelectorCellHeight;
@@ -49,7 +49,7 @@
 		caseAddress.numberOfLines = 1;
 		caseAddress.adjustsFontSizeToFitWidth = NO;
 		
-		caseStatus = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ok.png"]];
+		caseStatus = [[UIImageView alloc] init];
 		caseStatus.frame = CGRectMake(10, 28, 20, 20);
 		
 		[self.contentView addSubview:caseID];

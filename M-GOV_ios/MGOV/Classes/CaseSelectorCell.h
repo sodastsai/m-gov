@@ -21,6 +21,7 @@
 @property (nonatomic, retain) UILabel *caseType;
 @property (nonatomic, retain) UILabel *caseDate;
 @property (nonatomic, retain) UILabel *caseAddress;
+@property (nonatomic, retain) UIImageView *caseStatus;
 
 + (CGFloat)cellHeight;
 

@@ -38,14 +38,10 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	[super viewDidAppear:animated];
-	//[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
-	//[NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
-	//[loading removeView];
 }
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	//[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(refresh) userInfo:nil repeats:NO];
 	// Fetch User Information
 	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
 	dictUserInformation = [[NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments] retain];

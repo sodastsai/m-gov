@@ -530,7 +530,6 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MGOV" */;
 			compatibilityVersion = "Xcode 3.1";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -633,7 +632,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Dian-je Tsai (5A63MXZSGV)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -641,8 +640,8 @@
 				GCC_PREFIX_HEADER = MGOV_Prefix.pch;
 				INFOPLIST_FILE = "MGOV-Info.plist";
 				PRODUCT_NAME = MGOV;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "51DFE87C-0ACB-41A8-B242-F6CC58753CDB";
-				SDKROOT = iphoneos4.1;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
 		};

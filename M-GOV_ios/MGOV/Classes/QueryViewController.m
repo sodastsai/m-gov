@@ -53,8 +53,13 @@
 	[queryConditionBar addSubview:numberDisplayLabel];
 	
 	[self.view addSubview:queryConditionBar];
-		
-	typeID = 0;	
+	
+	typeID = 0;
+	queryTotalLength = -1;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	queryTotalLength = 0;
 }
 
 #pragma mark -
@@ -71,22 +76,15 @@
 		// Move Sector
 		queryRange.location += kDataSectorSize;
 		// Start Query
-		QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
-		qGAE.resultTarget = self;
-		qGAE.indicatorTargetView = self.view;
-		qGAE.resultRange = queryRange;
 		if (!typeID) {
 			// Query without type
-			qGAE.conditionType = DataSourceGAEQueryByCoordinate;
-			qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
+			[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region]];
 		} else {
 			// Query with type
 			NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
 			NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
-			qGAE.conditionType = DataSourceGAEQueryByMultiConditons;
-			qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+			[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray]];
 		}
-		[qGAE startQuery];
 	}
 }
 
@@ -95,24 +93,35 @@
 		// Move Sector
 		queryRange.location -= kDataSectorSize;
 		// Start Query
-		QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
-		qGAE.resultTarget = self;
-		qGAE.indicatorTargetView = self.view;
-		qGAE.resultRange = queryRange;
 		if (!typeID) {
 			// Query without type
-			qGAE.conditionType = DataSourceGAEQueryByCoordinate;
-			qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
+			[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region]];
 		} else {
 			// Query with type
 			NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
 			NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
-			qGAE.conditionType = DataSourceGAEQueryByMultiConditons;
-			qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+			[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray]];
 		}
-		[qGAE startQuery];
 	}
 }
+
+- (void)queryGAEwithConditonType:(DataSourceGAEQueryTypes)conditionType andCondition:(id)condition {
+	QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
+	qGAE.resultTarget = self;
+	qGAE.indicatorTargetView = self.view;
+	qGAE.resultRange = queryRange;
+	if (conditionType == DataSourceGAEQueryByMultiConditons) {
+		qGAE.conditionType = conditionType;
+		qGAE.queryMultiConditions = condition;
+	} else {
+		qGAE.conditionType = conditionType;
+		qGAE.queryCondition = condition;
+	}
+	self.topViewController.navigationItem.leftBarButtonItem.enabled =  NO;
+	self.topViewController.navigationItem.rightBarButtonItem.enabled = NO;
+	[qGAE startQuery];
+}
+
 
 #pragma mark -
 #pragma mark QueryGAEReciever
@@ -127,31 +136,34 @@
 	[self refreshViews];
 	if (![queryCaseSource count]) numberDisplayLabel.text = [NSString stringWithFormat:@"%d-%d 筆，共 %d 筆", 0, 0, 0];
 	else numberDisplayLabel.text = [NSString stringWithFormat:@"%d-%d 筆，共 %d 筆", queryRange.location+1, queryRange.location+[queryCaseSource count], queryTotalLength];
+	self.topViewController.navigationItem.leftBarButtonItem.enabled = YES;
+	self.topViewController.navigationItem.rightBarButtonItem.enabled = YES;
 }
+
 
 #pragma mark -
 #pragma mark MKMapViewDelegate
 
+- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+	self.topViewController.navigationItem.leftBarButtonItem.enabled =  NO;
+	self.topViewController.navigationItem.rightBarButtonItem.enabled = NO;
+}
+
 - (void)mapView:(MKMapView *)MapView regionDidChangeAnimated:(BOOL)animated {
-	// Initial
-	queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
-	// Start Query
-	QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
-	qGAE.resultTarget = self;
-	qGAE.indicatorTargetView = self.view;
-	qGAE.resultRange = queryRange;
-	if (!typeID) {
-		// Query without type
-		qGAE.conditionType = DataSourceGAEQueryByCoordinate;
-		qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
-	} else {
-		// Query with type
-		NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
-		NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
-		qGAE.conditionType = DataSourceGAEQueryByMultiConditons;
-		qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+	if (queryTotalLength != -1) {
+		// Initial
+		queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
+		// Start Query
+		if (!typeID) {
+			// Query without type
+			[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region]];
+		} else {
+			// Query with type
+			NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
+			NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
+			[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray]];
+		}
 	}
-	[qGAE startQuery];
 }
 
 #pragma mark -
@@ -170,6 +182,7 @@
 		// Reset
 		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
+		typeID = 0;
 	} else if (buttonIndex==2) {
 		// Do nothing but cancel
 	}
@@ -185,22 +198,15 @@
 	[self dismissModalViewControllerAnimated:YES];
 	
 	// Start Query
-	QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
-	qGAE.resultTarget = self;
-	qGAE.indicatorTargetView = self.view;
-	qGAE.resultRange = queryRange;
 	if (!typeID) {
 		// Query without type
-		qGAE.conditionType = DataSourceGAEQueryByCoordinate;
-		qGAE.queryCondition = [QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region];
+		[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region]];
 	} else {
 		// Query with type
 		NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
 		NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
-		qGAE.conditionType = DataSourceGAEQueryByMultiConditons;
-		qGAE.queryMultiConditions = [NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray];
+		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray]];
 	}
-	[qGAE startQuery];
 }
 
 - (void)leaveSelectorWithoutTitleAndQid {
@@ -264,7 +270,8 @@
 	static NSString *CellIdentifier = @"Cell";
 	
 	if (indexPath.section == 0) {
-		UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		CaseSelectorCell *cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		cell.accessoryType = UITableViewCellAccessoryNone;
 		return cell;
 	}
 	

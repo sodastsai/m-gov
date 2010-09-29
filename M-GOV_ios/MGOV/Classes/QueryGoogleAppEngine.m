@@ -100,6 +100,11 @@
 	NSString *restURL = @"query/";
 	BOOL isFirstCondition = YES;
 	// Attach Condition Name
+	if (queryCoord!=nil) {
+		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
+		restURL = [restURL stringByAppendingString:@"coordinates"];
+		isFirstCondition = NO;
+	}
 	if (queryEmail!=nil) {
 		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
 		restURL = [restURL stringByAppendingString:@"email"];
@@ -110,11 +115,6 @@
 		restURL = [restURL stringByAppendingString:@"typeid"];
 		isFirstCondition = NO;
 	}
-	if (queryCoord!=nil) {
-		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
-		restURL = [restURL stringByAppendingString:@"coordinates"];
-		isFirstCondition = NO;
-	}
 	if (queryStatus!=nil) {
 		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
 		restURL = [restURL stringByAppendingString:@"status"];
@@ -123,6 +123,11 @@
 	// Attach Condition content
 	restURL = [restURL stringByAppendingString:@"/"];
 	isFirstCondition = YES;
+	if (queryCoord!=nil) {
+		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
+		restURL = [restURL stringByAppendingString:queryCoord];
+		isFirstCondition = NO;
+	}
 	if (queryEmail!=nil) {
 		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
 		restURL = [restURL stringByAppendingString:queryEmail];
@@ -133,16 +138,13 @@
 		restURL = [restURL stringByAppendingString:queryTypes];
 		isFirstCondition = NO;
 	}
-	if (queryCoord!=nil) {
-		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
-		restURL = [restURL stringByAppendingString:queryCoord];
-		isFirstCondition = NO;
-	}
 	if (queryStatus!=nil) {
 		if (!isFirstCondition) restURL = [restURL stringByAppendingString:@"&"];
 		restURL = [restURL stringByAppendingString:queryStatus];
 		isFirstCondition = NO;
 	}
+	// Set Range
+	if (resultRange.length!=0) restURL = [NSString stringWithFormat:@"%@/%@/", restURL, [self convertNSRangeToString]];
 
 	return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", queryBaseURL, restURL]];
 }

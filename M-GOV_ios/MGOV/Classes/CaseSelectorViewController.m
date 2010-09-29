@@ -131,7 +131,7 @@
 	
 	if (self = [super initWithRootViewController:emptyRootViewController]) {
 		self.title = title;
-		rightButtonItem = rightButton;
+		self.rightButtonItem = rightButton;
 		menuMode = mode;
 		
 		if (menuMode == CaseSelectorMapMode) {

@@ -35,5 +35,6 @@
 - (void)setQueryCondition;
 - (void)nextCase;
 - (void)lastCase;
+- (void)queryGAEwithConditonType:(DataSourceGAEQueryTypes)conditionType andCondition:(id)condition;
 
 @end

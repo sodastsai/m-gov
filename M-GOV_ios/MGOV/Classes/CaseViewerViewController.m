@@ -30,6 +30,15 @@
 	if (type == DataSourceGAEReturnByNSDictionary) {
 		self.caseData = result;
 	}
+	CLLocationCoordinate2D coordinate;
+	coordinate.longitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
+	coordinate.latitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
+	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:200 andCoordinate:coordinate actionTarget:nil setAction:nil];
+	NSString *str = [[caseData objectForKey:@"image"] objectAtIndex:0];
+	str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
+	photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
+	photoView.layer.cornerRadius = 10.0;
+	photoView.layer.masksToBounds = YES;
 	[self.tableView reloadData];
 }
 
@@ -46,17 +55,6 @@
 	qGAE.indicatorTargetView = self.navigationController.view;
 	qGAE.resultTarget = self;
 	[qGAE startQuery];
-	
-	CLLocationCoordinate2D coordinate;
-	coordinate.longitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
-	coordinate.latitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
-	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:200 andCoordinate:coordinate actionTarget:nil setAction:nil];
-	NSString *str = [[caseData objectForKey:@"image"] objectAtIndex:0];
-	str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
-	photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
-	photoView.layer.cornerRadius = 10.0;
-	photoView.layer.masksToBounds = YES;
-	[self.tableView reloadData];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
