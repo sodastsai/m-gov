@@ -9,11 +9,22 @@ public class GAEQuery {
 
 	final static String prefixURL="http://ntu-ecoliving.appspot.com/ecoliving/query/";
 	
+	String method,args;
+	
 	public GAEQuery(){
+	}
+
+	public void addQuery(String method,String args[]){
+		this.method += "&"+method;
+
+		for(String ob:args){
+			this.args += "&"+ob;
+		}
+		
 	}
 	
 	//TODO
-	public GAECase[] doQuery(String method,String args,int st,int ed){
+	public GAECase[] doQuery(int st,int ed){
 		String queryStr = prefixURL + method + "/" + args +"/"+ st +"/"+ ed;
 		String jsonStr = ReadUrl.process(queryStr, "utf-8");
 		

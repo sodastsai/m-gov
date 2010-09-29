@@ -14,7 +14,7 @@ public class ReadUrlByPOST {
 	public static void main(String args[]) {
 
 		String url = "http://www.czone.tcg.gov.tw/tp88-1/sys/begin.cfm";
-		HashMap<String, Object> forms = new HashMap<String, Object>();
+		HashMap<String, String> forms = new HashMap<String, String>();
 
 		forms.put("LOGIN", "guest");
 		forms.put("PASSWORD", "guest");
@@ -29,7 +29,7 @@ public class ReadUrlByPOST {
 
 	}
 
-	public static String doSubmit(String url, HashMap<String, Object> data)
+	public static String doSubmit(String url, HashMap<String, String> data)
 			throws Exception {
 		URL siteUrl = new URL(url);
 		HttpURLConnection conn = (HttpURLConnection) siteUrl.openConnection();

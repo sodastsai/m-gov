@@ -11,10 +11,11 @@ public class GAESubmit {
 		this.czone = czone;
 	}
 
+	
 	public boolean doSubmit(){
 		try {
 			String res;
-			res = ReadUrlByPOST.doSubmit(defualtURL, czone.getMap());
+			res = ReadUrlByPOST.doSubmit(defualtURL, czone);
 			System.out.println(res);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
