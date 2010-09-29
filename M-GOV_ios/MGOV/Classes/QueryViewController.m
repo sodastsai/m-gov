@@ -128,6 +128,7 @@
 
 - (void)recieveQueryResultType:(DataSourceGAEReturnTypes)type withResult:(id)result {
 	// Check type
+	if ([result count]==0) self.queryCaseSource = nil;
 	if (type == DataSourceGAEReturnByNSDictionary) {
 		self.queryCaseSource = [result objectForKey:@"result"];
 		self.queryTotalLength = [[result objectForKey:@"length"] intValue];
@@ -181,8 +182,9 @@
 	} else if (buttonIndex==0) {
 		// Reset
 		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
-		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
+		queryTypeLabel.text = @"所有案件種類";
 		typeID = 0;
+		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
 	} else if (buttonIndex==2) {
 		// Do nothing but cancel
 	}
