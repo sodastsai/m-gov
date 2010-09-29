@@ -21,8 +21,9 @@
 }
 
 @property (nonatomic, retain) NSArray *myCaseSource;
+@property (nonatomic, retain) NSDictionary *dictUserInformation;
 
 - (void)addCase;
-- (void)refresh;
+- (void)queryGAEwithConditonType:(DataSourceGAEQueryTypes)conditionType andCondition:(id)condition;
 
 @end

@@ -90,6 +90,7 @@
 		[dictSubmit setValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
 		//NSString *str = [dict JSONFragment];
 		*/
+		[delegate refreshData];
 		[self.navigationController popViewControllerAnimated:YES];
 		return YES;
 	}

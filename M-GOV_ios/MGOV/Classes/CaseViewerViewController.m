@@ -102,48 +102,55 @@
     static NSString *CellIdentifier = @"Cell";
 	if (!caseData) {
 		UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		return cell;
 	}
 
 	if (indexPath.section == 3) return locationCell;
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-		if (indexPath.section == 0) {
+
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (indexPath.section == 0) {
+		if (cell == nil) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			if (indexPath.row == 0) {
-				cell.textLabel.text = @"案件編號";
-				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"key"]];				
-
-			} else if (indexPath.row ==1) {
-				cell.textLabel.text = @"報案日期";
-				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"date"]];
-			} else {
-				cell.textLabel.text = @"處理狀態";
-				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"status"]];
-			}
-
-		} else if (indexPath.section == 1) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			if (indexPath.row == 0) {
-				// Fetch type from plist
-				NSString *caseType = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[caseData objectForKey:@"typeid"]];
-				
-				cell.textLabel.text = @"案件種類";
-				cell.detailTextLabel.text = caseType;
-			} else {
-				cell.textLabel.text = @"案件描述";
-				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"detail"]];
-			}
-
-		} else if (indexPath.section == 2) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-			cell.selectionStyle = UITableViewCellSelectionStyleNone;
-			cell.backgroundView = photoView;
 		}
+		if (indexPath.row == 0) {
+			cell.textLabel.text = @"案件編號";
+			cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"key"]];				
+			
+		} else if (indexPath.row ==1) {
+			cell.textLabel.text = @"報案日期";
+			cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"date"]];
+		} else {
+			cell.textLabel.text = @"處理狀態";
+			cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"status"]];
+		}
+		
+	} else if (indexPath.section == 1) {
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		}
+		if (indexPath.row == 0) {
+			// Fetch type from plist
+			NSString *caseType = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[caseData objectForKey:@"typeid"]];
+			
+			cell.textLabel.text = @"案件種類";
+			cell.detailTextLabel.text = caseType;
+		} else {
+			cell.textLabel.text = @"案件描述";
+			cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"detail"]];
+		}
+		
+	} else if (indexPath.section == 2) {
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		}		
+		cell.backgroundView = photoView;
 	}
-    return cell;
+	
+	return cell;
 }
 
 #pragma mark -

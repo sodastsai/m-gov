@@ -83,7 +83,7 @@
 - (NSString *)convertConditionTypeToString {
 	if (conditionType == DataSourceGAEQueryByID) return @"get_id";
 	else if (conditionType == DataSourceGAEQueryByType) return @"query/typeid";
-	else if (conditionType == DataSourceGAEQueryByEmail) return @"query/email";
+	else if (conditionType == DataSourceGAEQueryByEmail) return @"case_queryemail";
 	else if (conditionType == DataSourceGAEQueryByCoordinate) return @"query/coordinates";
 	else if (conditionType == DataSourceGAEQueryByStatus) return @"query/status";
 	
@@ -178,6 +178,8 @@
 - (id)init {
 	if (self = [super init]) {
 		queryBaseURL = @"http://ntu-ecoliving.appspot.com/ecoliving/";
+		// Default is getting all data
+		resultRange = NSRangeFromString(@"0, 0");
 	}
 	return self;
 }

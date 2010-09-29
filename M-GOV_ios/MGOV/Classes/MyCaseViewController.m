@@ -10,25 +10,10 @@
 
 @implementation MyCaseViewController
 
-@synthesize myCaseSource;
+@synthesize myCaseSource, dictUserInformation;
 
 #pragma mark -
 #pragma mark Lifecycle
-
-- (void) refresh {
-	//MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
-	//double coord_mul = (shared.locationManager.location.coordinate.latitude)*(shared.locationManager.location.coordinate.longitude);
-	//NSLog(@"%f,%f", shared.locationManager.location.coordinate.latitude, shared.locationManager.location.coordinate.longitude);
-	
-	//QueryGoogleAppEngine *qGAE = [[QueryGoogleAppEngine alloc] init];
-	//qGAE.conditionType = DataSourceGAEQueryByCoordinate;
-	//qGAE.resultTarget = self;
-	//qGAE.queryCondition = [NSString stringWithFormat:@"%f&%f&0,01", shared.locationManager.location.coordinate.longitude, shared.locationManager.location.coordinate.latitude];
-	//qGAE.resultRange = NSRangeFromString(@"0,1");
-	//[qGAE startQuery];
-	//[qGAE release];
-	[listViewController.tableView reloadData];
-}
 
 // Override the super class
 - (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title {
@@ -40,7 +25,8 @@
 	[super viewDidLoad];
 	// Fetch User Information
 	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-	dictUserInformation = [[NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments] retain];
+	self.dictUserInformation = [[NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments] retain];
+	if ([[dictUserInformation valueForKey:@"User Email"] length]) [self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[dictUserInformation objectForKey:@"User Email"]];
 }
 
 #pragma mark -
@@ -55,16 +41,33 @@
 	[caseAdder release];
 }
 
+- (void)queryGAEwithConditonType:(DataSourceGAEQueryTypes)conditionType andCondition:(id)condition {
+	QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
+	qGAE.resultTarget = self;
+	qGAE.indicatorTargetView = self.view;
+	if (conditionType == DataSourceGAEQueryByMultiConditons) {
+		qGAE.conditionType = conditionType;
+		qGAE.queryMultiConditions = condition;
+	} else {
+		qGAE.conditionType = conditionType;
+		qGAE.queryCondition = condition;
+	}
+	self.topViewController.navigationItem.leftBarButtonItem.enabled =  NO;
+	self.topViewController.navigationItem.rightBarButtonItem.enabled = NO;
+	[qGAE startQuery];
+}
+
 #pragma mark -
 #pragma mark QueryGAEReciever
 
 - (void)recieveQueryResultType:(DataSourceGAEReturnTypes)type withResult:(id)result {
 	// Accept Array only
-	if (type == DataSourceGAEReturnByNSArray) {
-		self.myCaseSource = result;
+	if (type == DataSourceGAEReturnByNSDictionary) {
+		self.myCaseSource = [result objectForKey:@"result"];
 	} else {
 		myCaseSource = nil;
 	}
+	[listViewController.tableView reloadData];
 }
 
 #pragma mark -
@@ -76,6 +79,18 @@
 		[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
 	}
 } 
+
+#pragma mark -
+#pragma mark CaseAddViewControllerDelegate
+
+- (void)refreshData {
+	// If the original email is empty, after user submit case, reload the plist
+	if (![[dictUserInformation valueForKey:@"User Email"] length]) {
+		NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
+		self.dictUserInformation = [NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
+	}
+	[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[dictUserInformation objectForKey:@"User Email"]];
+}
 
 #pragma mark -
 #pragma mark  CaseSelectorDataSource
@@ -116,9 +131,9 @@
 	static NSString *CellIdentifier = @"Cell";
 	
 	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) {
-		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell==nil) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+			cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		}
 		UIImageView *background = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NoMyCase.png"]];
 		cell.backgroundView = background;
@@ -132,9 +147,9 @@
 	if (cell == nil) {
 		cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	}
-	
+	cell.backgroundView = nil;
 	// Case ID
-	cell.caseID.text = [[myCaseSource objectAtIndex:indexPath.row] objectForKey:@"key"];
+	cell.caseID.text = [NSString stringWithFormat:@"%d" , [[myCaseSource objectAtIndex:indexPath.row] objectForKey:@"key"]];
 	// Case Type
 	NSString *caseTypeText = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[[myCaseSource objectAtIndex:indexPath.row] valueForKey:@"typeid"]];
 	cell.caseType.text = caseTypeText;
@@ -180,7 +195,7 @@
 }
 
 - (void)dealloc {
-	[dictUserInformation release];
+	//[dictUserInformation release];
 	[super dealloc];
 }
 

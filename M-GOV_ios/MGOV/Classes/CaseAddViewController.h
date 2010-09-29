@@ -21,7 +21,7 @@
 
 @protocol CaseAddViewControllerDelegate
 
-//- (void)refreshData;
+- (void)refreshData;
 
 @end
 
