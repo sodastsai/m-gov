@@ -321,7 +321,10 @@
 	CLLocationCoordinate2D caseCoord;
 	caseCoord.longitude  = [[[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 	caseCoord.latitude = [[[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
+	// TODO: query with cache
 	//cell.caseAddress.text = [[MGOVGeocoder returnFullAddress:caseCoord] substringFromIndex:5];
+	// Case Status
+	cell.caseStatus.image = [UIImage imageNamed:@"ok.png"];
 	
 	return cell;
 }

@@ -43,13 +43,7 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
 	NSString *resultString = [request responseString];
-	if ([resultString isEqualToString:@"<html><head>
-		 <meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">
-		 <title>404 NOT_FOUND</title>
-		 </head>
-		 <body text=#000000 bgcolor=#ffffff>
-		 <h1>Error: NOT_FOUND</h1>
-		 </body></html>"]) {
+	if ([resultString isEqualToString:@"<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>404 NOT_FOUND</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: NOT_FOUND</h1>\n</body></html>"]) {
 		returnType = DataSourceGAEReturnNotFound;
 		queryResult = nil;
 	} else {

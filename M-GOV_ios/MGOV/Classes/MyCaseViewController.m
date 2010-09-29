@@ -36,10 +36,6 @@
 	return [self initWithMode:mode andTitle:title withRightBarButtonItem:addCaseButton];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-}
-
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Fetch User Information
