@@ -42,11 +42,32 @@
 #pragma mark ASIHTTPRequestDelegate
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
-	queryResult = [[request responseString] JSONValue];
-	// Set type
-	if ([queryResult isKindOfClass:[NSDictionary class]]) returnType = DataSourceGAEReturnByNSDictionary;
-	else if ([queryResult isKindOfClass:[NSArray class]]) returnType = DataSourceGAEReturnByNSArray;
-	else returnType = DataSourceGAEReturnTypeUnkonwn;
+	NSString *resultString = [request responseString];
+	if ([resultString isEqualToString:@"<html><head>
+		 <meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">
+		 <title>404 NOT_FOUND</title>
+		 </head>
+		 <body text=#000000 bgcolor=#ffffff>
+		 <h1>Error: NOT_FOUND</h1>
+		 </body></html>"]) {
+		returnType = DataSourceGAEReturnNotFound;
+		queryResult = nil;
+	} else {
+		queryResult = [[request responseString] JSONValue];
+		// Set type
+		if ([queryResult isKindOfClass:[NSDictionary class]]) {
+			if ([[queryResult valueForKey:@"error"] isEqualToString:@"null"]) {
+				returnType = DataSourceGARReturnEmpty;
+				queryResult = nil;
+			} else {
+				returnType = DataSourceGAEReturnByNSDictionary;
+			}
+		} else if ([queryResult isKindOfClass:[NSArray class]]) {
+			returnType = DataSourceGAEReturnByNSArray;
+		} else {
+			returnType = DataSourceGAEReturnTypeUnkonwn;
+		}
+	}
 	// return to Data source
 	[resultTarget recieveQueryResultType:returnType withResult:queryResult];
 	[indicatorView finishedLoad];

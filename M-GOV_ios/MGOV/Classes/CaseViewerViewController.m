@@ -107,7 +107,7 @@
 
 	if (indexPath.section == 3) return locationCell;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    //if (cell == nil) {
+    if (cell == nil) {
 		if (indexPath.section == 0) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -142,7 +142,7 @@
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 			cell.backgroundView = photoView;
 		}
-	//}
+	}
     return cell;
 }
 

@@ -24,6 +24,8 @@ typedef enum {
 	DataSourceGAEReturnByNSArray,
 	DataSourceGAEReturnByNSDictionary,
 	DataSourceGAEReturnTypeUnkonwn,
+	DataSourceGAEReturnNotFound,
+	DataSourceGARReturnEmpty,
 } DataSourceGAEReturnTypes;
 
 
