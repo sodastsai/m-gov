@@ -23,8 +23,11 @@
 	
 	NSInteger typeID;
 	NSRange queryRange;
+	
 	UILabel *queryTypeLabel;
 	UILabel *numberDisplayLabel;
+	UIButton *nextButton;
+	UIButton *lastButton;
 	UIView *queryConditionBar;
 }
 

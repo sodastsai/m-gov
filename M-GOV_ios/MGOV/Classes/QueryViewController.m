@@ -29,27 +29,32 @@
 	
 	queryConditionBar = [[[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 44)] autorelease];
 	queryConditionBar.backgroundColor = [UIColor colorWithHue:0.5944 saturation:0.35 brightness:0.7 alpha:0.7];
-	UIButton *nextButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-	nextButton.frame = CGRectMake(274, 6, 29, 31);
-	UIButton *lastButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-	lastButton.frame = CGRectMake(17, 6, 29, 31);
+	
+	nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	nextButton.frame = CGRectMake(274, 7, 30, 30);
+	[nextButton setImage:[UIImage imageNamed:@"next.png"] forState:UIControlStateNormal];
 	[nextButton addTarget:self action:@selector(nextCase) forControlEvents:UIControlEventTouchUpInside];
-	[lastButton addTarget:self action:@selector(lastCase) forControlEvents:UIControlEventTouchUpInside];
 	[queryConditionBar addSubview:nextButton];
+	
+	lastButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	lastButton.frame = CGRectMake(17, 7, 30, 30);
+	[lastButton setImage:[UIImage imageNamed:@"previous.png"] forState:UIControlStateNormal];
+	[lastButton addTarget:self action:@selector(lastCase) forControlEvents:UIControlEventTouchUpInside];
 	[queryConditionBar addSubview:lastButton];
 	
-	queryTypeLabel  = [[[UILabel alloc] initWithFrame:CGRectMake(51, 3, 218, 21)] autorelease];
-	numberDisplayLabel  = [[[UILabel alloc] initWithFrame:CGRectMake(51, 20, 218, 21)] autorelease];
+	queryTypeLabel  = [[[UILabel alloc] initWithFrame:CGRectMake(51, 2, 218, 21)] autorelease];
 	queryTypeLabel.backgroundColor = [UIColor clearColor];
-	numberDisplayLabel.backgroundColor = [UIColor clearColor];
 	queryTypeLabel.textColor = [UIColor whiteColor];
-	numberDisplayLabel.textColor = [UIColor whiteColor];
 	queryTypeLabel.textAlignment = UITextAlignmentCenter;
-	numberDisplayLabel.textAlignment = UITextAlignmentCenter;
-	queryTypeLabel.font = [UIFont systemFontOfSize:14];
-	numberDisplayLabel.font = [UIFont systemFontOfSize:14];
+	queryTypeLabel.font = [UIFont boldSystemFontOfSize:14];
 	queryTypeLabel.text = @"所有案件種類";
 	[queryConditionBar addSubview:queryTypeLabel];
+	
+	numberDisplayLabel  = [[[UILabel alloc] initWithFrame:CGRectMake(51, 20, 218, 21)] autorelease];
+	numberDisplayLabel.backgroundColor = [UIColor clearColor];
+	numberDisplayLabel.textColor = [UIColor whiteColor];
+	numberDisplayLabel.textAlignment = UITextAlignmentCenter;
+	numberDisplayLabel.font = [UIFont systemFontOfSize:14];
 	[queryConditionBar addSubview:numberDisplayLabel];
 	
 	[self.view addSubview:queryConditionBar];
@@ -117,6 +122,8 @@
 		qGAE.conditionType = conditionType;
 		qGAE.queryCondition = condition;
 	}
+	nextButton.enabled = NO;
+	lastButton.enabled = NO;
 	self.topViewController.navigationItem.leftBarButtonItem.enabled =  NO;
 	self.topViewController.navigationItem.rightBarButtonItem.enabled = NO;
 	[qGAE startQuery];
@@ -128,15 +135,31 @@
 
 - (void)recieveQueryResultType:(DataSourceGAEReturnTypes)type withResult:(id)result {
 	// Check type
-	if ([result count]==0) self.queryCaseSource = nil;
+	if ([[result objectForKey:@"length"] intValue]==0)
+		self.queryCaseSource = nil;
 	if (type == DataSourceGAEReturnByNSDictionary) {
 		self.queryCaseSource = [result objectForKey:@"result"];
 		self.queryTotalLength = [[result objectForKey:@"length"] intValue];
 	}
 	// Refresh
 	[self refreshViews];
-	if (![queryCaseSource count]) numberDisplayLabel.text = [NSString stringWithFormat:@"%d-%d 筆，共 %d 筆", 0, 0, 0];
-	else numberDisplayLabel.text = [NSString stringWithFormat:@"%d-%d 筆，共 %d 筆", queryRange.location+1, queryRange.location+[queryCaseSource count], queryTotalLength];
+	if (![queryCaseSource count]) {
+		numberDisplayLabel.text = @"找不到此區域符合條件的案件";
+		numberDisplayLabel.font = [UIFont boldSystemFontOfSize:14];
+		lastButton.enabled = NO;
+		nextButton.enabled = NO;
+	} else {
+		int rangeStart = queryRange.location +1;
+		int rangeEnd = queryRange.location+[queryCaseSource count];
+		// Update Label
+		numberDisplayLabel.text = [NSString stringWithFormat:@"%d-%d 筆，共 %d 筆", rangeStart, rangeEnd, queryTotalLength];
+		numberDisplayLabel.font = [UIFont systemFontOfSize:14];
+		// Lock or Unlock Button
+		if (rangeStart!=1) lastButton.enabled = YES;
+		else lastButton.enabled = NO;
+		if (rangeEnd!=queryTotalLength) nextButton.enabled = YES;
+		else nextButton.enabled = NO;
+	}
 	self.topViewController.navigationItem.leftBarButtonItem.enabled = YES;
 	self.topViewController.navigationItem.rightBarButtonItem.enabled = YES;
 }
@@ -146,6 +169,9 @@
 #pragma mark MKMapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+	// Lock Buttons
+	nextButton.enabled = NO;
+	lastButton.enabled = NO;
 	self.topViewController.navigationItem.leftBarButtonItem.enabled =  NO;
 	self.topViewController.navigationItem.rightBarButtonItem.enabled = NO;
 }
@@ -264,12 +290,11 @@
 }
 
 - (NSString *)titleForHeaderInSectionInList:(NSInteger)section {
-	if (section == 1) return @"XD";
 	return @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *CellIdentifier = @"Cell";
+	static NSString *CellIdentifier = @"QueryCell";
 	
 	if (indexPath.section == 0) {
 		CaseSelectorCell *cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
@@ -325,8 +350,16 @@
 	caseCoord.latitude = [[[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
 	// TODO: query with cache
 	//cell.caseAddress.text = [[MGOVGeocoder returnFullAddress:caseCoord] substringFromIndex:5];
+	cell.caseAddress.text = @"台北市大安區羅斯福路四段一號";
 	// Case Status
-	cell.caseStatus.image = [UIImage imageNamed:@"ok.png"];
+	if ([[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"status"] isEqualToString:@"完工"]||
+		[[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"status"] isEqualToString:@"結案"]||
+		[[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"status"] isEqualToString:@"轉府外單位"])
+		cell.caseStatus.image = [UIImage imageNamed:@"ok.png"];
+	else if ([[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"status"] isEqualToString:@"無法辦理"] ||
+			 [[[queryCaseSource objectAtIndex:indexPath.row] objectForKey:@"status"] isEqualToString:@"退回區公所"])
+		cell.caseStatus.image = [UIImage imageNamed:@"fail.png"];
+	else cell.caseStatus.image = [UIImage imageNamed:@"unknown.png"];
 	
 	return cell;
 }

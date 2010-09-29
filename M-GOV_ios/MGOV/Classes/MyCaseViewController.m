@@ -128,7 +128,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	static NSString *CellIdentifier = @"Cell";
+	static NSString *CellIdentifier = @"MyCaseCell";
 	
 	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) {
 		CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -140,6 +140,7 @@
 		[background release];
 		tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		cell.accessoryType = UITableViewCellAccessoryNone;
 		return cell;
 	}
 	
@@ -190,6 +191,7 @@
 	caseCoord.longitude  = [[[[myCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 	caseCoord.latitude = [[[[myCaseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
 	//cell.caseAddress.text = [[MGOVGeocoder returnFullAddress:caseCoord] substringFromIndex:5];
+	cell.caseAddress.text = @"台北市大安區羅斯福路四段一號";
 	
 	return cell;
 }
