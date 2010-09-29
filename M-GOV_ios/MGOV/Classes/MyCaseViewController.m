@@ -124,7 +124,7 @@
 
 - (NSString *)titleForHeaderInSectionInList:(NSInteger)section {
 	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) return @"";
-	else return @"XD";
+	else return @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
