@@ -8,14 +8,13 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Set;
 
 public class ReadUrlByPOST {
 
 	public static void main(String args[]) {
 
 		String url = "http://www.czone.tcg.gov.tw/tp88-1/sys/begin.cfm";
-		HashMap<String, String> forms = new HashMap();
+		HashMap<String, Object> forms = new HashMap<String, Object>();
 
 		forms.put("LOGIN", "guest");
 		forms.put("PASSWORD", "guest");
@@ -30,7 +29,7 @@ public class ReadUrlByPOST {
 
 	}
 
-	public static String doSubmit(String url, HashMap<String, String> data)
+	public static String doSubmit(String url, HashMap<String, Object> data)
 			throws Exception {
 		URL siteUrl = new URL(url);
 		HttpURLConnection conn = (HttpURLConnection) siteUrl.openConnection();
@@ -40,25 +39,36 @@ public class ReadUrlByPOST {
 		conn.setDoInput(true);
 		conn.setDoOutput(true);
 		conn.setDoInput(true);
-		conn.setInstanceFollowRedirects(true);
-		conn.setFollowRedirects(true);
 		conn.setRequestProperty("User-Agent",
 				"Mozilla/5.0 (compatible; MSIE 6.0; Windows NT)");
 		conn.setRequestProperty("Content-Type",
 				"application/x-www-form-urlencoded");
 
 		DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+
 		
-		Set keys = data.keySet();
-		Iterator keyIter = keys.iterator();
-		String content = "";
-		for (int i = 0; keyIter.hasNext(); i++) {
-			Object key = keyIter.next();
-			if (i != 0) {
-				content += "&";
+		Iterator<String> it = data.keySet().iterator();
+		String content="";		
+		boolean begin=true;
+		
+		while(it.hasNext()){
+			String key = it.next();
+			Object val = data.get(key);
+			
+			if(val.equals(String.class) )
+			{
+				if(begin==false)
+					content +="&";
+			
+				content += key + "=" + URLEncoder.encode( (String) val, "big5");
+				begin = false;
 			}
-			content += key + "=" + URLEncoder.encode(data.get(key), "big5");
+			else if(val.equals(byte[].class) ) //image
+			{
+				
+			}
 		}
+		
 		out.writeBytes(content);
 		out.flush();
 		out.close();
