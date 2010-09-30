@@ -3,6 +3,7 @@ package gae;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -16,9 +17,9 @@ import com.google.appengine.api.datastore.Blob;
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class GAENodeCase {
 
-	@PrimaryKey
-	@Persistent
-	private Long key;
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    private Long key;
 	@Persistent
 	public String sno;
 	@Persistent

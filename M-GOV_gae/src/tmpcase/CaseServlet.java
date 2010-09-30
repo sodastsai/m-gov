@@ -85,8 +85,8 @@ public class CaseServlet extends HttpServlet {
 						// PhotoDao.getInstance().insertPhoto(photo);
 					}
 				}
+//				node.genKey();
 				node.setPhoto(photos);
-				node.genKey();
 				node.setDate(new Date());
 
 				GAEDataBase.store(node);
