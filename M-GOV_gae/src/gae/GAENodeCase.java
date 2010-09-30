@@ -23,7 +23,9 @@ public class GAENodeCase {
 	public String sno;
 	@Persistent
 	public String unit;
-
+	
+	@Persistent
+	public String h_pemail;
 	@Persistent
 	public String h_item1;
 	@Persistent
@@ -51,7 +53,7 @@ public class GAENodeCase {
 	public GAENodeCase(){
 	}
 	
-	public GAENodeCase(String sno, Date date, String unit,
+	public GAENodeCase(String sno, Date date, String unit, String h_pemail,
 					   String h_item1, String h_item2,
 					   String h_admit_name, String h_admiv_name,
 					   String h_summary, String h_memo,
@@ -61,6 +63,7 @@ public class GAENodeCase {
 		this.sno = sno;
 		this.date = date;
 		this.unit = unit;
+		this.h_pemail = h_pemail;
 		
 		this.h_item1 = h_item1;
 		this.h_item2 = h_item2;
@@ -98,8 +101,9 @@ public class GAENodeCase {
 			o.accumulate("sno", sno);
 			o.accumulate("unit", unit);
 
-			o.accumulate("h_item1",h_item1);
-			o.accumulate("h_item2",h_item2);
+			o.accumulate("h_pemail", h_pemail);
+			o.accumulate("h_item1", h_item1);
+			o.accumulate("h_item2", h_item2);
 			
 			o.accumulate("h_admit_name",h_admit_name);
 			o.accumulate("h_admiv_name",h_admiv_name);
@@ -111,7 +115,10 @@ public class GAENodeCase {
 			o.accumulate("h_y1", h_y1);			
 			
 			o.accumulate("date", date);
-			o.accumulate("photo", photo);
+			
+			for(Blob ob:photo){
+				o.accumulate("photo", ob.getBytes().length);
+			}
 			
 			System.out.println(o.toString());
 			return o;

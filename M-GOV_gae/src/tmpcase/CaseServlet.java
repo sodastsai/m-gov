@@ -65,6 +65,7 @@ public class CaseServlet extends HttpServlet {
 						else if ("unit".equals(field))  		node.unit = value;
 						else if ("h_item1".equals(field)) 		node.h_item1 = value;
 						else if ("h_item2".equals(field))		node.h_item2 = value;
+						else if ("h_pemail".equals(field))		node.h_pemail = value;
 						else if ("h_admit_name".equals(field)) 	node.h_admit_name = value;
 						else if ("h_admiv_name".equals(field)) 	node.h_admiv_name = value;
 						else if ("h_summary".equals(field)) 	node.h_summary = value;
