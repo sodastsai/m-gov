@@ -43,8 +43,11 @@
 	}
 	
 	if ([[dictUserInformation valueForKey:@"User Email"] length]) {
-		// Return to MyCase
-		//[delegate refreshData];
+		
+		indicatorView = [[LoadingOverlayView alloc] initAtViewCenter:self.view];
+		[self.view addSubview:indicatorView];
+		indicatorView.loading.text = @"正在送出...";
+		[indicatorView startedLoad];
 		
 		NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
@@ -52,20 +55,13 @@
 		// Convert Byte Data to Photo From Plist
 		NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [dictUserInformation valueForKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
 		
-		
 		// Post the submt data to App Engine
 		ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case?method=upload"]];
-		//ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://www.csie.ntu.edu.tw/~r99944041/POSTer.php"]];
+		request.delegate = self;
 		[request setFile:[dict objectForKey:@"Photo"] withFileName:filename andContentType:@"image/png" forKey:@"photo"];
-		//[request setPostValue:@"1" forKey:@"sno"];
-		//[request setPostValue:@"1" forKey:@"unit"];
-		//[request setPostValue:@"1" forKey:@"pic_check"];
-		//[request setPostValue:[NSString stringWithFormat:@"%d" ,qid] forKey:@"h_item1"];
-		//[request setPostValue:[NSString stringWithFormat:@"%d" ,qid] forKey:@"h_item2"];
 		[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:0] forKey:@"h_admit_name"];
 		[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:1] forKey:@"h_admiv_name"];
 		[request setPostValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
-		//[request setPostValue:[NSString stringWithFormat:@"地點：%@",[MGOVGeocoder returnFullAddress:selectedCoord]] forKey:@"h_memo"];
 		[request setPostValue:[dictUserInformation valueForKey:@"User Email"] forKey:@"email"];
 		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];
 		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"coordy"];
@@ -83,18 +79,6 @@
 		[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 		[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
 		
-		/*
-		NSMutableDictionary *dictSubmit = [[NSMutableDictionary alloc] init];
-		[dictSubmit setValue:[NSString stringWithFormat:@"%d" ,qid] forKey:@"typeid"];
-		[dictSubmit setValue:[NSString stringWithFormat:@"地點：%@",[MGOVGeocoder returnFullAddress:selectedCoord]] forKey:@"h_memo"];
-		[dictSubmit setValue:[MGOVGeocoder returnRegion:selectedCoord] forKey:@"h_admit_name"];
-		[dictSubmit setValue:[dictUserInformation valueForKey:@"User Email"] forKey:@"email"];
-		[dictSubmit setValue:nameFieldCell.nameField.text forKey:@"name"];
-		[dictSubmit setValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
-		//NSString *str = [dict JSONFragment];
-		*/
-		[delegate refreshData];
-		[self.navigationController popViewControllerAnimated:YES];
 		return YES;
 	}
 	
@@ -181,6 +165,23 @@
 	}
 		
 	return cell;
+}
+
+#pragma mark -
+#pragma mark ASIHTTPRequest
+
+- (void)requestFinished:(ASIHTTPRequest *)request {
+	[indicatorView finishedLoad];
+	[indicatorView removeFromSuperview];
+	[indicatorView release];
+	[self.navigationController popViewControllerAnimated:YES];
+	[delegate refreshData];
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request {
+	[indicatorView finishedLoad];
+	[indicatorView removeFromSuperview];
+	[indicatorView release];
 }
 
 #pragma mark -
@@ -485,7 +486,6 @@
 		selectedCoord.longitude = [[dict objectForKey:@"Longitude"] doubleValue];
 		[locationCell updatingCoordinate:selectedCoord];
 	}
-	NSLog(@"Read");
 	nameFieldCell.nameField.text = [dict valueForKey:@"Name"];
 	[descriptionCell setPlaceholder:[dict valueForKey:@"Description"]];
 	

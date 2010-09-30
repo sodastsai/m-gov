@@ -18,9 +18,11 @@
 
 @interface LoadingOverlayView : UIView {
 	UIActivityIndicatorView *indicator;
+	UILabel *loading;
 }
 
 @property (nonatomic, retain) UIActivityIndicatorView *indicator;
+@property (nonatomic, retain) UILabel *loading;
 
 - (id)initAtPoint:(CGPoint)point;
 - (id)initAtViewCenter:(UIView *)targetView;

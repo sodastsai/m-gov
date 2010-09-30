@@ -66,6 +66,7 @@
 	[resultTarget recieveQueryResultType:returnType withResult:queryResult];
 	[indicatorView finishedLoad];
 	[indicatorView removeFromSuperview];
+	[indicatorView release];
 	[self autorelease];
 }
 
@@ -74,6 +75,7 @@
 	returnType = DataSourceGAEReturnTypeUnkonwn;
 	[indicatorView finishedLoad];
 	[indicatorView removeFromSuperview];
+	[indicatorView release];
 	[self autorelease];
 }
 
@@ -191,7 +193,6 @@
 }
 
 - (void)dealloc {
-	[indicatorView release];
     [super dealloc];
 }
 

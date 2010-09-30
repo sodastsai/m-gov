@@ -18,6 +18,7 @@
 #import "LocationSelectorViewController.h"
 #import "JSON.h"
 #import "ASIFormDataRequest.h"
+#import "LoadingOverlayView.h"
 
 #define kPhotoScale 640
 
@@ -27,7 +28,7 @@
 
 @end
 
-@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, PhotoPickerTableCellDelegate, LocationSelectorTableCellDelegate, LocationSelectorViewControllerDelegate>  {
+@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, PhotoPickerTableCellDelegate, LocationSelectorTableCellDelegate, LocationSelectorViewControllerDelegate, ASIHTTPRequestDelegate>  {
 	NSString *selectedTypeTitle;
 	NSInteger qid;
 	UITextField *alertEmailInputField;
@@ -47,6 +48,7 @@
 	UIToolbar *keyboardToolbar;
 	UIView *keyboard;
 	id<CaseAddViewControllerDelegate> delegate;
+	LoadingOverlayView *indicatorView;
 }
 
 @property (retain, nonatomic) id<CaseAddViewControllerDelegate> delegate;

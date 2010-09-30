@@ -68,6 +68,8 @@
 		myCaseSource = nil;
 	}
 	[self refreshViews];
+	self.topViewController.navigationItem.leftBarButtonItem.enabled = YES;
+	self.topViewController.navigationItem.rightBarButtonItem.enabled = YES;
 }
 
 #pragma mark -

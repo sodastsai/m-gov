@@ -10,7 +10,7 @@
 
 @implementation LoadingOverlayView
 
-@synthesize indicator;
+@synthesize indicator, loading;
 
 #pragma mark -
 #pragma mark Lifecycle
@@ -32,7 +32,7 @@
 		indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 		indicator.frame = CGRectMake(indicatorX, (kLoadingViewHeight-kIndicatorSize)/2, kIndicatorSize, kIndicatorSize);
 		
-        UILabel *loading = [[UILabel alloc] initWithFrame:
+        loading = [[UILabel alloc] initWithFrame:
 							CGRectMake(labelX, (kLoadingViewHeight-kLabelHeight)/2, kLabelWidth, kLabelHeight)];
 		loading.text = @"正在載入...";
 		loading.textColor = [UIColor whiteColor];
@@ -43,9 +43,8 @@
 		self.layer.cornerRadius = 10;
 		[self addSubview:loading];
 		[self addSubview:indicator];
-		[loading release];
 		
-		[indicator startAnimating];
+		[indicator stopAnimating];
     }
     return self;
 }
@@ -62,6 +61,7 @@
 #pragma mark Memory Management
 
 - (void)dealloc {
+	[loading release];
     [super dealloc];
 }
 
