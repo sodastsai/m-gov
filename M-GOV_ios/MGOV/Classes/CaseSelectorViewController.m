@@ -60,6 +60,7 @@
 		mapViewController.navigationItem.rightBarButtonItem = rightButtonItem;
 		mapViewController.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 	}
+	[self refreshViews];
 	return mapViewController;
 }
 
@@ -79,6 +80,7 @@
 		listViewController.view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
 		listViewController.view.autoresizesSubviews = YES;
 	}
+	[self refreshViews];
 	return listViewController;
 }
 
@@ -186,6 +188,7 @@
 #pragma mark MapViewDelegate
 
 - (MKAnnotationView *)mapView:(MKMapView *)MapView viewForAnnotation:(id <MKAnnotation>)annotation {
+	
 	// Act like table view cells
 	static NSString * const pinAnnotationIdentifier = @"PinIdentifier";
 	MKPinAnnotationView *caseAnnotationView = (MKPinAnnotationView *)[MapView dequeueReusableAnnotationViewWithIdentifier:pinAnnotationIdentifier];
@@ -211,7 +214,6 @@
 }
 
 - (void) pushToCaseViewer {
-	[[self.view.subviews lastObject] setHidden:YES];
 	CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:caseID];
 	[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
 }

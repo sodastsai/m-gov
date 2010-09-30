@@ -52,21 +52,23 @@
 		// Convert Byte Data to Photo From Plist
 		NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [dictUserInformation valueForKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
 		
+		
 		// Post the submt data to App Engine
 		ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case?method=upload"]];
+		//ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://www.csie.ntu.edu.tw/~r99944041/POSTer.php"]];
 		[request setFile:[dict objectForKey:@"Photo"] withFileName:filename andContentType:@"image/png" forKey:@"photo"];
-		[request setPostValue:@"1" forKey:@"sno"];
-		[request setPostValue:@"1" forKey:@"unit"];
-		[request setPostValue:@"1" forKey:@"pic_check"];
-		[request setPostValue:[NSString stringWithFormat:@"%d" ,qid] forKey:@"h_item1"];
-		[request setPostValue:[NSString stringWithFormat:@"%d" ,qid] forKey:@"h_item2"];
-		[request setPostValue:[MGOVGeocoder returnRegion:selectedCoord] forKey:@"h_admit_name"];
-		[request setPostValue:[MGOVGeocoder returnRegion:selectedCoord] forKey:@"h_admiv_name"];
+		//[request setPostValue:@"1" forKey:@"sno"];
+		//[request setPostValue:@"1" forKey:@"unit"];
+		//[request setPostValue:@"1" forKey:@"pic_check"];
+		//[request setPostValue:[NSString stringWithFormat:@"%d" ,qid] forKey:@"h_item1"];
+		//[request setPostValue:[NSString stringWithFormat:@"%d" ,qid] forKey:@"h_item2"];
+		[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:0] forKey:@"h_admit_name"];
+		[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:1] forKey:@"h_admiv_name"];
 		[request setPostValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
-		[request setPostValue:[NSString stringWithFormat:@"地點：%@",[MGOVGeocoder returnFullAddress:selectedCoord]] forKey:@"h_memo"];
-		[request setPostValue:[dictUserInformation valueForKey:@"User Email"] forKey:@"h_pemail"];
-		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"h_x1"];
-		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"h_y1"];
+		//[request setPostValue:[NSString stringWithFormat:@"地點：%@",[MGOVGeocoder returnFullAddress:selectedCoord]] forKey:@"h_memo"];
+		[request setPostValue:[dictUserInformation valueForKey:@"User Email"] forKey:@"email"];
+		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];
+		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"coordy"];
 		[request startAsynchronous];
 		
 		// After submit case, clean the temp infomation
@@ -75,6 +77,8 @@
 		[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
 		[dict setValue:@"" forKey:@"Name"];
 		[dict setValue:@"" forKey:@"Description"];
+		descriptionCell.descriptionField.text = @"";
+		nameFieldCell.nameField.text = @"";
 		[dict setValue:@"" forKey:@"TypeTitle"];
 		[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 		[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
@@ -481,6 +485,7 @@
 		selectedCoord.longitude = [[dict objectForKey:@"Longitude"] doubleValue];
 		[locationCell updatingCoordinate:selectedCoord];
 	}
+	NSLog(@"Read");
 	nameFieldCell.nameField.text = [dict valueForKey:@"Name"];
 	[descriptionCell setPlaceholder:[dict valueForKey:@"Description"]];
 	
@@ -497,8 +502,7 @@
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
 	[dict setValue:nameFieldCell.nameField.text forKey:@"Name"];
 	if (![descriptionCell.descriptionField.text isEqualToString:@"請輸入描述及建議"]) [dict setValue:descriptionCell.descriptionField.text forKey:@"Description"];
-	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
-	
+	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];	
 }
 
 #pragma mark -

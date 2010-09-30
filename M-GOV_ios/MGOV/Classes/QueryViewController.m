@@ -15,6 +15,14 @@
 @synthesize queryTotalLength;
 
 #pragma mark -
+#pragma mark CaseSelectorViewController Override
+
+- (void) pushToCaseViewer {
+	[[self.view.subviews lastObject] setHidden:YES];
+	[super pushToCaseViewer];
+}
+
+#pragma mark -
 #pragma mark Lifecycle
 
 // Override the super class
@@ -168,7 +176,7 @@
 #pragma mark -
 #pragma mark MKMapViewDelegate
 
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
+- (void)mapView:(MKMapView *)MapView regionWillChangeAnimated:(BOOL)animated {
 	// Lock Buttons
 	nextButton.enabled = NO;
 	lastButton.enabled = NO;

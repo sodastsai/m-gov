@@ -67,7 +67,14 @@
 	} else {
 		myCaseSource = nil;
 	}
-	[listViewController.tableView reloadData];
+	[self refreshViews];
+}
+
+#pragma mark -
+#pragma mark MKMapViewDelegate
+
+- (void)mapView:(MKMapView *)MapView regionDidChangeAnimated:(BOOL)animated {
+	[MapView setCenterCoordinate:MapView.region.center];
 }
 
 #pragma mark -
@@ -96,12 +103,14 @@
 #pragma mark  CaseSelectorDataSource
 
 - (NSArray *) setupAnnotationArrayForMapView {
+	
 	CLLocationCoordinate2D coordinate;
 	NSMutableArray *annotationArray = [[[NSMutableArray alloc] init] autorelease];
 	for (int i = 0; i < [myCaseSource count]; i++) {
 		coordinate.longitude = [[[[myCaseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 		coordinate.latitude = [[[[myCaseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
-		AppMKAnnotation *casePlace=[[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:[[myCaseSource objectAtIndex:i] objectForKey:@"key"] andSubtitle:@"" andCaseID:[[myCaseSource objectAtIndex:i] objectForKey:@"key"]];
+		//AppMKAnnotation *casePlace=[[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:[[myCaseSource objectAtIndex:i] objectForKey:@"key"] andSubtitle:@"" andCaseID:[[myCaseSource objectAtIndex:i] objectForKey:@"key"]];
+		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:@"hey" andSubtitle:@"hi" andCaseID:@"123"];
 		[annotationArray addObject:casePlace];
 		[casePlace release];
 	}
@@ -143,12 +152,19 @@
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		return cell;
 	}
-	
+		
 	CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil) {
 		cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	}
-	cell.backgroundView = nil;
+	else {
+		cell.backgroundView = nil;
+		tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	}
+
+	//cell.backgroundView = nil;
 	// Case ID
 	cell.caseID.text = [NSString stringWithFormat:@"%d" , [[myCaseSource objectAtIndex:indexPath.row] objectForKey:@"key"]];
 	// Case Type

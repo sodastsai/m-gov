@@ -30,15 +30,22 @@
 	if (type == DataSourceGAEReturnByNSDictionary) {
 		self.caseData = result;
 	}
+	
 	CLLocationCoordinate2D coordinate;
 	coordinate.longitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 	coordinate.latitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
 	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:200 andCoordinate:coordinate actionTarget:nil setAction:nil];
-	NSString *str = [[caseData objectForKey:@"image"] objectAtIndex:0];
-	str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
-	photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
-	photoView.layer.cornerRadius = 10.0;
-	photoView.layer.masksToBounds = YES;
+	if ([[caseData objectForKey:@"image"] count]) {
+		NSString *str = [[caseData objectForKey:@"image"] objectAtIndex:0];
+		str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
+		photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
+		photoView.layer.cornerRadius = 10.0;
+		photoView.layer.masksToBounds = YES;
+	}
+	else {
+		photoView = nil;
+	}
+	
 	[self.tableView reloadData];
 }
 
@@ -98,7 +105,6 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
     static NSString *CellIdentifier = @"Cell";
 	if (!caseData) {
 		UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];

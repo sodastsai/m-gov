@@ -15,7 +15,7 @@
 #import "AppMKAnnotation.h"
 
 
-@interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever> {
+@interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever, MKMapViewDelegate> {
 	NSArray *myCaseSource;
 	NSDictionary *dictUserInformation;
 }
