@@ -205,9 +205,9 @@
 	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
 		// Scale
 		if (selectedImage.size.width >= selectedImage.size.height) {
-			selectedImage = [selectedImage scaleProportionlyToWidth:1024];
+			selectedImage = [selectedImage scaleProportionlyToWidth:kPhotoScale];
 		} else {
-			selectedImage = [selectedImage scaleProportionlyToHeight:1024];
+			selectedImage = [selectedImage scaleProportionlyToHeight:kPhotoScale];
 		}
 		// Save to Camera Roll
 		UIImageWriteToSavedPhotosAlbum(selectedImage, self, nil, nil);

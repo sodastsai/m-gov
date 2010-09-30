@@ -19,6 +19,8 @@
 #import "JSON.h"
 #import "ASIFormDataRequest.h"
 
+#define kPhotoScale 640
+
 @protocol CaseAddViewControllerDelegate
 
 - (void)refreshData;
