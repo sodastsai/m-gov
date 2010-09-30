@@ -200,18 +200,15 @@
 	// Get New photo
 	// Use property for retain
 	self.selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
-	
-	// Process for New photo
-	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera) {
-		// Scale
-		if (selectedImage.size.width >= selectedImage.size.height) {
-			selectedImage = [selectedImage scaleProportionlyToWidth:kPhotoScale];
-		} else {
-			selectedImage = [selectedImage scaleProportionlyToHeight:kPhotoScale];
-		}
-		// Save to Camera Roll
+	// Scale
+	if (selectedImage.size.width >= selectedImage.size.height) {
+		selectedImage = [selectedImage scaleProportionlyToWidth:kPhotoScale];
+	} else {
+		selectedImage = [selectedImage scaleProportionlyToHeight:kPhotoScale];
+	}	
+	// Save to Camera Roll
+	if (picker.sourceType == UIImagePickerControllerSourceTypeCamera)
 		UIImageWriteToSavedPhotosAlbum(selectedImage, self, nil, nil);
-	}
 
 	// Fit the Button
 	[photoCell.photoButton setImage:[selectedImage fitToSize:CGSizeMake(300, [PhotoPickerTableCell cellHeight])] forState:UIControlStateNormal];
