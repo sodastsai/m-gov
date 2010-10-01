@@ -73,6 +73,7 @@
 - (void)requestFailed:(ASIHTTPRequest *)request {
 	queryResult = nil;
 	returnType = DataSourceGAEReturnTypeUnkonwn;
+	[resultTarget recieveQueryResultType:returnType withResult:queryResult];
 	[indicatorView finishedLoad];
 	[indicatorView removeFromSuperview];
 	[indicatorView release];
