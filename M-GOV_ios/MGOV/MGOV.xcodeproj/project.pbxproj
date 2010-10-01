@@ -70,8 +70,9 @@
 		FEA295DE1253A4BE00EEC0DA /* iTunesArtwork in Resources */ = {isa = PBXBuildFile; fileRef = FEA295D71253A4BE00EEC0DA /* iTunesArtwork */; };
 		FEB39A5C1237EF70007359AB /* QueryGoogleAppEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */; };
 		FEB39BD212388842007359AB /* MyCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39BD112388842007359AB /* MyCaseViewController.m */; };
-		FEB39CA412389597007359AB /* CaseSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39CA312389597007359AB /* CaseSelectorViewController.m */; };
+		FEB39CA412389597007359AB /* HybridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39CA312389597007359AB /* HybridViewController.m */; };
 		FEB39FE71238CF32007359AB /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39FE61238CF32007359AB /* QueryViewController.m */; };
+		FEB7C7FF12557EBD00436BB2 /* CaseSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB7C7FE12557EBD00436BB2 /* CaseSelectorViewController.m */; };
 		FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */ = {isa = PBXBuildFile; fileRef = FED3DDE71224EA3A001D3C73 /* UserInformation.plist */; };
 		FEE81538122791BF00D82E46 /* AppMKAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE81537122791BF00D82E46 /* AppMKAnnotation.m */; };
 		FEE907DE1251C95400A1CBAF /* LoadingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE907DD1251C95400A1CBAF /* LoadingOverlayView.m */; };
@@ -183,10 +184,12 @@
 		FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryGoogleAppEngine.m; sourceTree = "<group>"; };
 		FEB39BD012388842007359AB /* MyCaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCaseViewController.h; sourceTree = "<group>"; };
 		FEB39BD112388842007359AB /* MyCaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCaseViewController.m; sourceTree = "<group>"; };
-		FEB39CA212389597007359AB /* CaseSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseSelectorViewController.h; sourceTree = "<group>"; };
-		FEB39CA312389597007359AB /* CaseSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseSelectorViewController.m; sourceTree = "<group>"; };
+		FEB39CA212389597007359AB /* HybridViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HybridViewController.h; sourceTree = "<group>"; };
+		FEB39CA312389597007359AB /* HybridViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HybridViewController.m; sourceTree = "<group>"; };
 		FEB39FE51238CF32007359AB /* QueryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryViewController.h; sourceTree = "<group>"; };
 		FEB39FE61238CF32007359AB /* QueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryViewController.m; sourceTree = "<group>"; };
+		FEB7C7FD12557EBD00436BB2 /* CaseSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseSelectorViewController.h; sourceTree = "<group>"; };
+		FEB7C7FE12557EBD00436BB2 /* CaseSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseSelectorViewController.m; sourceTree = "<group>"; };
 		FED3DDE71224EA3A001D3C73 /* UserInformation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInformation.plist; sourceTree = "<group>"; };
 		FEE81536122791BF00D82E46 /* AppMKAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMKAnnotation.h; sourceTree = "<group>"; };
 		FEE81537122791BF00D82E46 /* AppMKAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppMKAnnotation.m; sourceTree = "<group>"; };
@@ -487,10 +490,12 @@
 		FEB391BA123677A9007359AB /* Case Selector */ = {
 			isa = PBXGroup;
 			children = (
-				FEB39CA212389597007359AB /* CaseSelectorViewController.h */,
-				FEB39CA312389597007359AB /* CaseSelectorViewController.m */,
+				FEB39CA212389597007359AB /* HybridViewController.h */,
+				FEB39CA312389597007359AB /* HybridViewController.m */,
 				FEEB1FEC12392E6B00B24560 /* CaseSelectorCell.h */,
 				FEEB1FED12392E6B00B24560 /* CaseSelectorCell.m */,
+				FEB7C7FD12557EBD00436BB2 /* CaseSelectorViewController.h */,
+				FEB7C7FE12557EBD00436BB2 /* CaseSelectorViewController.m */,
 			);
 			name = "Case Selector";
 			sourceTree = "<group>";
@@ -619,7 +624,7 @@
 				FEF0D2C01230CACA000317C5 /* AppClassExtension.m in Sources */,
 				FEB39A5C1237EF70007359AB /* QueryGoogleAppEngine.m in Sources */,
 				FEB39BD212388842007359AB /* MyCaseViewController.m in Sources */,
-				FEB39CA412389597007359AB /* CaseSelectorViewController.m in Sources */,
+				FEB39CA412389597007359AB /* HybridViewController.m in Sources */,
 				FEB39FE71238CF32007359AB /* QueryViewController.m in Sources */,
 				FEEB1FEE12392E6B00B24560 /* CaseSelectorCell.m in Sources */,
 				2AEBFCD3124B22FF0047B3E6 /* ASIAuthenticationDialog.m in Sources */,
@@ -630,6 +635,7 @@
 				2AEBFCD8124B22FF0047B3E6 /* ASINetworkQueue.m in Sources */,
 				2AEBFCD9124B22FF0047B3E6 /* Reachability.m in Sources */,
 				FEE907DE1251C95400A1CBAF /* LoadingOverlayView.m in Sources */,
+				FEB7C7FF12557EBD00436BB2 /* CaseSelectorViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

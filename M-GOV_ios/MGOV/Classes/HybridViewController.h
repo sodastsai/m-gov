@@ -1,5 +1,5 @@
 //
-//  CaseSelectorViewController.h
+//  HybridViewController.h
 //  MGOV
 //
 //  Created by sodas on 2010/9/9.
@@ -12,21 +12,24 @@
 #import "AppMKAnnotation.h"
 #import "CaseViewerViewController.h"
 
-// Case Selector Mode
+// Hybrid View Mode
 typedef enum {
-	CaseSelectorListMode,
-	CaseSelectorMapMode,
-} CaseSelectorMenuMode;
+	HybridViewListMode,
+	HybridViewMapMode,
+} HybridViewMenuMode;
 
 // Delegate and Data Source
-@protocol CaseSelectorDelegate
+@protocol HybridViewDelegate
 
 @required
 - (void)didSelectRowAtIndexPathInList:(NSIndexPath *)indexPath;
+- (void)didSelectAnnotationViewInMap:(MKAnnotationView *)annotationView;
+// Child in Navigation Hierachy
+@property (nonatomic, retain) UIViewController *childViewController;
 
 @end
 
-@protocol CaseSelectorDataSource
+@protocol HybridViewDataSource
 
 @required
 - (NSInteger)numberOfSectionsInList;
@@ -38,7 +41,7 @@ typedef enum {
 
 @end
 
-@interface CaseSelectorViewController : UINavigationController <UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate> {
+@interface HybridViewController : UINavigationController <UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate> {
 	// Basic View
 	UIViewController *emptyRootViewController;
 	UITableViewController *listViewController;
@@ -46,27 +49,25 @@ typedef enum {
 	UIBarButtonItem *rightButtonItem;
 
 	MKMapView *mapView;
-	NSString *caseID;
-	
 	// Mode
-	CaseSelectorMenuMode menuMode;
+	HybridViewMenuMode menuMode;
 	
 	// Data source and Delegate
-	id<CaseSelectorDelegate> selectorDelegate;
-	id<CaseSelectorDataSource> dataSource;
+	id<HybridViewDelegate> selectorDelegate;
+	id<HybridViewDataSource> dataSource;
 }
 
 @property (retain, nonatomic) UITableViewController *listViewController;
 @property (retain, nonatomic) UIViewController *mapViewController;
-@property (retain, nonatomic) id<CaseSelectorDelegate> selectorDelegate;
-@property (retain, nonatomic) id<CaseSelectorDataSource> dataSource;
+@property (retain, nonatomic) id<HybridViewDelegate> selectorDelegate;
+@property (retain, nonatomic) id<HybridViewDataSource> dataSource;
 @property (retain, nonatomic) UIBarButtonItem *rightButtonItem;
 @property (retain, nonatomic) NSString *caseID;
 @property (retain, nonatomic) MKMapView *mapView;
 
 // Initialize
-- (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title;
-- (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title withRightBarButtonItem:(UIBarButtonItem *)rightButton;
+- (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)title;
+- (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)title withRightBarButtonItem:(UIBarButtonItem *)rightButton;
 
 - (UITableViewController *)initialListViewController;
 - (UIViewController *)initialMapViewController;
@@ -74,7 +75,7 @@ typedef enum {
 - (void)setRootViewController:(UIViewController *)rootViewController;
 - (void)dropAnnotation:(NSArray *)data;
 - (NSArray *)annotationArrayForMapView;
-- (void)pushToCaseViewer;
 - (void)refreshViews;
+- (void)pushToChildViewControllerInMap;
 
 @end

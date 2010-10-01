@@ -1,4 +1,4 @@
-    //
+//
 //  MyCaseViewController.m
 //  MGOV
 //
@@ -11,12 +11,13 @@
 @implementation MyCaseViewController
 
 @synthesize myCaseSource, dictUserInformation;
+@synthesize childViewController;
 
 #pragma mark -
 #pragma mark Lifecycle
 
 // Override the super class
-- (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title {
+- (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)title {
 	UIBarButtonItem *addCaseButton = [[[UIBarButtonItem alloc] initWithTitle:@"新增案件" style:UIBarButtonItemStyleBordered target:self action:@selector(addCase)] autorelease];
 	return [self initWithMode:mode andTitle:title withRightBarButtonItem:addCaseButton];
 }
@@ -89,14 +90,14 @@
 }
 
 #pragma mark -
-#pragma mark MKMapViewDelegate
+#pragma mark HybridViewDelegate
 
 - (void)mapView:(MKMapView *)MapView regionDidChangeAnimated:(BOOL)animated {
 	[MapView setCenterCoordinate:MapView.region.center];
 }
 
 #pragma mark -
-#pragma mark CaseSelectorDelegate
+#pragma mark HybridViewDelegate
 
 - (void)didSelectRowAtIndexPathInList:(NSIndexPath *)indexPath {
 	if ([[dictUserInformation valueForKey:@"User Email"] length]!=0) {
@@ -104,6 +105,11 @@
 		[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
 	}
 } 
+
+- (void)didSelectAnnotationViewInMap:(MKAnnotationView *)annotationView {
+	caseID = [(AppMKAnnotation *)annotationView.annotation annotationID];
+	childViewController = [[CaseViewerViewController alloc] initWithCaseID:caseID];
+}
 
 #pragma mark -
 #pragma mark CaseAddViewControllerDelegate

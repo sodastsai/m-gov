@@ -13,20 +13,27 @@
 @synthesize queryCaseSource;
 @synthesize typeID;
 @synthesize queryTotalLength;
+// Delegate
+@synthesize childViewController;
 
 #pragma mark -
-#pragma mark CaseSelectorViewController Override
+#pragma mark HybridViewController Override
 
-- (void) pushToCaseViewer {
+- (void)pushToChildViewControllerInMap {
 	[[self.view.subviews lastObject] setHidden:YES];
-	[super pushToCaseViewer];
+	[super pushToChildViewControllerInMap];
+}
+
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated {
+	[[self.view.subviews lastObject] setHidden:NO];
+	return [super popViewControllerAnimated:YES];
 }
 
 #pragma mark -
 #pragma mark Lifecycle
 
 // Override the super class
-- (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title {
+- (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)title {
 	UIBarButtonItem *setConditionButton = [[[UIBarButtonItem alloc] initWithTitle:@"設定條件" style:UIBarButtonItemStyleBordered target:self action:@selector(setQueryCondition)] autorelease];
 	queryCaseSource = nil;
 	return [self initWithMode:mode andTitle:title withRightBarButtonItem:setConditionButton];
@@ -250,12 +257,7 @@
 }
 
 #pragma mark -
-#pragma mark CaseSelectorDelegate
-
-- (UIViewController *)popViewControllerAnimated:(BOOL)animated {
-	[[self.view.subviews lastObject] setHidden:NO];
-	return [super popViewControllerAnimated:YES];
-}
+#pragma mark HybridViewDelegate
 
 - (void)didSelectRowAtIndexPathInList:(NSIndexPath *)indexPath {
 	if (indexPath.section == 1) {
@@ -266,8 +268,13 @@
 	}
 }
 
+- (void)didSelectAnnotationViewInMap:(MKAnnotationView *)annotationView {
+	caseID = [(AppMKAnnotation *)annotationView.annotation annotationID];
+	childViewController = [[CaseViewerViewController alloc] initWithCaseID:caseID];
+}
+
 #pragma mark -
-#pragma mark  CaseSelectorDataSource
+#pragma mark  HybridViewDataSource
 
 - (NSArray *) setupAnnotationArrayForMapView {
 	CLLocationCoordinate2D coordinate;

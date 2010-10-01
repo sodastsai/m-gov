@@ -40,12 +40,12 @@
 	
 	
 	// My Case
-	MyCaseViewController *myCase = [[MyCaseViewController alloc] initWithMode:CaseSelectorListMode andTitle:@"我的案件"];
+	MyCaseViewController *myCase = [[MyCaseViewController alloc] initWithMode:HybridViewListMode andTitle:@"我的案件"];
 	myCase.dataSource = myCase;
 	myCase.selectorDelegate = myCase;
 		
 	// Query
-	QueryViewController *queryCase = [[QueryViewController alloc] initWithMode:CaseSelectorMapMode andTitle:@"查詢案件"];
+	QueryViewController *queryCase = [[QueryViewController alloc] initWithMode:HybridViewMapMode andTitle:@"查詢案件"];
 	queryCase.dataSource = queryCase;
 	queryCase.selectorDelegate = queryCase;
 	

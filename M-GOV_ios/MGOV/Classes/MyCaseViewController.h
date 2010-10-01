@@ -15,10 +15,13 @@
 #import "AppMKAnnotation.h"
 
 
-@interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever, MKMapViewDelegate> {
+@interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, HybridViewDelegate, HybridViewDataSource,  QueryGAEReciever, MKMapViewDelegate> {
 	NSArray *myCaseSource;
 	NSDictionary *dictUserInformation;
 	UIView *myCaseFilter;
+	
+	NSString *caseID;
+	UIViewController *childViewController;
 }
 
 @property (nonatomic, retain) NSArray *myCaseSource;

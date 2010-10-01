@@ -1,15 +1,14 @@
-    //
-//  CaseSelectorViewController.m
+//
+//  HybridViewController.m
 //  MGOV
 //
 //  Created by sodas on 2010/9/9.
 //  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
 //
 
-#import "CaseSelectorViewController.h"
+#import "HybridViewController.h"
 
-
-@implementation CaseSelectorViewController
+@implementation HybridViewController
 
 @synthesize listViewController, mapViewController;
 @synthesize selectorDelegate, dataSource;
@@ -96,7 +95,7 @@
 	// Next add it to the containerView's layer. This will perform the transition based on how we change its contents.
 	[self.view.layer addAnimation:transition forKey:nil];
 	
-	if (menuMode == CaseSelectorMapMode) {
+	if (menuMode == HybridViewMapMode) {
 		// Change to List mode.
 		listViewController = [self initialListViewController];
 		
@@ -105,7 +104,7 @@
         [self setRootViewController:listViewController];
         [mapViewController viewDidDisappear:YES];
         [listViewController viewDidAppear:YES];
-		menuMode = CaseSelectorListMode;
+		menuMode = HybridViewListMode;
 	} else {
 		// Change to Map mode.
 		mapViewController = [self initialMapViewController];
@@ -115,18 +114,18 @@
         [self setRootViewController:mapViewController];
         [listViewController viewDidDisappear:YES];
         [mapViewController viewDidAppear:YES];
-		menuMode = CaseSelectorMapMode;
+		menuMode = HybridViewMapMode;
 	}
 }
 
 #pragma mark -
 #pragma mark Lifecycle
 
-- (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title {
+- (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)title {
 	return [self initWithMode:mode andTitle:title withRightBarButtonItem:nil];
 }
 
-- (id)initWithMode:(CaseSelectorMenuMode)mode andTitle:(NSString *)title withRightBarButtonItem:(UIBarButtonItem *)rightButton {
+- (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)title withRightBarButtonItem:(UIBarButtonItem *)rightButton {
 	emptyRootViewController = [[UIViewController alloc] init];
 	emptyRootViewController.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
 	
@@ -135,7 +134,7 @@
 		self.rightButtonItem = rightButton;
 		menuMode = mode;
 		
-		if (menuMode == CaseSelectorMapMode) {
+		if (menuMode == HybridViewMapMode) {
 			mapViewController = [self initialMapViewController];
 			mapViewController.navigationItem.hidesBackButton = YES;
 			[self pushViewController:mapViewController animated:NO];
@@ -161,7 +160,7 @@
 
 //override so it pops to the perceived root
 - (NSArray *)popToRootViewControllerAnimated:(BOOL)animated {
-    //we use index 0 because we overrided “viewControllers”
+    // we use index 0 because we overrided “viewControllers”
     return [self popToViewController:[self.viewControllers objectAtIndex:0] animated:animated];
 }
 
@@ -191,31 +190,31 @@
 	
 	// Act like table view cells
 	static NSString * const pinAnnotationIdentifier = @"PinIdentifier";
-	MKPinAnnotationView *caseAnnotationView = (MKPinAnnotationView *)[MapView dequeueReusableAnnotationViewWithIdentifier:pinAnnotationIdentifier];
+	MKPinAnnotationView *dataAnnotationView = (MKPinAnnotationView *)[MapView dequeueReusableAnnotationViewWithIdentifier:pinAnnotationIdentifier];
 	
-	if (caseAnnotationView) {
+	if (dataAnnotationView) {
 		// Already exists
-		caseAnnotationView.annotation = annotation;
+		dataAnnotationView.annotation = annotation;
 	} else {		
 		// Renew
-		caseAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pinAnnotationIdentifier] autorelease];
-		caseAnnotationView.draggable = NO;
-		caseAnnotationView.canShowCallout = YES;
-		caseAnnotationView.animatesDrop = YES;
+		dataAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pinAnnotationIdentifier] autorelease];
+		dataAnnotationView.draggable = NO;
+		dataAnnotationView.canShowCallout = YES;
+		dataAnnotationView.animatesDrop = YES;
 		UIButton *detailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-		caseAnnotationView.rightCalloutAccessoryView = detailButton;
-		[detailButton addTarget:self action:@selector(pushToCaseViewer) forControlEvents:UIControlEventTouchUpInside];
+		dataAnnotationView.rightCalloutAccessoryView = detailButton;
+		[detailButton addTarget:self action:@selector(pushToChildViewControllerInMap) forControlEvents:UIControlEventTouchUpInside];
 	}
-	return caseAnnotationView;
+	return dataAnnotationView;
 }
 
 - (void)mapView:(MKMapView *)MapView didSelectAnnotationView:(MKAnnotationView *)annotationView {
-	caseID = [(AppMKAnnotation *)annotationView.annotation annotationID];
+	[selectorDelegate didSelectAnnotationViewInMap:annotationView];
 }
 
-- (void) pushToCaseViewer {
-	CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:caseID];
-	[self.topViewController.navigationController pushViewController:caseViewer animated:YES];
+- (void) pushToChildViewControllerInMap {
+	//CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:caseID];
+	[self.topViewController.navigationController pushViewController:selectorDelegate.childViewController animated:YES];
 }
 
 #pragma mark -
