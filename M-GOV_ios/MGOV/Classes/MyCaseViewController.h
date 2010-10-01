@@ -17,6 +17,7 @@
 
 @interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, QueryGAEReciever, MKMapViewDelegate> {
 	NSDictionary *dictUserInformation;
+	UISegmentedControl *filter;
 }
 
 @property (nonatomic, retain) NSDictionary *dictUserInformation;

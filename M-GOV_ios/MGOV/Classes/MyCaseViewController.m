@@ -73,17 +73,18 @@
 	self.dictUserInformation = [[NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments] retain];
 	if ([[dictUserInformation valueForKey:@"User Email"] length]) [self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[dictUserInformation objectForKey:@"User Email"]];
 	
+	// Add Filter
+	filter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"所有案件", @"完工", @"處理中", @"退回", nil]];
+	filter.segmentedControlStyle = UISegmentedControlStyleBar;
+	float filterX = (320 - filter.frame.size.width)/2;
+	float filterY = (44 - filter.frame.size.height)/2;
+	filter.frame = CGRectMake(filterX, filterY, filter.frame.size.width, filter.frame.size.height);
+	filter.selectedSegmentIndex = 0;
+	
+	[informationBar addSubview:filter];
 	
 	if ([[dictUserInformation valueForKey:@"User Email"] length]) {
-		// Add Filter
-		UISegmentedControl *filter=[[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"所有案件", @"完工", @"處理中", @"退回", nil]];
-		filter.segmentedControlStyle = UISegmentedControlStyleBar;
-		float filterX = (320 - filter.frame.size.width)/2;
-		float filterY = (44 - filter.frame.size.height)/2;
-		filter.frame = CGRectMake(filterX, filterY, filter.frame.size.width, filter.frame.size.height);
-		
-		[informationBar addSubview:filter];
-		[filter release];
+		informationBar.hidden = NO;
 	} else {
 		// Hide Filter/InformationBar
 		informationBar.hidden = YES;
@@ -133,6 +134,7 @@
 #pragma mark Memory Management
 
 - (void)dealloc {
+	[filter release];
 	[super dealloc];
 }
 
