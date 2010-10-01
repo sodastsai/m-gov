@@ -61,6 +61,7 @@
 		[request setFile:[dict objectForKey:@"Photo"] withFileName:filename andContentType:@"image/png" forKey:@"photo"];
 		[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:0] forKey:@"h_admit_name"];
 		[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:1] forKey:@"h_admiv_name"];
+		[request setPostValue:[NSString stringWithFormat:@"%d", qid] forKey:@"typeid"];
 		[request setPostValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
 		[request setPostValue:[dictUserInformation valueForKey:@"User Email"] forKey:@"email"];
 		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];

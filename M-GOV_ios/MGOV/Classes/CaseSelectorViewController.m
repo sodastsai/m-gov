@@ -111,7 +111,7 @@
 		cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	
 	// Case ID
-	cell.caseID.text = [[caseSource objectAtIndex:indexPath.row] objectForKey:@"key"];
+	cell.caseKey.text = [[caseSource objectAtIndex:indexPath.row] objectForKey:@"key"];
 	// Case Type
 	NSString *caseTypeText = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[[caseSource objectAtIndex:indexPath.row] valueForKey:@"typeid"]];
 	cell.caseType.text = caseTypeText;

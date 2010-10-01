@@ -10,7 +10,7 @@
 
 @implementation CaseSelectorCell
 
-@synthesize caseID, caseType, caseDate, caseAddress, caseStatus;
+@synthesize caseKey, caseType, caseDate, caseAddress, caseStatus;
 
 + (CGFloat)cellHeight {
 	return kCaseSelectorCellHeight;
@@ -22,12 +22,12 @@
 		self.frame = CGRectMake(0, 0, 320, kCaseSelectorCellHeight);
 		
 		// Set labels
-		caseID = [[UILabel alloc] initWithFrame:CGRectMake(40, 10, 180, 20)];
-		caseID.font = [UIFont boldSystemFontOfSize:18.0];
-		caseID.minimumFontSize = 16.0;
-		caseID.numberOfLines = 1;
-		caseID.adjustsFontSizeToFitWidth = YES;
-		caseID.backgroundColor = [UIColor clearColor];
+		caseKey = [[UILabel alloc] initWithFrame:CGRectMake(40, 10, 180, 20)];
+		caseKey.font = [UIFont boldSystemFontOfSize:18.0];
+		caseKey.minimumFontSize = 16.0;
+		caseKey.numberOfLines = 1;
+		caseKey.adjustsFontSizeToFitWidth = YES;
+		caseKey.backgroundColor = [UIColor clearColor];
 		
 		caseType = [[UILabel alloc] initWithFrame:CGRectMake(40, 30, 290, 18)];
 		caseType.font = [UIFont boldSystemFontOfSize:16.0];
@@ -52,13 +52,13 @@
 		caseStatus = [[UIImageView alloc] init];
 		caseStatus.frame = CGRectMake(10, 28, 20, 20);
 		
-		[self.contentView addSubview:caseID];
+		[self.contentView addSubview:caseKey];
 		[self.contentView addSubview:caseDate];
 		[self.contentView addSubview:caseType];
 		[self.contentView addSubview:caseAddress];
 		[self.contentView addSubview:caseStatus];
 		
-		[caseID release];
+		[caseKey release];
 		[caseType release];
 		[caseDate release];
 		[caseAddress release];

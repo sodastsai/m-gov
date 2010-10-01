@@ -12,7 +12,7 @@
 
 @synthesize coordinate;
 @synthesize annotationSubtitle, annotationTitle;
-@synthesize caseID;
+@synthesize annotationID;
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coord {
 	return [self initWithCoordinate:coord andTitle:nil andSubtitle:nil];
@@ -32,7 +32,7 @@
 		self.coordinate = coord;
 		self.annotationTitle = t;
 		self.annotationSubtitle = st;
-		annotationID = ID;
+		self.annotationID = ID;
 	}
 	return self;
 }

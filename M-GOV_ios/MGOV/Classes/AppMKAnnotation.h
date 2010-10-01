@@ -19,7 +19,7 @@
 @property (nonatomic, assign, readwrite) CLLocationCoordinate2D coordinate;
 @property (nonatomic, retain) NSString *annotationTitle;
 @property (nonatomic, retain) NSString *annotationSubtitle;
-@property (nonatomic, retain) NSString *caseID;
+@property (nonatomic, retain) NSString *annotationID;
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coord;
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coord andTitle:(NSString *)t andSubtitle:(NSString *)st;
