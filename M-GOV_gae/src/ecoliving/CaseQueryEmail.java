@@ -34,7 +34,7 @@ public class CaseQueryEmail {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Query query = pm.newQuery(GAENodeCase.class);
 
-		query.setFilter("h_pemail == '" + cmd +"'");
+		query.setFilter("email == '" + cmd +"'");
 		
 		List<GAENodeCase> list = (List<GAENodeCase>) query.execute();
 		
@@ -42,11 +42,8 @@ public class CaseQueryEmail {
 			return "{\"error\":\"null\"}";
 		
 		JSONArray array = new JSONArray();
-		int index=0;
-		for (GAENodeCase ob : list){ 
-				array.put(ob.toJson());
-			index++;
-		}
+		for (GAENodeCase ob : list) 
+			array.put(ob.toJson());
 		
 		JSONObject res = new JSONObject();
 

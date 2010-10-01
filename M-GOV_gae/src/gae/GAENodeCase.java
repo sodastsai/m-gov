@@ -18,32 +18,24 @@ import com.google.appengine.api.datastore.Blob;
 public class GAENodeCase {
 
     @PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private Long key;
+    private String key;
 	@Persistent
 	public String sno;
+
 	@Persistent
 	public String unit;
 	
 	@Persistent
-	public String h_pemail;
-	@Persistent
-	public String h_item1;
-	@Persistent
-	public String h_item2;
+	public String email,name;
 
 	@Persistent
-	public String h_admit_name;
-	@Persistent
-	public String h_admiv_name;
-	
-	@Persistent
-	public String h_summary, h_memo;
+	public String typeid,status;
 
 	@Persistent
-	public String h_x1;
+	public String h_admit_name, h_admiv_name, h_summary;
+
 	@Persistent
-	public String h_y1;
+	public double coordx, coordy;
 
 	@Persistent
 	private Blob photo[];
@@ -52,42 +44,12 @@ public class GAENodeCase {
 	private Date date;
 
 	public GAENodeCase(){
-	}
-	
-	public GAENodeCase(String sno, Date date, String unit, String h_pemail,
-					   String h_item1, String h_item2,
-					   String h_admit_name, String h_admiv_name,
-					   String h_summary, String h_memo,
-					   String h_x1, String h_y1,
-					   Blob bImg) {
-		
-		this.sno = sno;
-		this.date = date;
-		this.unit = unit;
-		this.h_pemail = h_pemail;
-		
-		this.h_item1 = h_item1;
-		this.h_item2 = h_item2;
-
-		this.h_admit_name = h_admit_name;
-		this.h_admiv_name = h_admiv_name;
-
-		this.h_summary = h_summary;
-		this.h_memo = h_memo;
-		
-		this.h_x1 = h_x1;
-		this.h_y1 = h_y1;
-		
-	}
-	
-	public void genKey() {
-		key = Long.valueOf( (this.sno + this.date ).hashCode());
+		sno = String.valueOf(Math.random());
+		date = new Date();
+		status = "烏賊車";
+		key = String.valueOf(Math.random());
 	}
 
-	public void setDate(Date date){
-		this.date = date;
-	}
-	
 	public void setPhoto(ArrayList<Blob> photo){
 		this.photo = new Blob[photo.size()];
 		int id=0;
@@ -95,43 +57,40 @@ public class GAENodeCase {
 			this.photo[id++]=ob;
 	}
 	
-	public JSONObject toJson() {
-		JSONObject o = new JSONObject();
+	public JSONObject toJson(){
+		String coordinates=String.valueOf(coordx) + "," + String.valueOf(coordy);
+		GAENodeSimple r = new GAENodeSimple(key,typeid,date.toString(),coordinates,status);
+		JSONObject job = r.toJson();
+
 		try {
-			o.accumulate("key", key);
-			o.accumulate("sno", sno);
-			o.accumulate("unit", unit);
-
-			o.accumulate("h_pemail", h_pemail);
-			o.accumulate("h_item1", h_item1);
-			o.accumulate("h_item2", h_item2);
-			
-			o.accumulate("h_admit_name",h_admit_name);
-			o.accumulate("h_admiv_name",h_admiv_name);
-
-			o.accumulate("h_summary",h_summary);
-			o.accumulate("h_memo",h_memo);
-
-			o.accumulate("h_x1", h_x1);
-			o.accumulate("h_y1", h_y1);			
-			
-			o.accumulate("date", date);
-			
-			for(Blob ob:photo){
-				o.accumulate("photo", ob.getBytes().length);
+			job.put("email", email);
+			job.put("name", name);
+//			job.put("h_admit_name", h_admit_name);
+//			job.put("h_admiv_name", h_admiv_name);
+			job.put("h_summary", h_summary);
+			for(int i=0;i<photo.length;i++){
+				job.put("photo","http://ntu-ecoliving.appspot.com/ecoliving/view/"+key+"/"+i);
 			}
 			
-			System.out.println(o.toString());
-			return o;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
 		}
+		
+		return job;
 	}
 	
-	
-	public void setKey(Long key) {
-		this.key = key;
+	public byte[] getImage(int i){
+		if(i<photo.length)
+			return photo[i].getBytes();
+		else
+			return "null".getBytes();
 	}
+
+	public GAENode toGAENode(){
+		GAENode r = new GAENode(key,date.toString(),typeid,h_summary,coordx,coordy);
+
+		return r;
+	}
+
 }

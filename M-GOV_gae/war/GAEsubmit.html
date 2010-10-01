@@ -1,6 +1,6 @@
-﻿<form name="ACTION_FORM" action="http://ntu-ecoliving.appspot.com/case?method=upload" enctype="multipart/form-data" target="" method="post">
+﻿<form name="ACTION_FORM" action="ntu-ecoliving.appspot.com/case?method=upload" enctype="multipart/form-data" target="" method="post">
   <input type="file" name="photo" value="/Users/wildmind5/Desktop/image.jpg">
-  <input type="text" name="sno" value="02">
+  <input type="hidden" name="sno" value="02">
   <input type="hidden" name="unit" value="區民政課">
   <input type="hidden" name="pic_check" value="">
   <input type="hidden" name="h_item1" value="道路、水溝、下水道、橋梁、河川、堤防等公共設施之損壞事項">
@@ -9,9 +9,10 @@
   <input type="hidden" name="h_admiv_name" value="民輝里">
   <input type="hidden" name="h_summary" value="some problems">
   <input type="hidden" name="h_memo" value="地點:新生南路一段與新生北路一段　建議事項：">
-  <input type="text" name="h_pemail" value="aa@bb.cc">
-  <input type="hidden" name="h_x1" value="121.547521502">
-  <input type="hidden" name="h_y1" value="25.0504485424">
+  <input type="text" name="email" value="aa@bb.cc">
+  <input type="text" name="typeid" value="1101">
+  <input type="hidden" name="coordx" value="121.547521502">
+  <input type="hidden" name="coordy" value="25.0504485424">
 
   <input type="submit" name="ok_sent" value="upload">
 

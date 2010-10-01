@@ -61,17 +61,13 @@ public class CaseServlet extends HttpServlet {
 						String value = new String(b,"utf-8");
 						value= value.trim();
 						
-						if ("sno".equals(field)) 				node.sno = value;
-						else if ("unit".equals(field))  		node.unit = value;
-						else if ("h_item1".equals(field)) 		node.h_item1 = value;
-						else if ("h_item2".equals(field))		node.h_item2 = value;
-						else if ("h_pemail".equals(field))		node.h_pemail = value;
+						if ("email".equals(field))				node.email = value;
 						else if ("h_admit_name".equals(field)) 	node.h_admit_name = value;
 						else if ("h_admiv_name".equals(field)) 	node.h_admiv_name = value;
 						else if ("h_summary".equals(field)) 	node.h_summary = value;
-						else if ("h_memo".equals(field))		node.h_memo = value;
-						else if ("h_x1".equals(field))			node.h_x1 = value;
-						else if ("h_y1".equals(field))			node.h_y1 = value;
+						else if ("typeid".equals(field)) 		node.typeid = value;
+						else if ("coordx".equals(field))		node.coordx = Double.valueOf(value);
+						else if ("coordy".equals(field))		node.coordy = Double.valueOf(value);
 
 						System.out.println(field + ":" + value);
 						// Handle form field
@@ -85,15 +81,13 @@ public class CaseServlet extends HttpServlet {
 						// PhotoDao.getInstance().insertPhoto(photo);
 					}
 				}
-//				node.genKey();
 				node.setPhoto(photos);
-				node.setDate(new Date());
 
 				GAEDataBase.store(node);
 
 //				resp.sendRedirect("photo");
 				Blob b = photos.get(0);
-				resp.setContentType("image/jpeg;charset=utf-8");
+				resp.setContentType("image/jpeg;image/png;charset=utf-8");
 				resp.getOutputStream().write(b.getBytes());
 				resp.getOutputStream().close();
 				
