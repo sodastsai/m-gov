@@ -312,10 +312,7 @@
 	static NSString *CellIdentifier = @"QueryCell";
 	
 	if (indexPath.section == 0) {
-		CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-		if (cell == nil) {
-			cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
-		}
+		CaseSelectorCell *cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		return cell;
 	}
