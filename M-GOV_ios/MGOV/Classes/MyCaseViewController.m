@@ -27,6 +27,22 @@
 	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
 	self.dictUserInformation = [[NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments] retain];
 	if ([[dictUserInformation valueForKey:@"User Email"] length]) [self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[dictUserInformation objectForKey:@"User Email"]];
+	
+	// Add Filter
+	if ([[dictUserInformation valueForKey:@"User Email"] length]) {
+		myCaseFilter = [[UIView alloc] initWithFrame:CGRectMake(0, 63, 320, 44)];
+		myCaseFilter.backgroundColor = [UIColor colorWithHue:0.5944 saturation:0.35 brightness:0.7 alpha:0.7];
+		UISegmentedControl *filter=[[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"所有案件", @"完工", @"處理中", @"退回", nil]];
+		filter.segmentedControlStyle = UISegmentedControlStyleBar;
+		float filterX = (320 - filter.frame.size.width)/2;
+		float filterY = (44 - filter.frame.size.height)/2;
+		filter.frame = CGRectMake(filterX, filterY, filter.frame.size.width, filter.frame.size.height);
+		
+		[myCaseFilter addSubview:filter];
+		[filter release];
+		
+		[self.view addSubview:myCaseFilter];
+	}
 }
 
 #pragma mark -
@@ -120,22 +136,32 @@
 }
 
 - (NSInteger)numberOfSectionsInList {
-	return 1;
+	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) return 1;
+	else return 2;
 }
 
 - (NSInteger)numberOfRowsInListSection:(NSInteger)section {
-	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) return 1;
-	else return [myCaseSource count];
+	if ([[dictUserInformation valueForKey:@"User Email"] length]==0)
+		return 1;
+	else {
+		if (section==0) return 1;
+		else return [myCaseSource count];
+	}
 }
 
 - (CGFloat)heightForRowAtIndexPathInList:(NSIndexPath *)indexPath {
-	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) return 372;
-	else return [CaseSelectorCell cellHeight];
+	if ([[dictUserInformation valueForKey:@"User Email"] length]==0)
+		return 372;
+	else {
+		if (indexPath.section==0) return 44;
+		else return [CaseSelectorCell cellHeight];
+	}
 }
 
 - (NSString *)titleForHeaderInSectionInList:(NSInteger)section {
 	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) return @"";
 	else return @"";
+	// TODO: sort with status?
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -153,6 +179,14 @@
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		return cell;
+	} 
+	if (indexPath.section==0) {
+		CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		if (cell == nil) {
+			cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+		}
+		cell.accessoryType = UITableViewCellAccessoryNone;
+		return cell;
 	}
 		
 	CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -166,7 +200,6 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
 
-	//cell.backgroundView = nil;
 	// Case ID
 	cell.caseID.text = [NSString stringWithFormat:@"%d" , [[myCaseSource objectAtIndex:indexPath.row] objectForKey:@"key"]];
 	// Case Type
@@ -215,7 +248,7 @@
 }
 
 - (void)dealloc {
-	//[dictUserInformation release];
+	[myCaseFilter release];
 	[super dealloc];
 }
 

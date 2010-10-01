@@ -18,6 +18,7 @@
 @interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, CaseSelectorDelegate, CaseSelectorDataSource,  QueryGAEReciever, MKMapViewDelegate> {
 	NSArray *myCaseSource;
 	NSDictionary *dictUserInformation;
+	UIView *myCaseFilter;
 }
 
 @property (nonatomic, retain) NSArray *myCaseSource;
