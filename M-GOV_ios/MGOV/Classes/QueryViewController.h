@@ -17,24 +17,18 @@
 
 #define kDataSectorSize 10
 
-@interface QueryViewController : CaseSelectorViewController <HybridViewDelegate, HybridViewDataSource,  QueryGAEReciever, UIActionSheetDelegate, TypeSelectorDelegateProtocol> {
-	NSArray *queryCaseSource;
+@interface QueryViewController : CaseSelectorViewController <QueryGAEReciever, UIActionSheetDelegate, TypeSelectorDelegateProtocol> {
 	int queryTotalLength;
 	
 	NSInteger typeID;
-	NSRange queryRange;
 	
+	// Query Condition in Information Bar
 	UILabel *queryTypeLabel;
 	UILabel *numberDisplayLabel;
 	UIButton *nextButton;
 	UIButton *lastButton;
-	UIView *queryConditionBar;
-	
-	NSString *caseID;
-	UIViewController *childViewController;
 }
 
-@property (retain, nonatomic) NSArray *queryCaseSource;
 @property (nonatomic) NSInteger typeID;
 @property int queryTotalLength;
 

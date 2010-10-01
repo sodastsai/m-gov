@@ -15,19 +15,12 @@
 #import "AppMKAnnotation.h"
 
 
-@interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, HybridViewDelegate, HybridViewDataSource,  QueryGAEReciever, MKMapViewDelegate> {
-	NSArray *myCaseSource;
+@interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, QueryGAEReciever, MKMapViewDelegate> {
 	NSDictionary *dictUserInformation;
-	UIView *myCaseFilter;
-	
-	NSString *caseID;
-	UIViewController *childViewController;
 }
 
-@property (nonatomic, retain) NSArray *myCaseSource;
 @property (nonatomic, retain) NSDictionary *dictUserInformation;
 
 - (void)addCase;
-- (void)queryGAEwithConditonType:(DataSourceGAEQueryTypes)conditionType andCondition:(id)condition;
 
 @end

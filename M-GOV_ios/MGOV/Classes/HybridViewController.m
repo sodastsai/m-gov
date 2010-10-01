@@ -213,7 +213,6 @@
 }
 
 - (void) pushToChildViewControllerInMap {
-	//CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithCaseID:caseID];
 	[self.topViewController.navigationController pushViewController:selectorDelegate.childViewController animated:YES];
 }
 

@@ -7,10 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "QueryGoogleAppEngine.h"
 #import "HybridViewController.h"
+#import "CaseSelectorCell.h"
 
-@interface CaseSelectorViewController : HybridViewController {
-
+@interface CaseSelectorViewController : HybridViewController <HybridViewDelegate, HybridViewDataSource> {
+	NSArray *caseSource;
+	// Data Range
+	NSRange queryRange;
+	// Case Viewer
+	NSString *caseID;
+	UIViewController *childViewController;
+	UIView *informationBar;
 }
+
+@property (nonatomic, retain) NSArray *caseSource;
+
+- (void)queryGAEwithConditonType:(DataSourceGAEQueryTypes)conditionType andCondition:(id)condition;
 
 @end
