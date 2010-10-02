@@ -9,7 +9,7 @@
 <string name="Submit">Submit</string>
 <string name="sdcard">/sdcard/</string>
 
-<string name="sec1_title">道路、橋樑、水溝與堤防</string>
+<!--<string name="sec1_title">道路、橋樑、水溝與堤防</string>
 <string name="sec1_1">道路橋梁損壞</string>
 <string name="sec1_2">水溝下水道損壞</string>
 <string name="sec1_3">河川堤防損壞</string>
@@ -48,6 +48,7 @@
 <string name="sec1_1_9">建築工程佔用路面</string>
 <string name="sec1_1_10">市區道路坑洞道路未修復或修復未完善</string>
 <string name="sec1_1_11">山區鄰里道路路面損壞</string>
+-->
 <string name="sec1_1_12">下水道維護導致路面損壞</string>
 <string name="sec1_1_13">下水道損壞</string>
 <string name="sec1_1_14">道路側溝溝蓋損壞</string>
