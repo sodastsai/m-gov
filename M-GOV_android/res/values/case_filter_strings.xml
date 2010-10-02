@@ -104,16 +104,16 @@
 <string name="sec4_2_9">鄰里公園競選違規旗幟移除</string>
 <string name="sec4_2_10">交通號誌燈桿競選違規旗幟移除</string>
 
-<string name="sec4_3_1">圓環或公園上競選廣告張貼移除</string>
-<string name="sec4_3_2">巷道競選廣告張貼移除</string>
-<string name="sec4_3_3">橋梁上競選廣告張貼移除</string>
-<string name="sec4_3_4">山坡地競選廣告張貼移除</string>
-<string name="sec4_3_5">社教及學校內競選廣告張貼移除</string>
-<string name="sec4_3_6">公有古蹟內競選廣告張貼移除</string>
-<string name="sec4_3_7">國宅社區內競選廣告張貼移除</string>
-<string name="sec4_3_8">捷運系統內競選廣告張貼移除</string>
-<string name="sec4_3_9">鄰里公園競選廣告張貼移除</string>
-<string name="sec4_3_10">交通號誌燈桿競選廣告張貼移除</string>
+<string name="sec4_3_1">建築物外牆競選廣告張貼移除</string>
+<string name="sec4_3_2">路燈桿競選廣告張貼移除</string>
+<string name="sec4_3_3">交通標誌桿競選廣告張貼移除</string>
+<string name="sec4_3_4">行道樹、公園競選廣告張貼移除</string>
+<string name="sec4_3_5">圓環、廣場競選廣告張貼移除</string>
+<string name="sec4_3_6">天橋、地下道競選廣告張貼移除</string>
+<string name="sec4_3_7">捷運系統競選廣告張貼移除</string>
+<string name="sec4_3_8">住宅社區競選廣告張貼移除</string>
+<string name="sec4_3_9">公車站廣告競選廣告張貼移除</string>
+<string name="sec4_3_10">計程車招呼站及停車場競選廣告張貼移除</string>
 
 <string name="sec4_4_1">車上(非違規路段)大型遊動競選廣告</string>
 <string name="sec4_4_2">車上(收費停車格)大型遊動競選廣告</string>
@@ -221,5 +221,13 @@
 
 <string name="sec6_3_5_1">有線電視線路散落地面</string>
 <string name="sec6_3_5_2">有線電視線路散落水溝</string>
+
+
+<string name="sec_s_qid4104">天橋、地下道、安全島廣告物</string>
+<string name="sec_s_qid4105">行道樹、公園、圓環及廣場廣告物</string>
+<string name="sec_s_qid4304">行道樹、公園、圓環及廣場競選廣告張貼移除</string>
+<string name="sec_s_qid4409">圓環、廣場、天橋、地下道大型或遊動競選廣告</string>
+<string name="sec_s_qid4410">紅磚人行道、大型道路大型或遊動競選廣告</string>
+<string name="sec_s_qid6401">水、空氣、冷氣機滴水造成之環境污染</string>
 
 </resources>
