@@ -230,4 +230,6 @@
 <string name="sec_s_qid4410">紅磚人行道、大型道路大型或遊動競選廣告</string>
 <string name="sec_s_qid6401">水、空氣、冷氣機滴水造成之環境污染</string>
 
+<string name="case_filter_select_title">請選擇案件種類</string>
+
 </resources>
