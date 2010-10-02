@@ -51,6 +51,11 @@
 		FE46283A12575A7E00936914 /* fail.png in Resources */ = {isa = PBXBuildFile; fileRef = FE46283712575A7D00936914 /* fail.png */; };
 		FE46283B12575A7E00936914 /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = FE46283812575A7D00936914 /* ok.png */; };
 		FE46283C12575A7E00936914 /* unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = FE46283912575A7D00936914 /* unknown.png */; };
+		FE4628A21257664200936914 /* PrefViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4628A01257664200936914 /* PrefViewController.m */; };
+		FE4628A31257664200936914 /* PrefViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4628A11257664200936914 /* PrefViewController.xib */; };
+		FE4628D9125771EE00936914 /* myCase.png in Resources */ = {isa = PBXBuildFile; fileRef = FE4628D6125771EE00936914 /* myCase.png */; };
+		FE4628DA125771EE00936914 /* pref.png in Resources */ = {isa = PBXBuildFile; fileRef = FE4628D7125771EE00936914 /* pref.png */; };
+		FE4628DB125771EE00936914 /* query.png in Resources */ = {isa = PBXBuildFile; fileRef = FE4628D8125771EE00936914 /* query.png */; };
 		FE4EE76F1223F68F00737028 /* reportDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76A1223F68F00737028 /* reportDetails.plist */; };
 		FE4EE7701223F68F00737028 /* reportQid.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76B1223F68F00737028 /* reportQid.plist */; };
 		FE4EE7711223F68F00737028 /* reportSecondDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76C1223F68F00737028 /* reportSecondDetails.plist */; };
@@ -159,6 +164,12 @@
 		FE46283712575A7D00936914 /* fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fail.png; sourceTree = "<group>"; };
 		FE46283812575A7D00936914 /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
 		FE46283912575A7D00936914 /* unknown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unknown.png; sourceTree = "<group>"; };
+		FE46289F1257664200936914 /* PrefViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefViewController.h; sourceTree = "<group>"; };
+		FE4628A01257664200936914 /* PrefViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefViewController.m; sourceTree = "<group>"; };
+		FE4628A11257664200936914 /* PrefViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PrefViewController.xib; path = Classes/PrefViewController.xib; sourceTree = "<group>"; };
+		FE4628D6125771EE00936914 /* myCase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myCase.png; sourceTree = "<group>"; };
+		FE4628D7125771EE00936914 /* pref.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pref.png; sourceTree = "<group>"; };
+		FE4628D8125771EE00936914 /* query.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = query.png; sourceTree = "<group>"; };
 		FE4EE76A1223F68F00737028 /* reportDetails.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportDetails.plist; sourceTree = SOURCE_ROOT; };
 		FE4EE76B1223F68F00737028 /* reportQid.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportQid.plist; sourceTree = SOURCE_ROOT; };
 		FE4EE76C1223F68F00737028 /* reportSecondDetails.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportSecondDetails.plist; sourceTree = SOURCE_ROOT; };
@@ -229,6 +240,7 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				FE46289E1257661200936914 /* Preferences */,
 				FEB391BA123677A9007359AB /* Case Selector */,
 				2A79AC301223FBCF00F140A2 /* Query Case */,
 				2A79AC2F1223FBC200F140A2 /* My Case */,
@@ -331,6 +343,7 @@
 		2A79AC2D1223FB9B00F140A2 /* Interface Builder */ = {
 			isa = PBXGroup;
 			children = (
+				FE4628A11257664200936914 /* PrefViewController.xib */,
 				FE3FFE13122F7904008B0E48 /* CaseViewerViewController.xib */,
 				2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */,
 				2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */,
@@ -418,6 +431,9 @@
 		FE17463D122D17A400641599 /* Icon And Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				FE4628D6125771EE00936914 /* myCase.png */,
+				FE4628D7125771EE00936914 /* pref.png */,
+				FE4628D8125771EE00936914 /* query.png */,
 				FE46283712575A7D00936914 /* fail.png */,
 				FE46283812575A7D00936914 /* ok.png */,
 				FE46283912575A7D00936914 /* unknown.png */,
@@ -459,6 +475,15 @@
 				FEB39CA312389597007359AB /* HybridViewController.m */,
 			);
 			name = "Hybrid List and Map View";
+			sourceTree = "<group>";
+		};
+		FE46289E1257661200936914 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				FE46289F1257664200936914 /* PrefViewController.h */,
+				FE4628A01257664200936914 /* PrefViewController.m */,
+			);
+			name = Preferences;
 			sourceTree = "<group>";
 		};
 		FE4EE7461223D50200737028 /* Types and Detail Selector */ = {
@@ -599,6 +624,10 @@
 				FE46283A12575A7E00936914 /* fail.png in Resources */,
 				FE46283B12575A7E00936914 /* ok.png in Resources */,
 				FE46283C12575A7E00936914 /* unknown.png in Resources */,
+				FE4628A31257664200936914 /* PrefViewController.xib in Resources */,
+				FE4628D9125771EE00936914 /* myCase.png in Resources */,
+				FE4628DA125771EE00936914 /* pref.png in Resources */,
+				FE4628DB125771EE00936914 /* query.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -644,6 +673,7 @@
 				2AEBFCD9124B22FF0047B3E6 /* Reachability.m in Sources */,
 				FEE907DE1251C95400A1CBAF /* LoadingOverlayView.m in Sources */,
 				FEB7C7FF12557EBD00436BB2 /* CaseSelectorViewController.m in Sources */,
+				FE4628A21257664200936914 /* PrefViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

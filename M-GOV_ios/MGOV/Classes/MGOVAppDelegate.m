@@ -7,9 +7,6 @@
 //
 
 #import "MGOVAppDelegate.h"
-#import "MyCaseViewController.h"
-#import "QueryViewController.h"
-#import "QueryGoogleAppEngine.h"
 
 @implementation MGOVAppDelegate
 
@@ -38,20 +35,28 @@
 	if (![[NSFileManager defaultManager] fileExistsAtPath:tempPlistPathInAppDocuments]) 
 		[[NSFileManager defaultManager] copyItemAtPath:tempPlistPathInAppBundle toPath:tempPlistPathInAppDocuments error:nil];
 	
-	
 	// My Case
 	MyCaseViewController *myCase = [[MyCaseViewController alloc] initWithMode:HybridViewListMode andTitle:@"我的案件"];
 	myCase.dataSource = myCase;
 	myCase.selectorDelegate = myCase;
+	myCase.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"我的案件" image:[UIImage imageNamed:@"myCase.png"] tag:0] autorelease];
 		
 	// Query
 	QueryViewController *queryCase = [[QueryViewController alloc] initWithMode:HybridViewMapMode andTitle:@"查詢案件"];
 	queryCase.dataSource = queryCase;
 	queryCase.selectorDelegate = queryCase;
+	queryCase.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"查詢案件" image:[UIImage imageNamed:@"query.png"] tag:0] autorelease];
+	
+	// Preference
+	PrefViewController *preference = [[PrefViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	UINavigationController *prefTab = [[UINavigationController alloc] initWithRootViewController:preference];
+	//prefTab.title = @"偏好設定";
+	preference.title = @"偏好設定";
+	prefTab.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"偏好設定" image:[UIImage imageNamed:@"pref.png"] tag:0] autorelease];
 	
 	// Add tabs and view
 	tabBarController = [[UITabBarController alloc] init];
-	tabBarController.viewControllers = [NSArray arrayWithObjects:myCase, queryCase, nil];
+	tabBarController.viewControllers = [NSArray arrayWithObjects:myCase, queryCase, prefTab, nil];
 	
 	// Set window property and show
 	window.backgroundColor = [UIColor viewFlipsideBackgroundColor];
@@ -61,6 +66,8 @@
 	// Release
 	[myCase release];
 	[queryCase release];
+	[preference release];
+	[prefTab release];
 	
 	return YES;
 }
