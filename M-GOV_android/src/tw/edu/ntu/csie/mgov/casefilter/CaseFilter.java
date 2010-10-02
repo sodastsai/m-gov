@@ -52,6 +52,16 @@ public class CaseFilter extends PreferenceActivity {
 		setResult(RESULT_CANCEL, null);
 	}
 
+	@Override
+	public void finish() {
+		/** put temp result */
+		Bundle bundle = new Bundle();
+		bundle.putInt("qid", 1101);
+		//bundle.putString("detail", "he");
+		Intent mIntent = new Intent();
+		mIntent.putExtras(bundle);
+		setResult(RESULT_OK, mIntent);
+	}
 	private PreferenceScreen createPreferenceHierarchy() {
 		
 		PreferenceCategory[] secPrefCat = new PreferenceCategory[6];

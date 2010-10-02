@@ -1,9 +1,14 @@
-package tw.edu.ntu.csie.mgov;
+package tw.edu.ntu.csie.mgov.photo;
 //package com.example;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import tw.edu.ntu.csie.mgov.R;
+import tw.edu.ntu.csie.mgov.mgov;
+import tw.edu.ntu.csie.mgov.R.id;
+import tw.edu.ntu.csie.mgov.R.layout;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,7 +34,7 @@ public class CameraActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.appinfo_tab2);
+		setContentView(R.layout.camera);
 
 		findview();
 		setlistener();

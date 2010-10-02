@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TabHost;
+import tw.edu.ntu.csie.mgov.R;
 
 public class mgov extends baseActivity {
     /** Called when the activity is first created. */

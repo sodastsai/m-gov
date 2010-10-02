@@ -1,5 +1,7 @@
 package tw.edu.ntu.csie.mgov;
 
+import tw.edu.ntu.csie.mgov.map.MyOverLay;
+import tw.edu.ntu.csie.mgov.photo.CameraActivity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -7,7 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -30,8 +31,8 @@ public class submit extends MapActivity {
 	String pic_dialog_option = "";
 	TextView take_pic, select_pic;
 	MapView mapview;
-	private EditText submit_name,submit_desc;
-	Button btnSubmitType;
+	EditText submit_name,submit_desc;
+	Button btnSubmitType, btnSubmit;
 	Bitmap myBitmap;
 	
 	@Override
@@ -67,6 +68,36 @@ public class submit extends MapActivity {
 			}
 		});
 		
+		btnSubmit.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+
+				LayoutInflater inflater = LayoutInflater.from(submit.this);
+				final View textEntryView = inflater.inflate(R.layout.alert_submit,null);
+				EditText email = (EditText)textEntryView.findViewById(R.id.email);
+				
+				AlertDialog.Builder builder = new AlertDialog.Builder(submit.this);
+				builder.setTitle(getResources().getString(R.string.alertEmailTitle));
+				builder.setView(textEntryView);
+				
+				
+				builder.setPositiveButton(R.string.ok,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int whichButton) {
+
+							}
+						});
+				builder.setNegativeButton(R.string.cancel,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int whichButton) {
+							
+							dialog.cancel();
+							}
+						});
+				builder.create().show();
+			}
+		});
 	}
 	
 	@Override
@@ -82,7 +113,7 @@ public class submit extends MapActivity {
 	Dialog submitDialog(){
 		
 		LayoutInflater inflater = LayoutInflater.from(this);
-		final View textEntryView = inflater.inflate(R.layout.picture_dialog,null);
+		final View textEntryView = inflater.inflate(R.layout.alert_picture,null);
 		
 		take_pic = (TextView)textEntryView.findViewById(R.id.take_pic);
 		select_pic = (TextView)textEntryView.findViewById(R.id.select_pic);
@@ -142,6 +173,8 @@ public class submit extends MapActivity {
 		submit_name = (EditText)findViewById(R.id.submit_name);
 		submit_desc = (EditText)findViewById(R.id.submit_suggestion);
 		btnSubmitType = (Button)findViewById(R.id.submit_type_btn);
+		
+		btnSubmit = (Button)findViewById(R.id.btnSubmit);
 	}
 
 	public Location getLocationProvider(LocationManager lm) {
