@@ -12,18 +12,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".AskActivity" ></activity>
-		<activity android:name=".CameraActivity" ></activity>
+		<activity android:name=".photo.CameraActivity" ></activity>
     
 
 <activity android:name="NoPicSubmit"></activity>
-<activity android:name="problem_list"></activity>
-<activity android:name="Query"></activity>
 <activity android:name="photoGallery"></activity>
 <activity android:name="submit"></activity>
 <uses-library android:name="com.google.android.maps" />
 
-<activity android:name="map"></activity>
+<activity android:name=".map.map"></activity>
 <activity android:name="baseActivity"></activity>
 <activity android:name="caseListview"></activity>
 <activity android:name=".casefilter.CaseFilter" android:screenOrientation="portrait"></activity>
