@@ -5,6 +5,20 @@
 <string name="info">information</string>
 <string name="info_unit_list">Unit List</string>
 
+<string name="listView">列表模式</string>
+<string name="mapView">地圖模式</string>
+<string name="filter">設定條件</string>
+<string name="report">新増案件</string>
+<string name="mycase">我的案件</string>
+<string name="querycase">查詢案件</string>
+<string name="takePicture">拍攝新的照片</string>
+<string name="selectPicture">選擇現有照片</string>
+<string name="pickOrSelectPicture">請選擇照片來源</string>
+<string name="pictureAndMap">照片及地址</string>
+<string name="selectType">請選擇案件種類</string>
+<string name="setName">請輸入姓名(Optional)</string>
+<string name="setContent">請輸入案件內容(Optional)</string>
+
 <string name="type">Search by Type</string>
 <string name="Submit">Submit</string>
 <string name="sdcard">/sdcard/</string>

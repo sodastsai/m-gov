@@ -4,15 +4,15 @@
 	android:orientation="vertical">
 
 	<TextView android:id="@+id/take_pic" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:text="Take a picture"
+		android:layout_height="wrap_content"
 		android:textSize="20dip" android:layout_gravity="center_horizontal"
-		android:layout_margin="5dip" android:gravity="center_horizontal"
+		android:layout_margin="20dip" android:gravity="center_horizontal"
 		></TextView>
 	
 	<TextView android:id="@+id/select_pic" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:text="Select a picture"
+			android:layout_height="wrap_content"
 			android:textSize="20dip" android:layout_gravity="center_horizontal"
-			android:layout_margin="5dip" android:gravity="center_horizontal"
+			android:layout_margin="20dip" android:gravity="center_horizontal"
 			></TextView>
 
 </LinearLayout>

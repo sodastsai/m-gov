@@ -12,7 +12,7 @@
 			android:layout_height="wrap_content" android:layout_width="fill_parent"
 			android:layout_margin="3dip">
 			
-			<TextView android:layout_height="wrap_content" android:text="Click to select or take a picture"
+			<TextView android:layout_height="wrap_content" android:text="@string/pictureAndMap"
 					android:layout_width="fill_parent" android:layout_gravity="center_horizontal" 
 					android:id="@+id/pic_title" android:textSize="20dip"
 					android:layout_marginBottom="2dip" android:layout_margin="5dip">
@@ -29,53 +29,45 @@
 				</ImageView>
 				
 			</LinearLayout>
-			
-<!--		<FrameLayout  -->
-<!--			android:id="@+id/home_container" -->
-<!--			android:layout_width="wrap_content" -->
-<!--			android:layout_height="wrap_content"-->
-<!--			>-->
-<!--			<com.google.android.maps.MapView-->
-<!--			android:id="@+id/myMapView1" android:layout_width="fill_parent" android:layout_height="300dip"-->
-<!--			android:layout_margin="10dip"/>-->
-        	
 
      <com.google.android.maps.MapView
 		android:id="@+id/myMapView1" android:layout_width="fill_parent"
-		android:layout_height="300dip" android:enabled="true" android:clickable="true"
-		android:apiKey="0RXnT5qrqdm-I08nvJSSU1nnDY2jpNUkXVQJqQg" android:layout_margin="10dip"
-		>
+		android:layout_height="150dip" android:enabled="true" android:clickable="true"
+		android:apiKey="0RXnT5qrqdm-I08nvJSSU1nnDY2jpNUkXVQJqQg" android:layout_margin="5dip"
+		android:radius="9dp"
+		>		
 	</com.google.android.maps.MapView>
-<!--	</FrameLayout>-->
-        	<TextView android:layout_height="wrap_content" android:text="Click to select a type"
+	
+        	<TextView android:layout_height="wrap_content" android:text="@string/selectType"
 					android:layout_width="fill_parent" android:layout_gravity="center_horizontal" 
 					android:id="@+id/type" android:textSize="20dip"
-					android:layout_margin="10dip">
+					android:layout_marginTop="10dip">
 			</TextView>
 			
-			<Button android:id="@+id/submit_type_btn" android:layout_width="100dip"
-			android:layout_height="wrap_content"
+			<Button android:id="@+id/submit_type_btn" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:layout_marginTop="3dip"
 			></Button>
 			        	
-        	<TextView android:layout_height="wrap_content" android:text="Please enter your name"
+        	<TextView android:layout_height="wrap_content" android:text="@string/setName"
 					android:layout_width="fill_parent" android:layout_gravity="center_horizontal" 
 					android:id="@+id/name" android:textSize="20dip"
-					android:layout_margin="10dip">
+					android:layout_marginTop="10dip">
 			</TextView>
 			
 			
-			<EditText android:id="@+id/submit_name" android:layout_width="200dip"
-			android:layout_height="wrap_content"  android:layout_below="@id/t1_email">
+			<EditText android:id="@+id/submit_name" android:layout_width="fill_parent"
+			android:layout_height="wrap_content"  android:layout_below="@id/t1_email"
+			android:layout_marginTop="3dip">
 			</EditText>
 	
-			<TextView android:layout_height="wrap_content" android:text="Description"
+			<TextView android:layout_height="wrap_content" android:text="@string/setContent"
 					android:layout_width="fill_parent" android:layout_gravity="center_horizontal" 
 					android:id="@+id/suggestion" android:textSize="20dip"
-					android:layout_margin="10dip">
+					android:layout_marginTop="10dip">
 			</TextView>
 			
 			<EditText android:id="@+id/submit_suggestion" android:layout_width="fill_parent"
-			android:layout_height="300dip"
+			android:layout_height="200dip" android:layout_marginTop="3dip"
 			>
 			</EditText>
 		</LinearLayout>
