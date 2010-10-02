@@ -1,41 +1,59 @@
 package tw.edu.ntu.csie.mgov;
 
-import android.app.TabActivity;
+import java.util.Random;
+
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TabHost;
 
-public class mgov extends TabActivity {
+public class mgov extends baseActivity {
     /** Called when the activity is first created. */
+	
+	Class cls = null;
+	Resources res;
+//	TabHost tabHost;
+	TabHost.TabSpec spec;
+    Intent intent;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
-        Resources res = getResources();
+        res = getResources();
         TabHost tabHost = getTabHost();
-        TabHost.TabSpec spec;
-        Intent intent;
-        
-        intent = new Intent().setClass(this, AskActivity.class);
-        spec = tabHost.newTabSpec("myfile").setIndicator("My File(s)").setContent(intent);
-        tabHost.addTab(spec);
-        
-//        intent = new Intent().setClass(this, Query.class);
-//        spec = tabHost.newTabSpec("Query").setIndicator("Search").setContent(intent);
-//        tabHost.addTab(spec);
-        
-        intent = new Intent().setClass(this, NoPicSubmit.class);
-        spec = tabHost.newTabSpec("Query").setIndicator("Query").setContent(intent);
-        tabHost.addTab(spec);
-        
-        intent = new Intent().setClass(this, submit.class);
-        intent.putExtra("currentPic", getIntent().getStringExtra("currentPic"));
-        spec = tabHost.newTabSpec("submit").setIndicator("Submit").setContent(intent);
-        tabHost.addTab(spec);
-        
-        tabHost.setCurrentTab(2);
 
+    	
+        intent = new Intent().setClass(this, NoPicSubmit.class);
+        spec = tabHost.newTabSpec(res.getString(R.string.querycase)).
+        	setIndicator(res.getString(R.string.querycase)).setContent(intent);
+        tabHost.addTab(spec);
+        
+        if(savedInstanceState == null)
+        {
+        	intent = new Intent().setClass(this, caseListview.class);
+        	
+        }
+        	
+		else{
+			try {
+				String s = savedInstanceState.getString("activity");
+				intent = new Intent().setClass(this, Class.forName(savedInstanceState.getString("activity")));
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+        
+        Random r = new Random(); 
+        intent.putExtra("currentPic", getIntent().getStringExtra("currentPic"));
+        spec = tabHost.newTabSpec(new Random().nextInt()+"").
+        	setIndicator(res.getString(R.string.mycase)).setContent(intent);
+        tabHost.addTab(spec);
+        
+        tabHost.setCurrentTab(1);
+        		
     }
 }

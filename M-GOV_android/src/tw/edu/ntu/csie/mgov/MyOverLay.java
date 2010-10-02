@@ -3,6 +3,7 @@ package tw.edu.ntu.csie.mgov;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -36,6 +37,7 @@ public class MyOverLay extends Overlay{
 		this.gp2 = gp2;
 		this.mode = mode;
 		defaultColor = 999; // no defaultColor
+		img = BitmapFactory.decodeResource(c.getResources(), R.drawable.mylocation);
 	}
 
 
@@ -66,7 +68,8 @@ public class MyOverLay extends Overlay{
 				RectF oval = new RectF(point.x - mRadius, point.y - mRadius,
 						point.x + mRadius, point.y + mRadius);
 				
-				canvas.drawOval(oval, paint);
+//				canvas.drawOval(oval, paint);
+				canvas.drawBitmap(img, point.x - mRadius, point.y - mRadius, paint);
 		}
 		return super.draw(canvas, mapView, shadow, when);
 	}

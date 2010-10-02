@@ -31,7 +31,7 @@ public class submit extends MapActivity {
 	TextView take_pic, select_pic;
 	MapView mapview;
 	private EditText submit_name,submit_desc;
-	Button submit_type_btn;
+	Button btnSubmitType;
 	Bitmap myBitmap;
 	
 	@Override
@@ -57,7 +57,7 @@ public class submit extends MapActivity {
 			}
 		});
 
-		submit_type_btn.setOnClickListener(new View.OnClickListener() {
+		btnSubmitType.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -87,14 +87,17 @@ public class submit extends MapActivity {
 		take_pic = (TextView)textEntryView.findViewById(R.id.take_pic);
 		select_pic = (TextView)textEntryView.findViewById(R.id.select_pic);
 		
+		take_pic.setText(getResources().getString(R.string.takePicture));
+		select_pic.setText(getResources().getString(R.string.selectPicture));
+		
 		take_pic.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 
-				take_pic.setTextColor(Color.GREEN);
-				select_pic.setTextColor(Color.WHITE);
-				pic_dialog_option = "take";
+				Intent intent = new Intent();
+				intent.setClass(submit.this, CameraActivity.class);
+				startActivity(intent);
 			}
 		});
 		
@@ -103,43 +106,16 @@ public class submit extends MapActivity {
 			@Override
 			public void onClick(View v) {
 				
-				select_pic.setTextColor(Color.GREEN);
-				take_pic.setTextColor(Color.WHITE);
-				pic_dialog_option = "select";
+				Intent intent = new Intent();
+				intent.setClass(submit.this, photoGallery.class);
+				startActivity(intent);
 			}
 		});
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setIcon(R.drawable.icon);
-		builder.setTitle("Select or Take a Picture");
+		builder.setTitle(getResources().getString(R.string.pickOrSelectPicture));
 		builder.setView(textEntryView);
-		
-		builder.setPositiveButton("OK",
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-
-						if(pic_dialog_option.equals("take"))
-						{
-							Intent intent = new Intent();
-							intent.setClass(submit.this, CameraActivity.class);
-							startActivity(intent);
-						}
-						else
-						{
-							Intent intent = new Intent();
-							intent.setClass(submit.this, photoGallery.class);
-							startActivity(intent);
-						}
-					}
-				});
-
-		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				
-				take_pic.setTextColor(Color.WHITE);
-				select_pic.setTextColor(Color.WHITE);
-			}
-		});
 		
 		return builder.create();
 	}
@@ -160,12 +136,12 @@ public class submit extends MapActivity {
 		Location center = getLocationProvider(lm);
 		GeoPoint gpoint = new GeoPoint((int) (center.getLatitude() * 1e6),(int) (center.getLongitude() * 1e6));
 		mapview.getOverlays().add(new MyOverLay(gpoint,submit.this));
-//		mapview.getController().animateTo(gpoint);
+		mapview.getController().animateTo(gpoint);
 		mapview.getController().setZoom(15);
 		
 		submit_name = (EditText)findViewById(R.id.submit_name);
 		submit_desc = (EditText)findViewById(R.id.submit_suggestion);
-		submit_type_btn = (Button)findViewById(R.id.submit_type_btn);
+		btnSubmitType = (Button)findViewById(R.id.submit_type_btn);
 	}
 
 	public Location getLocationProvider(LocationManager lm) {
@@ -188,6 +164,15 @@ public class submit extends MapActivity {
 		return retLocation;
 	};
 	
+	 @Override  
+	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {  
+
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if (resultCode == RESULT_OK)
+			btnSubmitType.setText("text");
+	   }
+	 
 	@Override
 	protected boolean isRouteDisplayed() {
 		return false;
