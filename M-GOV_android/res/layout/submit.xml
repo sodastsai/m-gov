@@ -46,6 +46,7 @@
 			
 			<Button android:id="@+id/submit_type_btn" android:layout_width="fill_parent"
 			android:layout_height="wrap_content" android:layout_marginTop="3dip"
+			android:text="@string/selectType" android:gravity="center_horizontal"
 			></Button>
 			        	
         	<TextView android:layout_height="wrap_content" android:text="@string/setName"
@@ -56,7 +57,7 @@
 			
 			
 			<EditText android:id="@+id/submit_name" android:layout_width="fill_parent"
-			android:layout_height="wrap_content"  android:layout_below="@id/t1_email"
+			android:layout_height="wrap_content"  
 			android:layout_marginTop="3dip">
 			</EditText>
 	
@@ -67,9 +68,15 @@
 			</TextView>
 			
 			<EditText android:id="@+id/submit_suggestion" android:layout_width="fill_parent"
-			android:layout_height="200dip" android:layout_marginTop="3dip"
+			android:layout_height="100dip" android:layout_marginTop="3dip"
 			>
 			</EditText>
+			
+			<Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+					android:text="@string/submit" android:textSize="20dip" 
+					android:layout_marginTop="10dip" android:id="@+id/btnSubmit"
+					android:layout_gravity="center_horizontal"
+			></Button>
 		</LinearLayout>
 	</ScrollView>
 </LinearLayout>

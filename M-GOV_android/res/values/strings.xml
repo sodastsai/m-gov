@@ -18,9 +18,12 @@
 <string name="selectType">請選擇案件種類</string>
 <string name="setName">請輸入姓名(Optional)</string>
 <string name="setContent">請輸入案件內容(Optional)</string>
+<string name="submit">送出案件</string>
+<string name="alertEmailTitle">請輸入電子郵件</string>
+<string name="ok">確定</string>
+<string name="cancel">取消</string>
 
 <string name="type">Search by Type</string>
-<string name="Submit">Submit</string>
 <string name="sdcard">/sdcard/</string>
 
 <!--<string name="sec1_title">道路、橋樑、水溝與堤防</string>
