@@ -168,7 +168,7 @@
 }
 
 + (NSString *)generateMapQueryConditionFromRegion:(MKCoordinateRegion)mapRegion {
-	return [NSString stringWithFormat:@"%f&%f&%f&%f", mapRegion.center.longitude, mapRegion.center.latitude, mapRegion.span.longitudeDelta/3, mapRegion.span.latitudeDelta/3];
+	return [NSString stringWithFormat:@"%f&%f&%f&%f", mapRegion.center.longitude, mapRegion.center.latitude, mapRegion.span.longitudeDelta/2, mapRegion.span.latitudeDelta/2];
 }
 
 + (NSString *)generateORcombinedCondition:(NSArray *)ORconditions {

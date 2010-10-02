@@ -48,6 +48,9 @@
 		FE2BC43812537BD200F9CF7C /* previous.png in Resources */ = {isa = PBXBuildFile; fileRef = FE2BC43612537BD200F9CF7C /* previous.png */; };
 		FE3FFE14122F7904008B0E48 /* CaseViewerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE3FFE12122F7904008B0E48 /* CaseViewerViewController.m */; };
 		FE3FFE15122F7904008B0E48 /* CaseViewerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE3FFE13122F7904008B0E48 /* CaseViewerViewController.xib */; };
+		FE46283A12575A7E00936914 /* fail.png in Resources */ = {isa = PBXBuildFile; fileRef = FE46283712575A7D00936914 /* fail.png */; };
+		FE46283B12575A7E00936914 /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = FE46283812575A7D00936914 /* ok.png */; };
+		FE46283C12575A7E00936914 /* unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = FE46283912575A7D00936914 /* unknown.png */; };
 		FE4EE76F1223F68F00737028 /* reportDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76A1223F68F00737028 /* reportDetails.plist */; };
 		FE4EE7701223F68F00737028 /* reportQid.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76B1223F68F00737028 /* reportQid.plist */; };
 		FE4EE7711223F68F00737028 /* reportSecondDetails.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE76C1223F68F00737028 /* reportSecondDetails.plist */; };
@@ -77,9 +80,6 @@
 		FEE81538122791BF00D82E46 /* AppMKAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE81537122791BF00D82E46 /* AppMKAnnotation.m */; };
 		FEE907DE1251C95400A1CBAF /* LoadingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE907DD1251C95400A1CBAF /* LoadingOverlayView.m */; };
 		FEEB1FEE12392E6B00B24560 /* CaseSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEB1FED12392E6B00B24560 /* CaseSelectorCell.m */; };
-		FEEB20CF12394EDB00B24560 /* fail.png in Resources */ = {isa = PBXBuildFile; fileRef = FEEB20CC12394EDB00B24560 /* fail.png */; };
-		FEEB20D012394EDB00B24560 /* ok.png in Resources */ = {isa = PBXBuildFile; fileRef = FEEB20CD12394EDB00B24560 /* ok.png */; };
-		FEEB20D112394EDB00B24560 /* unknown.png in Resources */ = {isa = PBXBuildFile; fileRef = FEEB20CE12394EDB00B24560 /* unknown.png */; };
 		FEF0D2C01230CACA000317C5 /* AppClassExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */; };
 /* End PBXBuildFile section */
 
@@ -156,6 +156,9 @@
 		FE3FFE11122F7904008B0E48 /* CaseViewerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseViewerViewController.h; sourceTree = "<group>"; };
 		FE3FFE12122F7904008B0E48 /* CaseViewerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseViewerViewController.m; sourceTree = "<group>"; };
 		FE3FFE13122F7904008B0E48 /* CaseViewerViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CaseViewerViewController.xib; path = Classes/CaseViewerViewController.xib; sourceTree = "<group>"; };
+		FE46283712575A7D00936914 /* fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fail.png; sourceTree = "<group>"; };
+		FE46283812575A7D00936914 /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
+		FE46283912575A7D00936914 /* unknown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unknown.png; sourceTree = "<group>"; };
 		FE4EE76A1223F68F00737028 /* reportDetails.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportDetails.plist; sourceTree = SOURCE_ROOT; };
 		FE4EE76B1223F68F00737028 /* reportQid.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportQid.plist; sourceTree = SOURCE_ROOT; };
 		FE4EE76C1223F68F00737028 /* reportSecondDetails.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = reportSecondDetails.plist; sourceTree = SOURCE_ROOT; };
@@ -197,9 +200,6 @@
 		FEE907DD1251C95400A1CBAF /* LoadingOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingOverlayView.m; sourceTree = "<group>"; };
 		FEEB1FEC12392E6B00B24560 /* CaseSelectorCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseSelectorCell.h; sourceTree = "<group>"; };
 		FEEB1FED12392E6B00B24560 /* CaseSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseSelectorCell.m; sourceTree = "<group>"; };
-		FEEB20CC12394EDB00B24560 /* fail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fail.png; sourceTree = "<group>"; };
-		FEEB20CD12394EDB00B24560 /* ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ok.png; sourceTree = "<group>"; };
-		FEEB20CE12394EDB00B24560 /* unknown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unknown.png; sourceTree = "<group>"; };
 		FEF0D2BE1230CACA000317C5 /* AppClassExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppClassExtension.h; sourceTree = "<group>"; };
 		FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppClassExtension.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -418,11 +418,11 @@
 		FE17463D122D17A400641599 /* Icon And Pictures */ = {
 			isa = PBXGroup;
 			children = (
+				FE46283712575A7D00936914 /* fail.png */,
+				FE46283812575A7D00936914 /* ok.png */,
+				FE46283912575A7D00936914 /* unknown.png */,
 				FE2BC43512537BD200F9CF7C /* next.png */,
 				FE2BC43612537BD200F9CF7C /* previous.png */,
-				FEEB20CC12394EDB00B24560 /* fail.png */,
-				FEEB20CD12394EDB00B24560 /* ok.png */,
-				FEEB20CE12394EDB00B24560 /* unknown.png */,
 				FE17463B122D179C00641599 /* NoMyCase.png */,
 			);
 			name = "Icon And Pictures";
@@ -586,9 +586,6 @@
 				FE17463C122D179C00641599 /* NoMyCase.png in Resources */,
 				FE3FFE15122F7904008B0E48 /* CaseViewerViewController.xib in Resources */,
 				FE7D048312352AA5007FA0A1 /* QidToType.plist in Resources */,
-				FEEB20CF12394EDB00B24560 /* fail.png in Resources */,
-				FEEB20D012394EDB00B24560 /* ok.png in Resources */,
-				FEEB20D112394EDB00B24560 /* unknown.png in Resources */,
 				2AE48A871240AE37005547F3 /* CaseAddTempInformation.plist in Resources */,
 				FE2BC43712537BD200F9CF7C /* next.png in Resources */,
 				FE2BC43812537BD200F9CF7C /* previous.png in Resources */,
@@ -599,6 +596,9 @@
 				FEA295DC1253A4BE00EEC0DA /* Icon.png in Resources */,
 				FEA295DD1253A4BE00EEC0DA /* Icon@2x.png in Resources */,
 				FEA295DE1253A4BE00EEC0DA /* iTunesArtwork in Resources */,
+				FE46283A12575A7E00936914 /* fail.png in Resources */,
+				FE46283B12575A7E00936914 /* ok.png in Resources */,
+				FE46283C12575A7E00936914 /* unknown.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
