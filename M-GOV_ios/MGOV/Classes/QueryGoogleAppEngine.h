@@ -65,6 +65,8 @@ typedef enum {
 @property (nonatomic, retain) UIView *indicatorTargetView;
 
 + (NSString *)generateMapQueryConditionFromRegion:(MKCoordinateRegion)mapRegion;
++ (NSString *)generateORcombinedCondition:(NSArray *)ORconditions;
+
 - (NSString *)convertConditionTypeToString;
 - (NSString *)convertNSRangeToString;
 - (NSURL *)generateSingleConditionURL;

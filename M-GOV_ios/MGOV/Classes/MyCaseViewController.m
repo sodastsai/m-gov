@@ -70,8 +70,9 @@
 	[super viewDidLoad];
 	// Fetch User Information
 	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-	self.dictUserInformation = [[NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments] retain];
-	if ([[dictUserInformation valueForKey:@"User Email"] length]) [self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[dictUserInformation objectForKey:@"User Email"]];
+	self.dictUserInformation = [NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
+	if ([[dictUserInformation valueForKey:@"User Email"] length])
+		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[dictUserInformation objectForKey:@"User Email"]];
 	
 	// Add Filter
 	filter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"所有案件", @"完工", @"處理中", @"退回", nil]];
@@ -80,6 +81,8 @@
 	float filterY = (44 - filter.frame.size.height)/2;
 	filter.frame = CGRectMake(filterX, filterY, filter.frame.size.width, filter.frame.size.height);
 	filter.selectedSegmentIndex = 0;
+	currentSegmentIndex = 0;
+	[filter addTarget:self action:@selector(setCaseFilter:) forControlEvents:UIControlEventValueChanged];
 	
 	[informationBar addSubview:filter];
 	
@@ -101,6 +104,28 @@
 	informationBar.hidden = YES;
 	[self.topViewController.navigationController pushViewController:caseAdder animated:YES];
 	[caseAdder release];
+}
+
+- (void)setCaseFilter:(UISegmentedControl *)segmentedControl {
+	if (segmentedControl.selectedSegmentIndex != currentSegmentIndex) {
+		// Defined a new case query condition
+		NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByEmail", @"DataSourceGAEQueryByStatus", nil];
+		// Set status by selected segment
+		NSString *combinedStatus;
+		if (segmentedControl.selectedSegmentIndex==0) {
+			keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByEmail", nil];
+			combinedStatus = nil;
+		} else if (segmentedControl.selectedSegmentIndex==1) {
+			combinedStatus = [QueryGoogleAppEngine generateORcombinedCondition:[NSArray arrayWithObjects:@"0",@"4",nil]];
+		} else if (segmentedControl.selectedSegmentIndex==2) {
+			combinedStatus = [QueryGoogleAppEngine generateORcombinedCondition:[NSArray arrayWithObjects:@"1",@"2",@"3",nil]];
+		} else if (segmentedControl.selectedSegmentIndex==3) {
+			combinedStatus = [QueryGoogleAppEngine generateORcombinedCondition:[NSArray arrayWithObjects:@"5",@"6",nil]];
+		}
+		currentSegmentIndex = segmentedControl.selectedSegmentIndex;
+		NSArray *valueArray = [NSArray arrayWithObjects:[dictUserInformation objectForKey:@"User Email"], combinedStatus, nil];
+		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray]];
+	}
 }
 
 #pragma mark -
@@ -125,8 +150,10 @@
 	// If the original email is empty, after user submit case, reload the plist
 	if (![[dictUserInformation valueForKey:@"User Email"] length]) {
 		NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
+		// Get new one
 		self.dictUserInformation = [NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
 	}
+	if ([[dictUserInformation valueForKey:@"User Email"] length]) informationBar.hidden = NO;
 	[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[dictUserInformation objectForKey:@"User Email"]];
 }
 

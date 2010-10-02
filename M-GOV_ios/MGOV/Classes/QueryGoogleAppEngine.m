@@ -171,6 +171,18 @@
 	return [NSString stringWithFormat:@"%f&%f&%f&%f", mapRegion.center.longitude, mapRegion.center.latitude, mapRegion.span.longitudeDelta/3, mapRegion.span.latitudeDelta/3];
 }
 
++ (NSString *)generateORcombinedCondition:(NSArray *)ORconditions {
+	NSString *result = @"";
+	int conditionCount = [ORconditions count];
+	NSEnumerator *enumerator = [ORconditions objectEnumerator];
+	id eachCondition;
+	while (eachCondition = [enumerator nextObject]) {
+		result = [result stringByAppendingFormat:@"%@", eachCondition];
+		if (--conditionCount) result = [result stringByAppendingString:@","];
+	}
+	return result;
+}
+
 #pragma mark -
 #pragma mark Provider Lifecycle
 

@@ -18,10 +18,12 @@
 @interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, QueryGAEReciever, MKMapViewDelegate> {
 	NSDictionary *dictUserInformation;
 	UISegmentedControl *filter;
+	int currentSegmentIndex;
 }
 
 @property (nonatomic, retain) NSDictionary *dictUserInformation;
 
 - (void)addCase;
+- (void)setCaseFilter:(UISegmentedControl *)segmentedControl;
 
 @end
