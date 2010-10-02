@@ -50,7 +50,6 @@
 	// Preference
 	PrefViewController *preference = [[PrefViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	UINavigationController *prefTab = [[UINavigationController alloc] initWithRootViewController:preference];
-	//prefTab.title = @"偏好設定";
 	preference.title = @"偏好設定";
 	prefTab.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"偏好設定" image:[UIImage imageNamed:@"pref.png"] tag:0] autorelease];
 	

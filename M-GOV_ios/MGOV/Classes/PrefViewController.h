@@ -8,9 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+#define kDevelopPreview YES
+#define kBetaRelease NO
+#define kStableRelease NO
+
+// Use NSString
+#define kDevelopPreviewVersion @"2"
+#define kBetaReleaseVersion @"0"
+#define kStableReleaseVersion @"1.0"
 
 @interface PrefViewController : UITableViewController {
-
+	NSMutableDictionary *dictUserInformation;
 }
+
+@property (nonatomic, retain) NSMutableDictionary *dictUserInformation;
 
 @end
