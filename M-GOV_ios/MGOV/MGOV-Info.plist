@@ -6,6 +6,8 @@
 	<string>zh_TW</string>
 	<key>CFBundleDisplayName</key>
 	<string>路見不平</string>
+	<key>CFBundleDocumentTypes</key>
+	<array/>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
@@ -35,5 +37,7 @@
 	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
+	<key>Release State</key>
+	<string>1.0 Develop Preview 2</string>
 </dict>
 </plist>

@@ -34,10 +34,9 @@
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	// Last section
 	if (section == [self numberOfSectionsInTableView:tableView]-1) 
-		if (kDevelopPreview) return [NSString stringWithFormat:@"路見不平 %@\n%@ Develop Preview %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"], kStableReleaseVersion, kDevelopPreviewVersion];
-		else if (kBetaRelease) return [NSString stringWithFormat:@"路見不平 %@\n%@ Beta Release %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"], kStableReleaseVersion, kBetaReleaseVersion];
-		else if (kStableRelease) return [NSString stringWithFormat:@"路見不平 %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
-		else return nil;
+		if ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"Release State"]!=nil)
+			return [NSString stringWithFormat:@"路見不平 %@\n%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"], [[[NSBundle mainBundle] infoDictionary] objectForKey:@"Release State"]];
+		else return [NSString stringWithFormat:@"路見不平 %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
 	else return nil;
 }
 

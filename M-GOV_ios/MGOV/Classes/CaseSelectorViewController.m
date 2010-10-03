@@ -188,7 +188,7 @@
 	[super viewDidLoad];
 	// Show Information Bar
 	informationBar = [[[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 44)] autorelease];
-	informationBar.backgroundColor = [UIColor colorWithHue:0.5944 saturation:0.35 brightness:0.7 alpha:0.7];
+	informationBar.backgroundColor = [UIColor colorWithRed:0.44 green:0.53 blue:0.64 alpha:0.9];
 	[self.view addSubview:informationBar];
 }
 
