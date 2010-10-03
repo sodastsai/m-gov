@@ -43,36 +43,36 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     static NSString *CellIdentifier1 = @"DefaultCell";
-	static NSString *CellIdentifier2 = @"Value2Cell";
-    
-	UITableViewCell *cell;
-	if (indexPath.section==0) 
-		cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
-	else 
-		cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
-
-    if (cell == nil) {
-		if (indexPath.section==0) 
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier2] autorelease];
-		else 
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier1] autorelease];
-    }
+	static NSString *CellIdentifier2 = @"EditibleTextFieldCell";
 	
 	if (indexPath.section==0) {
-		cell.textLabel.text = @"E-Mail";
-		cell.detailTextLabel.text = [dictUserInformation valueForKey:@"User Email"];
-		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+		EditibleTextFieldCell *editibleCell = (EditibleTextFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
+		if (editibleCell == nil)
+			editibleCell = [[[EditibleTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2] autorelease];
+		if (indexPath.section==0) {
+			editibleCell.title.text = @"E-Mail";
+			editibleCell.content.text = @"a";
+			editibleCell.content.keyboardType = UIKeyboardTypeEmailAddress;
+			editibleCell.content.placeholder
+		}
+		editibleCell.selectionStyle = UITableViewCellSeparatorStyleNone;
+		return (UITableViewCell *)editibleCell;
+	} else {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
+		if (cell == nil)
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier1] autorelease];
+		return cell;
 	}
-    
-    return cell;
 }
 
 #pragma mark -
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	if (indexPath.section==0) {
+		
+	}
 }
 
 

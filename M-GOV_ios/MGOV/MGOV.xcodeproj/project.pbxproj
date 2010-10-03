@@ -76,6 +76,7 @@
 		FE4EE7801223F72E00737028 /* detailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77D1223F72E00737028 /* detailViewController.xib */; };
 		FE4EE7811223F72E00737028 /* secondDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */; };
 		FE4EE7821223F72E00737028 /* typesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77F1223F72E00737028 /* typesViewController.xib */; };
+		FE74CC551258ADED00267C80 /* EditibleTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */; };
 		FE7D048312352AA5007FA0A1 /* QidToType.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE7D048212352AA5007FA0A1 /* QidToType.plist */; };
 		FE8BF5191250D6FC009498CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8BF5181250D6FC009498CA /* CFNetwork.framework */; };
 		FEA295D81253A4BE00EEC0DA /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = FEA295D11253A4BE00EEC0DA /* Icon-72.png */; };
@@ -203,6 +204,8 @@
 		FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = secondDetailViewController.xib; sourceTree = "<group>"; };
 		FE4EE77F1223F72E00737028 /* typesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = typesViewController.xib; sourceTree = "<group>"; };
 		FE71EEB01250C082008AF579 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
+		FE74CC531258ADED00267C80 /* EditibleTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditibleTextFieldCell.h; sourceTree = "<group>"; };
+		FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditibleTextFieldCell.m; sourceTree = "<group>"; };
 		FE7D048212352AA5007FA0A1 /* QidToType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QidToType.plist; sourceTree = "<group>"; };
 		FE8BF5181250D6FC009498CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FEA295D11253A4BE00EEC0DA /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
@@ -509,6 +512,8 @@
 			children = (
 				FE46289F1257664200936914 /* PrefViewController.h */,
 				FE4628A01257664200936914 /* PrefViewController.m */,
+				FE74CC531258ADED00267C80 /* EditibleTextFieldCell.h */,
+				FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -710,6 +715,7 @@
 				FEE907DE1251C95400A1CBAF /* LoadingOverlayView.m in Sources */,
 				FEB7C7FF12557EBD00436BB2 /* CaseSelectorViewController.m in Sources */,
 				FE4628A21257664200936914 /* PrefViewController.m in Sources */,
+				FE74CC551258ADED00267C80 /* EditibleTextFieldCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

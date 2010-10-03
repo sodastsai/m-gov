@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EditibleTextFieldCell.h"
 
 @interface PrefViewController : UITableViewController {
 	NSMutableDictionary *dictUserInformation;
