@@ -13,8 +13,8 @@
 
 @synthesize selectedTypeTitle;
 @synthesize qid;
-@synthesize delegate;
 @synthesize selectedImage;
+@synthesize myCase;
 
 #pragma mark -
 #pragma mark CaseAddMethod
@@ -84,6 +84,23 @@
 	}
 	
 	return NO;
+}
+
+#pragma mark -
+#pragma mark ASIHTTPRequest
+
+- (void)requestFinished:(ASIHTTPRequest *)request {
+	[indicatorView finishedLoad];
+	[indicatorView removeFromSuperview];
+	[indicatorView release];
+	[myCase refreshDataSource];
+	[self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request {
+	[indicatorView finishedLoad];
+	[indicatorView removeFromSuperview];
+	[indicatorView release];
 }
 
 #pragma mark -
@@ -166,23 +183,6 @@
 	}
 		
 	return cell;
-}
-
-#pragma mark -
-#pragma mark ASIHTTPRequest
-
-- (void)requestFinished:(ASIHTTPRequest *)request {
-	[indicatorView finishedLoad];
-	[indicatorView removeFromSuperview];
-	[indicatorView release];
-	[self.navigationController popViewControllerAnimated:YES];
-	[delegate refreshData];
-}
-
-- (void)requestFailed:(ASIHTTPRequest *)request {
-	[indicatorView finishedLoad];
-	[indicatorView removeFromSuperview];
-	[indicatorView release];
 }
 
 #pragma mark -

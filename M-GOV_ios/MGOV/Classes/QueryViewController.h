@@ -17,7 +17,7 @@
 
 #define kDataSectorSize 10
 
-@interface QueryViewController : CaseSelectorViewController <QueryGAEReciever, UIActionSheetDelegate, TypeSelectorDelegateProtocol> {
+@interface QueryViewController : CaseSelectorViewController <UIActionSheetDelegate, TypeSelectorDelegateProtocol> {
 	int queryTotalLength;
 	
 	NSInteger typeID;

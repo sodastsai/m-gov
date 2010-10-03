@@ -10,6 +10,7 @@
 #import "MyCaseViewController.h"
 #import "QueryViewController.h"
 #import "PrefViewController.h"
+@class HybridViewController;
 
 @interface MGOVAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;

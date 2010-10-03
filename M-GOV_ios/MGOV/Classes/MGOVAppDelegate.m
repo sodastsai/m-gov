@@ -72,9 +72,10 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
+	// Clean Tmp save
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
-	[dict setObject:@"" forKey:@"Photo"];
+	[dict setObject:[NSData data] forKey:@"Photo"];
 	[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
 	[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
 	[dict setValue:@"" forKey:@"Name"];
@@ -82,6 +83,16 @@
 	[dict setValue:@"" forKey:@"TypeTitle"];
 	[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+	// Refesh views after coming back
+	NSEnumerator *enumerator = [tabBarController.viewControllers objectEnumerator];
+	id eachViewController;
+	while (eachViewController = [enumerator nextObject]) {
+		if([eachViewController isKindOfClass:[HybridViewController class]])
+			[eachViewController refreshDataSource];
+	}
 }
 
 #pragma mark -

@@ -15,7 +15,7 @@
 #import "AppMKAnnotation.h"
 
 
-@interface MyCaseViewController : CaseSelectorViewController <CaseAddViewControllerDelegate, QueryGAEReciever, MKMapViewDelegate> {
+@interface MyCaseViewController : CaseSelectorViewController <MKMapViewDelegate> {
 	NSDictionary *dictUserInformation;
 	UISegmentedControl *filter;
 	int currentSegmentIndex;

@@ -63,6 +63,10 @@
 	} else return [super tableView:tableView cellForRowAtIndexPath:indexPath];
 }
 
+- (void)refreshDataSource {
+	if ([[dictUserInformation valueForKey:@"User Email"] length]!=0) [super refreshDataSource];
+}
+
 #pragma mark -
 #pragma mark Lifecycle
 
@@ -100,7 +104,7 @@
 - (void)addCase {
 	// Call the add case view
 	CaseAddViewController *caseAdder = [[CaseAddViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	caseAdder.delegate = self;
+	caseAdder.myCase = self;
 	informationBar.hidden = YES;
 	[self.topViewController.navigationController pushViewController:caseAdder animated:YES];
 	[caseAdder release];
@@ -141,20 +145,6 @@
 	[self refreshViews];
 	self.topViewController.navigationItem.leftBarButtonItem.enabled = YES;
 	self.topViewController.navigationItem.rightBarButtonItem.enabled = YES;
-}
-
-#pragma mark -
-#pragma mark CaseAddViewControllerDelegate
-
-- (void)refreshData {
-	// If the original email is empty, after user submit case, reload the plist
-	if (![[dictUserInformation valueForKey:@"User Email"] length]) {
-		NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-		// Get new one
-		self.dictUserInformation = [NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
-	}
-	if ([[dictUserInformation valueForKey:@"User Email"] length]) informationBar.hidden = NO;
-	[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[dictUserInformation objectForKey:@"User Email"]];
 }
 
 #pragma mark -

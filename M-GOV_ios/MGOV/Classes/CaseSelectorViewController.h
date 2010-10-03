@@ -11,7 +11,7 @@
 #import "HybridViewController.h"
 #import "CaseSelectorCell.h"
 
-@interface CaseSelectorViewController : HybridViewController <HybridViewDelegate, HybridViewDataSource> {
+@interface CaseSelectorViewController : HybridViewController <QueryGAEReciever, HybridViewDelegate, HybridViewDataSource> {
 	NSArray *caseSource;
 	// Data Range
 	NSRange queryRange;
@@ -19,10 +19,16 @@
 	NSString *caseID;
 	UIViewController *childViewController;
 	UIView *informationBar;
+	// Current condition
+	id currentCondition;
+	DataSourceGAEQueryTypes currentConditionType;
 }
 
 @property (nonatomic, retain) NSArray *caseSource;
+@property (nonatomic, retain) id currentCondition;
+@property (nonatomic) DataSourceGAEQueryTypes currentConditionType;
 
 - (void)queryGAEwithConditonType:(DataSourceGAEQueryTypes)conditionType andCondition:(id)condition;
+- (void)refreshDataSource;
 
 @end

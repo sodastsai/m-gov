@@ -19,6 +19,7 @@
 @implementation CaseSelectorViewController
 
 @synthesize childViewController, caseSource;
+@synthesize currentCondition, currentConditionType;
 
 #pragma mark -
 #pragma mark Override
@@ -50,7 +51,24 @@
 	}
 	self.topViewController.navigationItem.leftBarButtonItem.enabled =  NO;
 	self.topViewController.navigationItem.rightBarButtonItem.enabled = NO;
+	// Save state
+	if (![currentCondition isEqual:condition]) {
+		[currentCondition release];
+		self.currentCondition = condition;
+	}
+	self.currentConditionType = conditionType;
 	[qGAE startQuery];
+}
+
+- (void)refreshDataSource {
+	[self queryGAEwithConditonType:currentConditionType andCondition:currentCondition];
+}
+
+#pragma mark -
+#pragma mark QueryGAEReciever
+
+- (void)recieveQueryResultType:(DataSourceGAEReturnTypes)type withResult:(id)result {
+	// Implement this method in child class.
 }
 
 #pragma mark -
@@ -190,6 +208,7 @@
 	informationBar = [[[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 44)] autorelease];
 	informationBar.backgroundColor = [UIColor colorWithRed:0.44 green:0.53 blue:0.64 alpha:0.9];
 	[self.view addSubview:informationBar];
+	currentCondition = nil;
 }
 
 @end

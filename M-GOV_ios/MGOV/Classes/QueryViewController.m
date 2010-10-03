@@ -14,7 +14,7 @@
 @synthesize queryTotalLength;
 
 #pragma mark -
-#pragma mark HybridViewController Override
+#pragma mark Override
 
 - (void)queryGAEwithConditonType:(DataSourceGAEQueryTypes)conditionType andCondition:(id)condition {
 	nextButton.enabled = NO;
@@ -26,6 +26,10 @@
 	UIBarButtonItem *setConditionButton = [[[UIBarButtonItem alloc] initWithTitle:@"設定條件" style:UIBarButtonItemStyleBordered target:self action:@selector(setQueryCondition)] autorelease];
 	caseSource = nil;
 	return [self initWithMode:mode andTitle:title withRightBarButtonItem:setConditionButton];
+}
+
+- (void)refreshDataSource {
+	if (queryTotalLength!=-1) [super refreshDataSource];
 }
 
 #pragma mark -
@@ -124,7 +128,6 @@
 		self.queryTotalLength = [[result objectForKey:@"length"] intValue];
 	}
 	// Refresh
-	[self refreshViews];
 	if (![caseSource count]) {
 		numberDisplayLabel.text = @"找不到此區域符合條件的案件";
 		numberDisplayLabel.font = [UIFont boldSystemFontOfSize:14];
@@ -144,6 +147,7 @@
 	}
 	self.topViewController.navigationItem.leftBarButtonItem.enabled = YES;
 	self.topViewController.navigationItem.rightBarButtonItem.enabled = YES;
+	[self refreshViews];
 }
 
 

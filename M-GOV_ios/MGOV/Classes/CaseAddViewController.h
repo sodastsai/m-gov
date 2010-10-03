@@ -19,14 +19,9 @@
 #import "JSON.h"
 #import "ASIFormDataRequest.h"
 #import "LoadingOverlayView.h"
+#import "CaseSelectorViewController.h"
 
 #define kPhotoScale 640
-
-@protocol CaseAddViewControllerDelegate
-
-- (void)refreshData;
-
-@end
 
 @interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, PhotoPickerTableCellDelegate, LocationSelectorTableCellDelegate, LocationSelectorViewControllerDelegate, ASIHTTPRequestDelegate>  {
 	NSString *selectedTypeTitle;
@@ -47,14 +42,16 @@
 	
 	UIToolbar *keyboardToolbar;
 	UIView *keyboard;
-	id<CaseAddViewControllerDelegate> delegate;
 	LoadingOverlayView *indicatorView;
+	
+	// Parent
+	CaseSelectorViewController *myCase;
 }
 
-@property (retain, nonatomic) id<CaseAddViewControllerDelegate> delegate;
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
 @property (retain, nonatomic) UIImage *selectedImage;
+@property (retain, nonatomic) CaseSelectorViewController *myCase;
 
 - (BOOL)submitCase;
 - (void)keyboardWillShow:(NSNotification *)note;
