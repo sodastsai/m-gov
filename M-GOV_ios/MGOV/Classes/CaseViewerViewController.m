@@ -41,6 +41,8 @@
 		photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
 		photoView.layer.cornerRadius = 10.0;
 		photoView.layer.masksToBounds = YES;
+		// Could not fetch the photo
+		if (![NSData dataWithContentsOfURL:[NSURL URLWithString:str]]) photoView = nil;
 	}
 	else {
 		photoView = nil;
@@ -88,7 +90,10 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {	
-	if (indexPath.section == 2) return 200; // Photo
+	if (indexPath.section == 2) {
+		if (photoView) return 200; // Photo
+		return 0;
+	}
 	else if (indexPath.section == 3) return 200; // Location
 	
 	return 44;
@@ -101,6 +106,27 @@
 	else if(section == 3) return @"案件地點";
 	
 	return nil;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+	if (photoView == nil && section == 2) return 200;
+	return 0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+	
+	if (photoView == nil && section == 2) {
+		UIView *emptyPhoto = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 200)] autorelease];
+		emptyPhoto.backgroundColor = [UIColor clearColor];
+		UILabel *emptyPhotoHint = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 200)];
+		emptyPhotoHint.backgroundColor = [UIColor clearColor];
+		emptyPhotoHint.text = @"此案件無照片！";
+		emptyPhotoHint.textAlignment = UITextAlignmentCenter;
+		emptyPhotoHint.textColor = [UIColor colorWithRed:0.298 green:0.337 blue:0.424 alpha:1];
+		[emptyPhoto addSubview:emptyPhotoHint];
+		[emptyPhotoHint release];
+		return emptyPhoto;
+	} else return nil;
 }
 
 // Customize the appearance of table view cells.

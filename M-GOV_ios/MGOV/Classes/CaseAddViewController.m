@@ -42,46 +42,19 @@
 		[alertEmailPopupBox show];
 	}
 	
-	if ([[dictUserInformation valueForKey:@"User Email"] length]) {
-		
-		indicatorView = [[LoadingOverlayView alloc] initAtViewCenter:self.view];
-		[self.view addSubview:indicatorView];
-		indicatorView.loading.text = @"正在送出...";
-		[indicatorView startedLoad];
-		
-		NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-		NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
-		
-		// Convert Byte Data to Photo From Plist
-		NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [dictUserInformation valueForKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
-		
-		// Post the submt data to App Engine
-		ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case?method=upload"]];
-		request.delegate = self;
-		[request setFile:[dict objectForKey:@"Photo"] withFileName:filename andContentType:@"image/png" forKey:@"photo"];
-		[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:0] forKey:@"h_admit_name"];
-		[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:1] forKey:@"h_admiv_name"];
-		[request setPostValue:[NSString stringWithFormat:@"%d", qid] forKey:@"typeid"];
-		[request setPostValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
-		[request setPostValue:[dictUserInformation valueForKey:@"User Email"] forKey:@"email"];
-		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];
-		[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"coordy"];
-		[request startAsynchronous];
-		
-		// After submit case, clean the temp infomation
-		[dict setObject:[NSData data] forKey:@"Photo"];
-		[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
-		[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
-		[dict setValue:@"" forKey:@"Name"];
-		[dict setValue:@"" forKey:@"Description"];
-		descriptionCell.descriptionField.text = @"";
-		nameFieldCell.nameField.text = @"";
-		[dict setValue:@"" forKey:@"TypeTitle"];
-		[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
-		[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+	if ([[dictUserInformation valueForKey:@"User Email"] length] && qid != 0) {
+
+		UIAlertView *submitConfirm = [[UIAlertView alloc] initWithTitle:@"送出案件" message:@"確定要送出此案件至1999?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
+		[submitConfirm show];
+		[submitConfirm release];
 		
 		return YES;
+	} else if (qid == 0){
+		UIAlertView *typeSelect = [[UIAlertView alloc] initWithTitle:@"尚未選擇案件種類" message:@"案件種類為必填選項，請確認是否已選填！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
+		[typeSelect show];
+		[typeSelect release];
 	}
+
 	
 	return NO;
 }
@@ -101,6 +74,9 @@
 	[indicatorView finishedLoad];
 	[indicatorView removeFromSuperview];
 	[indicatorView release];
+	UIAlertView *uploadFailed = [[UIAlertView alloc] initWithTitle:@"資料上傳失敗" message:@"資料上傳失敗，請重新上傳！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
+	[uploadFailed show];
+	[uploadFailed release];
 }
 
 #pragma mark -
@@ -252,6 +228,51 @@
 #pragma mark UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
+	if ([alertView.title isEqualToString:@"送出案件"]) {
+		if (buttonIndex) {
+			indicatorView = [[LoadingOverlayView alloc] initAtViewCenter:self.navigationController.view];
+			[self.navigationController.view addSubview:indicatorView];
+			indicatorView.loading.text = @"正在送出...";
+			[indicatorView startedLoad];
+			
+			// If this is the First time to Submit, We should ask user's email.
+			// Check plist
+			NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
+			NSMutableDictionary *dictUserInformation = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
+			
+			NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
+			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+			
+			// Convert Byte Data to Photo From Plist
+			NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [dictUserInformation valueForKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
+			
+			// Post the submt data to App Engine
+			ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case?method=upload"]];
+			request.delegate = self;
+			[request setFile:[dict objectForKey:@"Photo"] withFileName:filename andContentType:@"image/png" forKey:@"photo"];
+			[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:0] forKey:@"h_admit_name"];
+			[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:1] forKey:@"h_admiv_name"];
+			[request setPostValue:[NSString stringWithFormat:@"%d", qid] forKey:@"typeid"];
+			[request setPostValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
+			[request setPostValue:[dictUserInformation valueForKey:@"User Email"] forKey:@"email"];
+			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];
+			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"coordy"];
+			[request startAsynchronous];
+			
+			// After submit case, clean the temp infomation
+			[dict setObject:[NSData data] forKey:@"Photo"];
+			[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
+			[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
+			[dict setValue:@"" forKey:@"Name"];
+			[dict setValue:@"" forKey:@"Description"];
+			descriptionCell.descriptionField.text = @"";
+			nameFieldCell.nameField.text = @"";
+			[dict setValue:@"" forKey:@"TypeTitle"];
+			[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
+			[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+			
+		}
+	}
 	if ([alertView.title isEqualToString:alertRequestEmailTitle]) {
 		if (buttonIndex) {
 			if ([alertEmailInputField.text length]) {
