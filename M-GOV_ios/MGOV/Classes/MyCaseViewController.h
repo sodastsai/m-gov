@@ -18,8 +18,10 @@
 @interface MyCaseViewController : CaseSelectorViewController <MKMapViewDelegate> {
 	UISegmentedControl *filter;
 	int currentSegmentIndex;
+	BOOL caseSourceDidLoaded;
 }
 
+- (BOOL)myCaseDataAvailability;
 - (void)addCase;
 - (void)setCaseFilter:(UISegmentedControl *)segmentedControl;
 

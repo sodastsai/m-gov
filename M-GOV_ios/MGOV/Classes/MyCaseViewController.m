@@ -22,38 +22,47 @@
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {
 	UIViewController *popResult = [super popViewControllerAnimated:animated];
-	if ([[PrefReader readPrefByKey:@"User Email"] length]==0) informationBar.hidden = YES;
+	if (![self myCaseDataAvailability]) informationBar.hidden = YES;
 	return popResult;
 }
 
 - (void)didSelectRowAtIndexPathInList:(NSIndexPath *)indexPath {
-	if ([[PrefReader readPrefByKey:@"User Email"] length]!=0)
+	if ([self myCaseDataAvailability])
 		[super didSelectRowAtIndexPathInList:indexPath];
 }
 
 - (NSInteger)numberOfSectionsInList {
-	if ([[PrefReader readPrefByKey:@"User Email"] length]==0) return 1;
+	if (![self myCaseDataAvailability]) return 1;
 	else return [super numberOfSectionsInList];
 }
 
 - (NSInteger)numberOfRowsInListSection:(NSInteger)section {
-	if ([[PrefReader readPrefByKey:@"User Email"] length]==0) return 1;
+	if (![self myCaseDataAvailability]) return 1;
 	else return [super numberOfRowsInListSection:section];
 }
 
 - (CGFloat)heightForRowAtIndexPathInList:(NSIndexPath *)indexPath {
-	if ([[PrefReader readPrefByKey:@"User Email"] length]==0) return 372;
+	if (![self myCaseDataAvailability]) return 372;
 	else return [super heightForRowAtIndexPathInList:indexPath];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if ([[PrefReader readPrefByKey:@"User Email"] length]==0) {
+	if (![self myCaseDataAvailability]) {
 		static NSString *CellIdentifier = @"NoMyCaseCell";
 		CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell==nil) {
 			cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		}
-		cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NoMyCase.png"]];
+		// Check If case source is loaded
+		// After it has been loaded, we could decide which to show
+		if (caseSourceDidLoaded) cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NoMyCase.png"]];
+		else {
+			UIView *cellGray = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+			cellGray.backgroundColor = [UIColor darkGrayColor];
+			cell.backgroundView = cellGray;
+			[cellGray release];
+		} 
+		
 		tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.accessoryType = UITableViewCellAccessoryNone;
@@ -62,11 +71,15 @@
 }
 
 - (void)refreshDataSource {
-	if ([[PrefReader readPrefByKey:@"User Email"] length]!=0) {
+	if ([[PrefReader readPrefByKey:@"User Email"] length]) {
 		self.currentConditionType = DataSourceGAEQueryByEmail;
 		self.currentCondition = [PrefReader readPrefByKey:@"User Email"];
 		[filter setSelectedSegmentIndex:0];
 		[super refreshDataSource];
+	} else {
+		caseSourceDidLoaded = YES;
+		[self.listViewController.tableView reloadData];
+		informationBar.hidden = YES;
 	}
 }
 
@@ -75,8 +88,11 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	// Update Datasource
+	caseSourceDidLoaded = NO;
 	if ([[PrefReader readPrefByKey:@"User Email"] length])
 		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[PrefReader readPrefByKey:@"User Email"]];
+	else caseSourceDidLoaded = YES;
 	
 	// Add Filter
 	filter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"所有案件", @"完工", @"處理中", @"退回", nil]];
@@ -90,7 +106,7 @@
 	
 	[informationBar addSubview:filter];
 	
-	if ([[PrefReader readPrefByKey:@"User Email"] length]) {
+	if ([self myCaseDataAvailability]) {
 		informationBar.hidden = NO;
 	} else {
 		// Hide Filter/InformationBar
@@ -100,6 +116,10 @@
 
 #pragma mark -
 #pragma mark Method
+
+- (BOOL)myCaseDataAvailability {
+	return ([[PrefReader readPrefByKey:@"User Email"] length]!=0 && [caseSource count]!=0);
+}
 
 - (void)addCase {
 	// Call the add case view
@@ -142,7 +162,13 @@
 	} else {
 		caseSource = nil;
 	}
+	caseSourceDidLoaded = YES;
+	
 	[self refreshViews];
+	
+	if ([self myCaseDataAvailability]) informationBar.hidden = NO;
+	else informationBar.hidden = YES;
+	
 	self.topViewController.navigationItem.leftBarButtonItem.enabled = YES;
 	self.topViewController.navigationItem.rightBarButtonItem.enabled = YES;
 }
