@@ -24,6 +24,7 @@
 <activity android:name="baseActivity"></activity>
 <activity android:name="caseListview"></activity>
 <activity android:name=".casefilter.CaseFilter" android:screenOrientation="portrait"></activity>
+<activity android:name=".casefilter.SubCaseFilter" android:screenOrientation="portrait"></activity>
 </application>
 
 	<uses-sdk android:minSdkVersion="3"/>

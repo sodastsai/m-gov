@@ -232,4 +232,31 @@
 
 <string name="case_filter_select_title">請選擇案件種類</string>
 
+<string name="case_filter_road_width_title">請選擇路面寬度</string>
+<string name="case_filter_read_width_large">寬路面 (路面寬超過8m)</string>
+<string name="case_filter_read_width_normal">一般路面(路面寬8m以下)</string>
+<string name="case_filter_park_size_title">請選擇園區大小</string>
+<string name="case_filter_park_size_large">大型公園 (1公頃以上)</string>
+<string name="case_filter_park_size_normal">一般公園</string>
+<string name="case_filter_manhole_cover_title">請選擇施工單位</string>
+<string name="case_filter_manhole_cover_tpower">台灣電力公司</string>
+<string name="case_filter_manhole_cover_tran">交工處</string>
+<string name="case_filter_manhole_cover_cht">中華電信</string>
+<string name="case_filter_sewer_title">請選擇下水道種類</string>
+<string name="case_filter_sewer_rain">雨水下水道</string>
+<string name="case_filter_sewer_health">衛生下水道</string>
+<string name="case_filter_parking_title">請選擇案件種類</string>
+<string name="case_filter_parking_again">再犯案件</string>
+<string name="case_filter_parking_new">新案件</string>
+<string name="case_filter_wifi_title">請選擇事項內容</string>
+<string name="case_filter_wifi_1">附掛管路破損</string>
+<string name="case_filter_wifi_2">周遭路面損壞</string>
+<string name="case_filter_wifi_3">纜線影響市容</string>
+<string name="case_filter_artwork_title">請選擇事項內容</string>
+<string name="case_filter_artwork_1">藝術品損毀</string>
+<string name="case_filter_artwork_2">周遭環境清潔</string>
+<string name="case_filter_cable_tv_title">請選擇事項內容</string>
+<string name="case_filter_cable_tv_1">線路散落地面</string>
+<string name="case_filter_cable_tv_2">線路散落水溝</string>
+
 </resources>

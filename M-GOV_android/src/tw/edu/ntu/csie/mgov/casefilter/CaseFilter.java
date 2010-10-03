@@ -7,16 +7,17 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.util.Log;
+import android.widget.Toast;
 
 public class CaseFilter extends PreferenceActivity {
-
-	public final static int RESULT_OK = 0;
-	public final static int RESULT_CANCEL = -1;
 	
 	private final static int REQUEST_CODE = 1630;
 	
 	public final static int TODO_QID = 0;
 	public final static int TODO_INTENT = 1;
+	
+	private final static String LOGTAG = "MGOV-CaseFilter";
 	
 	private final static int[][] todo = {
 		{TODO_INTENT, TODO_INTENT, TODO_QID} ,
@@ -49,7 +50,7 @@ public class CaseFilter extends PreferenceActivity {
 		
 		setTitle(R.string.case_filter_select_title);
 		setPreferenceScreen(createPreferenceHierarchy());
-		setResult(RESULT_CANCEL, null);
+		setResult(RESULT_CANCELED, null);
 	}
 
 	@Override
@@ -78,7 +79,7 @@ public class CaseFilter extends PreferenceActivity {
         	for (int j = 0; j < subTitles[i].length; j++) {
         		Preference subSecPref = new Preference(this);
         		subSecPref.setTitle(subTitles[i][j]);
-        		setIntentToOnClickListenerOn(subSecPref, i, j);
+        		setClickListenerOn(subSecPref, i, j);
         		secPrefCat[i].addPreference(subSecPref);
         	}
         }
@@ -86,21 +87,21 @@ public class CaseFilter extends PreferenceActivity {
         return root;
 	}
 	
-	private void setIntentToOnClickListenerOn (Preference subSecPref, final int i, final int j) {
+	private void setClickListenerOn (Preference subSecPref, final int i, final int j) {
 		
-		if (todo[i][j] == TODO_INTENT) {			
-//			subSecPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-//				@Override
-//				public boolean onPreferenceClick(Preference preference) {
-//					Intent intent = new Intent();
-//					intent.setClass(CaseFilter.this, SubCaseFilter.class);
-//					Bundle bundle = new Bundle();
-//					bundle.putInt("tid", subTitles[i][j]);
-//					intent.putExtras(bundle);
-//					startActivityForResult(intent, CaseFilter.REQUEST_CODE);
-//					return false;
-//				}
-//			});
+		if (todo[i][j] == TODO_INTENT) {
+			subSecPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+				@Override
+				public boolean onPreferenceClick(Preference preference) {
+					Intent intent = new Intent();
+					intent.setClass(CaseFilter.this, SubCaseFilter.class);
+					Bundle bundle = new Bundle();
+					bundle.putInt("tid", subTitles[i][j]);
+					intent.putExtras(bundle);
+					startActivityForResult(intent, CaseFilter.REQUEST_CODE);
+					return false;
+				}
+			});
 		} else if (todo[i][j] == TODO_QID) {
 			subSecPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				@Override
@@ -108,25 +109,47 @@ public class CaseFilter extends PreferenceActivity {
 					if (i == 0 && j == 2) {
 						Bundle bundle = new Bundle();
 						bundle.putInt("qid", 1301);
-						bundle.putString("detail", CaseFilter.this.getString(R.string.sec1_3));
+						bundle.putString("detail", getString(R.string.sec1_3));
 						Intent mIntent = new Intent();
 						mIntent.putExtras(bundle);
 						setResult(RESULT_OK, mIntent);
+						Toast.makeText(CaseFilter.this, "qid=" + 1301 +"\ndetail=" + getString(R.string.sec1_3) , Toast.LENGTH_SHORT).show();
 						CaseFilter.this.finish();
 						return false;
 					} else if (i == 4 && j == 1) {
 						Bundle bundle = new Bundle();
 						bundle.putInt("qid", 5201);
-						bundle.putString("detail", CaseFilter.this.getString(R.string.sec5_2));
+						bundle.putString("detail", getString(R.string.sec5_2));
 						Intent mIntent = new Intent();
 						mIntent.putExtras(bundle);
 						setResult(RESULT_OK, mIntent);
+						Toast.makeText(CaseFilter.this, "qid=" + 5201 +"\ndetail=" + getString(R.string.sec5_2) , Toast.LENGTH_SHORT).show();
 						CaseFilter.this.finish();
 						return false;
 					}
 					return false;
 				}
 			});
+		}
+	}
+	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		
+		if (requestCode == REQUEST_CODE) {
+			if (resultCode == RESULT_CANCELED) {
+				// subFilter didn't choose a type, keep staying in this Activity 
+			} else if (resultCode == RESULT_OK ) {
+				// subFilter returns the result 
+				setResult(RESULT_OK, data);
+				this.finish();
+			} else {
+				// subFilter didn't return the previous result, this should not happen 
+				Log.e( LOGTAG, "SubFilter returns an exceptional result, plz check!!");
+			}
+		} else {
+			super.onActivityResult(requestCode, resultCode, data);
 		}
 	}
 }
