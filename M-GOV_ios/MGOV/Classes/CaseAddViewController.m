@@ -19,14 +19,9 @@
 #pragma mark -
 #pragma mark CaseAddMethod
 
-- (BOOL)submitCase {
-	
+- (void)submitCase {
 	// If this is the First time to Submit, We should ask user's email.
-	// Check plist
-	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-	NSMutableDictionary *dictUserInformation = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
-	
-	if (![[dictUserInformation valueForKey:@"User Email"] length]) {
+	if (![[PrefReader readPrefByKey:@"User Email"] length]) {
 		alertEmailPopupBox = [[UIAlertView alloc] initWithTitle:alertRequestEmailTitle message:alertRequestEmailPlaceholder delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好", nil];
 		// Email Text Field
 		alertEmailInputField = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
@@ -40,23 +35,15 @@
 		// Show view
 		[alertEmailPopupBox addSubview:alertEmailInputField];
 		[alertEmailPopupBox show];
-	}
-	
-	if ([[dictUserInformation valueForKey:@"User Email"] length] && qid != 0) {
-
+	} else if ([[PrefReader readPrefByKey:@"User Email"] length] && qid != 0) {
 		UIAlertView *submitConfirm = [[UIAlertView alloc] initWithTitle:@"送出案件" message:@"確定要送出此案件至1999?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
 		[submitConfirm show];
 		[submitConfirm release];
-		
-		return YES;
 	} else if (qid == 0){
 		UIAlertView *typeSelect = [[UIAlertView alloc] initWithTitle:@"尚未選擇案件種類" message:@"案件種類為必填選項，請確認是否已選填！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
 		[typeSelect show];
 		[typeSelect release];
 	}
-
-	
-	return NO;
 }
 
 #pragma mark -
@@ -237,14 +224,11 @@
 			
 			// If this is the First time to Submit, We should ask user's email.
 			// Check plist
-			NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-			NSMutableDictionary *dictUserInformation = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
-			
 			NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
 			
 			// Convert Byte Data to Photo From Plist
-			NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [dictUserInformation valueForKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
+			NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [PrefReader readPrefByKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
 			
 			// Post the submt data to App Engine
 			ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case?method=upload"]];
@@ -254,7 +238,7 @@
 			[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:1] forKey:@"h_admiv_name"];
 			[request setPostValue:[NSString stringWithFormat:@"%d", qid] forKey:@"typeid"];
 			[request setPostValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
-			[request setPostValue:[dictUserInformation valueForKey:@"User Email"] forKey:@"email"];
+			[request setPostValue:[PrefReader readPrefByKey:@"User Email"] forKey:@"email"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"coordy"];
 			[request startAsynchronous];
@@ -273,6 +257,7 @@
 			
 		}
 	}
+	
 	if ([alertView.title isEqualToString:alertRequestEmailTitle]) {
 		if (buttonIndex) {
 			if ([alertEmailInputField.text length]) {

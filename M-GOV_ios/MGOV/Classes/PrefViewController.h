@@ -8,11 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "EditibleTextFieldCell.h"
+#import "WritePrefDelegate.h"
+#import "PrefReader.h"
+#import "MyCaseViewController.h"
 
-@interface PrefViewController : UITableViewController {
-	NSMutableDictionary *dictUserInformation;
+@interface PrefViewController : UITableViewController <WritePrefDelegate> {
+	NSMutableDictionary *prefDict;
+	NSString *plistPathInAppDocuments;
 }
 
-@property (nonatomic, retain) NSMutableDictionary *dictUserInformation;
+@property (nonatomic, retain) NSString *plistPathInAppDocuments;
+
+- (void)postScriptAfterSaveKey:(NSString *)key;
 
 @end

@@ -8,10 +8,39 @@
 
 #import "PrefViewController.h"
 
-
 @implementation PrefViewController
 
-@synthesize dictUserInformation;
+@synthesize plistPathInAppDocuments;
+
+#pragma mark -
+#pragma mark WritePrefDelegate
+
+@synthesize prefDict;
+
+- (void)writeToPrefWithKey:(NSString *)key andObject:(id)value {
+	[prefDict setValue:value forKey:key];
+	[prefDict writeToFile:plistPathInAppDocuments atomically:YES];
+	self.prefDict = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
+	[self.tableView reloadData];
+	// Run post action
+	[self postScriptAfterSaveKey:key];
+}
+
+#pragma mark -
+#pragma mark Method
+
+- (void)postScriptAfterSaveKey:(NSString *)key {
+	if ([key isEqualToString:@"User Email"]) {
+		if ([self.parentViewController.parentViewController isKindOfClass:[UITabBarController class]]) {
+			UITabBarController *mainBar = (UITabBarController *)self.parentViewController.parentViewController;
+			NSEnumerator *enumerator = [mainBar.viewControllers objectEnumerator];
+			id eachViewController;
+			while (eachViewController = [enumerator nextObject])
+				if([eachViewController isKindOfClass:[MyCaseViewController class]])
+					[eachViewController refreshDataSource];
+		}
+	}
+}
 
 #pragma mark -
 #pragma mark Table view data source
@@ -19,7 +48,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
-
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section==0) return 1;
@@ -51,10 +79,14 @@
 		if (editibleCell == nil)
 			editibleCell = [[[EditibleTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2] autorelease];
 		if (indexPath.section==0) {
-			editibleCell.title.text = @"E-Mail";
-			editibleCell.content.text = @"a";
-			editibleCell.content.keyboardType = UIKeyboardTypeEmailAddress;
-			editibleCell.content.placeholder
+			editibleCell.delegate = self;
+			editibleCell.prefKey = @"User Email";
+			editibleCell.titleField.text = @"E-Mail";
+			editibleCell.contentField.text = [PrefReader readPrefByKey:@"User Email"];
+			editibleCell.contentField.placeholder = @"請輸入您的E-Mail帳號";
+			editibleCell.contentField.keyboardType = UIKeyboardTypeEmailAddress;
+			editibleCell.contentField.autocorrectionType = UITextAutocorrectionTypeNo;
+			editibleCell.contentField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 		}
 		editibleCell.selectionStyle = UITableViewCellSeparatorStyleNone;
 		return (UITableViewCell *)editibleCell;
@@ -70,11 +102,15 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section==0) {
-		
-	}
 }
 
+#pragma mark -
+#pragma mark Lifecycle
+
+- (void)viewWillAppear:(BOOL)animated {
+	[super viewWillAppear:animated];
+	[self.tableView reloadData];
+}
 
 #pragma mark -
 #pragma mark Memory management
@@ -84,8 +120,8 @@
 }
 
 - (void)viewDidLoad {
-	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-	self.dictUserInformation = [NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
+	self.plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
+	self.prefDict = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
 }
 
 - (void)viewDidUnload {

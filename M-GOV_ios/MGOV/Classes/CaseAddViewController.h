@@ -20,6 +20,7 @@
 #import "ASIFormDataRequest.h"
 #import "LoadingOverlayView.h"
 #import "CaseSelectorViewController.h"
+#import "PrefReader.h"
 
 #define kPhotoScale 640
 
@@ -53,7 +54,7 @@
 @property (retain, nonatomic) UIImage *selectedImage;
 @property (retain, nonatomic) CaseSelectorViewController *myCase;
 
-- (BOOL)submitCase;
+- (void)submitCase;
 - (void)keyboardWillShow:(NSNotification *)note;
 - (void)endEditingText;
 

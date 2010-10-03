@@ -22,18 +22,15 @@
 	shared.locationManager = [[CLLocationManager alloc] init];
 	[shared.locationManager startUpdatingLocation];
 	
+	// Generate Case Add temp file
 	// Define File Path
-	NSString *userInformationPlistPathInAppBundle = [[NSBundle mainBundle] pathForResource:@"UserInformation" ofType:@"plist"];
-	NSString *userInformationPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-	// Copy plist file
-	if (![[NSFileManager defaultManager] fileExistsAtPath:userInformationPlistPathInAppDocuments]) 
-		[[NSFileManager defaultManager] copyItemAtPath:userInformationPlistPathInAppBundle toPath:userInformationPlistPathInAppDocuments error:nil];
-	// Define File Path
-	NSString *tempPlistPathInAppBundle = [[NSBundle mainBundle] pathForResource:@"UserInformation" ofType:@"plist"];
+	NSString *tempPlistPathInAppBundle = [[NSBundle mainBundle] pathForResource:@"CaseAddTempInformation" ofType:@"plist"];
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 	// Copy plist file
 	if (![[NSFileManager defaultManager] fileExistsAtPath:tempPlistPathInAppDocuments]) 
 		[[NSFileManager defaultManager] copyItemAtPath:tempPlistPathInAppBundle toPath:tempPlistPathInAppDocuments error:nil];
+	
+	[PrefReader copyEmptyPrefPlistToDocumentsByRecover:NO];
 	
 	// My Case
 	MyCaseViewController *myCase = [[MyCaseViewController alloc] initWithMode:HybridViewListMode andTitle:@"我的案件"];
@@ -89,10 +86,9 @@
 	// Refesh views after coming back
 	NSEnumerator *enumerator = [tabBarController.viewControllers objectEnumerator];
 	id eachViewController;
-	while (eachViewController = [enumerator nextObject]) {
+	while (eachViewController = [enumerator nextObject])
 		if([eachViewController isKindOfClass:[HybridViewController class]])
 			[eachViewController refreshDataSource];
-	}
 }
 
 #pragma mark -

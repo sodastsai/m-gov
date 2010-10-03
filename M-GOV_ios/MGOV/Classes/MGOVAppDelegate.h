@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "HybridViewController.h"
 #import "MyCaseViewController.h"
 #import "QueryViewController.h"
 #import "PrefViewController.h"
-@class HybridViewController;
+#import "PrefReader.h"
 
 @interface MGOVAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;

@@ -7,14 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "WritePrefDelegate.h"
 
 @interface EditibleTextFieldCell : UITableViewCell <UITextFieldDelegate> {
-	UILabel *title;
-	UITextField *content;
+	UILabel *titleField;
+	UITextField *contentField;
+	
+	id<WritePrefDelegate> delegate;
+	NSString *prefKey;
+	NSString *originalValue;
 }
 
-@property (nonatomic, retain) UILabel *title;
-@property (nonatomic, retain) UITextField *content;
+@property (nonatomic, retain) UILabel *titleField;
+@property (nonatomic, retain) UITextField *contentField;
+@property (nonatomic, retain) id<WritePrefDelegate> delegate;
+@property (nonatomic, retain) NSString *prefKey;
 
 @end

@@ -10,8 +10,6 @@
 
 @implementation MyCaseViewController
 
-@synthesize dictUserInformation;
-
 #pragma mark -
 #pragma mark Override
 
@@ -24,32 +22,32 @@
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {
 	UIViewController *popResult = [super popViewControllerAnimated:animated];
-	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) informationBar.hidden = YES;
+	if ([[PrefReader readPrefByKey:@"User Email"] length]==0) informationBar.hidden = YES;
 	return popResult;
 }
 
 - (void)didSelectRowAtIndexPathInList:(NSIndexPath *)indexPath {
-	if ([[dictUserInformation valueForKey:@"User Email"] length]!=0)
+	if ([[PrefReader readPrefByKey:@"User Email"] length]!=0)
 		[super didSelectRowAtIndexPathInList:indexPath];
 }
 
 - (NSInteger)numberOfSectionsInList {
-	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) return 1;
+	if ([[PrefReader readPrefByKey:@"User Email"] length]==0) return 1;
 	else return [super numberOfSectionsInList];
 }
 
 - (NSInteger)numberOfRowsInListSection:(NSInteger)section {
-	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) return 1;
+	if ([[PrefReader readPrefByKey:@"User Email"] length]==0) return 1;
 	else return [super numberOfRowsInListSection:section];
 }
 
 - (CGFloat)heightForRowAtIndexPathInList:(NSIndexPath *)indexPath {
-	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) return 372;
+	if ([[PrefReader readPrefByKey:@"User Email"] length]==0) return 372;
 	else return [super heightForRowAtIndexPathInList:indexPath];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if ([[dictUserInformation valueForKey:@"User Email"] length]==0) {
+	if ([[PrefReader readPrefByKey:@"User Email"] length]==0) {
 		static NSString *CellIdentifier = @"NoMyCaseCell";
 		CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell==nil) {
@@ -64,7 +62,12 @@
 }
 
 - (void)refreshDataSource {
-	if ([[dictUserInformation valueForKey:@"User Email"] length]!=0) [super refreshDataSource];
+	if ([[PrefReader readPrefByKey:@"User Email"] length]!=0) {
+		self.currentConditionType = DataSourceGAEQueryByEmail;
+		self.currentCondition = [PrefReader readPrefByKey:@"User Email"];
+		[filter setSelectedSegmentIndex:0];
+		[super refreshDataSource];
+	}
 }
 
 #pragma mark -
@@ -72,11 +75,8 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	// Fetch User Information
-	NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-	self.dictUserInformation = [NSDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
-	if ([[dictUserInformation valueForKey:@"User Email"] length])
-		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[dictUserInformation objectForKey:@"User Email"]];
+	if ([[PrefReader readPrefByKey:@"User Email"] length])
+		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[PrefReader readPrefByKey:@"User Email"]];
 	
 	// Add Filter
 	filter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"所有案件", @"完工", @"處理中", @"退回", nil]];
@@ -90,7 +90,7 @@
 	
 	[informationBar addSubview:filter];
 	
-	if ([[dictUserInformation valueForKey:@"User Email"] length]) {
+	if ([[PrefReader readPrefByKey:@"User Email"] length]) {
 		informationBar.hidden = NO;
 	} else {
 		// Hide Filter/InformationBar
@@ -127,7 +127,7 @@
 			combinedStatus = [QueryGoogleAppEngine generateORcombinedCondition:[NSArray arrayWithObjects:@"5",@"6",nil]];
 		}
 		currentSegmentIndex = segmentedControl.selectedSegmentIndex;
-		NSArray *valueArray = [NSArray arrayWithObjects:[dictUserInformation objectForKey:@"User Email"], combinedStatus, nil];
+		NSArray *valueArray = [NSArray arrayWithObjects:[PrefReader readPrefByKey:@"User Email"], combinedStatus, nil];
 		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray]];
 	}
 }

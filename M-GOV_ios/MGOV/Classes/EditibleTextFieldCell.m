@@ -9,35 +9,38 @@
 #import "EditibleTextFieldCell.h"
 
 @implementation EditibleTextFieldCell
-@synthesize title, content;
+@synthesize titleField, contentField, prefKey;
+@synthesize delegate;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
-        title = [[UILabel alloc] initWithFrame:CGRectMake(20, 12, 66, 21)];
-		title.font = [UIFont boldSystemFontOfSize:17.0];
-		title.minimumFontSize = 14.0;
-		title.adjustsFontSizeToFitWidth = YES;
-		title.numberOfLines = 1;
-		title.backgroundColor = [UIColor clearColor];
-		title.textColor = [UIColor blackColor];
-		title.textAlignment = UITextAlignmentLeft;
+        titleField = [[UILabel alloc] initWithFrame:CGRectMake(20, 12, 66, 21)];
+		titleField.font = [UIFont boldSystemFontOfSize:17.0];
+		titleField.minimumFontSize = 14.0;
+		titleField.adjustsFontSizeToFitWidth = YES;
+		titleField.numberOfLines = 1;
+		titleField.backgroundColor = [UIColor clearColor];
+		titleField.textColor = [UIColor blackColor];
+		titleField.textAlignment = UITextAlignmentLeft;
 		
-		content = [[UITextField alloc] initWithFrame:CGRectMake(94, 7, 206, 31)];
-		content.font = [UIFont systemFontOfSize:17.0];
-		content.minimumFontSize = 12.0;
-		content.adjustsFontSizeToFitWidth = YES;
-		content.backgroundColor = [UIColor clearColor];
-		content.textColor = [UIColor colorWithHue:0.6083 saturation:0.59 brightness:0.53 alpha:1];
-		content.textAlignment = UITextAlignmentLeft;
-		content.borderStyle = UITextBorderStyleNone;
-		content.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-		content.clearButtonMode = UITextFieldViewModeWhileEditing;
-		content.keyboardType = UIKeyboardTypeDefault;
-		content.returnKeyType = UIReturnKeyDone;
-		content.delegate = self;
+		contentField = [[UITextField alloc] initWithFrame:CGRectMake(94, 7, 206, 31)];
+		contentField.font = [UIFont systemFontOfSize:17.0];
+		contentField.minimumFontSize = 12.0;
+		contentField.adjustsFontSizeToFitWidth = YES;
+		contentField.backgroundColor = [UIColor clearColor];
+		contentField.textColor = [UIColor colorWithHue:0.6083 saturation:0.59 brightness:0.53 alpha:1];
+		contentField.textAlignment = UITextAlignmentLeft;
+		contentField.borderStyle = UITextBorderStyleNone;
+		contentField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+		contentField.clearButtonMode = UITextFieldViewModeWhileEditing;
+		contentField.keyboardType = UIKeyboardTypeDefault;
+		contentField.returnKeyType = UIReturnKeyDone;
+		contentField.delegate = self;
+	
+		prefKey = nil;
 		
-		[self addSubview:title];
-		[self addSubview:content];
+		[self addSubview:titleField];
+		[self addSubview:contentField];
     }
     return self;
 }
@@ -47,16 +50,23 @@
 }
 
 - (void)dealloc {
-	[title release];
-	[content release];
+	[titleField release];
+	[contentField release];
     [super dealloc];
 }
 
 #pragma mark -
 #pragma mark UITextFieldDelegate
 
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+	originalValue = textField.text;
+	return YES;
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	[textField resignFirstResponder];
+	if (prefKey!=nil && ![textField.text isEqual:originalValue]) 
+		[delegate writeToPrefWithKey:prefKey andObject:textField.text];
 	return YES;
 }
 
