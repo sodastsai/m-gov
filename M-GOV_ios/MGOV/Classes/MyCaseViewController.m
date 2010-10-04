@@ -55,8 +55,11 @@
 		}
 		// Check If case source is loaded
 		// After it has been loaded, we could decide which to show
-		if (caseSourceDidLoaded) cell.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NoMyCase.png"]];
-		else {
+		if (caseSourceDidLoaded) {
+			UIImageView *cellNoCase = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"NoMyCase.png"]];
+			cell.backgroundView = cellNoCase;
+			[cellNoCase release];
+		} else {
 			UIView *cellGray = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
 			cellGray.backgroundColor = [UIColor darkGrayColor];
 			cell.backgroundView = cellGray;
