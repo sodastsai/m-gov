@@ -83,6 +83,13 @@
 	}
 }
 
+- (void)queryGAEwithConditonType:(DataSourceGAEQueryTypes)conditionType andCondition:(id)condition {
+	for (NSUInteger i=0; i<filter.numberOfSegments; i++)
+		if (i!=filter.selectedSegmentIndex)
+			[filter setEnabled:NO forSegmentAtIndex:i];
+	[super queryGAEwithConditonType:conditionType andCondition:condition];
+}
+
 #pragma mark -
 #pragma mark Lifecycle
 
@@ -171,6 +178,9 @@
 	
 	self.topViewController.navigationItem.leftBarButtonItem.enabled = YES;
 	self.topViewController.navigationItem.rightBarButtonItem.enabled = YES;
+	for (NSUInteger i=0; i<filter.numberOfSegments; i++)
+		if (i!=filter.selectedSegmentIndex)
+			[filter setEnabled:YES forSegmentAtIndex:i];
 }
 
 #pragma mark -

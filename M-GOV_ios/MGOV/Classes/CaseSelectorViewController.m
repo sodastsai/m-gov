@@ -128,6 +128,7 @@
 	if (cell == nil)
 		cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	
+	tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 	// Case ID
 	cell.caseKey.text = [[caseSource objectAtIndex:indexPath.row] objectForKey:@"key"];
 	// Case Type

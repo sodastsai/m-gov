@@ -18,6 +18,7 @@
 @synthesize prefDict;
 
 - (void)writeToPrefWithKey:(NSString *)key andObject:(id)value {
+	if (![self preScriptBeforeSaveKey:key]) return;
 	[prefDict setValue:value forKey:key];
 	[prefDict writeToFile:plistPathInAppDocuments atomically:YES];
 	self.prefDict = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
@@ -28,6 +29,12 @@
 
 #pragma mark -
 #pragma mark Method
+
+- (BOOL)preScriptBeforeSaveKey:(NSString *)key {
+	// TODO: check email format
+	// Return NO if format is not correct, or return YES while email format is correct.
+	return YES;
+}
 
 - (void)postScriptAfterSaveKey:(NSString *)key {
 	if ([key isEqualToString:@"User Email"]) {

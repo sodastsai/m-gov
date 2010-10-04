@@ -20,5 +20,6 @@
 @property (nonatomic, retain) NSString *plistPathInAppDocuments;
 
 - (void)postScriptAfterSaveKey:(NSString *)key;
+- (BOOL)preScriptBeforeSaveKey:(NSString *)key;
 
 @end
