@@ -22,8 +22,6 @@ import org.json.JSONObject;
 @Path("/query")
 public class QueryAll {
 
-	private static final String CompByKey = null;
-
 	@SuppressWarnings("unchecked")
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -41,7 +39,9 @@ public class QueryAll {
 
 		int i,j;
 		double x,y = 0,r1,r2 = 0;
+		
 		boolean ifcoord=false;
+		int ifstatus=-1;
 		
 		for (i=j=0; i < methods.length; i++, j++) {
 			if (i != 0)
@@ -61,10 +61,7 @@ public class QueryAll {
 				j+=3;
 				ifcoord = true;
 			} else if ("status".equals(methods[i])) {
-				
-				int k=Integer.parseInt(args[j]);
-				if( k < tool.StaticValue.status.length)
-					filter += methods[i] + " == '" + tool.StaticValue.status[k] + "'";
+				ifstatus=Integer.parseInt(args[j]);
 			} else if ("region".equals(methods[i])) {
 				
 				int k=Integer.parseInt(args[j]);
@@ -86,6 +83,8 @@ public class QueryAll {
 
  		if(ifcoord)
  			coordyFilter(list,y,r2);
+ 		if(ifstatus>=0)
+ 			stautsFilter(list,ifstatus);
  		
 		
 		JSONArray array = new JSONArray();
@@ -109,6 +108,17 @@ public class QueryAll {
 		return res.toString();
 	}
 	
+
+	private static void stautsFilter(List<GAENodeSimple> list, int ifstatus) {
+		// TODO Auto-generated method stub
+		Iterator<GAENodeSimple> it = list.iterator();
+		while(it.hasNext()){				
+			if(tool.StaticValue.findStatusv(it.next().status)!=ifstatus)
+				it.remove();
+		}		
+	}
+
+
 	private static void coordyFilter(List<GAENodeSimple> list,double y,double r)
 	{
 		double low = y-r;

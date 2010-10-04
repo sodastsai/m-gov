@@ -17,15 +17,10 @@ import javax.ws.rs.core.MediaType;
 
 import tool.TypeFilter;
 
-@Path("/query_id")
 public class QueryID {
 
 	static String strurl ;
-
-	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	@Path("{c1}")		
-	public static String go(@PathParam("c1") String cmd) {
+	public static String go(String cmd) {
 		try {
 			
 			strurl=String.format("http://www.czone.tcg.gov.tw/tp88-1/sys/query_memo_a.cfm?h_id=%s",cmd);
