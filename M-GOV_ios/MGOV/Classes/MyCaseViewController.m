@@ -125,7 +125,7 @@
 #pragma mark Method
 
 - (BOOL)myCaseDataAvailability {
-	return ([[PrefReader readPrefByKey:@"User Email"] length]!=0 && [caseSource count]!=0);
+	return (([[PrefReader readPrefByKey:@"User Email"] length]!=0 && [caseSource count]!=0)||filter.selectedSegmentIndex!=0);
 }
 
 - (void)addCase {
