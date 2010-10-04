@@ -16,6 +16,8 @@
 <activity android:label="MyCase" android:name=".mycase.MyCase"></activity>
 <activity android:label="Option" android:name=".option.Option"></activity>
 <activity android:label="Query" android:name=".query.Query"></activity>
+<activity android:name=".typeselector.TypeSelector" android:label="TypeSelector"></activity>
+<activity android:name=".typeselector.DetailSelector" android:label="TypeDetailSelector"></activity>
 </application>
     <uses-sdk android:minSdkVersion="7" />
 
