@@ -30,12 +30,11 @@ public class QueryAll {
 		double x,y = 0,r1,r2 = 0;
 		
 		boolean ifcoord=false;
-		int ifstatus=-1;
+		int ifstatus=-2;
 		
 		for (i=j=0; i < methods.length; i++, j++) {
-			if (i != 0)
+			if (i != 0 && !("status".equals(methods[i])) && !("status".equals(methods[i-1])) )
 				filter += "& ";
-
 			if("coordinates".equals(methods[i])) {
 				
 				x = Double.parseDouble(args[j]);
@@ -62,7 +61,8 @@ public class QueryAll {
 
 		}
 		System.out.println(filter);
-		query.setFilter(filter);
+		if(!("".equals(filter)))
+			query.setFilter(filter);
 		
 		List<GAENodeSimple> list = (List<GAENodeSimple>) query.execute();
 		Collections.sort(list);
@@ -72,7 +72,7 @@ public class QueryAll {
 
  		if(ifcoord)
  			coordyFilter(list,y,r2);
- 		if(ifstatus>=0)
+ 		if(ifstatus!=-2)
  			stautsFilter(list,ifstatus);
  		
 		

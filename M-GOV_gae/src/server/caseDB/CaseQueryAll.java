@@ -10,15 +10,13 @@ import java.util.List;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import javax.ws.rs.Path;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@Path("/query")
 public class CaseQueryAll {
-
+	
 	@SuppressWarnings("unchecked")
 	public static String go(String method,String arg,int st,int ed) {
 		
@@ -36,7 +34,7 @@ public class CaseQueryAll {
 		int ifstatus=-2;
 		
 		for (i=j=0; i < methods.length; i++, j++) {
-			if (i != 0)
+			if (i != 0 && !("status".equals(methods[i])) && !("status".equals(methods[i-1])) )
 				filter += "& ";
 			if("coordinates".equals(methods[i])) {
 				
@@ -124,5 +122,4 @@ public class CaseQueryAll {
 			// System.out.print(ob.toJson());
 		}
 	}
-
 }

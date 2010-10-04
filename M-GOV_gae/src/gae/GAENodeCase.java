@@ -46,7 +46,7 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 		sno = String.valueOf(Math.random());
 		date = new Date();
 		status = "nodata";
-		key = String.valueOf(Math.random());
+		key = String.valueOf(Math.abs(date.hashCode())%100000);
 	}
 
 	public void setPhoto(ArrayList<Blob> photo){
@@ -68,7 +68,7 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 //			job.put("h_admiv_name", h_admiv_name);
 			job.put("h_summary", h_summary);
 			for(int i=0;i<photo.length;i++){
-				job.put("photo","http://ntu-ecoliving.appspot.com/ecoliving/view/"+key+"/"+i);
+				job.put("photo","http://ntu-ecoliving.appspot.com/view/"+key+"/"+i);
 			}
 			
 		} catch (JSONException e) {
@@ -92,16 +92,13 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 	
 	public void genStatus(){
 
-		int i = Integer.valueOf((int) Math.random());
 		int len = tool.StaticValue.status.length; 
-		status = tool.StaticValue.status[i%len];
+		status = tool.StaticValue.status[Math.abs((new Date().toString().hashCode()))%len];
 
 	}		
 	
-	
 	public GAENode toGAENode(){
 		GAENode r = new GAENode(key,date.toString(),typeid,h_summary,coordx,coordy);
-
 		return r;
 	}
 
