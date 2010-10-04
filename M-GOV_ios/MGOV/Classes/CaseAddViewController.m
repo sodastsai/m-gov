@@ -36,9 +36,12 @@
 		[alertEmailPopupBox addSubview:alertEmailInputField];
 		[alertEmailPopupBox show];
 	} else if ([[PrefAccess readPrefByKey:@"User Email"] length] && qid != 0) {
-		UIAlertView *submitConfirm = [[UIAlertView alloc] initWithTitle:@"送出案件" message:@"確定要送出此案件至1999?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
-		[submitConfirm show];
-		[submitConfirm release];
+		[PrefAccess writePrefByKey:@"NetworkIsAlerted" andObject:[NSNumber numberWithBool:NO]];
+		if ([NetWorkChecking checkNetwork]) {
+			UIAlertView *submitConfirm = [[UIAlertView alloc] initWithTitle:@"送出案件" message:@"確定要送出此案件至1999?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
+			[submitConfirm show];
+			[submitConfirm release];
+		}
 	} else if (qid == 0){
 		UIAlertView *typeSelect = [[UIAlertView alloc] initWithTitle:@"尚未選擇案件種類" message:@"案件種類為必填選項，請確認是否已選填！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
 		[typeSelect show];

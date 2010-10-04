@@ -16,16 +16,7 @@
 #pragma mark Action
 
 - (BOOL)startQuery {
-	// check for internet connection
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkNetworkStatus:) name:kReachabilityChangedNotification object:nil];
-	
-	internetReachable = [[Reachability reachabilityForInternetConnection] retain];
-	[internetReachable startNotifier];
-	
-	// check if a pathway to a random host exists
-	hostReachable = [[Reachability reachabilityWithHostName: @"www.apple.com"] retain];
-	[hostReachable startNotifier];
-	
+	[NetWorkChecking checkNetwork];
 	indicatorView = [[LoadingOverlayView alloc] initAtViewCenter:indicatorTargetView];
 	[indicatorTargetView addSubview:indicatorView];
 	[indicatorView startedLoad];
@@ -48,67 +39,7 @@
 	return YES;
 }
 
-#pragma mark -
-#pragma mark NetworkStatus
 
-- (void) checkNetworkStatus:(NSNotification *)notice {
-	// called after network status changes
-	NetworkStatus internetStatus = [internetReachable currentReachabilityStatus];
-	switch (internetStatus)
-	{
-		case NotReachable: 
-		{
-			NSLog(@"The internet is down.");
-			if ([[PrefAccess readPrefByKey:@"NetworkIsAlerted"] boolValue] == NO) {
-				UIAlertView *netowrkAlert = [[UIAlertView alloc] initWithTitle:@"沒有網路連線" message:@"無法讀取遠端資料庫資訊" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
-				[netowrkAlert show];
-				[netowrkAlert release];
-				[PrefAccess writePrefByKey:@"NetworkIsAlerted" andObject:[NSNumber numberWithBool:YES]];
-			}
-			break;
-		}
-		case ReachableViaWiFi:
-		{
-			NSLog(@"The internet is working via WIFI.");
-			if ([[PrefAccess readPrefByKey:@"NetworkIsAlerted"] boolValue] == YES) {
-				[PrefAccess writePrefByKey:@"NetworkIsAlerted" andObject:[NSNumber numberWithBool:NO]];
-			}
-			break;
-		}
-		case ReachableViaWWAN:
-		{
-			NSLog(@"The internet is working via WWAN.");
-			if ([[PrefAccess readPrefByKey:@"NetworkIsAlerted"] boolValue] == YES) {
-				[PrefAccess writePrefByKey:@"NetworkIsAlerted" andObject:[NSNumber numberWithBool:NO]];
-			}
-			break;
-		}
-	}
-	
-	NetworkStatus hostStatus = [hostReachable currentReachabilityStatus];
-	switch (hostStatus)
-	
-	{
-		case NotReachable:
-		{
-			NSLog(@"A gateway to the host server is down.");
-			break;
-			
-		}
-		case ReachableViaWiFi:
-		{
-			NSLog(@"A gateway to the host server is working via WIFI.");
-			break;
-			
-		}
-		case ReachableViaWWAN:
-		{
-			NSLog(@"A gateway to the host server is working via WWAN.");
-			break;
-			
-		}
-	}
-}
 
 
 #pragma mark -

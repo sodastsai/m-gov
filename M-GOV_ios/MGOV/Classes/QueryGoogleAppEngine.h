@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "ASIHTTPRequest.h"
 #import "LoadingOverlayView.h"
-#import "Reachability.h"
+#import "NetWorkChecking.h"
 #import "PrefAccess.h"
 
 typedef enum {
@@ -54,10 +54,6 @@ typedef enum {
 	NSString *queryType;
 	id queryResult;
 	
-	// Check Network
-	Reachability* internetReachable;
-	Reachability* hostReachable;
-	
 	LoadingOverlayView *indicatorView;
 	UIView *indicatorTargetView;
 }
@@ -80,7 +76,5 @@ typedef enum {
 
 - (BOOL)startQuery;
 + (id)requestQuery;
-
-- (void) checkNetworkStatus:(NSNotification *)notice;
 
 @end
