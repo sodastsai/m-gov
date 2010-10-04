@@ -9,11 +9,8 @@ import android.widget.TabHost;
 import tw.edu.ntu.csie.mgov.R;
 
 public class mgov extends baseActivity {
-    /** Called when the activity is first created. */
-	
-	Class cls = null;
+    
 	Resources res;
-//	TabHost tabHost;
 	TabHost.TabSpec spec;
     Intent intent;
     
@@ -25,36 +22,34 @@ public class mgov extends baseActivity {
         
         res = getResources();
         TabHost tabHost = getTabHost();
-
-    	
-        intent = new Intent().setClass(this, NoPicSubmit.class);
-        spec = tabHost.newTabSpec(res.getString(R.string.querycase)).
-        	setIndicator(res.getString(R.string.querycase)).setContent(intent);
-        tabHost.addTab(spec);
         
-        if(savedInstanceState == null)
-        {
+        // Add MyCase Tab
+        // sodas: why do this?
+        if(savedInstanceState == null){
         	intent = new Intent().setClass(this, caseListview.class);
-        	
-        }
-        	
-		else{
+        } else{
 			try {
-				String s = savedInstanceState.getString("activity");
 				intent = new Intent().setClass(this, Class.forName(savedInstanceState.getString("activity")));
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-        
-        Random r = new Random(); 
         intent.putExtra("currentPic", getIntent().getStringExtra("currentPic"));
-        spec = tabHost.newTabSpec(new Random().nextInt()+"").
-        	setIndicator(res.getString(R.string.mycase)).setContent(intent);
+        spec = tabHost.newTabSpec(new Random().nextInt()+"").setIndicator(res.getString(R.string.mycase)).setContent(intent);
+        tabHost.addTab(spec);
+    	
+        // Add Query Tab
+        intent = new Intent().setClass(this, NoPicSubmit.class);
+        spec = tabHost.newTabSpec(res.getString(R.string.querycase)).setIndicator(res.getString(R.string.querycase)).setContent(intent);
         tabHost.addTab(spec);
         
-        tabHost.setCurrentTab(1);
+        // Add Pref Tab
+        intent = new Intent().setClass(this, UserPreference.class);
+        spec = tabHost.newTabSpec(res.getString(R.string.userpreference)).setIndicator(res.getString(R.string.userpreference)).setContent(intent);
+        tabHost.addTab(spec);
+        
+        // Set Default tab to MyCase
+        tabHost.setCurrentTab(0);
         		
     }
 }
