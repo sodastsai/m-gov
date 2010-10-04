@@ -17,18 +17,18 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 
 	<servlet>
-		<servlet-name>case</servlet-name>
+		<servlet-name>cache</servlet-name>
 		<servlet-class>cache.CaseServlet</servlet-class>
 
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>case</servlet-name>
-		<url-pattern>/case/*</url-pattern>
+		<servlet-name>cache</servlet-name>
+		<url-pattern>/cache/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>
 		<servlet-name>ecoliving</servlet-name>
-		<url-pattern>/ecoliving/*</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
