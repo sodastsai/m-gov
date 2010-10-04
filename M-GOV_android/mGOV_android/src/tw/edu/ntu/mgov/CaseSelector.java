@@ -20,10 +20,9 @@ import android.view.MenuItem;
 public class CaseSelector extends Activity {
 	
 	// Constant Identifier for Menu
-	protected static final int MENU_Action = Menu.FIRST;
-	protected static final int MENU_Option = Menu.FIRST+1;
-	protected static final int MENU_ListMode = Menu.FIRST+2;
-	protected static final int MENU_MapMode = Menu.FIRST+3;
+	protected static final int MENU_Option = Menu.FIRST;
+	protected static final int MENU_ListMode = Menu.FIRST+1;
+	protected static final int MENU_MapMode = Menu.FIRST+2;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,10 +42,6 @@ public class CaseSelector extends Activity {
 			case MENU_MapMode:
 				// Change Map Mode
 				Log.d("Menu", "MapMode");
-				break;
-			case MENU_Action:
-				// Run a method should be oveeride by child class
-				this.menuActionToTake(item);
 				break;
 			case MENU_Option:
 				// Go to Option Activity

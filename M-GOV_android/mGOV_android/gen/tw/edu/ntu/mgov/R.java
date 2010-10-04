@@ -12,12 +12,15 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_tab_mycase=0x7f020000;
-        public static final int ic_tab_mycase_selected=0x7f020001;
-        public static final int ic_tab_option=0x7f020002;
-        public static final int ic_tab_option_selected=0x7f020003;
-        public static final int ic_tab_query=0x7f020004;
-        public static final int ic_tab_query_selected=0x7f020005;
-        public static final int icon=0x7f020006;
+        public static final int ic_tab_mycase_original=0x7f020001;
+        public static final int ic_tab_mycase_selected=0x7f020002;
+        public static final int ic_tab_option=0x7f020003;
+        public static final int ic_tab_option_original=0x7f020004;
+        public static final int ic_tab_option_selected=0x7f020005;
+        public static final int ic_tab_query=0x7f020006;
+        public static final int ic_tab_query_original=0x7f020007;
+        public static final int ic_tab_query_selected=0x7f020008;
+        public static final int icon=0x7f020009;
     }
     public static final class layout {
         public static final int main=0x7f030000;
@@ -243,8 +246,7 @@ public final class R {
         public static final int sec_s_qid4410=0x7f0400bd;
         public static final int sec_s_qid6401=0x7f0400be;
         public static final int tabName_myCase=0x7f0400db;
-        public static final int tabName_option=0x7f0400dd;
         public static final int tabName_query=0x7f0400dc;
-        public static final int title_TypeSelector=0x7f0400de;
+        public static final int title_TypeSelector=0x7f0400dd;
     }
 }

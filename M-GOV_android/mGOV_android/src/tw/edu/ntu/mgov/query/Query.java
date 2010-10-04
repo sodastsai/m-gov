@@ -15,19 +15,25 @@ import tw.edu.ntu.mgov.CaseSelector;
  */
 public class Query extends CaseSelector {
 	// Menu
+	protected static final int MENU_SetTypeCondition = Menu.FIRST+3;
+	protected static final int MENU_ResetCondition = Menu.FIRST+4;
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, MENU_Action, 0, "搜尋條件").setIcon(android.R.drawable.ic_menu_search);
+		menu.add(0, MENU_SetTypeCondition, 0, "依照案件種類搜尋").setIcon(android.R.drawable.ic_menu_search);
+		menu.add(0, MENU_ResetCondition, 0, "重設搜尋條件").setIcon(android.R.drawable.ic_menu_close_clear_cancel);
 		return super.onCreateOptionsMenu(menu);
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == MENU_SetTypeCondition || item.getItemId() == MENU_ResetCondition)
+			this.menuActionToTake(item);
 		return super.onOptionsItemSelected(item);
 	}
 	@Override
 	public void menuActionToTake(MenuItem item) {
-		Log.d("Menu", "Set Query Condition");
 		super.menuActionToTake(item);
+		if (item.getItemId()==MENU_SetTypeCondition) Log.d("Menu", "Set Condition");
+		else if (item.getItemId()==MENU_ResetCondition) Log.d("Menu", "Reset");
 	}
-
+	
 }

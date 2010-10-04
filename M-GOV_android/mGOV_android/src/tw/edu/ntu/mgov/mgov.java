@@ -10,12 +10,9 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TabHost;
 
 import tw.edu.ntu.mgov.mycase.MyCase;
-import tw.edu.ntu.mgov.option.Option;
 import tw.edu.ntu.mgov.query.Query;
 
 public class mgov extends TabActivity {

@@ -4,5 +4,5 @@
     <item android:drawable="@drawable/ic_tab_mycase_selected"
           android:state_selected="true" />
     <!-- When not selected, use white-->
-    <item android:drawable="@drawable/ic_tab_mycase" />
+    <item android:drawable="@drawable/ic_tab_mycase_original" />
 </selector>
