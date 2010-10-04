@@ -4,5 +4,7 @@
 <dict>
 	<key>User Email</key>
 	<string></string>
+	<key>NetworkIsAlerted</key>
+	<false/>
 </dict>
 </plist>
