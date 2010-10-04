@@ -11,6 +11,5 @@
 @protocol WritePrefDelegate
 
 - (void)writeToPrefWithKey:(NSString *)key andObject:(id)value;
-@property (nonatomic, retain) NSMutableDictionary *prefDict;
 
 @end

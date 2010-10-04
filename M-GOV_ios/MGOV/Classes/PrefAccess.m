@@ -18,7 +18,7 @@
 + (void)copyEmptyPrefPlistToDocumentsByRecover:(BOOL)recover {
 	// Define File Path
 	NSString *userInformationPlistPathInAppBundle = [[NSBundle mainBundle] pathForResource:kPrefPlistFileName ofType:@"plist"];
-	NSString *userInformationPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:kPrefPlistFileFullName];
+	NSString *userInformationPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", kPrefPlistFileName]];
 	// Copy plist file
 	if (recover) {
 		[[NSFileManager defaultManager] removeItemAtPath:userInformationPlistPathInAppDocuments error:nil];
@@ -44,7 +44,7 @@
 
 - (id)init {
 	if (self = [super init]) {
-		self.prefPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:kPrefPlistFileFullName];
+		self.prefPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", kPrefPlistFileName]];
 		self.prefDict = [NSMutableDictionary dictionaryWithContentsOfFile:prefPlistPathInAppDocuments];
 	}
 	return self;

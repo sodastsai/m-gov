@@ -9,7 +9,6 @@
 #import <Foundation/Foundation.h>
 
 #define kPrefPlistFileName @"UserInformation"
-#define kPrefPlistFileFullName @"UserInformation.plist"
 
 @interface PrefAccess : NSObject {
 	NSMutableDictionary *prefDict;

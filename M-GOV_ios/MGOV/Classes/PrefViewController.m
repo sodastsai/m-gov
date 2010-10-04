@@ -10,18 +10,12 @@
 
 @implementation PrefViewController
 
-@synthesize plistPathInAppDocuments;
-
 #pragma mark -
 #pragma mark WritePrefDelegate
 
-@synthesize prefDict;
-
 - (void)writeToPrefWithKey:(NSString *)key andObject:(id)value {
 	if (![self preScriptBeforeSaveKey:key]) return;
-	[prefDict setValue:value forKey:key];
-	[prefDict writeToFile:plistPathInAppDocuments atomically:YES];
-	self.prefDict = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
+	[PrefAccess writePrefByKey:key andObject:value];
 	[self.tableView reloadData];
 	// Run post action
 	[self postScriptAfterSaveKey:key];
@@ -127,8 +121,6 @@
 }
 
 - (void)viewDidLoad {
-	self.plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-	self.prefDict = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
 }
 
 - (void)viewDidUnload {

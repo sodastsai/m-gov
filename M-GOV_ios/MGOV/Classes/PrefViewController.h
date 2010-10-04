@@ -13,11 +13,7 @@
 #import "MyCaseViewController.h"
 
 @interface PrefViewController : UITableViewController <WritePrefDelegate> {
-	NSMutableDictionary *prefDict;
-	NSString *plistPathInAppDocuments;
 }
-
-@property (nonatomic, retain) NSString *plistPathInAppDocuments;
 
 - (void)postScriptAfterSaveKey:(NSString *)key;
 - (BOOL)preScriptBeforeSaveKey:(NSString *)key;
