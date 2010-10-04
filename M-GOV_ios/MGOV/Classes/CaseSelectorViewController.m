@@ -85,8 +85,10 @@
 }
 
 - (void)didSelectAnnotationViewInMap:(MKAnnotationView *)annotationView {
-	caseID = [(AppMKAnnotation *)annotationView.annotation annotationID];
-	self.childViewController = [[[CaseViewerViewController alloc] initWithCaseID:caseID] autorelease];
+	if (![annotationView.annotation isKindOfClass:[MKUserLocation class]]) {
+		caseID = [(AppMKAnnotation *)annotationView.annotation annotationID];
+		self.childViewController = [[[CaseViewerViewController alloc] initWithCaseID:caseID] autorelease];
+	}
 }
 
 #pragma mark -

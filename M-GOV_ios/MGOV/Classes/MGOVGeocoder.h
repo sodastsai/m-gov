@@ -18,7 +18,6 @@
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
 
-+ (BOOL)isNetworkAvailable;
 + (MGOVGeocoder *)sharedVariable;
 + (NSString *) returnFullAddress:(CLLocationCoordinate2D)coordinate;
 + (NSArray *) returnRegion:(CLLocationCoordinate2D)coordinate;

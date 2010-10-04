@@ -45,7 +45,9 @@
 		span.longitudeDelta = 0.004;
 		region.span = span;
 		[mapView setRegion:region];
-		
+		mapView.showsUserLocation = YES;
+		mapView.userLocation.title = @"Current Location!";
+		mapView.userLocation.subtitle = @"";
 		mapViewController = [[UIViewController alloc] init];
 		mapViewController.view = mapView;
 		mapViewController.view.autoresizesSubviews = YES;
@@ -187,6 +189,8 @@
 #pragma mark MapViewDelegate
 
 - (MKAnnotationView *)mapView:(MKMapView *)MapView viewForAnnotation:(id <MKAnnotation>)annotation {
+	//Let the system use the "blue dot" for the user location
+	if ([annotation isKindOfClass:[MKUserLocation class]]) return nil; 
 	
 	// Act like table view cells
 	static NSString * const pinAnnotationIdentifier = @"PinIdentifier";
