@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "EditibleTextFieldCell.h"
 #import "WritePrefDelegate.h"
-#import "PrefReader.h"
+#import "PrefAccess.h"
 #import "MyCaseViewController.h"
 
 @interface PrefViewController : UITableViewController <WritePrefDelegate> {

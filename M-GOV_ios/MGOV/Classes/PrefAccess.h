@@ -1,5 +1,5 @@
 //
-//  PrefReader.h
+//  PrefAccess.h
 //  MGOV
 //
 //  Created by sodas on 2010/10/3.
@@ -11,7 +11,7 @@
 #define kPrefPlistFileName @"UserInformation"
 #define kPrefPlistFileFullName @"UserInformation.plist"
 
-@interface PrefReader : NSObject {
+@interface PrefAccess : NSObject {
 	NSMutableDictionary *prefDict;
 	NSString *prefPlistPathInAppDocuments;
 }
@@ -21,5 +21,6 @@
 
 + (void)copyEmptyPrefPlistToDocumentsByRecover:(BOOL)recover;
 + (id)readPrefByKey:(NSString *)key;
++ (void)writePrefByKey:(NSString *)key andObject:(id)object;
 
 @end

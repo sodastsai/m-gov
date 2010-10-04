@@ -89,7 +89,7 @@
 			editibleCell.delegate = self;
 			editibleCell.prefKey = @"User Email";
 			editibleCell.titleField.text = @"E-Mail";
-			editibleCell.contentField.text = [PrefReader readPrefByKey:@"User Email"];
+			editibleCell.contentField.text = [PrefAccess readPrefByKey:@"User Email"];
 			editibleCell.contentField.placeholder = @"請輸入您的E-Mail帳號";
 			editibleCell.contentField.keyboardType = UIKeyboardTypeEmailAddress;
 			editibleCell.contentField.autocorrectionType = UITextAutocorrectionTypeNo;

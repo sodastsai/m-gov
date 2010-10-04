@@ -21,7 +21,7 @@
 
 - (void)submitCase {
 	// If this is the First time to Submit, We should ask user's email.
-	if (![[PrefReader readPrefByKey:@"User Email"] length]) {
+	if (![[PrefAccess readPrefByKey:@"User Email"] length]) {
 		alertEmailPopupBox = [[UIAlertView alloc] initWithTitle:alertRequestEmailTitle message:alertRequestEmailPlaceholder delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好", nil];
 		// Email Text Field
 		alertEmailInputField = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
@@ -35,7 +35,7 @@
 		// Show view
 		[alertEmailPopupBox addSubview:alertEmailInputField];
 		[alertEmailPopupBox show];
-	} else if ([[PrefReader readPrefByKey:@"User Email"] length] && qid != 0) {
+	} else if ([[PrefAccess readPrefByKey:@"User Email"] length] && qid != 0) {
 		UIAlertView *submitConfirm = [[UIAlertView alloc] initWithTitle:@"送出案件" message:@"確定要送出此案件至1999?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
 		[submitConfirm show];
 		[submitConfirm release];
@@ -228,7 +228,7 @@
 			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
 			
 			// Convert Byte Data to Photo From Plist
-			NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [PrefReader readPrefByKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
+			NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [PrefAccess readPrefByKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
 			
 			// Post the submt data to App Engine
 			ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case?method=upload"]];
@@ -238,7 +238,7 @@
 			[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:1] forKey:@"h_admiv_name"];
 			[request setPostValue:[NSString stringWithFormat:@"%d", qid] forKey:@"typeid"];
 			[request setPostValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
-			[request setPostValue:[PrefReader readPrefByKey:@"User Email"] forKey:@"email"];
+			[request setPostValue:[PrefAccess readPrefByKey:@"User Email"] forKey:@"email"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"coordy"];
 			[request startAsynchronous];
@@ -266,11 +266,7 @@
 				r = [alertEmailInputField.text rangeOfString:emailRegex options:NSRegularExpressionSearch];
 				if (r.location != NSNotFound) {
 					// Write email to plist
-					NSString *plistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"UserInformation.plist"];
-					NSMutableDictionary *dictUserInformation = [NSMutableDictionary dictionaryWithContentsOfFile:plistPathInAppDocuments];
-					[dictUserInformation setValue:alertEmailInputField.text forKey:@"User Email"];
-					// Write to File
-					[dictUserInformation writeToFile:plistPathInAppDocuments atomically:YES];
+					[PrefAccess writePrefByKey:@"User Email" andObject:alertEmailInputField.text];
 					[self submitCase];
 				} else {
 					UIAlertView *errorEmail = [[UIAlertView alloc] initWithTitle:@"E-Mail格式錯誤" message:@"請輸入正確的E-Mail！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];

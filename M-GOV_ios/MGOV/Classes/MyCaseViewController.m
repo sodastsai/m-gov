@@ -71,9 +71,9 @@
 }
 
 - (void)refreshDataSource {
-	if ([[PrefReader readPrefByKey:@"User Email"] length]) {
+	if ([[PrefAccess readPrefByKey:@"User Email"] length]) {
 		self.currentConditionType = DataSourceGAEQueryByEmail;
-		self.currentCondition = [PrefReader readPrefByKey:@"User Email"];
+		self.currentCondition = [PrefAccess readPrefByKey:@"User Email"];
 		[filter setSelectedSegmentIndex:0];
 		[super refreshDataSource];
 	} else {
@@ -97,8 +97,8 @@
 	[super viewDidLoad];
 	// Update Datasource
 	caseSourceDidLoaded = NO;
-	if ([[PrefReader readPrefByKey:@"User Email"] length])
-		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[PrefReader readPrefByKey:@"User Email"]];
+	if ([[PrefAccess readPrefByKey:@"User Email"] length])
+		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[PrefAccess readPrefByKey:@"User Email"]];
 	else caseSourceDidLoaded = YES;
 	
 	// Add Filter
@@ -125,7 +125,7 @@
 #pragma mark Method
 
 - (BOOL)myCaseDataAvailability {
-	return (([[PrefReader readPrefByKey:@"User Email"] length]!=0 && [caseSource count]!=0)||filter.selectedSegmentIndex!=0);
+	return (([[PrefAccess readPrefByKey:@"User Email"] length]!=0 && [caseSource count]!=0)||filter.selectedSegmentIndex!=0);
 }
 
 - (void)addCase {
@@ -154,7 +154,7 @@
 			combinedStatus = [QueryGoogleAppEngine generateORcombinedCondition:[NSArray arrayWithObjects:@"5",@"6",nil]];
 		}
 		currentSegmentIndex = segmentedControl.selectedSegmentIndex;
-		NSArray *valueArray = [NSArray arrayWithObjects:[PrefReader readPrefByKey:@"User Email"], combinedStatus, nil];
+		NSArray *valueArray = [NSArray arrayWithObjects:[PrefAccess readPrefByKey:@"User Email"], combinedStatus, nil];
 		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray]];
 	}
 }

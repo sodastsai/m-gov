@@ -1,14 +1,14 @@
 //
-//  PrefReader.m
+//  PrefAccess.m
 //  MGOV
 //
 //  Created by sodas on 2010/10/3.
 //  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
 //
 
-#import "PrefReader.h"
+#import "PrefAccess.h"
 
-@implementation PrefReader
+@implementation PrefAccess
 
 @synthesize prefDict, prefPlistPathInAppDocuments;
 
@@ -29,8 +29,14 @@
 }
 
 + (id)readPrefByKey:(NSString *)key {
-	PrefReader *tmp = [[[PrefReader alloc] init] autorelease];
+	PrefAccess *tmp = [[[PrefAccess alloc] init] autorelease];
 	return [tmp.prefDict objectForKey:key];
+}
+
++ (void)writePrefByKey:(NSString *)key andObject:(id)object {
+	PrefAccess *tmp = [[[PrefAccess alloc] init] autorelease];
+	[tmp.prefDict setObject:object forKey:key];
+	[tmp.prefDict writeToFile:tmp.prefPlistPathInAppDocuments atomically:NO];
 }
 
 #pragma mark -

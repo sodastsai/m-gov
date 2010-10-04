@@ -30,7 +30,7 @@
 	if (![[NSFileManager defaultManager] fileExistsAtPath:tempPlistPathInAppDocuments]) 
 		[[NSFileManager defaultManager] copyItemAtPath:tempPlistPathInAppBundle toPath:tempPlistPathInAppDocuments error:nil];
 	
-	[PrefReader copyEmptyPrefPlistToDocumentsByRecover:NO];
+	[PrefAccess copyEmptyPrefPlistToDocumentsByRecover:NO];
 	
 	// My Case
 	MyCaseViewController *myCase = [[MyCaseViewController alloc] initWithMode:HybridViewListMode andTitle:@"我的案件"];

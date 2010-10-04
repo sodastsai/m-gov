@@ -20,7 +20,7 @@
 #import "ASIFormDataRequest.h"
 #import "LoadingOverlayView.h"
 #import "CaseSelectorViewController.h"
-#import "PrefReader.h"
+#import "PrefAccess.h"
 
 #define kPhotoScale 640
 
