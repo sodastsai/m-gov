@@ -10,6 +10,8 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TabHost;
 
 import tw.edu.ntu.mgov.mycase.MyCase;
@@ -38,11 +40,6 @@ public class mgov extends TabActivity {
         spec = tabHost.newTabSpec("queryCaseTab").setIndicator(res.getString(R.string.tabName_query), res.getDrawable(R.drawable.ic_tab_query)).setContent(intent);
         tabHost.addTab(spec);
         
-        // Add Option Tab, Preference in iOS version
-        intent = new Intent().setClass(this, Option.class);
-        spec = tabHost.newTabSpec("optionTab").setIndicator(res.getString(R.string.tabName_option), res.getDrawable(R.drawable.ic_tab_option)).setContent(intent);
-        tabHost.addTab(spec);
-
         tabHost.setCurrentTab(0);
     }
 }
