@@ -88,7 +88,8 @@
 	id eachViewController;
 	while (eachViewController = [enumerator nextObject])
 		if([eachViewController isKindOfClass:[HybridViewController class]])
-			[eachViewController refreshDataSource];
+			if (![[eachViewController topViewController] isKindOfClass:[CaseAddViewController class]])
+				[eachViewController refreshDataSource];
 }
 
 #pragma mark -

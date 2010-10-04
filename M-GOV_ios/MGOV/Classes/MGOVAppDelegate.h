@@ -12,6 +12,7 @@
 #import "QueryViewController.h"
 #import "PrefViewController.h"
 #import "PrefAccess.h"
+#import "CaseAddViewController.h"
 
 @interface MGOVAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
