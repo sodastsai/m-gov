@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    
-    <string name="app_name">路見不平</string>
-<string name="myCaseTabName">我的案件</string>
-<string name="queryCaseTabName">查詢案件</string>
-<string name="optionTabName">偏好設定</string>
-</resources>
