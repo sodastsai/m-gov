@@ -1,4 +1,4 @@
-package cache;
+package server.caseDB;
 
 import gae.GAENodeCase;
 import gae.PMF;
@@ -10,10 +10,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-@Path("/case_delete")
 public class CaseDelete {
-	@GET
-	@Produces(MediaType.TEXT_PLAIN)
 	public static String go() {
 		PersistenceManager pm;
 		pm = PMF.get().getPersistenceManager();

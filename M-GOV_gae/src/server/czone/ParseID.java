@@ -1,4 +1,4 @@
-package czone;
+package server.czone;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
 
 import tool.TypeFilter;
 
-public class QueryID {
+public class ParseID {
 
 	static String strurl ;
 	public static String go(String cmd) {

@@ -1,4 +1,4 @@
-package cache;
+package server.upload;
 
 import gae.GAEDataBase;
 import gae.GAENodeCase;
@@ -19,7 +19,7 @@ import org.apache.commons.io.IOUtils;
 import com.google.appengine.api.datastore.Blob;
 
 @SuppressWarnings("serial")
-public class CaseServlet extends HttpServlet {
+public class UploadServlet extends HttpServlet {
 	
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {

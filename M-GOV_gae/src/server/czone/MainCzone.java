@@ -1,4 +1,4 @@
-package czone;
+package server.czone;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -11,7 +11,7 @@ public class MainCzone {
 	@GET
 	@Path("{id}")
 	static public void doQueryID(@PathParam("id") String arg){
-		QueryID.go(arg);
+		ParseID.go(arg);
 	} 
 
 

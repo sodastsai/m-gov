@@ -1,4 +1,4 @@
-package czone;
+package server.czone;
 
 import gae.GAENodeSimple;
 import gae.PMF;

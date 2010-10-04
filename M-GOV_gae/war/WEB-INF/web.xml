@@ -5,12 +5,12 @@ xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	<servlet>
-		<servlet-name>ecoliving</servlet-name>
+		<servlet-name>server</servlet-name>
 		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>  
 
         <init-param>  
              <param-name>com.sun.jersey.config.property.packages</param-name>  
-             <param-value>ecoliving</param-value>  
+             <param-value>server</param-value>  
          </init-param>  
 
           <load-on-startup>1</load-on-startup>  
@@ -18,7 +18,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
 	<servlet>
 		<servlet-name>cache</servlet-name>
-		<servlet-class>cache.CaseServlet</servlet-class>
+		<servlet-class>server.upload.UploadServlet</servlet-class>
 
 	</servlet>
 	<servlet-mapping>
@@ -27,7 +27,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	<servlet-mapping>
-		<servlet-name>ecoliving</servlet-name>
+		<servlet-name>server</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
 
