@@ -88,11 +88,11 @@
 #pragma mark Parse Query Conditions
 
 - (NSString *)convertConditionTypeToString {
-	if (conditionType == DataSourceGAEQueryByID) return @"get_id";
-	else if (conditionType == DataSourceGAEQueryByType) return @"query/typeid";
-	else if (conditionType == DataSourceGAEQueryByEmail) return @"case_queryemail";
-	else if (conditionType == DataSourceGAEQueryByCoordinate) return @"query/coordinates";
-	else if (conditionType == DataSourceGAEQueryByStatus) return @"query/status";
+	if (conditionType == DataSourceGAEQueryByID) return @"czone/get_id";
+	else if (conditionType == DataSourceGAEQueryByType) return @"czone/query/typeid";
+	else if (conditionType == DataSourceGAEQueryByEmail) return @"case/query/email";
+	else if (conditionType == DataSourceGAEQueryByCoordinate) return @"czone/query/coordinates";
+	else if (conditionType == DataSourceGAEQueryByStatus) return @"case/query/status";
 	
 	return nil;
 }
@@ -108,6 +108,7 @@
 	restURL = [NSString stringWithFormat:@"%@%@/", restURL, queryCondition];
 	// Set Range
 	if (conditionType!=DataSourceGAEQueryByID && resultRange.length!=0) restURL = [NSString stringWithFormat:@"%@%@/", restURL, [self convertNSRangeToString]];
+	else if (conditionType!=DataSourceGAEQueryByID && resultRange.length==0) restURL = [NSString stringWithFormat:@"%@0/10000/", restURL]; 
 	
 	return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", queryBaseURL, restURL]];
 }
@@ -119,7 +120,10 @@
 	NSString *queryTypes = [queryMultiConditions valueForKey:@"DataSourceGAEQueryByType"];
 	NSString *queryStatus = [queryMultiConditions valueForKey:@"DataSourceGAEQueryByStatus"];
 	
-	NSString *restURL = @"query/";
+	NSString *restURL;
+	if (queryEmail != nil) restURL = @"case/query/";
+	else restURL = @"czone/query/";
+		
 	BOOL isFirstCondition = YES;
 	// Attach Condition Name
 	if (queryCoord!=nil) {
@@ -167,6 +171,7 @@
 	}
 	// Set Range
 	if (resultRange.length!=0) restURL = [NSString stringWithFormat:@"%@/%@/", restURL, [self convertNSRangeToString]];
+	if (resultRange.length==0) restURL = [NSString stringWithFormat:@"%@/0/10000/", restURL];
 
 	return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", queryBaseURL, restURL]];
 }
@@ -196,7 +201,7 @@
 
 - (id)init {
 	if (self = [super init]) {
-		queryBaseURL = @"http://ntu-ecoliving.appspot.com/ecoliving/";
+		queryBaseURL = @"http://ntu-ecoliving.appspot.com/";
 		// Default is getting all data
 		resultRange = NSRangeFromString(@"0, 0");
 	}

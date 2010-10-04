@@ -234,7 +234,7 @@
 			NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [PrefAccess readPrefByKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
 			
 			// Post the submt data to App Engine
-			ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case?method=upload"]];
+			ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case/add?method=upload"]];
 			request.delegate = self;
 			[request setFile:[dict objectForKey:@"Photo"] withFileName:filename andContentType:@"image/png" forKey:@"photo"];
 			[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:0] forKey:@"h_admit_name"];
