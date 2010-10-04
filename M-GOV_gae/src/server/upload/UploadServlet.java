@@ -6,7 +6,6 @@ import gae.GAENodeCase;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.servlet.http.*;
 
@@ -68,6 +67,7 @@ public class UploadServlet extends HttpServlet {
 						else if ("typeid".equals(field)) 		node.typeid = value;
 						else if ("coordx".equals(field))		node.coordx = Double.valueOf(value);
 						else if ("coordy".equals(field))		node.coordy = Double.valueOf(value);
+						else if ("status".equals(field))		node.status = value;
 
 						System.out.println(field + ":" + value);
 						// Handle form field
@@ -76,13 +76,14 @@ public class UploadServlet extends HttpServlet {
 						Blob bImg = new Blob(IOUtils.toByteArray(stream));
 						photos.add(bImg);
 
-						String title = item.getName();
+//						String title = item.getName();
 						// Photo photo = new Photo(title, date, bImg);
 						// PhotoDao.getInstance().insertPhoto(photo);
 					}
 				}
 				node.setPhoto(photos);
-
+				if("nodata".equals(node.status))
+					node.genStatus();
 				GAEDataBase.store(node);
 
 //				resp.sendRedirect("photo");

@@ -3,7 +3,6 @@ package gae;
 import java.util.ArrayList;
 import java.util.Date;
 
-import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -15,7 +14,7 @@ import org.json.JSONObject;
 import com.google.appengine.api.datastore.Blob;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class GAENodeCase {
+public class GAENodeCase implements Comparable<GAENodeCase>{
 
     @PrimaryKey
     private String key;
@@ -46,7 +45,7 @@ public class GAENodeCase {
 	public GAENodeCase(){
 		sno = String.valueOf(Math.random());
 		date = new Date();
-		status = "烏賊車";
+		status = "nodata";
 		key = String.valueOf(Math.random());
 	}
 
@@ -87,10 +86,29 @@ public class GAENodeCase {
 			return "null".getBytes();
 	}
 
+	public String getKey(){
+		return key;
+	}
+	
+	public void genStatus(){
+
+		int i = Integer.valueOf((int) Math.random());
+		int len = tool.StaticValue.status.length; 
+		status = tool.StaticValue.status[i%len];
+
+	}		
+	
+	
 	public GAENode toGAENode(){
 		GAENode r = new GAENode(key,date.toString(),typeid,h_summary,coordx,coordy);
 
 		return r;
+	}
+
+	@Override
+	public int compareTo(GAENodeCase o) {
+		// TODO Auto-generated method stub
+		return this.key.compareTo(o.getKey());
 	}
 
 }

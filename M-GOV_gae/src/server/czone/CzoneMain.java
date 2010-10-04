@@ -19,31 +19,21 @@ public class CzoneMain {
 	
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path("{get_id}/{id}")
-	public static String doGetID(@PathParam("get_id") String chk,
+	@Path("{chk}/{id}")
+	public static String doGetID(@PathParam("chk") String chk,
 			@PathParam("id") String arg) {
 		if ("get_id".equals(chk))
 			return GetID.query(arg);
-		else
-			return "{\"error\":\"method error\"}";
-	}
-
-	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	@Path("{parse_id}/{id}")
-	public static String doParseID(@PathParam("parse_id") String chk,
-			@PathParam("id") String arg) {
-		if ("parse_id".equals(chk))
+		else if ("parse_id".equals(chk))
 			return GetID.query(arg);
 		else
 			return "{\"error\":\"method error\"}";
 	}
-
 	
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path("{query}/{c1}/{c2}/{c3}/{c4}")
-	public static String doQuery(@PathParam("query") String chk,
+	@Path("{chk}/{c1}/{c2}/{c3}/{c4}")
+	public static String doQuery(@PathParam("chk") String chk,
 			@PathParam("c1") String method,	@PathParam("c2") String arg, 
 			@PathParam("c3") int st, @PathParam("c4") int ed) {
 

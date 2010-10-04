@@ -4,11 +4,10 @@ import gae.GAENode;
 import gae.PMF;
 
 import javax.jdo.PersistenceManager;
-import javax.ws.rs.PathParam;
 
 public class GetID {
 
-	public static String query(@PathParam("c1") String id) {
+	public static String query(String id) {
 
 		GAENode e;
 		PersistenceManager pm = PMF.get().getPersistenceManager();

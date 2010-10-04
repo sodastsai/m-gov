@@ -17,13 +17,13 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 
 	<servlet>
-		<servlet-name>cache</servlet-name>
+		<servlet-name>case</servlet-name>
 		<servlet-class>server.upload.UploadServlet</servlet-class>
 
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>cache</servlet-name>
-		<url-pattern>/cache/*</url-pattern>
+		<servlet-name>case</servlet-name>
+		<url-pattern>/case/add/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

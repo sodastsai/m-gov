@@ -2,18 +2,13 @@ package server.czone;
 
 import java.io.IOException;
 
+
 import gae.GAEDataBase;
 import gae.GAENode;
 import gae.GAENodeSimple;
 
 import net.CookiesInURL;
 import net.HtmlFilter;
-
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import tool.TypeFilter;
 
