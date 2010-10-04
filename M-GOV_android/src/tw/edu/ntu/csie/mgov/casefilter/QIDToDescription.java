@@ -6,10 +6,24 @@ import tw.edu.ntu.csie.mgov.R;
 
 import android.content.Context;
 
+/**
+ * This class provides two static methods, which is used to provide the 
+ * corresponding "description" of a specific qid. 
+ * 
+ * @author vagrants
+ */
 public class QIDToDescription {
 
 	private static HashMap<Integer, Integer> qidMap;
 	
+	/**
+	 * Get the description of a type of query using qid.<br>
+	 * The return value of this method is in type of int, which represents the corresponding
+	 * string Resource ID.
+	 * 
+	 * @param qid
+	 * @return a string ResourseID corresponding to a type of query, or -1 not found
+	 */
 	public static int getResIDByQID (int qid) {
 		
 		if (qidMap == null) {
@@ -25,6 +39,13 @@ public class QIDToDescription {
 		return result;
 	}
 	
+	/**
+	 * Get the description of a type of query using qid.
+	 * 
+	 * @param context for this method to access the Resources of the App 
+	 * @param qid
+	 * @return the detail description of a type query, or null if not found
+	 */
 	public static String getDetailByQID (Context context, int qid) {
 		
 		int resID = getResIDByQID(qid);
@@ -36,6 +57,9 @@ public class QIDToDescription {
 		return context.getResources().getString( resID );
 	}
 	
+	/**
+	 * Used for setup private map that mapping the qid to ResId
+	 */
 	private static void setUpMap() {
 		qidMap = new HashMap<Integer, Integer>();
 		

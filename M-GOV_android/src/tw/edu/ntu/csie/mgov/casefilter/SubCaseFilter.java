@@ -15,11 +15,16 @@ import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.widget.Toast;
 
+/**
+ * The second level caseFilter, only called by CaseFilter Activity.
+ * 
+ * @author vagrants
+ */
 public class SubCaseFilter extends PreferenceActivity{
 
 	private int[] des;
 	private int[] qid;
-	private int tid;
+	private int tid;	// the id given by the caller 
 	
 	private final static String LOGTAG = "MGOV-SubCaseFilter";
 	
@@ -34,11 +39,15 @@ public class SubCaseFilter extends PreferenceActivity{
 		setResult(RESULT_CANCELED, null);
 	}
 	
+	/**
+	 * setup the content (eg. each name of pref, each qid of pref, ...)  
+	 */
 	private void setUpRefData() {
 		
 		Bundle bundle = this.getIntent().getExtras();
 		tid = bundle.getInt("tid", -1);
 		
+		// close this activity if no argument is given to this activity 
 		if (tid == -1) {
 			Log.e(LOGTAG, "With wrong input tid = " + tid);
 			this.finish();
@@ -124,6 +133,11 @@ public class SubCaseFilter extends PreferenceActivity{
 		}
 	}
 	
+	/**
+	 * setup content view of this activity.
+	 * 
+	 * @return PreferenceScreen
+	 */
 	private PreferenceScreen createPreferenceHierarchy() {
 		// Root
         PreferenceScreen root = getPreferenceManager().createPreferenceScreen(this);
@@ -134,13 +148,20 @@ public class SubCaseFilter extends PreferenceActivity{
         for (int i = 0; i < des.length; i++) {
         	Preference subSecPref = new Preference(this);
        		subSecPref.setTitle(des[i]);
-       		setClickListenerOn(subSecPref, i);
+       		setClickListenerOn(subSecPref, i);	// setOnClickListener 
        		cat.addPreference(subSecPref);
         }
         
         return root;
 	}
 	
+	
+	/**
+	 * setOnClickListener
+	 * 
+	 * @param pref
+	 * @param index
+	 */
 	private void setClickListenerOn (Preference pref, final int index) {
 		
 		final Context context = this;
@@ -173,6 +194,12 @@ public class SubCaseFilter extends PreferenceActivity{
 		}
 	}
 	
+	/**
+	 * setup the third level of choices  
+	 * 
+	 * @param preference
+	 * @param index
+	 */
 	private void selectForMoreDetial(Preference preference, final int index) {
 		final MoreDetailHolder holder = getHolder(index);
 		
@@ -206,6 +233,7 @@ public class SubCaseFilter extends PreferenceActivity{
 			.show();
 	}
 	
+	// just used as a type of a set of some attributes  
 	private class MoreDetailHolder {
 		int title;
 		int[] des;

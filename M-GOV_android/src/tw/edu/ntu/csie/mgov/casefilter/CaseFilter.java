@@ -10,12 +10,19 @@ import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.widget.Toast;
 
+/**
+ * This Activity is call for request the user to choose a type of query.<br>
+ * returns the query of  
+ * 
+ * @author vagrants
+ */
 public class CaseFilter extends PreferenceActivity {
 	
-	private final static int REQUEST_CODE = 1630;
+	private final static int REQUEST_CODE = 1630;	// used for startActivityForResult(), onActivityResult() 
 	
-	public final static int TODO_QID = 0;
-	public final static int TODO_INTENT = 1;
+	// used for decide which action todo on each Preference 
+	private final static int TODO_QID = 0;	// return the result and qid
+	private final static int TODO_INTENT = 1;	// start SubCaseFilter Activity 
 	
 	private final static String LOGTAG = "MGOV-CaseFilter";
 	
@@ -28,6 +35,7 @@ public class CaseFilter extends PreferenceActivity {
 		{TODO_INTENT, TODO_INTENT, TODO_INTENT, TODO_INTENT}
 	};
 	
+	// string ResourceID for Categories 
 	private final int[] title = { 
 			R.string.sec1_title, 
 			R.string.sec2_title,
@@ -36,6 +44,7 @@ public class CaseFilter extends PreferenceActivity {
 			R.string.sec5_title,
 			R.string.sec6_title };
 
+	// string ResourceID for each Preference to show 
 	private final int[][] subTitles =  {	
 					{ R.string.sec1_1, R.string.sec1_2, R.string.sec1_3 },
 					{ R.string.sec2_1, R.string.sec2_2 }, 
@@ -49,10 +58,15 @@ public class CaseFilter extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 		
 		setTitle(R.string.case_filter_select_title);
-		setPreferenceScreen(createPreferenceHierarchy());
+		setPreferenceScreen(createPreferenceHierarchy());	// something like setContentView 
 		setResult(RESULT_CANCELED, null);
 	}
 
+	/**
+	 * create the content View of this Activity.
+	 * 
+	 * @return the content Screen 
+	 */
 	private PreferenceScreen createPreferenceHierarchy() {
 		
 		PreferenceCategory[] secPrefCat = new PreferenceCategory[6];
@@ -66,6 +80,7 @@ public class CaseFilter extends PreferenceActivity {
         	secPrefCat[i].setTitle(title[i]);
         	root.addPreference(secPrefCat[i]);
         	
+        	// set the contents of a Category
         	for (int j = 0; j < subTitles[i].length; j++) {
         		Preference subSecPref = new Preference(this);
         		subSecPref.setTitle(subTitles[i][j]);
@@ -77,9 +92,18 @@ public class CaseFilter extends PreferenceActivity {
         return root;
 	}
 	
+	/**
+	 * Set the OnClickListener on each Preference.
+	 * 
+	 * 
+	 * @param subSecPref the Preference to click
+	 * @param i just an index
+	 * @param j just an index
+	 */
 	private void setClickListenerOn (Preference subSecPref, final int i, final int j) {
 		
 		if (todo[i][j] == TODO_INTENT) {
+			// can't decide which type user wants, start subCaseFilter for users further choose 
 			subSecPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
@@ -93,6 +117,7 @@ public class CaseFilter extends PreferenceActivity {
 				}
 			});
 		} else if (todo[i][j] == TODO_QID) {
+			// return the result (qid, detail) to previous Activity and this.finish() 
 			subSecPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 				@Override
 				public boolean onPreferenceClick(Preference preference) {
