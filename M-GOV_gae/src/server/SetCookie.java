@@ -1,4 +1,4 @@
-package ecoliving;
+package server;
 
 import gae.GAEDataBase;
 import gae.GAENodeCookie;

@@ -1,4 +1,4 @@
-package ecoliving;
+package server;
 
 import gae.GAENode;
 import gae.GAENodeCase;

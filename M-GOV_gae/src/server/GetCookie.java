@@ -1,4 +1,4 @@
-package ecoliving;
+package server;
 
 import gae.GAENodeCookie;
 import gae.PMF;

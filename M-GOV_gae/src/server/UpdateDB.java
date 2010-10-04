@@ -1,4 +1,4 @@
-package ecoliving;
+package server;
 
 import gae.GAENodeSimple;
 import gae.PMF;

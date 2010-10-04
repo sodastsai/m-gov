@@ -1,7 +1,8 @@
-package ecoliving;
+package cache;
 
 import java.util.Iterator;
 
+import gae.GAENodeCase;
 import gae.GAENodeSimple;
 import gae.PMF;
 
@@ -16,8 +17,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@Path("list")
-public class List {
+@Path("/case_list")
+public class CaseList {
 
 	@SuppressWarnings("unchecked")
 	@GET
@@ -25,16 +26,16 @@ public class List {
 	public static String go() {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 
-		Extent extent = pm.getExtent(GAENodeSimple.class, false);
+		Extent extent = pm.getExtent(GAENodeCase.class, false);
 		
 		int cnt=0;
 		Iterator it = extent.iterator();
 		
 		JSONArray array = new JSONArray();
-		GAENodeSimple e;
+		GAENodeCase e;
 		while(it.hasNext())
 		{
-			e = (GAENodeSimple) it.next();
+			e = (GAENodeCase) it.next();
 			array.put(e.toJson());
 			cnt ++ ;
 		}

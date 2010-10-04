@@ -1,4 +1,4 @@
-package ecoliving;
+package server;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
