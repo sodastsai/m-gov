@@ -12,15 +12,12 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_tab_mycase=0x7f020000;
-        public static final int ic_tab_mycase_original=0x7f020001;
-        public static final int ic_tab_mycase_selected=0x7f020002;
-        public static final int ic_tab_option=0x7f020003;
-        public static final int ic_tab_option_original=0x7f020004;
-        public static final int ic_tab_option_selected=0x7f020005;
-        public static final int ic_tab_query=0x7f020006;
-        public static final int ic_tab_query_original=0x7f020007;
-        public static final int ic_tab_query_selected=0x7f020008;
-        public static final int icon=0x7f020009;
+        public static final int ic_tab_mycase_gray=0x7f020001;
+        public static final int ic_tab_mycase_white=0x7f020002;
+        public static final int ic_tab_query=0x7f020003;
+        public static final int ic_tab_query_gray=0x7f020004;
+        public static final int ic_tab_query_white=0x7f020005;
+        public static final int icon=0x7f020006;
     }
     public static final class layout {
         public static final int main=0x7f030000;
