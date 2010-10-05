@@ -4,8 +4,8 @@
 package tw.edu.ntu.mgov.option;
 
 import tw.edu.ntu.mgov.R;
-import android.os.Build;
 import android.os.Bundle;
+import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
@@ -21,7 +21,7 @@ public class Option extends PreferenceActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		this.setTitle("偏好設定");
+		this.setTitle(getResources().getString(R.string.option_ActivityName));
 		setPreferenceScreen(createPreferenceHierarchy());	
 	}
 	
@@ -39,21 +39,24 @@ public class Option extends PreferenceActivity {
         
         // Section titles (Categories)
         prefCategory[0] = new PreferenceCategory(this);
-        prefCategory[0].setTitle("個人資訊");
+        prefCategory[0].setTitle(getResources().getString(R.string.option_personalInformation));
         prefCategory[1] = new PreferenceCategory(this);
-        prefCategory[1].setTitle("應用程式資訊");
+        prefCategory[1].setTitle(getResources().getString(R.string.option_applicationInformation));
         root.addPreference(prefCategory[0]);
         root.addPreference(prefCategory[1]);
         
         // Preference Content
-        Preference personalEMail = new Preference(this);
-		personalEMail.setTitle("E-Mail");
+        EditTextPreference personalEMail = new EditTextPreference(this);
+		personalEMail.setTitle(getResources().getString(R.string.option_personalInfo_Email));
         personalEMail.setSummary("sodas@gmail.com");
-		prefCategory[0].addPreference(personalEMail);
+        personalEMail.setDialogTitle(getResources().getString(R.string.option_personalInfo_Email));
+        personalEMail.setDialogMessage(getResources().getString(R.string.option_personalInfo_Email_prompt));
+        prefCategory[0].addPreference(personalEMail);
 		
 		Preference appInformation = new Preference(this);
 		appInformation.setTitle(getResources().getString(R.string.app_name));
-		appInformation.setSummary("版本 "+getResources().getString(R.string.app_version));
+		appInformation.setSummary(getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version));
+		appInformation.setSelectable(false);
 		prefCategory[1].addPreference(appInformation);
 		
         return root;

@@ -57,8 +57,14 @@ public final class R {
         public static final int menu_mapMode=0x7f0400e0;
         public static final int menu_myCase_addCase=0x7f0400e2;
         public static final int menu_option=0x7f0400e1;
-        public static final int menu_query_Reset=0x7f0400e4;
+        public static final int menu_query_setAllType=0x7f0400e4;
         public static final int menu_query_setTypeCondition=0x7f0400e3;
+        public static final int option_ActivityName=0x7f0400e5;
+        public static final int option_appInfo_version=0x7f0400e9;
+        public static final int option_applicationInformation=0x7f0400e7;
+        public static final int option_personalInfo_Email=0x7f0400e8;
+        public static final int option_personalInfo_Email_prompt=0x7f0400ea;
+        public static final int option_personalInformation=0x7f0400e6;
         public static final int sec1_1=0x7f040001;
         public static final int sec1_1_1=0x7f04001b;
         public static final int sec1_1_10=0x7f040024;

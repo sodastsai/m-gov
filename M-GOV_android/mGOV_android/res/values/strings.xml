@@ -15,6 +15,12 @@
 <string name="menu_option">偏好設定</string>
 <string name="menu_myCase_addCase">新增案件</string>
 <string name="menu_query_setTypeCondition">依案件種類搜尋</string>
-<string name="menu_query_Reset">重設搜尋條件</string>
+<string name="menu_query_setAllType">重設搜尋條件</string>
 
+<string name="option_ActivityName">偏好設定</string>
+<string name="option_personalInformation">個人資訊</string>
+<string name="option_applicationInformation">應用程式資訊</string>
+<string name="option_personalInfo_Email">E-Mail</string>
+<string name="option_appInfo_version">版本</string>
+<string name="option_personalInfo_Email_prompt">請輸入您的E-Mail帳號</string>
 </resources>

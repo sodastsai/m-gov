@@ -19,13 +19,13 @@ import tw.edu.ntu.mgov.typeselector.TypeSelector;
 public class Query extends CaseSelector {
 	// Constant
 	protected static final int MENU_SetTypeCondition = Menu.FIRST+3;
-	protected static final int MENU_ResetCondition = Menu.FIRST+4;
+	protected static final int MENU_AllTypeCondition = Menu.FIRST+4;
 	private static final int REQUEST_CODE_typeSelector = 1630;
 	// Lifecycle
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, MENU_SetTypeCondition, 0, getResources().getString(R.string.menu_query_setTypeCondition)).setIcon(android.R.drawable.ic_menu_search);
-		menu.add(0, MENU_ResetCondition, 0, getResources().getString(R.string.menu_query_Reset)).setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+		menu.add(0, MENU_AllTypeCondition, 0, getResources().getString(R.string.menu_query_setAllType)).setIcon(android.R.drawable.ic_menu_close_clear_cancel);
 		return super.onCreateOptionsMenu(menu);
 	}
 	@Override
@@ -42,7 +42,7 @@ public class Query extends CaseSelector {
 	// Menu
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == MENU_SetTypeCondition || item.getItemId() == MENU_ResetCondition)
+		if (item.getItemId() == MENU_SetTypeCondition || item.getItemId() == MENU_AllTypeCondition)
 			this.menuActionToTake(item);
 		return super.onOptionsItemSelected(item);
 	}
@@ -55,7 +55,7 @@ public class Query extends CaseSelector {
 			intent.setClass(Query.this, TypeSelector.class);
 			startActivityForResult(intent, REQUEST_CODE_typeSelector);
 		}
-		else if (item.getItemId()==MENU_ResetCondition) Log.d("Menu", "Reset");
+		else if (item.getItemId()==MENU_AllTypeCondition) Log.d("Menu", "All Type");
 	}
 	
 }
