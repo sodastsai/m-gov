@@ -11,6 +11,7 @@
 @implementation EditibleTextFieldCell
 @synthesize titleField, contentField, prefKey;
 @synthesize delegate;
+@synthesize originalValue;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
@@ -59,7 +60,7 @@
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-	originalValue = textField.text;
+	self.originalValue = textField.text;
 	return YES;
 }
 

@@ -10,27 +10,50 @@
 
 @implementation PrefViewController
 
+@synthesize originalEmail;
+
 #pragma mark -
 #pragma mark WritePrefDelegate
 
 - (void)writeToPrefWithKey:(NSString *)key andObject:(id)value {
-	if (![self preScriptBeforeSaveKey:key]) return;
-	[PrefAccess writePrefByKey:key andObject:value];
-	[self.tableView reloadData];
-	// Run post action
-	[self postScriptAfterSaveKey:key];
+	if (![self preScriptBeforeSaveKey:key andObject:value]) {
+		[self alertWhileFailToWriteWithTitle:@"E-Mail格式錯誤" andContent:@"請輸入正確的E-Mail！"];
+		[self.tableView reloadData];
+	} else {
+		[PrefAccess writePrefByKey:key andObject:value];
+		[self.tableView reloadData];
+		// Run post action
+		[self postScriptAfterSaveKey:key andObject:value];
+	}
 }
 
 #pragma mark -
 #pragma mark Method
 
-- (BOOL)preScriptBeforeSaveKey:(NSString *)key {
-	// TODO: check email format
-	// Return NO if format is not correct, or return YES while email format is correct.
-	return YES;
+- (void)alertWhileFailToWriteWithTitle:(NSString *)alertTitle andContent:(NSString *)alertContent {
+	UIAlertView *errorAlert = [[UIAlertView alloc] initWithTitle:alertTitle message:alertContent delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
+	[errorAlert show];
+	[errorAlert release];
 }
 
-- (void)postScriptAfterSaveKey:(NSString *)key {
+- (BOOL)preScriptBeforeSaveKey:(NSString *)key andObject:(id)value {
+	if ([key isEqualToString:@"User Email"]) {
+		// Check Email Format
+		if (![value length]) {
+			[self alertWhileFailToWriteWithTitle:@"即將清除您的E-Mail帳號" andContent:@"如果要查詢以前報過的案件，請再次輸入您的E-Mail帳號即可。"];
+			return YES; 
+		}
+		NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9.-]";
+		NSRange r = [value rangeOfString:emailRegex options:NSRegularExpressionSearch];
+		if (r.location != NSNotFound) return YES;
+		else return NO;
+	} else {
+		// Nothing to check
+		return YES;
+	}
+}
+
+- (void)postScriptAfterSaveKey:(NSString *)key andObject:(id)value {
 	if ([key isEqualToString:@"User Email"]) {
 		if ([self.parentViewController.parentViewController isKindOfClass:[UITabBarController class]]) {
 			UITabBarController *mainBar = (UITabBarController *)self.parentViewController.parentViewController;

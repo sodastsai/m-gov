@@ -77,7 +77,7 @@
 #pragma mark Method
 
 - (void)setQueryCondition {
-	UIActionSheet *setCondition = [[UIActionSheet alloc] initWithTitle:@"設定搜尋條件" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"重設搜尋條件" otherButtonTitles:@"依案件種類搜尋", nil];
+	UIActionSheet *setCondition = [[UIActionSheet alloc] initWithTitle:@"設定搜尋條件" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"所有案件種類", @"依案件種類搜尋", nil];
 	[setCondition showFromTabBar:self.tabBarController.tabBar];
 	[setCondition release];
 }
@@ -192,11 +192,10 @@
 		[typeSelector release];
 		[typeAndDetailSelector release];
 	} else if (buttonIndex==0) {
-		// Reset
-		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+		// All type
 		queryTypeLabel.text = @"所有案件種類";
 		typeID = 0;
-		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
+		[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region]];
 	} else if (buttonIndex==2) {
 		// Do nothing but cancel
 	}

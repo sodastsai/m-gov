@@ -22,5 +22,6 @@
 @property (nonatomic, retain) UITextField *contentField;
 @property (nonatomic, retain) id<WritePrefDelegate> delegate;
 @property (nonatomic, retain) NSString *prefKey;
+@property (nonatomic, retain) NSString *originalValue;
 
 @end

@@ -13,9 +13,13 @@
 #import "MyCaseViewController.h"
 
 @interface PrefViewController : UITableViewController <WritePrefDelegate> {
+	NSString *originalEmail;
 }
 
-- (void)postScriptAfterSaveKey:(NSString *)key;
-- (BOOL)preScriptBeforeSaveKey:(NSString *)key;
+@property (nonatomic, retain) NSString *originalEmail;
+
+- (void)postScriptAfterSaveKey:(NSString *)key andObject:(id)value;
+- (BOOL)preScriptBeforeSaveKey:(NSString *)key andObject:(id)value;
+- (void)alertWhileFailToWriteWithTitle:(NSString *)alertTitle andContent:(NSString *)alertContent;
 
 @end
