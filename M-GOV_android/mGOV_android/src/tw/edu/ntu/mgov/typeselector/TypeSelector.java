@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 /**
  * This Activity is call for request the user to choose a type of query.<br>
- * returns the query of  
+ * returns the qid and detail description of the type of query to the caller Activity.
  * 
  * @author vagrants
  */
