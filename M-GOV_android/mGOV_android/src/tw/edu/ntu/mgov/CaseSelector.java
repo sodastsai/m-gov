@@ -3,7 +3,9 @@
  */
 package tw.edu.ntu.mgov;
 
+import tw.edu.ntu.mgov.option.Option;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,9 +28,9 @@ public class CaseSelector extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, MENU_Option, 0, "偏好設定").setIcon(android.R.drawable.ic_menu_preferences);
-		menu.add(0, MENU_ListMode, 0, "列表模式").setIcon(android.R.drawable.ic_menu_info_details);
-		menu.add(0, MENU_MapMode, 0, "地圖模式").setIcon(android.R.drawable.ic_menu_mapmode);
+		menu.add(0, MENU_Option, 0, getResources().getString(R.string.menu_option)).setIcon(android.R.drawable.ic_menu_preferences);
+		menu.add(0, MENU_ListMode, 0, getResources().getString(R.string.menu_ListMode)).setIcon(android.R.drawable.ic_menu_info_details);
+		menu.add(0, MENU_MapMode, 0, getResources().getString(R.string.menu_mapMode)).setIcon(android.R.drawable.ic_menu_mapmode);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -45,7 +47,9 @@ public class CaseSelector extends Activity {
 				break;
 			case MENU_Option:
 				// Go to Option Activity
-				Log.d("Menu", "Option");
+				Intent intent = new Intent();
+				intent.setClass(this, Option.class);
+				startActivity(intent);
 				break;
 		}
 		return super.onOptionsItemSelected(item);

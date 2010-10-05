@@ -21,9 +21,11 @@ public final class R {
     }
     public static final class layout {
         public static final int main=0x7f030000;
+        public static final int option=0x7f030001;
     }
     public static final class string {
         public static final int app_name=0x7f0400da;
+        public static final int app_version=0x7f0400db;
         public static final int case_filter_artwork_1=0x7f0400d5;
         public static final int case_filter_artwork_2=0x7f0400d6;
         public static final int case_filter_artwork_title=0x7f0400d4;
@@ -51,6 +53,12 @@ public final class R {
         public static final int case_filter_wifi_2=0x7f0400d2;
         public static final int case_filter_wifi_3=0x7f0400d3;
         public static final int case_filter_wifi_title=0x7f0400d0;
+        public static final int menu_ListMode=0x7f0400df;
+        public static final int menu_mapMode=0x7f0400e0;
+        public static final int menu_myCase_addCase=0x7f0400e2;
+        public static final int menu_option=0x7f0400e1;
+        public static final int menu_query_Reset=0x7f0400e4;
+        public static final int menu_query_setTypeCondition=0x7f0400e3;
         public static final int sec1_1=0x7f040001;
         public static final int sec1_1_1=0x7f04001b;
         public static final int sec1_1_10=0x7f040024;
@@ -242,8 +250,8 @@ public final class R {
         public static final int sec_s_qid4409=0x7f0400bc;
         public static final int sec_s_qid4410=0x7f0400bd;
         public static final int sec_s_qid6401=0x7f0400be;
-        public static final int tabName_myCase=0x7f0400db;
-        public static final int tabName_query=0x7f0400dc;
-        public static final int title_TypeSelector=0x7f0400dd;
+        public static final int tabName_myCase=0x7f0400dc;
+        public static final int tabName_query=0x7f0400dd;
+        public static final int title_TypeSelector=0x7f0400de;
     }
 }

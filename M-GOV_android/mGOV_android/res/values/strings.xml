@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-    <string name="app_name">路見不平</string>
+    <string name="app_name">路見不平</string><string name="app_version">0.5</string>
 <string name="tabName_myCase">我的案件</string>
 <string name="tabName_query">案件查詢</string>
 
@@ -9,5 +9,12 @@
 
 
 
+
+<string name="menu_ListMode">列表模式</string>
+<string name="menu_mapMode">地圖模式</string>
+<string name="menu_option">偏好設定</string>
+<string name="menu_myCase_addCase">新增案件</string>
+<string name="menu_query_setTypeCondition">依案件種類搜尋</string>
+<string name="menu_query_Reset">重設搜尋條件</string>
 
 </resources>
