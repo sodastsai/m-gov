@@ -173,8 +173,9 @@
 	caseCoord.longitude  = [[[[caseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 	caseCoord.latitude = [[[[caseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
 	// TODO: query with cache
+	if (![[caseSource objectAtIndex:indexPath.row] valueForKey:@"address"])[[caseSource objectAtIndex:indexPath.row] setValue:[[MGOVGeocoder returnFullAddress:caseCoord] substringFromIndex:5] forKey:@"address"];
 	//cell.caseAddress.text = [[MGOVGeocoder returnFullAddress:caseCoord] substringFromIndex:5];
-	cell.caseAddress.text = @"台北市大安區羅斯福路四段一號";
+	cell.caseAddress.text = [[caseSource objectAtIndex:indexPath.row] objectForKey:@"address"];
 	// Case Status
 	if ([[[caseSource objectAtIndex:indexPath.row] objectForKey:@"status"] isEqualToString:@"完工"]||
 		[[[caseSource objectAtIndex:indexPath.row] objectForKey:@"status"] isEqualToString:@"結案"]||

@@ -12,7 +12,7 @@
 #import "CaseSelectorCell.h"
 
 @interface CaseSelectorViewController : HybridViewController <QueryGAEReciever, HybridViewDelegate, HybridViewDataSource> {
-	NSArray *caseSource;
+	NSMutableArray *caseSource;
 	// Data Range
 	NSRange queryRange;
 	// Case Viewer
