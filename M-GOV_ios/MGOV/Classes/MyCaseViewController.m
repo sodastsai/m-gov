@@ -150,10 +150,10 @@
 			keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByEmail", nil];
 			combinedStatus = nil;
 		} else if (segmentedControl.selectedSegmentIndex==1) {
-			combinedStatus = [NSString stringWithFormat:@"%d", 0];
+			combinedStatus = [NSString stringWithFormat:@"%d", 1];
 			//combinedStatus = [QueryGoogleAppEngine generateORcombinedCondition:[NSArray arrayWithObjects:@"0",@"4",nil]];
 		} else if (segmentedControl.selectedSegmentIndex==2) {
-			combinedStatus = [NSString stringWithFormat:@"%d", 1];
+			combinedStatus = [NSString stringWithFormat:@"%d", 0];
 			//combinedStatus = [QueryGoogleAppEngine generateORcombinedCondition:[NSArray arrayWithObjects:@"1",@"2",@"3",nil]];
 		} else if (segmentedControl.selectedSegmentIndex==3) {
 			combinedStatus = [NSString stringWithFormat:@"%d", 2];
