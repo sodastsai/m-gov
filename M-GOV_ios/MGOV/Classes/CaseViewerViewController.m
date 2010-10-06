@@ -38,11 +38,13 @@
 	if ([[caseData objectForKey:@"image"] count]) {
 		NSString *str = [[caseData objectForKey:@"image"] objectAtIndex:0];
 		str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
-		photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
-		photoView.layer.cornerRadius = 10.0;
-		photoView.layer.masksToBounds = YES;
 		// Could not fetch the photo
 		if (![NSData dataWithContentsOfURL:[NSURL URLWithString:str]]) photoView = nil;
+		else {
+			photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
+			photoView.layer.cornerRadius = 10.0;
+			photoView.layer.masksToBounds = YES;	
+		}		
 	}
 	else {
 		photoView = nil;
