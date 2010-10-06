@@ -15,24 +15,20 @@ public class GAECase extends HashMap<String, String>{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	JSONObject json;
-	ArrayList<String> photo,image,coordinates;
+	ArrayList<String> image;
 	
 	public GAECase(){
 		super();
-		photo = new ArrayList<String>();
 		image = new ArrayList<String>();
-		coordinates = new ArrayList<String>(2);
 	}
 	
 	@SuppressWarnings("unchecked")
-	public GAECase(JSONObject ob) throws JSONException {
+	public GAECase(JSONObject json) throws JSONException {
 		super();
 		
 		Iterator<String> it = json.keys();
 		while (it.hasNext()) {
 			String key = it.next();
-			
 			if("image".equals(key)){
 				JSONArray array = json.getJSONArray(key);
 				for(int i=0;i<array.length();i++){
@@ -41,9 +37,9 @@ public class GAECase extends HashMap<String, String>{
 			}
 			else if("coordinates".equals(key)){
 				JSONArray array = json.getJSONArray(key);
-				setCoordinates(array.getString(0),array.getString(1));
+				this.put("coordx", array.getString(0));
+				this.put("coordy", array.getString(1));
 			}
-			
 			this.put(key, json.getString(key));
 		}
 	}
@@ -56,22 +52,12 @@ public class GAECase extends HashMap<String, String>{
 		return this.get(key);
 	}
 
-	public void addPhoto(String photo){
-		this.photo.add(photo);
+	public void addImage(String photo){
+		this.image.add(photo);
 	}	
 
-	public void setCoordinates(String x,String y){
-		coordinates.add(x);
-		coordinates.add(y);
-
-	}
-	
 	public String[] getImage(){
 		return (String[]) image.toArray();
-	}
-	
-	public String[] getCoordinates(){
-		return (String[]) coordinates.toArray();
 	}
 
 

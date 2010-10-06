@@ -2,18 +2,24 @@ package tw.edu.ntu.mgov.gae;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import tw.edu.ntu.mgov.net.ReadUrl;
 
 public class GAEQuery {
 
-	final static String prefixURL="http://ntu-ecoliving.appspot.com/ecoliving/query/";
+	final static String prefixURL="http://ntu-ecoliving.appspot.com/czone/";
 	
 	String method,args;
 	
 	public GAEQuery(){
 	}
 
+	public GAECase getID(String id) throws JSONException{
+		String res = ReadUrl.process(prefixURL+"get_id/"+id,"utf-8");
+		return new GAECase(new JSONObject(res));
+	}
+	
 	public void addQuery(String method,String args[]){
 		this.method += "&"+method;
 
@@ -24,8 +30,8 @@ public class GAEQuery {
 	}
 	
 	//TODO
-	public GAECase[] doQuery(int st,int ed){
-		String queryStr = prefixURL + method + "/" + args +"/"+ st +"/"+ ed;
+	public GAECase[] doQuery(int start,int end){
+		String queryStr = prefixURL + "query/" + method + "/" + args +"/"+ start +"/"+ end;
 		String jsonStr = ReadUrl.process(queryStr, "utf-8");
 		
 		try {
