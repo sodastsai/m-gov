@@ -15,7 +15,7 @@
 <string name="menu_option">偏好設定</string>
 <string name="menu_myCase_addCase">新增案件</string>
 <string name="menu_query_setTypeCondition">依案件種類搜尋</string>
-<string name="menu_query_setAllType">重設搜尋條件</string>
+<string name="menu_query_setAllType">所有案件種類</string>
 
 <string name="option_ActivityName">偏好設定</string>
 <string name="option_personalInformation">個人資訊</string>

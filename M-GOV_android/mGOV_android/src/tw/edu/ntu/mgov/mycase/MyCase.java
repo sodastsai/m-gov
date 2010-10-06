@@ -3,11 +3,12 @@
  */
 package tw.edu.ntu.mgov.mycase;
 
-import android.util.Log;
+import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import tw.edu.ntu.mgov.CaseSelector;
 import tw.edu.ntu.mgov.R;
+import tw.edu.ntu.mgov.addcase.AddCase;
 
 /**
  * @author sodas
@@ -30,7 +31,9 @@ public class MyCase extends CaseSelector {
 	}
 	@Override
 	public void menuActionToTake(MenuItem item) {
-		Log.d("Menu", "Add Case");
+		Intent caseAdderIntent = new Intent();
+		caseAdderIntent.setClass(this, AddCase.class);
+		startActivity(caseAdderIntent);
 		super.menuActionToTake(item);
 	}
 

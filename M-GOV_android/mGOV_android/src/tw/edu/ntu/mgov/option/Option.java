@@ -51,6 +51,7 @@ public class Option extends PreferenceActivity {
         personalEMail.setSummary("sodas@gmail.com");
         personalEMail.setDialogTitle(getResources().getString(R.string.option_personalInfo_Email));
         personalEMail.setDialogMessage(getResources().getString(R.string.option_personalInfo_Email_prompt));
+        personalEMail.getEditText().setInputType(android.view.inputmethod.EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         prefCategory[0].addPreference(personalEMail);
 		
 		Preference appInformation = new Preference(this);
