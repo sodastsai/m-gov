@@ -244,6 +244,7 @@
 			[request setPostValue:[PrefAccess readPrefByKey:@"User Email"] forKey:@"email"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"coordy"];
+			[request setPostValue:[MGOVGeocoder returnFullAddress:selectedCoord] forKey:@"address"];
 			[request startAsynchronous];
 			
 			// After submit case, clean the temp infomation
