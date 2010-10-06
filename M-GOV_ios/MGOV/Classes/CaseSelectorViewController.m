@@ -169,10 +169,6 @@
 		cell.caseDate.text = @"";
 	}
 	// Case Address
-	CLLocationCoordinate2D caseCoord;
-	caseCoord.longitude  = [[[[caseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
-	caseCoord.latitude = [[[[caseSource objectAtIndex:indexPath.row] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
-	// TODO: query with cache
 	cell.caseAddress.text = [[caseSource objectAtIndex:indexPath.row] objectForKey:@"address"];
 	// Case Status
 	if ([[[caseSource objectAtIndex:indexPath.row] objectForKey:@"status"] isEqualToString:@"完工"]||
