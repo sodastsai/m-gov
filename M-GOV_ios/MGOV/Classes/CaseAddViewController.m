@@ -22,15 +22,17 @@
 - (void)submitCase {
 	// If this is the First time to Submit, We should ask user's email.
 	if (![[PrefAccess readPrefByKey:@"User Email"] length]) {
-		alertEmailPopupBox = [[UIAlertView alloc] initWithTitle:alertRequestEmailTitle message:alertRequestEmailPlaceholder delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好", nil];
+		alertEmailPopupBox = [[UIAlertView alloc] initWithTitle:@"請輸入您的E-Mail" message:[NSString stringWithFormat:@"路見不平會使用E-Mail記錄您的案件\n\n\n"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好", nil];
+		alertEmailPopupBox.tag = 3000;
 		// Email Text Field
-		alertEmailInputField = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
+		alertEmailInputField = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 75.0, 260.0, 30.0)];
+		alertEmailInputField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 		alertEmailInputField.delegate = self;
 		alertEmailInputField.borderStyle = UITextBorderStyleRoundedRect;
 		alertEmailInputField.keyboardType = UIKeyboardTypeEmailAddress;
 		alertEmailInputField.returnKeyType = UIReturnKeyDone;
 		alertEmailInputField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-		alertEmailInputField.placeholder = alertRequestEmailPlaceholder;
+		alertEmailInputField.placeholder = @"someone@example.com";
 		[alertEmailInputField becomeFirstResponder];
 		// Show view
 		[alertEmailPopupBox addSubview:alertEmailInputField];
@@ -39,6 +41,7 @@
 		[PrefAccess writePrefByKey:@"NetworkIsAlerted" andObject:[NSNumber numberWithBool:NO]];
 		if ([NetWorkChecking checkNetwork]) {
 			UIAlertView *submitConfirm = [[UIAlertView alloc] initWithTitle:@"送出案件" message:@"確定要送出此案件至1999?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
+			submitConfirm.tag = 2000;
 			[submitConfirm show];
 			[submitConfirm release];
 		}
@@ -155,7 +158,8 @@
 	if (indexPath.section == 5) {
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 		cell.textLabel.textAlignment = UITextAlignmentCenter;
-		cell.textLabel.text = @"重設所有欄位";
+		cell.accessoryType = UITableViewCellAccessoryNone;
+		cell.textLabel.text = @"清除所有欄位";
 	}
 		
 	return cell;
@@ -175,6 +179,7 @@
 	}
 	if (indexPath.section==5 && indexPath.row==0) {
 		UIAlertView *resetAlert = [[UIAlertView alloc] initWithTitle:@"確定要重設所有欄位？" message:@"此動作會清除所有欄位的資料" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
+		resetAlert.tag = 1000;
 		[resetAlert show];
 		[resetAlert release];
 	}
@@ -218,7 +223,8 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	// End editing
-	if (textField.placeholder == alertRequestEmailPlaceholder) {
+	if (textField.superview.tag==3000) {
+		NSLog(@"XD");
 		// Call pre-close method
 		[self alertView:alertEmailPopupBox clickedButtonAtIndex:1];
 		alertEmailPopupBox.message = textField.text;
@@ -233,7 +239,7 @@
 #pragma mark UIAlertViewDelegate
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if ([alertView.title isEqualToString:@"送出案件"]) {
+	if (alertView.tag==2000) {
 		if (buttonIndex) {
 			indicatorView = [[LoadingOverlayView alloc] initAtViewCenter:self.navigationController.view];
 			[self.navigationController.view addSubview:indicatorView];
@@ -276,7 +282,7 @@
 			
 		}
 	}
-	if ([alertView.title isEqualToString:@"確定要重設所有欄位？"]) {
+	if (alertView.tag==1000) {
 		if (buttonIndex) {
 			NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
@@ -295,9 +301,12 @@
 			selectedCoord = shared.locationManager.location.coordinate;
 			[locationCell updatingCoordinate:selectedCoord];
 			[self viewWillAppear:YES];
+		} else {
+			[self.tableView reloadData];
 		}
+
 	}
-	if ([alertView.title isEqualToString:alertRequestEmailTitle]) {
+	if (alertView.tag==3000) {
 		if (buttonIndex) {
 			if ([alertEmailInputField.text length]) {
 				NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9.-]";
@@ -476,8 +485,6 @@
 	descriptionCell = [[DescriptionTableCell alloc] init];
 	
 	selectedTypeTitle = @"";
-	alertRequestEmailTitle = @"歡迎使用烏賊車";
-	alertRequestEmailPlaceholder = @"請輸入您的E-Mail";
 	selectedImage = nil;
 	
 	// Set keyboard bar
@@ -557,6 +564,7 @@
 
 - (void)dealloc {
 	[selectedTypeTitle release];
+	[alertEmailInputField release];
 	[photoCell release];
 	[locationCell release];
 	[nameFieldCell release];
