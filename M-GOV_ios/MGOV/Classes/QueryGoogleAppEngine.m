@@ -28,7 +28,6 @@
 		// Multi conditions
 		queryURL = [self generateMultiConditionsURL];
 	}
-	NSLog(@"%@", queryURL);
 	
 	// GO with ASIHttpRequest
 	// TODO: ask for ggm: Fail return
@@ -215,8 +214,9 @@
 }
 
 - (void)dealloc {
-	 [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [super dealloc];
+	[super dealloc];
+	[indicatorTargetView release];
+	[(id)resultTarget release];
 }
 
 @end

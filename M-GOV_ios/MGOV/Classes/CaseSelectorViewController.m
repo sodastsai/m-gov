@@ -87,7 +87,9 @@
 - (void)didSelectAnnotationViewInMap:(MKAnnotationView *)annotationView {
 	if (![annotationView.annotation isKindOfClass:[MKUserLocation class]]) {
 		caseID = [(AppMKAnnotation *)annotationView.annotation annotationID];
-		self.childViewController = [[[CaseViewerViewController alloc] initWithCaseID:caseID] autorelease];
+		CaseViewerViewController *child = [[CaseViewerViewController alloc] initWithCaseID:caseID];
+		self.childViewController = child;
+		[child release];
 	}
 }
 
@@ -203,10 +205,11 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Show Information Bar
-	informationBar = [[[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 44)] autorelease];
+	informationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 44)];
 	informationBar.backgroundColor = [UIColor colorWithRed:0.44 green:0.53 blue:0.64 alpha:0.9];
 	[self.view addSubview:informationBar];
 	currentCondition = nil;
+	[informationBar release];
 }
 
 @end

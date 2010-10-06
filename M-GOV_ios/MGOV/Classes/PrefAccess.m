@@ -55,6 +55,8 @@
 
 - (void)dealloc {
 	[super dealloc];
+	[self.prefDict release];
+	[self.prefPlistPathInAppDocuments release];
 }
 
 @end

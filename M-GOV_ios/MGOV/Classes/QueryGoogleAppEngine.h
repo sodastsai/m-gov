@@ -63,7 +63,7 @@ typedef enum {
 @property (retain,nonatomic) NSString *queryCondition;
 @property (retain,nonatomic) NSDictionary *queryMultiConditions;
 @property (nonatomic) NSRange resultRange;
-@property (retain,nonatomic) id resultTarget;
+@property (retain,nonatomic) id<QueryGAEReciever> resultTarget;
 @property (nonatomic, retain) UIView *indicatorTargetView;
 
 + (NSString *)generateMapQueryConditionFromRegion:(MKCoordinateRegion)mapRegion;

@@ -50,6 +50,7 @@
 		mapView.userLocation.subtitle = @"";
 		mapViewController = [[UIViewController alloc] init];
 		mapViewController.view = mapView;
+		[mapView release];
 		mapViewController.view.autoresizesSubviews = YES;
 		mapViewController.view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
 		
@@ -255,11 +256,18 @@
 #pragma mark Memory Management
 
 - (void)didReceiveMemoryWarning {
+	if (menuMode == HybridViewMapMode) [listViewController release];
+	else [mapViewController release];
     [super didReceiveMemoryWarning];
 }
 
 - (void)dealloc {
     [super dealloc];
+	[listViewController release];
+	[mapViewController release];
+	[(id)dataSource release];
+	[(id)selectorDelegate release];
+	[rightButtonItem release];
 }
 
 @end
