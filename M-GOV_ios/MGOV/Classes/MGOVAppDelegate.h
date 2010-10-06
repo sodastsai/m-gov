@@ -13,6 +13,7 @@
 #import "PrefViewController.h"
 #import "PrefAccess.h"
 #import "CaseAddViewController.h"
+#import "CaseViewerViewController.h"
 
 @interface MGOVAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
