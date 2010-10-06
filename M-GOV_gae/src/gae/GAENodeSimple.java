@@ -20,16 +20,17 @@ public class GAENodeSimple implements Comparable<GAENodeSimple>{
 	public String date;
 	@Persistent
 	public String status;
+	@Persistent
+	public String address;
 
 	@Persistent
 	public double coordx,coordy;
 
-	
 
 	public GAENodeSimple(){}
 	
 	public GAENodeSimple(String key, String typeid, String date,
-			String coordinates, String status) {
+			String coordinates, String status, String address) {
 		this.key = key;
 		this.typeid = typeid;
 		this.date = date;
@@ -42,6 +43,7 @@ public class GAENodeSimple implements Comparable<GAENodeSimple>{
 		this.coordx=d1;
 		this.coordy=d2;
 		this.status = status;
+		this.address = address;
 	}
 
 	public String getKey() {
@@ -59,7 +61,8 @@ public class GAENodeSimple implements Comparable<GAENodeSimple>{
 			o.accumulate("date", date);
 			o.accumulate("typeid", typeid);
 			o.accumulate("status", status);
-
+			o.accumulate("address",address);
+			
 			return o;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -77,6 +80,7 @@ public class GAENodeSimple implements Comparable<GAENodeSimple>{
 		e.coordy = coordy;
 
 		e.status = status;
+		e.address = address;
 		return e;
 	}
 

@@ -37,6 +37,9 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 	public double coordx, coordy;
 
 	@Persistent
+	public String address;
+
+	@Persistent
 	private Blob photo[];
 
 	@Persistent
@@ -58,7 +61,7 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 	
 	public JSONObject toJson(){
 		String coordinates=String.valueOf(coordx) + "," + String.valueOf(coordy);
-		GAENodeSimple r = new GAENodeSimple(key,typeid,date.toString(),coordinates,status);
+		GAENodeSimple r = new GAENodeSimple(key,typeid,date.toString(),coordinates,status,address);
 		JSONObject job = r.toJson();
 
 		try {
@@ -97,10 +100,6 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 
 	}		
 	
-	public GAENode toGAENode(){
-		GAENode r = new GAENode(key,date.toString(),typeid,h_summary,coordx,coordy);
-		return r;
-	}
 
 	@Override
 	public int compareTo(GAENodeCase o) {

@@ -68,7 +68,8 @@ public class UploadServlet extends HttpServlet {
 						else if ("coordx".equals(field))		node.coordx = Double.valueOf(value);
 						else if ("coordy".equals(field))		node.coordy = Double.valueOf(value);
 						else if ("status".equals(field))		node.status = value;
-
+						else if ("address".equals(field))		node.address = value;
+						
 						System.out.println(field + ":" + value);
 						// Handle form field
 					} else {

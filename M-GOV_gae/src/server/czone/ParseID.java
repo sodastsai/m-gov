@@ -94,7 +94,8 @@ public class ParseID {
 				TypeFilter.Type2Id(afterColon(line[i+6])),
 				afterColon(line[i+2]),
 				res2,
-				afterColon(line[i+12])
+				afterColon(line[i+12]),
+				parseAddress(line[i+8])
 		);
 		
 		// System.out.println(node.getKey());

@@ -39,15 +39,15 @@ public class GAENode {
 	@Persistent
 	public Text other;
 
-	public GAENode(String key,String date,String typeid,String detail,double x,double y){
+	public GAENode(String key,String date,String typeid,String detail,double x,double y,String status,String address){
 		this.key = key;
 		this.date = date;
 		this.typeid = typeid;
 		this.detail = detail;
 		this.coordx = x;
 		this.coordy = y;
-		this.status = "花博特急件";
-
+		this.status = status;
+		this.address = address;
 	}
 	
 	public GAENode(String key, String date, String region,
