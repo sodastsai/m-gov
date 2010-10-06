@@ -74,7 +74,7 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 5;
+    return 6;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -94,7 +94,7 @@
 		return @"報案者姓名";
 	} else if (section == 4 ){
 		return @"描述及建議";
-	}
+	} 
 	
 	return nil;
 }
@@ -111,6 +111,8 @@
 		return [NameFieldTableCell cellHeight];
 	} else if (indexPath.section == 4 ){
 		return [DescriptionTableCell cellHeight];
+	} else if (indexPath.section == 5 ){
+		return 44;
 	}
 	
 	return 0;
@@ -130,6 +132,8 @@
 		return nameFieldCell;
 	} else if (indexPath.section == 4) {
 		return descriptionCell;
+	} else if (indexPath.section == 5) {
+		// Do nothing since this is a normal cell.
 	}
 	
 	static NSString *CellIdentifier = @"Cell";
@@ -147,6 +151,12 @@
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 	}
+	
+	if (indexPath.section == 5) {
+		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+		cell.textLabel.textAlignment = UITextAlignmentCenter;
+		cell.textLabel.text = @"重設所有欄位";
+	}
 		
 	return cell;
 }
@@ -162,6 +172,11 @@
 		typesView.delegate = self;
 		[self presentModalViewController:typeAndDetailSelector animated:YES];
 		[typesView release];
+	}
+	if (indexPath.section==5 && indexPath.row==0) {
+		UIAlertView *resetAlert = [[UIAlertView alloc] initWithTitle:@"確定要重設所有欄位？" message:@"此動作會清除所有欄位的資料" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
+		[resetAlert show];
+		[resetAlert release];
 	}
 }
 
@@ -261,7 +276,27 @@
 			
 		}
 	}
-	
+	if ([alertView.title isEqualToString:@"確定要重設所有欄位？"]) {
+		if (buttonIndex) {
+			NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
+			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+
+			[dict setObject:[NSData data] forKey:@"Photo"];
+			[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
+			[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
+			[dict setValue:@"" forKey:@"Name"];
+			[dict setValue:@"" forKey:@"Description"];
+			descriptionCell.descriptionField.text = @"";
+			nameFieldCell.nameField.text = @"";
+			[dict setValue:@"" forKey:@"TypeTitle"];
+			[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
+			[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+			MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+			selectedCoord = shared.locationManager.location.coordinate;
+			[locationCell updatingCoordinate:selectedCoord];
+			[self viewWillAppear:YES];
+		}
+	}
 	if ([alertView.title isEqualToString:alertRequestEmailTitle]) {
 		if (buttonIndex) {
 			if ([alertEmailInputField.text length]) {
@@ -483,6 +518,7 @@
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
 	UIImage *image = [UIImage imageWithData:[dict objectForKey:@"Photo"]];
 	[photoCell.photoButton setImage:[image fitToSize:CGSizeMake(300, [PhotoPickerTableCell cellHeight])] forState:UIControlStateNormal];
+	[photoCell.photoButton setTitle:@"按一下以加入照片..." forState:UIControlStateNormal];
 	if (image != nil) {
 		[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];
 	}
