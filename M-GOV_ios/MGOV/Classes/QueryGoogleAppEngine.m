@@ -35,6 +35,7 @@
 	[request setDelegate:self];
 	[request setTimeOutSeconds:60];
 	[request startAsynchronous];
+	[self retain];
 	return YES;
 }
 
@@ -70,7 +71,7 @@
 	[indicatorView finishedLoad];
 	[indicatorView removeFromSuperview];
 	[indicatorView release];
-	[self autorelease];
+	[self release];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request {
@@ -80,7 +81,7 @@
 	[indicatorView finishedLoad];
 	[indicatorView removeFromSuperview];
 	[indicatorView release];
-	[self autorelease];
+	[self release];
 }
 
 #pragma mark -
@@ -195,7 +196,7 @@
 #pragma mark Provider Lifecycle
 
 + (id)requestQuery {
-	return [[self alloc] init];
+	return [[[self alloc] init] autorelease];
 }
 
 - (id)init {

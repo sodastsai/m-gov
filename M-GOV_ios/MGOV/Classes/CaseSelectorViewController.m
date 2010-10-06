@@ -68,7 +68,7 @@
 #pragma mark QueryGAEReciever
 
 - (void)recieveQueryResultType:(DataSourceGAEReturnTypes)type withResult:(id)result {
-	// Implement this method in child class.
+	// Implement this method in child class
 }
 
 #pragma mark -

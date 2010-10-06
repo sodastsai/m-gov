@@ -187,6 +187,7 @@
 	for (NSUInteger i=0; i<filter.numberOfSegments; i++)
 		if (i!=filter.selectedSegmentIndex)
 			[filter setEnabled:YES forSegmentAtIndex:i];
+	[super recieveQueryResultType:type withResult:result];
 }
 
 #pragma mark -
