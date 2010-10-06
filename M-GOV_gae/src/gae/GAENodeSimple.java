@@ -62,7 +62,7 @@ public class GAENodeSimple implements Comparable<GAENodeSimple>{
 			o.accumulate("typeid", typeid);
 			o.accumulate("status", status);
 			o.accumulate("address",address);
-			
+				
 			return o;
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

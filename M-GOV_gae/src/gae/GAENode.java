@@ -77,6 +77,10 @@ public class GAENode {
 	public String getDate() {
 		return date;
 	};
+	
+	public String getAdd(){
+		return address;
+	}
 
 	
 	public JSONObject toJson() {
