@@ -14,9 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 /**
  * @author sodas
@@ -34,17 +35,15 @@ public class CaseSelector extends Activity {
 	protected static final int MENU_ListMode = Menu.FIRST+1;
 	protected static final int MENU_MapMode = Menu.FIRST+2;
 	
+	String stringData[] = {"A","B","C"};
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.caseselector);
 		// Call List View From Layout XML
 		ListView listMode = (ListView)findViewById(R.id.listMode);
-		
-		String[] Data = {"A","B","C"};
-		listMode.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-		ArrayAdapter<String> arrayData = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, Data);
-		listMode.setAdapter(arrayData);
+		listMode.setAdapter(new caseListAdapter(this));
 	}
 	
 	/**
@@ -88,34 +87,61 @@ public class CaseSelector extends Activity {
 	 * @category Custom List 
 	 *
 	 */
+	class ListCellContainer {
+		TextView caseID;
+		TextView caseType;
+		TextView caseAddress;
+		TextView caseDate;
+		ImageView caseStatus;
+	}
+	
 	class caseListAdapter extends BaseAdapter {
 		LayoutInflater myInflater;
 		// Constructor
-		caseListAdapter(Context c) {
+		public caseListAdapter(Context c) {
 			myInflater = LayoutInflater.from(c);
 		}
 		@Override
 		public int getCount() {
 			// TODO Return Data Count
-			return 0;
+			//return stringData.length;
+			return 10;
 		}
 
 		@Override
-		public Object getItem(int postiton) {
-			// TODO Auto-generated method stub
-			return null;
+		public Object getItem(int posititon) {
+			// Get the data item associated with the specified position in the data set.s
+			return posititon;
 		}
 
 		@Override
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return 0;
+			// Get the row id associated with the specified position in the list.
+			return position;
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
-			return null;
+			// Get a View that displays the data at the specified position in the data set.
+			final int index = position;
+			ListCellContainer cellContent = new ListCellContainer();
+			// Reuse Cell
+			if (convertView==null) {
+				convertView = myInflater.inflate(R.layout.listcell, null);
+				// Mapping To XML
+				cellContent.caseID = (TextView)convertView.findViewById(R.id.listCell_CaseID);
+				cellContent.caseType = (TextView)convertView.findViewById(R.id.listCell_CaseType);
+				cellContent.caseAddress = (TextView)convertView.findViewById(R.id.listCell_CaseAddress);
+				cellContent.caseDate = (TextView)convertView.findViewById(R.id.listCell_CaseDate);
+				cellContent.caseStatus = (ImageView)convertView.findViewById(R.id.listCell_StatusImage);
+				convertView.setTag(cellContent);
+			} else {
+				cellContent = (ListCellContainer)convertView.getTag();
+			}
+			
+			cellContent.caseStatus.setImageResource(R.drawable.ok);
+			
+			return convertView;
 		}
 		
 	}

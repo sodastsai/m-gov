@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content"
+  android:padding="4sp">
+   <ImageView android:id="@+id/listCell_StatusImage"
+   		android:src="@drawable/unknown"
+   		android:layout_width="wrap_content"
+   		android:layout_height="wrap_content"
+   		android:layout_marginRight="10sp"
+   		android:layout_alignParentLeft="true"
+   		android:layout_centerVertical="true">
+   		</ImageView>
+   <TextView android:id="@+id/listCell_CaseID"
+  		android:text = "09909-504029"
+  		android:textSize="16sp"
+  		android:typeface="sans"
+  		android:textStyle="bold"
+  		android:textColor="@color/white"
+  		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+  		android:fadingEdge="vertical"
+  		android:layout_marginTop="10sp"
+  		android:layout_toRightOf="@id/listCell_StatusImage">
+  		</TextView>
+   <TextView android:id="@+id/listCell_CaseType"
+  		android:text = "廢棄物清理"
+  		android:textSize="18sp"
+  		android:typeface="sans"
+  		android:textStyle="bold"
+  		android:textColor="@color/white"
+  		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+  		android:fadingEdge="vertical"
+  		android:layout_below="@id/listCell_CaseID"
+  		android:layout_alignLeft="@id/listCell_CaseID">
+  		</TextView>
+   <TextView android:id="@+id/listCell_CaseDate"
+  		android:text = "99/9/8"
+  		android:textSize="14sp"
+  		android:typeface="sans"
+  		android:textColor="@color/waterBlue"
+  		android:layout_height="wrap_content"
+  		android:layout_width="wrap_content"
+  		android:layout_marginRight="10sp"
+  		android:fadingEdge="vertical"
+  		android:layout_alignBaseline="@id/listCell_CaseID"
+  		android:layout_alignParentRight="true"
+  		android:gravity="right">
+  		</TextView>
+   <TextView android:id="@+id/listCell_CaseAddress"
+  		android:text = "台北市大安區羅斯福路四段1號"
+  		android:textSize="14sp"
+  		android:typeface="sans"
+  		android:layout_width="wrap_content"
+  		android:layout_height="wrap_content"
+  		android:paddingBottom="10sp"
+  		android:fadingEdge="vertical"
+  		android:layout_below="@id/listCell_CaseType"
+  		android:layout_alignLeft="@id/listCell_CaseID">
+  		</TextView>
+</RelativeLayout>

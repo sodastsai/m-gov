@@ -31,10 +31,11 @@ public class MyCase extends CaseSelector {
 	}
 	@Override
 	public void menuActionToTake(MenuItem item) {
-		Intent caseAdderIntent = new Intent();
-		caseAdderIntent.setClass(this, AddCase.class);
-		startActivity(caseAdderIntent);
 		super.menuActionToTake(item);
+		if	(item.getItemId()==MENU_AddCase) {
+			Intent caseAdderIntent = new Intent().setClass(this, AddCase.class);
+			startActivity(caseAdderIntent);
+		}
 	}
 
 }
