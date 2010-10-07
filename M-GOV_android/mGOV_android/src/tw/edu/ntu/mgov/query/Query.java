@@ -4,6 +4,7 @@
 package tw.edu.ntu.mgov.query;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,6 +23,11 @@ public class Query extends CaseSelector {
 	protected static final int MENU_AllTypeCondition = Menu.FIRST+4;
 	private static final int REQUEST_CODE_typeSelector = 1630;
 	// Lifecycle
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		this.defaultMode = CaseSelectorMode.CaseSelectorMapMode;
+		super.onCreate(savedInstanceState);
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, MENU_SetTypeCondition, 0, getResources().getString(R.string.menu_query_setTypeCondition)).setIcon(android.R.drawable.ic_menu_search);

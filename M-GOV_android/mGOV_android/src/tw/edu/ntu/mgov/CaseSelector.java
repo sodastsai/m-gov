@@ -3,12 +3,13 @@
  */
 package tw.edu.ntu.mgov;
 
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
+
 import tw.edu.ntu.mgov.option.Option;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,13 +28,25 @@ import android.widget.TextView;
  * This class is set for data source.
  * Unlike iPhone, Android do not have to put all views with same data source in view controller,
  * so there's no Hybrid activity.
+ * 
  */
-public class CaseSelector extends Activity {
+public abstract class CaseSelector extends MapActivity {
 
 	// Constant Identifier for Menu
 	protected static final int MENU_Option = Menu.FIRST;
 	protected static final int MENU_ListMode = Menu.FIRST+1;
 	protected static final int MENU_MapMode = Menu.FIRST+2;
+	// Selector Mode
+	public static enum CaseSelectorMode {
+		CaseSelectorListMode,
+		CaseSelectorMapMode
+	}
+	protected CaseSelectorMode currentMode;
+	// Default Mode is List Mode
+	public CaseSelectorMode defaultMode = CaseSelectorMode.CaseSelectorListMode;
+	// Views
+	protected ListView listMode;
+	protected MapView mapMode;
 	
 	String stringData[] = {"A","B","C"};
 	
@@ -42,8 +55,31 @@ public class CaseSelector extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.caseselector);
 		// Call List View From Layout XML
-		ListView listMode = (ListView)findViewById(R.id.listMode);
+		listMode = (ListView)findViewById(R.id.listMode);
 		listMode.setAdapter(new caseListAdapter(this));
+		// Call Map View From Layout XML
+		mapMode = (MapView)findViewById(R.id.mapMode);
+		// Change to Default Mode
+		if (defaultMode==CaseSelectorMode.CaseSelectorListMode) {
+			currentMode = CaseSelectorMode.CaseSelectorListMode;
+			mapMode.setVisibility(View.GONE);
+			listMode.setVisibility(View.VISIBLE);
+		} else {
+			currentMode = CaseSelectorMode.CaseSelectorMapMode;
+			mapMode.setVisibility(View.VISIBLE);
+			listMode.setVisibility(View.GONE);
+		}
+	}
+	
+	protected void changCaseSelectorMode(CaseSelectorMode targetMode) {
+		if (targetMode == CaseSelectorMode.CaseSelectorListMode) {
+			mapMode.setVisibility(View.GONE);
+			listMode.setVisibility(View.VISIBLE);
+		} else {
+			listMode.setVisibility(View.GONE);
+			mapMode.setVisibility(View.VISIBLE);
+		}
+		currentMode = targetMode;
 	}
 	
 	/**
@@ -62,12 +98,12 @@ public class CaseSelector extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()) {
 			case MENU_ListMode:
-				// Change to List Mode
-				Log.d("Menu", "ListMode");
+				// Change Mode
+				this.changCaseSelectorMode(CaseSelectorMode.CaseSelectorListMode);
 				break;
 			case MENU_MapMode:
-				// Change Map Mode
-				Log.d("Menu", "MapMode");
+				// Change Mode
+				this.changCaseSelectorMode(CaseSelectorMode.CaseSelectorMapMode);
 				break;
 			case MENU_Option:
 				// Go to Option Activity
@@ -144,5 +180,13 @@ public class CaseSelector extends Activity {
 			return convertView;
 		}
 		
+	}
+	/**
+	 * @category MapActivity
+	 * 
+	 */
+	@Override
+	protected boolean isRouteDisplayed() {
+		return false;
 	}
 }
