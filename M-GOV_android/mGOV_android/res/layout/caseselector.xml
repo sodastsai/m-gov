@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content">
   <!-- Default Mode is List Mode -->
   <ListView android:id="@+id/listMode"
   	android:layout_width="fill_parent"
-  	android:layout_height="fill_parent">
+  	android:layout_height="fill_parent"
+  	android:layout_alignParentTop="true"
+  	android:layout_alignParentLeft="true">
   </ListView>
   <com.google.android.maps.MapView android:id="@+id/mapMode"
   	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	android:layout_x="0px"
-	android:layout_y="105px"
+	android:layout_alignParentTop="true"
+  	android:layout_alignParentLeft="true"
 	android:enabled="true"
 	android:clickable="true"
 	android:apiKey="0auBQTXpm_WBHU1ezjRIVyj-M0KM7pi58wLUfKA">
   </com.google.android.maps.MapView>
-</LinearLayout>
+  <ZoomControls android:id="@+id/mapModeZoomControl"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+  	android:layout_alignParentRight="true"
+  ></ZoomControls>
+</RelativeLayout>

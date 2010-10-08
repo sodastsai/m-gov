@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="addcase_title_photoAndLocation">照片與地址</string>
+<string name="addcase_title_typeSelector">案件種類</string><string name="addcase_title_name">報案者姓名</string><string name="addcase_title_description">描述與建議</string><string name="addcase_hint_addPhoto">按一下以加入照片...</string>
+
+<string name="addcase_hint_typeSelector">按一下選擇案件種類</string>
+
+<string name="addcase_hint_name">請輸入您的姓名（選填）</string>
+
+<string name="addcase_hint_description">請輸入描述與建議（選填）</string>
+<string name="addcase_button_reset">重設</string>
+<string name="addcase_button_submit">送出</string>
+</resources>

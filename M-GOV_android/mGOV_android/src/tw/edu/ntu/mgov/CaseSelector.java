@@ -14,9 +14,7 @@ import de.android1.overlaymanager.OverlayManager;
 import de.android1.overlaymanager.ZoomEvent;
 
 import tw.edu.ntu.mgov.option.Option;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,7 +28,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.ZoomControls;
 
 /**
  * @author sodas
@@ -65,6 +63,7 @@ public abstract class CaseSelector extends MapActivity {
 	// Views
 	protected ListView listMode;
 	protected MapView mapMode;
+	protected ZoomControls mapModeZoomControl;
 	OverlayManager overlayManager;
 	
 	@Override
@@ -77,33 +76,48 @@ public abstract class CaseSelector extends MapActivity {
 		// Call Map View From Layout XML
 		// TODO Make Two Maps Independently or not
 		mapMode = (MapView)findViewById(R.id.mapMode);
-		mapMode.setBuiltInZoomControls(true);
+		mapMode.setBuiltInZoomControls(false); // Use custom Map Control instead
 		mapMode.getController().setZoom(15);
 		mapMode.getController().animateTo(mapStartPoint);
 		overlayManager = new OverlayManager(getApplication(), mapMode);
+		// Call Zoom Controll for Map Mode, since we want to show it automaticlly
+		mapModeZoomControl = (ZoomControls)findViewById(R.id.mapModeZoomControl);
+		mapModeZoomControl.setOnZoomInClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { mapMode.getController().zoomIn(); }
+		});
+		mapModeZoomControl.setOnZoomOutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { mapMode.getController().zoomOut(); }
+		});
 		// Change to Default Mode
 		if (defaultMode==CaseSelectorMode.CaseSelectorListMode) {
 			currentMode = CaseSelectorMode.CaseSelectorListMode;
 			mapMode.setVisibility(View.GONE);
+			mapModeZoomControl.setVisibility(View.GONE);
 			listMode.setVisibility(View.VISIBLE);
 		} else {
 			currentMode = CaseSelectorMode.CaseSelectorMapMode;
 			mapMode.setVisibility(View.VISIBLE);
+			mapModeZoomControl.setVisibility(View.VISIBLE);
 			listMode.setVisibility(View.GONE);
 		}
 	}
 	@Override
-	public void onWindowFocusChanged(boolean bool) {
-		 createOverlayWithListener();
+	public void onWindowFocusChanged(boolean isFocus) {
+		if (currentMode==CaseSelectorMode.CaseSelectorMapMode)
+			createOverlayWithListener();
 	}
 	
 	protected void changCaseSelectorMode(CaseSelectorMode targetMode) {
 		if (targetMode == CaseSelectorMode.CaseSelectorListMode) {
 			mapMode.setVisibility(View.GONE);
+			mapModeZoomControl.setVisibility(View.GONE);
 			listMode.setVisibility(View.VISIBLE);
 		} else {
 			listMode.setVisibility(View.GONE);
 			mapMode.setVisibility(View.VISIBLE);
+			mapModeZoomControl.setVisibility(View.VISIBLE);
 		}
 		currentMode = targetMode;
 	}
@@ -225,43 +239,23 @@ public abstract class CaseSelector extends MapActivity {
 			
 			@Override
 			public boolean onZoom(ZoomEvent zoom, ManagedOverlay overlay) {
-				Toast.makeText(getApplicationContext(), "Zoom yeah!", Toast.LENGTH_SHORT).show();
 				return false;
 			}
 	
 			@Override
 			public boolean onDoubleTap(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
 				mapMode.getController().animateTo(point);
-				mapMode.getController().zoomIn();
+				if (mapMode.getZoomLevel()+1 < mapMode.getMaxZoomLevel())
+					mapMode.getController().setZoom(mapMode.getZoomLevel()+1);
 				return true;
 			}
 	
 			@Override
 			public void onLongPress(MotionEvent e, ManagedOverlay overlay) {
-				Toast.makeText(getApplicationContext(), "LongPress incoming...!", Toast.LENGTH_SHORT).show();
 			}
 	
 			@Override
 			public void onLongPressFinished(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
-				
-				AlertDialog.Builder builder = new AlertDialog.Builder(CaseSelector.this);
-				builder.setIcon(R.drawable.icon);
-				builder.setTitle("Test Title");
-				
-				builder.setMessage(String.valueOf(point.getLatitudeE6())+" "+String.valueOf(point.getLongitudeE6()));
-				builder.setPositiveButton("OK",
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int whichButton) {
-							
-						}
-					});
-				builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						
-					}
-				});
-				builder.create();
-				builder.show();
 			}
 	
 			@Override

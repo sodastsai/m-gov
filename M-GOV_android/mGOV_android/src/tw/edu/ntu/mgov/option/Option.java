@@ -22,7 +22,7 @@ public class Option extends PreferenceActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setTitle(getResources().getString(R.string.option_ActivityName));
-		setPreferenceScreen(createPreferenceHierarchy());	
+		setPreferenceScreen(createPreferenceHierarchy());
 	}
 	
 	/**
@@ -47,12 +47,21 @@ public class Option extends PreferenceActivity {
         
         // Preference Content
         EditTextPreference personalEMail = new EditTextPreference(this);
+        personalEMail.setKey("User Email");
 		personalEMail.setTitle(getResources().getString(R.string.option_personalInfo_Email));
-        personalEMail.setSummary("sodas@gmail.com");
+		personalEMail.setSummary("sodas@gmail.com");
         personalEMail.setDialogTitle(getResources().getString(R.string.option_personalInfo_Email));
         personalEMail.setDialogMessage(getResources().getString(R.string.option_personalInfo_Email_prompt));
         personalEMail.getEditText().setInputType(android.view.inputmethod.EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         prefCategory[0].addPreference(personalEMail);
+        
+        EditTextPreference userRealName = new EditTextPreference(this);
+        userRealName.setKey("User Name");
+        userRealName.setTitle(getResources().getString(R.string.option_personalInfo_Name));
+        userRealName.setSummary("sodas");
+        userRealName.setDialogTitle(getResources().getString(R.string.option_personalInfo_Name));
+        userRealName.setDialogMessage(getResources().getString(R.string.option_personalInfo_Name_prompt));
+        prefCategory[0].addPreference(userRealName);
 		
 		Preference appInformation = new Preference(this);
 		appInformation.setTitle(getResources().getString(R.string.app_name));

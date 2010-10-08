@@ -12,7 +12,7 @@
 
 <string name="menu_ListMode">列表模式</string>
 <string name="menu_mapMode">地圖模式</string>
-<string name="menu_option">偏好設定</string>
+<string name="menu_option">設定</string>
 <string name="menu_myCase_addCase">新增案件</string>
 <string name="menu_query_setTypeCondition">依案件種類搜尋</string>
 <string name="menu_query_setAllType">所有案件種類</string>
@@ -23,4 +23,6 @@
 <string name="option_personalInfo_Email">E-Mail</string>
 <string name="option_appInfo_version">版本</string>
 <string name="option_personalInfo_Email_prompt">請輸入您的E-Mail帳號</string>
+<string name="option_personalInfo_Name">使用者姓名</string>
+<string name="option_personalInfo_Name_prompt">請輸入您的姓名</string>
 </resources>
