@@ -1,7 +1,8 @@
-<shape xmlns:android="http://schemas.android.com/apk/res/android"> 
-   <solid android:color="#CCCCCC" /> 
-   <stroke  android:width="5dp" color="#ffffffff" android:dashGap="5dp" android:dashWidth="5dp"/> 
-   <corners android:radius="9dp" /> 
-   <padding android:left="10dp" android:top="10dp" 
-    android:right="10dp" android:bottom="10dp" /> 
-</shape> 
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="@drawable/addcase_picture_bg_pressed"
+        android:state_pressed="true" />
+    <item
+        android:drawable="@drawable/addcase_picture_bg_normal" />
+</selector>
