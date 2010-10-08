@@ -31,7 +31,6 @@ public class MyCase extends CaseSelector {
 	}
 	@Override
 	public void menuActionToTake(MenuItem item) {
-		super.menuActionToTake(item);
 		if	(item.getItemId()==MENU_AddCase) {
 			Intent caseAdderIntent = new Intent().setClass(this, AddCase.class);
 			startActivity(caseAdderIntent);

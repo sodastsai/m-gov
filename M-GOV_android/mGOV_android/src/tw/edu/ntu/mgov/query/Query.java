@@ -54,7 +54,6 @@ public class Query extends CaseSelector {
 	}
 	@Override
 	public void menuActionToTake(MenuItem item) {
-		super.menuActionToTake(item);
 		if (item.getItemId()==MENU_SetTypeCondition) {
 			// Call Type Selector
 			Intent intent = new Intent();
