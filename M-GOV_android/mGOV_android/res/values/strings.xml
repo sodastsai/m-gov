@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+<string name="google_mapview_api_key">Your Api Key</string>
+    
     <string name="app_name">路見不平</string><string name="app_version">0.5</string>
-<string name="tabName_myCase">我的案件</string>
+<string name="tabName_myCase">我的案件</string> 
 <string name="tabName_query">案件查詢</string>
 
 <string name="title_TypeSelector">請選擇案件種類</string>

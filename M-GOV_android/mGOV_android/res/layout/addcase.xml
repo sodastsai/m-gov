@@ -39,10 +39,14 @@
 				android:textColor="@color/darkGray">
 			</TextView>
 		</FrameLayout>
-		<FrameLayout android:id="@+id/AddCase_MapView"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="10dip">
+		<FrameLayout android:layout_height="wrap_content"
+			android:layout_marginBottom="10dip" android:layout_width="fill_parent">
+		    <com.google.android.maps.MapView
+		        android:id="@+id/AddCase_Map"
+		        android:layout_width="fill_parent"
+		        android:clickable="true"
+		        android:apiKey="@string/google_mapview_api_key"
+		    android:layout_height="140dip"/>
 		</FrameLayout>
 		<TextView
 			android:text="@string/addcase_title_typeSelector"

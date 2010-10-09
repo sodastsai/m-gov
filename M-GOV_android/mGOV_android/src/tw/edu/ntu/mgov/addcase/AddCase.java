@@ -12,6 +12,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.prefs.Preferences;
+
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapView;
 
 import tw.edu.ntu.mgov.R;
 import tw.edu.ntu.mgov.typeselector.TypeSelector;
@@ -20,14 +24,17 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
+import android.preference.Preference;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -38,7 +45,7 @@ import android.widget.TextView;
  * 2010/10/5
  * @company NTU CSIE Mobile HCI Lab
  */
-public class AddCase extends Activity {
+public class AddCase extends MapActivity {
 
 	private static final String LOGTAG = "MGOV-AddCase";
 	
@@ -46,29 +53,148 @@ public class AddCase extends Activity {
 	private static final int REQUEST_CODE_SELECT_TYPE = 376123;
 	private static final int REQUEST_CODE_TAKE_PICTURE = 376124;
 	private static final int REQUEST_CODE_SELECT_PICTURE = 376125;
+	private static final int REQUEST_CODE_SELECT_LOCATION = 376126;
 	
 	// vars for Case Attributes
 	private int typeId = -1;
 	private Uri pictureUri;
-
+	
+	// Views 
+	private ImageView pictureImageView;
+	private MapView mapView;
+	private Button typeButton;
+	private EditText nameEditText;
+	private EditText discriptionEditText;
+	private Button resetButton;
+	private Button submitButton;
+	
+	// shared preference to save some information 
+	private static String SHARED_PREFERENCES_NAME = LOGTAG; 
+	private SharedPreferences preferences;
+	private static final String SP_HAVE_UNFINISHED_EDIT = "sp_have_unfinished_edit";
+	private static final String SP_PICTURE_URI = "sp_picture_uri";
+	private static final String SP_LOCATION_LON = "sp_picture_lon";
+	private static final String SP_LOCATION_LAT = "sp_picture_lat";
+	private static final String SP_TYPE_ID = "sp_type_id";
+	private static final String SP_TYPE_DETAIL = "sp_type_detail";
+	private static final String SP_NAME = "sp_name";
+	private static final String SP_DESCRIPTION = "sp_description";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		preferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE);
+		
 		setTitle("報案");
 		setContentView(R.layout.addcase);
+		findAllViews();
 		setAllOnClickListeners();
+	}
+	
+	@Override
+	protected void onStop() {
+		
+		Log.d(LOGTAG, "onStop");
+		saveContentToPreferences();
+		super.onStop();
+	}
+	
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+		showContentByPreferences();
+		Log.d(LOGTAG, "onStart");
+	}
+	
+	/**
+	 * save the contents which user have edited. 
+	 */
+	void saveContentToPreferences() {
+		SharedPreferences.Editor editor = preferences.edit();
+		
+		editor.putBoolean(SP_HAVE_UNFINISHED_EDIT, true);
+		if (pictureUri != null) {
+			editor.putString(SP_PICTURE_URI, pictureUri.toString());
+		}
+		editor.putInt(SP_TYPE_ID, typeId);
+		editor.putString(SP_TYPE_DETAIL, typeButton.getText().toString());
+		editor.putString(SP_NAME, nameEditText.getText().toString());
+		editor.putString(SP_DESCRIPTION, discriptionEditText.getText().toString());
+		
+		editor.commit();
+	}
+	
+	/**
+	 * re-display the contents which is save in last onStop() in saveContentToPreferences() 
+	 * ** note that picture may not be handle here for that onActivityResult() is called before
+	 *    onStart(), but picture is set in onActivityResult(). 
+	 */
+	void showContentByPreferences() {
+		
+		if (!preferences.getBoolean(SP_HAVE_UNFINISHED_EDIT, false)) {
+			return; 	// no contents was saved in last time, return. 
+		}
+		
+		// reset the content in pictureImageView
+		// ** note that picture may not be handle here for that onActivityResult() is called before
+		//    onStart(), but picture is set in onActivityResult().
+		// 
+		if (pictureUri == null && preferences.contains(SP_PICTURE_URI) ) {
+			String uriStr = preferences.getString(SP_PICTURE_URI, null);
+			if (uriStr != null) {
+				pictureUri = Uri.parse(preferences.getString(SP_PICTURE_URI, null));
+				try {
+					InputStream is = getContentResolver().openInputStream(pictureUri);
+					Bitmap bmp = BitmapFactory.decodeStream(is);
+					pictureImageView.setImageBitmap(bmp);
+					
+					// hide the text of "add picture" 
+					TextView tv = (TextView) findViewById(R.id.AddCase_TextView_AddPhoto);
+					tv.setVisibility(View.GONE);
+				} catch (FileNotFoundException e) {
+					Log.d(LOGTAG, "Fail to open inputStream for imageFile Uri : " + pictureUri, e);
+				}
+			}
+		}
+		
+		// MapView
+		
+		
+		// typeSelectBtn
+		if (preferences.contains(SP_TYPE_ID)) {
+			typeId = preferences.getInt(SP_TYPE_ID, -1);
+			typeButton.setText(preferences.getString(SP_TYPE_DETAIL, ""));
+		}
+		
+		// nameEditText
+		if (preferences.contains(SP_NAME)) {
+			nameEditText.setText(preferences.getString(SP_NAME, ""));
+		}
+		
+		// descriptionEditText 
+		if (preferences.contains(SP_DESCRIPTION)) {
+			discriptionEditText.setText(preferences.getString(SP_DESCRIPTION, ""));
+		}
+	}
+
+	private void findAllViews() {
+		pictureImageView = (ImageView) findViewById(R.id.AddCase_ImageView_Picture);
+		mapView = (MapView) findViewById(R.id.AddCase_Map);
+		typeButton = (Button) findViewById(R.id.AddCase_Btn_SelectType);
+		nameEditText = (EditText) findViewById(R.id.AddCase_EditText_Name);
+		discriptionEditText = (EditText) findViewById(R.id.AddCase_EditText_Detail);
+		resetButton = (Button) findViewById(R.id.AddCase_Btn_Reset);
+		submitButton = (Button) findViewById(R.id.AddCase_Btn_Submit);
 	}
 	
 	private void setAllOnClickListeners() {
 		
-		ImageView iv;
-		Button btn;
 		final Context mContext = this;	// used for new intent 
 		
 		// set SelectPicture ImageView
-		iv = (ImageView) findViewById(R.id.AddCase_ImageView_Picture);
-		iv.setOnClickListener(new View.OnClickListener() {
+		pictureImageView.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				requestForPicture();
@@ -76,8 +202,7 @@ public class AddCase extends Activity {
 		});
 		
 		// set TypeSelector Button
-		btn = (Button) findViewById(R.id.AddCase_Btn_SelectType);
-		btn.setOnClickListener(new View.OnClickListener() {
+		typeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(mContext, TypeSelector.class);
@@ -170,7 +295,7 @@ public class AddCase extends Activity {
 		is.close();
 		fos.close();
 		
-		// display some information 
+		// save the Uri of new file & display some information 
 		pictureUri = Uri.fromFile(picture);
 		Log.d(LOGTAG, "  new saved picture file size = " + (this.getContentResolver().openFileDescriptor(pictureUri, "r").getStatSize() / 1024) + "KBs" );
 		
@@ -185,11 +310,12 @@ public class AddCase extends Activity {
 		case REQUEST_CODE_SELECT_TYPE:
 			if (resultCode == Activity.RESULT_OK) {
 				Bundle bundle = data.getExtras();
-				typeId = bundle.getInt("qid");
 				
-				// display details on TypeSelectBtn
-				Button btn = (Button) findViewById(R.id.AddCase_Btn_SelectType);
-				btn.setText(bundle.getString("detail"));
+				// save the result onto sharePreferences, to be display in onStart() 
+				SharedPreferences.Editor editor = preferences.edit();
+				editor.putInt(SP_TYPE_ID, bundle.getInt("qid"));
+				editor.putString(SP_TYPE_DETAIL, bundle.getString("detail"));
+				editor.commit();
 			}
 			break;
 			
@@ -244,5 +370,14 @@ public class AddCase extends Activity {
 		default:
 			super.onActivityResult(requestCode, resultCode, data);
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see com.google.android.maps.MapActivity#isRouteDisplayed()
+	 */
+	@Override
+	protected boolean isRouteDisplayed() {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }
