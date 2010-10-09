@@ -16,6 +16,7 @@
 		2A097062122B60200048D841 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A097061122B60200048D841 /* QuartzCore.framework */; };
 		2A0974F4122BC7270048D841 /* LocationSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0974F2122BC7270048D841 /* LocationSelectorViewController.m */; };
 		2A0974F5122BC7270048D841 /* LocationSelectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */; };
+		2A2F741A125F661F00A2C0A6 /* orange_pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A2F7419125F661F00A2C0A6 /* orange_pin.png */; };
 		2A4CD56D1240FDA000991E98 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A4CD56C1240FDA000991E98 /* SystemConfiguration.framework */; };
 		2A560EA71226A60A00F3800F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A560EA61226A60A00F3800F /* CoreData.framework */; };
 		2A560ED41226A6E700F3800F /* MGOVGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A560ED31226A6E700F3800F /* MGOVGeocoder.m */; };
@@ -113,6 +114,7 @@
 		2A0974F1122BC7270048D841 /* LocationSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSelectorViewController.h; sourceTree = "<group>"; };
 		2A0974F2122BC7270048D841 /* LocationSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSelectorViewController.m; sourceTree = "<group>"; };
 		2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = LocationSelectorViewController.xib; path = Classes/LocationSelectorViewController.xib; sourceTree = "<group>"; };
+		2A2F7419125F661F00A2C0A6 /* orange_pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orange_pin.png; sourceTree = "<group>"; };
 		2A4CD56C1240FDA000991E98 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = /System/Library/Frameworks/SystemConfiguration.framework; sourceTree = "<absolute>"; };
 		2A560EA61226A60A00F3800F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		2A560ED21226A6E700F3800F /* MGOVGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOVGeocoder.h; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2A2F7419125F661F00A2C0A6 /* orange_pin.png */,
 				FE74D127125A4CEE00267C80 /* Icon@2x.png */,
 				FE74D11A125A4CD800267C80 /* Icon-72.png */,
 				FE74D11B125A4CD800267C80 /* Icon-Small-50.png */,
@@ -618,7 +621,6 @@
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MGOV" */;
 			compatibilityVersion = "Xcode 3.1";
-			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
 				English,
@@ -681,6 +683,7 @@
 				FE74D125125A4CD800267C80 /* Icon.png in Resources */,
 				FE74D126125A4CD800267C80 /* iTunesArtwork in Resources */,
 				FE74D128125A4CEE00267C80 /* Icon@2x.png in Resources */,
+				2A2F741A125F661F00A2C0A6 /* orange_pin.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -750,7 +753,7 @@
 				INFOPLIST_FILE = "MGOV-Info.plist";
 				PRODUCT_NAME = MGOV;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
 		};

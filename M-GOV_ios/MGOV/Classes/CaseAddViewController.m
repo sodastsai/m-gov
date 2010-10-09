@@ -46,7 +46,8 @@
 			[submitConfirm release];
 		}
 	} else if (qid == 0){
-		UIAlertView *typeSelect = [[UIAlertView alloc] initWithTitle:@"尚未選擇案件種類" message:@"案件種類為必填選項，請確認是否已選填！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
+		UIAlertView *typeSelect = [[UIAlertView alloc] initWithTitle:@"尚未選擇案件種類" message:@"案件種類為必填選項，請確認是否已選填！" delegate:self cancelButtonTitle:@"好" otherButtonTitles:nil];
+		typeSelect.tag = 4000;
 		[typeSelect show];
 		[typeSelect release];
 	}
@@ -175,6 +176,7 @@
 		// Show the view
 		typesView.delegate = self;
 		[self presentModalViewController:typeAndDetailSelector animated:YES];
+		[typeAndDetailSelector release];
 		[typesView release];
 	}
 	if (indexPath.section==5 && indexPath.row==0) {
@@ -332,6 +334,15 @@
 		// Maintain the responder chain
 		[alertEmailInputField resignFirstResponder];
 	}
+	if (alertView.tag==4000) {
+		typesViewController *typesView = [[typesViewController alloc] init];
+		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typesView];
+		// Show the view
+		typesView.delegate = self;
+		[self presentModalViewController:typeAndDetailSelector animated:YES];
+		[typeAndDetailSelector release];
+		[typesView release];
+	}
 }
 
 #pragma mark -
@@ -468,8 +479,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	
+	// Set the title
 	self.title = @"報案";
-		
+	
+	// Add submit button
 	UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithTitle:@"送出案件" style:UIBarButtonItemStylePlain target:self action:@selector(submitCase)];
 	self.navigationItem.rightBarButtonItem = submitButton;
 	[submitButton release];
@@ -507,6 +520,7 @@
 	
 	// Add buttons to keyboard
 	[keyboardToolbar setItems:[NSArray arrayWithObjects:flexibleItem, doneEditing, nil] animated:YES];
+	[doneEditing release];
 	[flexibleItem release];
 	[optionalHint release];
 	

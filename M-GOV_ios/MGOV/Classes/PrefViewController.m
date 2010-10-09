@@ -70,11 +70,11 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (section==0) return 1;
+	if (section==0 || section==1) return 1;
 	else return 0;
 }
 
@@ -114,6 +114,22 @@
 		}
 		editibleCell.selectionStyle = UITableViewCellSeparatorStyleNone;
 		return (UITableViewCell *)editibleCell;
+	} else if (indexPath.section == 1){
+		EditibleTextFieldCell *nameCell = (EditibleTextFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
+		if (nameCell == nil)
+			nameCell = [[[EditibleTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2] autorelease];
+		if (indexPath.section==1) {
+			nameCell.delegate = self;
+			nameCell.prefKey = @"Name";
+			nameCell.titleField.text = @"姓名";
+			nameCell.contentField.text = [PrefAccess readPrefByKey:@"Name"];
+			nameCell.contentField.placeholder = @"請輸入您的姓名";
+			nameCell.contentField.keyboardType = UIKeyboardTypeEmailAddress;
+			nameCell.contentField.autocorrectionType = UITextAutocorrectionTypeNo;
+			nameCell.contentField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+		}
+		nameCell.selectionStyle = UITableViewCellSeparatorStyleNone;
+		return (UITableViewCell *)nameCell;	
 	} else {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
 		if (cell == nil)

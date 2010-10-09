@@ -4,6 +4,8 @@
 <dict>
 	<key>User Email</key>
 	<string></string>
+	<key>Name</key>
+	<string></string>
 	<key>NetworkIsAlerted</key>
 	<false/>
 </dict>

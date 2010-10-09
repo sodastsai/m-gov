@@ -137,7 +137,7 @@
 	UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleBordered target:delegate action:@selector(userDidSelectCancel)];
 	doneButton.width = 149;
 	cancelButton.width = 149;
-	[bottomBar setItems:[NSArray arrayWithObjects:doneButton, cancelButton, nil] animated:YES];
+	[bottomBar setItems:[NSArray arrayWithObjects:cancelButton, doneButton, nil] animated:YES];
 	[doneButton release];
 	[cancelButton release];
 }

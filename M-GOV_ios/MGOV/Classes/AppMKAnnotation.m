@@ -13,6 +13,7 @@
 @synthesize coordinate;
 @synthesize annotationSubtitle, annotationTitle;
 @synthesize annotationID;
+@synthesize annotationStatus;
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coord {
 	return [self initWithCoordinate:coord andTitle:nil andSubtitle:nil];
@@ -27,18 +28,23 @@
 	return self;
 }
 
-- (id)initWithCoordinate:(CLLocationCoordinate2D)coord andTitle:(NSString *)t andSubtitle:(NSString *)st andCaseID:(NSString *)ID {
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coord andTitle:(NSString *)t andSubtitle:(NSString *)st andCaseID:(NSString *)ID andStatus:(NSString *)status{
 	if (self = [super init]) {
 		self.coordinate = coord;
 		self.annotationTitle = t;
 		self.annotationSubtitle = st;
 		self.annotationID = ID;
+		self.annotationStatus = status;
 	}
 	return self;
 }
 
 - (NSString *)annotationID {
 	return annotationID;
+}
+
+- (NSString *)annotationStatus {
+	return annotationStatus;
 }
 
 #pragma mark -

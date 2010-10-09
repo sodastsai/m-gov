@@ -34,6 +34,44 @@
 	return [super popViewControllerAnimated:YES];
 }
 
+- (MKAnnotationView *)mapView:(MKMapView *)MapView viewForAnnotation:(id <MKAnnotation>)annotation {
+	//Let the system use the "blue dot" for the user location
+	if ([annotation isKindOfClass:[MKUserLocation class]]) return nil; 
+	
+	// Act like table view cells
+	static NSString * const pinAnnotationIdentifier = @"PinIdentifier";
+	MKPinAnnotationView *dataAnnotationView = (MKPinAnnotationView *)[MapView dequeueReusableAnnotationViewWithIdentifier:pinAnnotationIdentifier];
+	if ([dataAnnotationView.subviews count]) [[dataAnnotationView.subviews lastObject] removeFromSuperview];
+	if (dataAnnotationView) {
+		// Already exists
+		dataAnnotationView.annotation = annotation;
+	} else {		
+		// Renew
+		dataAnnotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pinAnnotationIdentifier] autorelease];
+		dataAnnotationView.draggable = NO;
+		dataAnnotationView.canShowCallout = YES;
+		dataAnnotationView.animatesDrop = YES;
+		UIButton *detailButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+		dataAnnotationView.rightCalloutAccessoryView = detailButton;
+		[detailButton addTarget:self action:@selector(pushToChildViewControllerInMap) forControlEvents:UIControlEventTouchUpInside];
+	}
+	// Case Status
+	if ([[(AppMKAnnotation *)annotation annotationStatus] isEqualToString:@"完工"]||
+		[[(AppMKAnnotation *)annotation annotationStatus] isEqualToString:@"結案"]||
+		[[(AppMKAnnotation *)annotation annotationStatus] isEqualToString:@"轉府外單位"])
+		dataAnnotationView.pinColor = MKPinAnnotationColorGreen;
+	else if ([[(AppMKAnnotation *)annotation annotationStatus] isEqualToString:@"無法辦理"]||
+			 [[(AppMKAnnotation *)annotation annotationStatus] isEqualToString:@"退回區公所"])
+		dataAnnotationView.pinColor = MKPinAnnotationColorRed;
+	else {
+		//dataAnnotationView.pinColor = MKPinAnnotationColorPurple;
+		UIImage *image = [UIImage imageNamed:@"orange_pin.png"];
+		UIImageView *imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
+		[dataAnnotationView addSubview:imageView];
+	}
+	return dataAnnotationView;
+}
+
 #pragma mark -
 #pragma mark Data Source Method
 
@@ -192,7 +230,7 @@
 		coordinate.longitude = [[[[caseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 		coordinate.latitude = [[[[caseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
 		NSString *typeStr = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[[caseSource objectAtIndex:i] valueForKey:@"typeid"]];
-		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:typeStr andSubtitle:@"" andCaseID:[[caseSource objectAtIndex:i] objectForKey:@"key"]];
+		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:typeStr andSubtitle:@"" andCaseID:[[caseSource objectAtIndex:i] objectForKey:@"key"] andStatus:[[caseSource objectAtIndex:i] objectForKey:@"status"]];
 		[annotationArray addObject:casePlace];
 		[casePlace release];
 	}

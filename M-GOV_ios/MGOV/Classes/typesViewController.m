@@ -122,7 +122,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	UIBarButtonItem *backBuuton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:delegate action:@selector(leaveSelectorWithoutTitleAndQid)];
+	UIBarButtonItem *backBuuton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:delegate action:@selector(leaveSelectorWithoutTitleAndQid)];
 	self.navigationItem.leftBarButtonItem = backBuuton;
 	[backBuuton release];
 	self.title = @"請選擇案件種類";

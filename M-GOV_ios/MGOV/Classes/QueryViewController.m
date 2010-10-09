@@ -71,6 +71,8 @@
 
 - (void)viewDidAppear:(BOOL)animated {
 	queryTotalLength = 0;
+	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+	[mapView setCenterCoordinate:shared.locationManager.location.coordinate];
 }
 
 #pragma mark -

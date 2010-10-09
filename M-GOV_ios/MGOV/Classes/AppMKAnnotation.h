@@ -14,17 +14,20 @@
 	NSString *annotationTitle;
 	NSString *annotationSubtitle;
 	NSString *annotationID;
+	NSString *annotationStatus;
 }
 
 @property (nonatomic, assign, readwrite) CLLocationCoordinate2D coordinate;
 @property (nonatomic, retain) NSString *annotationTitle;
 @property (nonatomic, retain) NSString *annotationSubtitle;
 @property (nonatomic, retain) NSString *annotationID;
+@property (nonatomic, retain) NSString *annotationStatus;
 
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coord;
 - (id)initWithCoordinate:(CLLocationCoordinate2D)coord andTitle:(NSString *)t andSubtitle:(NSString *)st;
-- (id)initWithCoordinate:(CLLocationCoordinate2D)coord andTitle:(NSString *)t andSubtitle:(NSString *)st andCaseID:(NSString *)ID;
+- (id)initWithCoordinate:(CLLocationCoordinate2D)coord andTitle:(NSString *)t andSubtitle:(NSString *)st andCaseID:(NSString *)ID andStatus:(NSString *)status;
 
 - (NSString *)annotationID;
+- (NSString *)annotationStatus;
 
 @end
