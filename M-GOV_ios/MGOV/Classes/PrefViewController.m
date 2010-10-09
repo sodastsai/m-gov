@@ -70,11 +70,11 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (section==0 || section==1) return 1;
+	if (section==0) return 2;
 	else return 0;
 }
 
@@ -102,7 +102,7 @@
 		EditibleTextFieldCell *editibleCell = (EditibleTextFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
 		if (editibleCell == nil)
 			editibleCell = [[[EditibleTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2] autorelease];
-		if (indexPath.section==0) {
+		if (indexPath.section==0 && indexPath.row==0) {
 			editibleCell.delegate = self;
 			editibleCell.prefKey = @"User Email";
 			editibleCell.titleField.text = @"E-Mail";
@@ -111,25 +111,20 @@
 			editibleCell.contentField.keyboardType = UIKeyboardTypeEmailAddress;
 			editibleCell.contentField.autocorrectionType = UITextAutocorrectionTypeNo;
 			editibleCell.contentField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+		} else if (indexPath.section==0 && indexPath.row==1) {
+			editibleCell.delegate = self;
+			editibleCell.prefKey = @"Name";
+			editibleCell.titleField.text = @"姓名";
+			editibleCell.contentField.text = [PrefAccess readPrefByKey:@"Name"];
+			editibleCell.contentField.placeholder = @"請輸入您的姓名";
+			editibleCell.contentField.keyboardType = UIKeyboardTypeEmailAddress;
+			editibleCell.contentField.autocorrectionType = UITextAutocorrectionTypeNo;
+			editibleCell.contentField.autocapitalizationType = UITextAutocapitalizationTypeNone;
 		}
+
 		editibleCell.selectionStyle = UITableViewCellSeparatorStyleNone;
 		return (UITableViewCell *)editibleCell;
-	} else if (indexPath.section == 1){
-		EditibleTextFieldCell *nameCell = (EditibleTextFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
-		if (nameCell == nil)
-			nameCell = [[[EditibleTextFieldCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2] autorelease];
-		if (indexPath.section==1) {
-			nameCell.delegate = self;
-			nameCell.prefKey = @"Name";
-			nameCell.titleField.text = @"姓名";
-			nameCell.contentField.text = [PrefAccess readPrefByKey:@"Name"];
-			nameCell.contentField.placeholder = @"請輸入您的姓名";
-			nameCell.contentField.keyboardType = UIKeyboardTypeEmailAddress;
-			nameCell.contentField.autocorrectionType = UITextAutocorrectionTypeNo;
-			nameCell.contentField.autocapitalizationType = UITextAutocapitalizationTypeNone;
-		}
-		nameCell.selectionStyle = UITableViewCellSeparatorStyleNone;
-		return (UITableViewCell *)nameCell;	
+		
 	} else {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
 		if (cell == nil)
