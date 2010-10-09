@@ -46,7 +46,7 @@
 		        android:layout_width="fill_parent"
 		        android:clickable="true"
 		        android:apiKey="@string/google_mapview_api_key"
-		    android:layout_height="140dip"/>
+		    	android:layout_height="140dip"/>
 		</FrameLayout>
 		<TextView
 			android:text="@string/addcase_title_typeSelector"

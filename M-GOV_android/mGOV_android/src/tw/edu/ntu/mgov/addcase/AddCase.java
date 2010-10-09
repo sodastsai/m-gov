@@ -64,7 +64,7 @@ public class AddCase extends MapActivity {
 	private MapView mapView;
 	private Button typeButton;
 	private EditText nameEditText;
-	private EditText discriptionEditText;
+	private EditText descriptionEditText;
 	private Button resetButton;
 	private Button submitButton;
 	
@@ -94,8 +94,6 @@ public class AddCase extends MapActivity {
 	
 	@Override
 	protected void onStop() {
-		
-		Log.d(LOGTAG, "onStop");
 		saveContentToPreferences();
 		super.onStop();
 	}
@@ -105,7 +103,6 @@ public class AddCase extends MapActivity {
 	protected void onStart() {
 		super.onStart();
 		showContentByPreferences();
-		Log.d(LOGTAG, "onStart");
 	}
 	
 	/**
@@ -121,7 +118,7 @@ public class AddCase extends MapActivity {
 		editor.putInt(SP_TYPE_ID, typeId);
 		editor.putString(SP_TYPE_DETAIL, typeButton.getText().toString());
 		editor.putString(SP_NAME, nameEditText.getText().toString());
-		editor.putString(SP_DESCRIPTION, discriptionEditText.getText().toString());
+		editor.putString(SP_DESCRIPTION, descriptionEditText.getText().toString());
 		
 		editor.commit();
 	}
@@ -175,7 +172,7 @@ public class AddCase extends MapActivity {
 		
 		// descriptionEditText 
 		if (preferences.contains(SP_DESCRIPTION)) {
-			discriptionEditText.setText(preferences.getString(SP_DESCRIPTION, ""));
+			descriptionEditText.setText(preferences.getString(SP_DESCRIPTION, ""));
 		}
 	}
 
@@ -184,7 +181,7 @@ public class AddCase extends MapActivity {
 		mapView = (MapView) findViewById(R.id.AddCase_Map);
 		typeButton = (Button) findViewById(R.id.AddCase_Btn_SelectType);
 		nameEditText = (EditText) findViewById(R.id.AddCase_EditText_Name);
-		discriptionEditText = (EditText) findViewById(R.id.AddCase_EditText_Detail);
+		descriptionEditText = (EditText) findViewById(R.id.AddCase_EditText_Detail);
 		resetButton = (Button) findViewById(R.id.AddCase_Btn_Reset);
 		submitButton = (Button) findViewById(R.id.AddCase_Btn_Submit);
 	}
@@ -207,6 +204,14 @@ public class AddCase extends MapActivity {
 			public void onClick(View v) {
 				Intent intent = new Intent(mContext, TypeSelector.class);
 				startActivityForResult(intent, REQUEST_CODE_SELECT_TYPE);
+			}
+		});
+		
+		// set Reset Button
+		resetButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				requestResetContent();
 			}
 		});
 	}
@@ -242,6 +247,49 @@ public class AddCase extends MapActivity {
 		builder.create().show();
 	}
 
+	/**
+	 * resetBtn is clicked.
+	 * Show a AlertDialog to ensure that user do want to reset the current content.
+	 */
+	private void requestResetContent() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("確定要重設所有欄位？")
+			.setMessage("此動作會清除所有欄位的資料。")
+			.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					resetContent();
+				}
+			})
+			.setNegativeButton("取消", null)
+			.create().show();
+	}
+	
+	/**
+	 * Do reset the content.
+	 */
+	private void resetContent() {
+		
+		// handle sharedPreference
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.clear();
+		editor.putBoolean(SP_HAVE_UNFINISHED_EDIT, false);
+		editor.commit();
+		
+		// 
+		pictureImageView.setImageDrawable(null);
+		pictureUri = null;
+		
+		typeButton.setText("");
+		typeId = -1;
+		nameEditText.setText("");
+		descriptionEditText.setText("");
+		
+		// hide the text of "add picture" 
+		TextView tv = (TextView) findViewById(R.id.AddCase_TextView_AddPhoto);
+		tv.setVisibility(View.VISIBLE);
+	}
+	
 	/**
 	 * When user select a picture, the picture could be deleted before posting this case.<br>
 	 * Thus, making a copy in m-GOV's private cache just as user selects picture.<br>
