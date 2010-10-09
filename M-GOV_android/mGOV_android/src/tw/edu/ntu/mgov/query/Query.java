@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import tw.edu.ntu.mgov.CaseSelector;
 import tw.edu.ntu.mgov.R;
+import tw.edu.ntu.mgov.gae.GAEQuery;
+import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryCondtionType;
 import tw.edu.ntu.mgov.typeselector.TypeSelector;
 
 /**
@@ -25,7 +27,13 @@ public class Query extends CaseSelector {
 	// Lifecycle
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// Set Mode before super class execute its method
 		this.defaultMode = CaseSelectorMode.CaseSelectorMapMode;
+		
+		// Prepare DataSource
+		GAEQuery qGAE = new GAEQuery();
+		
+		// Render the list and map by super method
 		super.onCreate(savedInstanceState);
 	}
 	@Override

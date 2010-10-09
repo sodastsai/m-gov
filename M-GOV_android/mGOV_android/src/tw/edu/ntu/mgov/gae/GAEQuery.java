@@ -8,9 +8,16 @@ import tw.edu.ntu.mgov.net.ReadUrl;
 
 public class GAEQuery {
 
-	final static String prefixURL="http://ntu-ecoliving.appspot.com/czone/";
+	final static String prefixURL="http://ntu-ecoliving.appspot.com/";
+	public static enum GAEQueryCondtionType {
+		GAEQueryByID,
+		GAEQueryByEmail,
+		GAEQueryByCoordinate,
+		GAEQueryByType,
+		GAEQueryByStatus
+	}
 	
-	String method,args;
+	String method, args;
 	
 	public GAEQuery(){
 	}
@@ -20,18 +27,22 @@ public class GAEQuery {
 		return new GAECase(new JSONObject(res));
 	}
 	
-	public void addQuery(String method,String args[]){
-		this.method += "&"+method;
-
-		for(String ob:args){
-			this.args += "&"+ob;
-		}
+	public void addQuery(GAEQueryCondtionType conditionType, String args[]){
+		String conditionString = "";
+		if (conditionType==GAEQueryCondtionType.GAEQueryByID) conditionString = "czone/get_id";
+		else if (conditionType==GAEQueryCondtionType.GAEQueryByEmail) conditionString = "case/query/email";
+		else if (conditionType==GAEQueryCondtionType.GAEQueryByCoordinate) conditionString = "czone/query/coordinates";
+		else if (conditionType==GAEQueryCondtionType.GAEQueryByType) conditionString = "czone/query/typeid";
+		else if (conditionType==GAEQueryCondtionType.GAEQueryByStatus) conditionString = "case/query/status";
 		
+		this.method += "&"+conditionString;
+		for(String ob:args)
+			this.args += "&"+ob;
 	}
 	
 	//TODO
 	public GAECase[] doQuery(int start,int end){
-		String queryStr = prefixURL + "query/" + method + "/" + args +"/"+ start +"/"+ end;
+		String queryStr = prefixURL + "/" + method + "/" + args +"/"+ start +"/"+ end;
 		String jsonStr = ReadUrl.process(queryStr, "utf-8");
 		
 		try {
