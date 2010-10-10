@@ -14,8 +14,13 @@ import de.android1.overlaymanager.OverlayManager;
 import de.android1.overlaymanager.ZoomEvent;
 
 import tw.edu.ntu.mgov.option.Option;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -45,8 +50,6 @@ import android.widget.ZoomControls;
  * 
  */
 public abstract class CaseSelector extends MapActivity {
-
-	GeoPoint mapStartPoint = new GeoPoint(25046180, 121517330);
 	
 	// Constant Identifier for Menu
 	protected static final int MENU_Option = Menu.FIRST;
@@ -65,6 +68,7 @@ public abstract class CaseSelector extends MapActivity {
 	protected MapView mapMode;
 	protected ZoomControls mapModeZoomControl;
 	OverlayManager overlayManager;
+	GeoPoint mapStartPoint;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +82,6 @@ public abstract class CaseSelector extends MapActivity {
 		mapMode = (MapView)findViewById(R.id.mapMode);
 		mapMode.setBuiltInZoomControls(false); // Use custom Map Control instead
 		mapMode.getController().setZoom(15);
-		mapMode.getController().animateTo(mapStartPoint);
 		overlayManager = new OverlayManager(getApplication(), mapMode);
 		// Call Zoom Controll for Map Mode, since we want to show it automaticlly
 		mapModeZoomControl = (ZoomControls)findViewById(R.id.mapModeZoomControl);
@@ -90,6 +93,25 @@ public abstract class CaseSelector extends MapActivity {
             @Override
             public void onClick(View v) { mapMode.getController().zoomOut(); }
 		});
+		// Get Current User Location
+		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+		LocationListener locationListener = new LocationListener() {
+			@Override
+			public void onLocationChanged(Location location) {
+				mapStartPoint = new GeoPoint((int)(location.getLatitude()*Math.pow(10, 6)), (int)(location.getLongitude()*Math.pow(10, 6)));
+				mapMode.getController().animateTo(mapStartPoint);
+			}
+			@Override
+			public void onProviderDisabled(String provider) {}
+			@Override
+			public void onProviderEnabled(String provider) {}
+			@Override
+			public void onStatusChanged(String provider, int status, Bundle extras) {}
+		};
+		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+		Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		mapStartPoint = new GeoPoint((int)(lastKnownLocation.getLatitude()*Math.pow(10, 6)), (int)(lastKnownLocation.getLongitude()*Math.pow(10, 6)));
+		mapMode.getController().animateTo(mapStartPoint);
 		// Change to Default Mode
 		if (defaultMode==CaseSelectorMode.CaseSelectorListMode) {
 			currentMode = CaseSelectorMode.CaseSelectorListMode;
@@ -100,6 +122,7 @@ public abstract class CaseSelector extends MapActivity {
 			findViewById(R.id.mapModeFrame).setVisibility(View.VISIBLE);
 			findViewById(R.id.listModeFrame).setVisibility(View.GONE);
 		}
+		locationManager.removeUpdates(locationListener);
 	}
 	@Override
 	public void onWindowFocusChanged(boolean isFocus) {
@@ -196,6 +219,7 @@ public abstract class CaseSelector extends MapActivity {
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
+			Log.d("List", "getView:"+Integer.toString(position));
 			// Get a View that displays the data at the specified position in the data set.
 			ListCellContainer cellContent = new ListCellContainer();
 			// Reuse Cell
