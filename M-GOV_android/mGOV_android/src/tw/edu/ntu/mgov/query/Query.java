@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import tw.edu.ntu.mgov.CaseSelector;
 import tw.edu.ntu.mgov.R;
 import tw.edu.ntu.mgov.gae.GAEQuery;
-import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryCondtionType;
 import tw.edu.ntu.mgov.typeselector.TypeSelector;
 
 /**

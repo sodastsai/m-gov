@@ -93,14 +93,12 @@ public abstract class CaseSelector extends MapActivity {
 		// Change to Default Mode
 		if (defaultMode==CaseSelectorMode.CaseSelectorListMode) {
 			currentMode = CaseSelectorMode.CaseSelectorListMode;
-			mapMode.setVisibility(View.GONE);
-			mapModeZoomControl.setVisibility(View.GONE);
-			listMode.setVisibility(View.VISIBLE);
+			findViewById(R.id.mapModeFrame).setVisibility(View.GONE);
+			findViewById(R.id.listModeFrame).setVisibility(View.VISIBLE);
 		} else {
 			currentMode = CaseSelectorMode.CaseSelectorMapMode;
-			mapMode.setVisibility(View.VISIBLE);
-			mapModeZoomControl.setVisibility(View.VISIBLE);
-			listMode.setVisibility(View.GONE);
+			findViewById(R.id.mapModeFrame).setVisibility(View.VISIBLE);
+			findViewById(R.id.listModeFrame).setVisibility(View.GONE);
 		}
 	}
 	@Override
@@ -111,13 +109,11 @@ public abstract class CaseSelector extends MapActivity {
 	
 	protected void changCaseSelectorMode(CaseSelectorMode targetMode) {
 		if (targetMode == CaseSelectorMode.CaseSelectorListMode) {
-			mapMode.setVisibility(View.GONE);
-			mapModeZoomControl.setVisibility(View.GONE);
-			listMode.setVisibility(View.VISIBLE);
+			findViewById(R.id.mapModeFrame).setVisibility(View.GONE);
+			findViewById(R.id.listModeFrame).setVisibility(View.VISIBLE);
 		} else {
-			listMode.setVisibility(View.GONE);
-			mapMode.setVisibility(View.VISIBLE);
-			mapModeZoomControl.setVisibility(View.VISIBLE);
+			findViewById(R.id.mapModeFrame).setVisibility(View.VISIBLE);
+			findViewById(R.id.listModeFrame).setVisibility(View.GONE);
 		}
 		currentMode = targetMode;
 	}

@@ -4,25 +4,37 @@
   android:layout_width="wrap_content"
   android:layout_height="wrap_content">
   <!-- Default Mode is List Mode -->
-  <ListView android:id="@+id/listMode"
+  <RelativeLayout android:id="@+id/listModeFrame"
   	android:layout_width="fill_parent"
   	android:layout_height="fill_parent"
   	android:layout_alignParentTop="true"
   	android:layout_alignParentLeft="true">
-  </ListView>
-  <com.google.android.maps.MapView android:id="@+id/mapMode"
+	<ListView android:id="@+id/listMode"
+	  android:layout_width="fill_parent"
+	  android:layout_height="fill_parent"
+	  android:layout_alignParentTop="true"
+	  android:layout_alignParentLeft="true">
+	</ListView>
+  </RelativeLayout>
+  <RelativeLayout android:id="@+id/mapModeFrame"
   	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:layout_alignParentTop="true"
-  	android:layout_alignParentLeft="true"
-	android:enabled="true"
-	android:clickable="true"
-	android:apiKey="@string/google_mapview_api_key">
-  </com.google.android.maps.MapView>
-  <ZoomControls android:id="@+id/mapModeZoomControl"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-  	android:layout_alignParentRight="true"
-  ></ZoomControls>
+  	android:layout_height="fill_parent"
+  	android:layout_alignParentTop="true"
+  	android:layout_alignParentLeft="true">
+  	<com.google.android.maps.MapView android:id="@+id/mapMode"
+  	  android:layout_width="fill_parent"
+	  android:layout_height="fill_parent"
+	  android:layout_alignParentTop="true"
+  	  android:layout_alignParentLeft="true"
+	  android:enabled="true"
+	  android:clickable="true"
+	  android:apiKey="@string/google_mapview_api_key">
+	</com.google.android.maps.MapView>
+	<ZoomControls android:id="@+id/mapModeZoomControl"
+	  android:layout_width="wrap_content"
+	  android:layout_height="wrap_content"
+	  android:layout_alignParentBottom="true"
+	  android:layout_alignParentRight="true">
+	</ZoomControls>
+  </RelativeLayout>
 </RelativeLayout>
