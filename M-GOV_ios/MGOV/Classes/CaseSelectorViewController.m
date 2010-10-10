@@ -41,8 +41,10 @@
 	// Act like table view cells
 	static NSString * const pinAnnotationIdentifier = @"PinIdentifier";
 	MKPinAnnotationView *dataAnnotationView = (MKPinAnnotationView *)[MapView dequeueReusableAnnotationViewWithIdentifier:pinAnnotationIdentifier];
+	// Remove Pin view
 	if ([dataAnnotationView.subviews count]) [[dataAnnotationView.subviews lastObject] removeFromSuperview];
-	if (dataAnnotationView) {
+	// Reuse
+	if (dataAnnotationView!=nil) {
 		// Already exists
 		dataAnnotationView.annotation = annotation;
 	} else {		
@@ -56,20 +58,35 @@
 		[detailButton addTarget:self action:@selector(pushToChildViewControllerInMap) forControlEvents:UIControlEventTouchUpInside];
 	}
 	// Case Status
-	if ([[(AppMKAnnotation *)annotation annotationStatus] isEqualToString:@"完工"]||
-		[[(AppMKAnnotation *)annotation annotationStatus] isEqualToString:@"結案"]||
-		[[(AppMKAnnotation *)annotation annotationStatus] isEqualToString:@"轉府外單位"])
+	if ([self convertStatusStringToStatusCode:[(AppMKAnnotation *)annotation annotationStatus]]==1)
 		dataAnnotationView.pinColor = MKPinAnnotationColorGreen;
-	else if ([[(AppMKAnnotation *)annotation annotationStatus] isEqualToString:@"無法辦理"]||
-			 [[(AppMKAnnotation *)annotation annotationStatus] isEqualToString:@"退回區公所"])
+	else if ([self convertStatusStringToStatusCode:[(AppMKAnnotation *)annotation annotationStatus]]==2)
 		dataAnnotationView.pinColor = MKPinAnnotationColorRed;
 	else {
-		//dataAnnotationView.pinColor = MKPinAnnotationColorPurple;
 		UIImage *image = [UIImage imageNamed:@"orange_pin.png"];
-		UIImageView *imageView = [[[UIImageView alloc] initWithImage:image] autorelease];
+		UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+		imageView.frame = CGRectMake(0.5, 0.5, imageView.frame.size.width, imageView.frame.size.height);
 		[dataAnnotationView addSubview:imageView];
+		[imageView release];
 	}
 	return dataAnnotationView;
+}
+
+#pragma mark -
+#pragma mark Method
+
+- (NSUInteger)convertStatusStringToStatusCode:(NSString *)status {
+	if ([status isEqualToString:@"完工"]||
+		[status isEqualToString:@"結案"]||
+		[status isEqualToString:@"轉府外單位"])
+		return 1;
+	else if ([status isEqualToString:@"無法辦理"]||
+			 [status isEqualToString:@"退回區公所"]||
+			 [status isEqualToString:@"查驗未通過"])
+		return 2;
+	else {
+		return 0;
+	}
 }
 
 #pragma mark -
@@ -211,14 +228,12 @@
 	// Case Address
 	cell.caseAddress.text = [[caseSource objectAtIndex:indexPath.row] objectForKey:@"address"];
 	// Case Status
-	if ([[[caseSource objectAtIndex:indexPath.row] objectForKey:@"status"] isEqualToString:@"完工"]||
-		[[[caseSource objectAtIndex:indexPath.row] objectForKey:@"status"] isEqualToString:@"結案"]||
-		[[[caseSource objectAtIndex:indexPath.row] objectForKey:@"status"] isEqualToString:@"轉府外單位"])
+	if ([self convertStatusStringToStatusCode:[[caseSource objectAtIndex:indexPath.row] objectForKey:@"status"]]==1)
 		cell.caseStatus.image = [UIImage imageNamed:@"ok.png"];
-	else if ([[[caseSource objectAtIndex:indexPath.row] objectForKey:@"status"] isEqualToString:@"無法辦理"]||
-			 [[[caseSource objectAtIndex:indexPath.row] objectForKey:@"status"] isEqualToString:@"退回區公所"])
+	else if ([self convertStatusStringToStatusCode:[[caseSource objectAtIndex:indexPath.row] objectForKey:@"status"]]==2)
 		cell.caseStatus.image = [UIImage imageNamed:@"fail.png"];
-	else cell.caseStatus.image = [UIImage imageNamed:@"unknown.png"];
+	else
+		cell.caseStatus.image = [UIImage imageNamed:@"unknown.png"];
 	
 	return cell;
 }

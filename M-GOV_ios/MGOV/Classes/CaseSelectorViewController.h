@@ -30,5 +30,6 @@
 
 - (void)queryGAEwithConditonType:(DataSourceGAEQueryTypes)conditionType andCondition:(id)condition;
 - (void)refreshDataSource;
+- (NSUInteger)convertStatusStringToStatusCode:(NSString *)status;
 
 @end

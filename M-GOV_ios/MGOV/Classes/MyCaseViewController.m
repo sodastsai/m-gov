@@ -145,22 +145,19 @@
 		// Defined a new case query condition
 		NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByEmail", @"DataSourceGAEQueryByStatus", nil];
 		// Set status by selected segment
-		NSString *combinedStatus;
+		NSString *statusCondition;
 		if (segmentedControl.selectedSegmentIndex==0) {
 			keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByEmail", nil];
-			combinedStatus = nil;
+			statusCondition = nil;
 		} else if (segmentedControl.selectedSegmentIndex==1) {
-			combinedStatus = [NSString stringWithFormat:@"%d", 1];
-			//combinedStatus = [QueryGoogleAppEngine generateORcombinedCondition:[NSArray arrayWithObjects:@"0",@"4",nil]];
+			statusCondition = [NSString stringWithFormat:@"%d", 1];
 		} else if (segmentedControl.selectedSegmentIndex==2) {
-			combinedStatus = [NSString stringWithFormat:@"%d", 0];
-			//combinedStatus = [QueryGoogleAppEngine generateORcombinedCondition:[NSArray arrayWithObjects:@"1",@"2",@"3",nil]];
+			statusCondition = [NSString stringWithFormat:@"%d", 0];
 		} else if (segmentedControl.selectedSegmentIndex==3) {
-			combinedStatus = [NSString stringWithFormat:@"%d", 2];
-			//combinedStatus = [QueryGoogleAppEngine generateORcombinedCondition:[NSArray arrayWithObjects:@"5",@"6",nil]];
+			statusCondition = [NSString stringWithFormat:@"%d", 2];
 		}
 		currentSegmentIndex = segmentedControl.selectedSegmentIndex;
-		NSArray *valueArray = [NSArray arrayWithObjects:[PrefAccess readPrefByKey:@"User Email"], combinedStatus, nil];
+		NSArray *valueArray = [NSArray arrayWithObjects:[PrefAccess readPrefByKey:@"User Email"], statusCondition, nil];
 		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray]];
 	}
 }
