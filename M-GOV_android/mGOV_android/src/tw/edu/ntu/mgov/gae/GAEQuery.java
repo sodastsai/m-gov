@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.android.maps.GeoPoint;
+
 import tw.edu.ntu.mgov.net.ReadUrl;
 
 public class GAEQuery {
@@ -27,7 +29,7 @@ public class GAEQuery {
 		return new GAECase(new JSONObject(res));
 	}
 	
-	public void addQuery(GAEQueryCondtionType conditionType, String args[]){
+	public void addQuery(GAEQueryCondtionType conditionType, String condition){
 		String conditionString = "";
 		if (conditionType==GAEQueryCondtionType.GAEQueryByID) conditionString = "czone/get_id";
 		else if (conditionType==GAEQueryCondtionType.GAEQueryByEmail) conditionString = "case/query/email";
@@ -36,8 +38,21 @@ public class GAEQuery {
 		else if (conditionType==GAEQueryCondtionType.GAEQueryByStatus) conditionString = "case/query/status";
 		
 		this.method += "&"+conditionString;
-		for(String ob:args)
-			this.args += "&"+ob;
+		this.args += "&"+condition;
+	}
+	// Overload
+	public void addQuery(GAEQueryCondtionType conditionType, GeoPoint location, int latitudeSpan, int longitudeSpan) {
+		// Accept for GAEQueryByCoordinate only
+		if (conditionType!=GAEQueryCondtionType.GAEQueryByCoordinate) return;
+		String locationString;
+		locationString = Integer.toString((int)(location.getLongitudeE6()/Math.pow(10, 6)));
+		locationString += "&";
+		locationString += Integer.toString((int)(location.getLatitudeE6()/Math.pow(10,6)));
+		locationString += "&";
+		locationString += Integer.toString(longitudeSpan);
+		locationString += "&";
+		locationString += Integer.toString(latitudeSpan);
+		this.addQuery(conditionType, locationString);
 	}
 	
 	//TODO
