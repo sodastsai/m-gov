@@ -33,7 +33,7 @@
 
 - (UIViewController *)initialMapViewController {
 	if (mapViewController == nil) {
-		
+		NSLog(@"New a MapViewController");
 		mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 342)];
 		mapView.delegate = self;
 		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];	
@@ -68,6 +68,7 @@
 
 - (UITableViewController *)initialListViewController {
 	if (listViewController == nil) {
+		NSLog(@"New a ListViewController");
 		listViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
 		listViewController.tableView.delegate = self;
 		listViewController.tableView.dataSource = self;
@@ -147,6 +148,7 @@
 			[self pushViewController:listViewController animated:NO];
 		}
 	}
+	[emptyRootViewController release];
 	return self;
 }
 

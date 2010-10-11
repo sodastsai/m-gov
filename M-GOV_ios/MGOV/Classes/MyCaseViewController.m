@@ -14,10 +14,12 @@
 #pragma mark Override
 
 - (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)title {
-	UIBarButtonItem *addCaseButton = [[[UIBarButtonItem alloc] initWithTitle:@"新增案件" style:UIBarButtonItemStyleBordered target:self action:@selector(addCase)] autorelease];
+	UIBarButtonItem *addCaseButton = [[UIBarButtonItem alloc] initWithTitle:@"新增案件" style:UIBarButtonItemStyleBordered target:self action:@selector(addCase)];
 	// Set Range length to 0 to fectch all data
 	queryRange = NSRangeFromString(@"0,0");
-	return [self initWithMode:mode andTitle:title withRightBarButtonItem:addCaseButton];
+	self = [self initWithMode:mode andTitle:title withRightBarButtonItem:addCaseButton];
+	[addCaseButton release];
+	return self;
 }
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {
@@ -115,6 +117,7 @@
 	[filter addTarget:self action:@selector(setCaseFilter:) forControlEvents:UIControlEventValueChanged];
 	
 	[informationBar addSubview:filter];
+	[filter release];
 	
 	if ([self myCaseDataAvailability]) {
 		informationBar.hidden = NO;
@@ -143,11 +146,12 @@
 - (void)setCaseFilter:(UISegmentedControl *)segmentedControl {
 	if (segmentedControl.selectedSegmentIndex != currentSegmentIndex) {
 		// Defined a new case query condition
-		NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByEmail", @"DataSourceGAEQueryByStatus", nil];
+		NSArray *keyArray = [[NSArray alloc] initWithObjects:@"DataSourceGAEQueryByEmail", @"DataSourceGAEQueryByStatus", nil];
 		// Set status by selected segment
 		NSString *statusCondition;
 		if (segmentedControl.selectedSegmentIndex==0) {
-			keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByEmail", nil];
+			[keyArray release];
+			keyArray = [[NSArray alloc] initWithObjects:@"DataSourceGAEQueryByEmail", nil];
 			statusCondition = nil;
 		} else if (segmentedControl.selectedSegmentIndex==1) {
 			statusCondition = [NSString stringWithFormat:@"%d", 1];
@@ -157,8 +161,12 @@
 			statusCondition = [NSString stringWithFormat:@"%d", 2];
 		}
 		currentSegmentIndex = segmentedControl.selectedSegmentIndex;
-		NSArray *valueArray = [NSArray arrayWithObjects:[PrefAccess readPrefByKey:@"User Email"], statusCondition, nil];
-		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray]];
+		NSArray *valueArray = [[NSArray alloc] initWithObjects:[PrefAccess readPrefByKey:@"User Email"], statusCondition, nil];
+		NSDictionary *conditionDictionary = [[NSDictionary alloc] initWithObjects:valueArray forKeys:keyArray];
+		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:conditionDictionary];
+		[conditionDictionary release];
+		[keyArray release];
+		[valueArray release];
 	}
 }
 
@@ -191,7 +199,6 @@
 #pragma mark Memory Management
 
 - (void)dealloc {
-	[filter release];
 	[super dealloc];
 }
 

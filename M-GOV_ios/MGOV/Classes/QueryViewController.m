@@ -23,9 +23,11 @@
 }
 
 - (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)title {
-	UIBarButtonItem *setConditionButton = [[[UIBarButtonItem alloc] initWithTitle:@"設定條件" style:UIBarButtonItemStyleBordered target:self action:@selector(setQueryCondition)] autorelease];
+	UIBarButtonItem *setConditionButton = [[UIBarButtonItem alloc] initWithTitle:@"設定條件" style:UIBarButtonItemStyleBordered target:self action:@selector(setQueryCondition)];
 	caseSource = nil;
-	return [self initWithMode:mode andTitle:title withRightBarButtonItem:setConditionButton];
+	self = [self initWithMode:mode andTitle:title withRightBarButtonItem:setConditionButton];
+	[setConditionButton release];
+	return self;
 }
 
 - (void)refreshDataSource {
@@ -38,32 +40,34 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	nextButton.frame = CGRectMake(274, 7, 30, 30);
+	nextButton = [[UIButton alloc] initWithFrame:CGRectMake(274, 7, 30, 30)];
 	[nextButton setImage:[UIImage imageNamed:@"next.png"] forState:UIControlStateNormal];
 	[nextButton addTarget:self action:@selector(nextCase) forControlEvents:UIControlEventTouchUpInside];
 	[informationBar addSubview:nextButton];
+	[nextButton release];
 	
-	lastButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	lastButton.frame = CGRectMake(17, 7, 30, 30);
+	lastButton = [[UIButton alloc] initWithFrame:CGRectMake(17, 7, 30, 30)];
 	[lastButton setImage:[UIImage imageNamed:@"previous.png"] forState:UIControlStateNormal];
 	[lastButton addTarget:self action:@selector(lastCase) forControlEvents:UIControlEventTouchUpInside];
 	[informationBar addSubview:lastButton];
+	[lastButton release];
 	
-	queryTypeLabel  = [[[UILabel alloc] initWithFrame:CGRectMake(51, 2, 218, 21)] autorelease];
+	queryTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(51, 2, 218, 21)];
 	queryTypeLabel.backgroundColor = [UIColor clearColor];
 	queryTypeLabel.textColor = [UIColor whiteColor];
 	queryTypeLabel.textAlignment = UITextAlignmentCenter;
 	queryTypeLabel.font = [UIFont boldSystemFontOfSize:14];
 	queryTypeLabel.text = @"所有案件種類";
 	[informationBar addSubview:queryTypeLabel];
+	[queryTypeLabel release];
 	
-	numberDisplayLabel  = [[[UILabel alloc] initWithFrame:CGRectMake(51, 20, 218, 21)] autorelease];
+	numberDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(51, 20, 218, 21)];
 	numberDisplayLabel.backgroundColor = [UIColor clearColor];
 	numberDisplayLabel.textColor = [UIColor whiteColor];
 	numberDisplayLabel.textAlignment = UITextAlignmentCenter;
 	numberDisplayLabel.font = [UIFont systemFontOfSize:14];
 	[informationBar addSubview:numberDisplayLabel];
+	[numberDisplayLabel release];
 	
 	typeID = 0;
 	queryTotalLength = -1;
@@ -78,6 +82,22 @@
 #pragma mark -
 #pragma mark Method
 
+- (void)queryAfterSetRangeAndType {
+	if (!typeID) {
+		// Query without type
+		[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region]];
+	} else {
+		// Query with type
+		NSArray *keyArray = [[NSArray alloc] initWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
+		NSArray *valueArray = [[NSArray alloc] initWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
+		NSDictionary *contentDictionary = [[NSDictionary alloc] initWithObjects:valueArray forKeys:keyArray];
+		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:contentDictionary];
+		[contentDictionary release];
+		[keyArray release];
+		[valueArray release];
+	}
+}
+
 - (void)setQueryCondition {
 	UIActionSheet *setCondition = [[UIActionSheet alloc] initWithTitle:@"設定搜尋條件" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"所有案件種類", @"依案件種類搜尋", nil];
 	[setCondition showFromTabBar:self.tabBarController.tabBar];
@@ -89,15 +109,7 @@
 		// Move Sector
 		queryRange.location += kDataSectorSize;
 		// Start Query
-		if (!typeID) {
-			// Query without type
-			[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region]];
-		} else {
-			// Query with type
-			NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
-			NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
-			[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray]];
-		}
+		[self queryAfterSetRangeAndType];
 	}
 }
 
@@ -106,15 +118,7 @@
 		// Move Sector
 		queryRange.location -= kDataSectorSize;
 		// Start Query
-		if (!typeID) {
-			// Query without type
-			[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region]];
-		} else {
-			// Query with type
-			NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
-			NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
-			[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray]];
-		}
+		[self queryAfterSetRangeAndType];
 	}
 }
 
@@ -170,15 +174,7 @@
 		// Initial
 		queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
 		// Start Query
-		if (!typeID) {
-			// Query without type
-			[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region]];
-		} else {
-			// Query with type
-			NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
-			NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
-			[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray]];
-		}
+		[self queryAfterSetRangeAndType];
 	}
 }
 
@@ -214,15 +210,7 @@
 	[self dismissModalViewControllerAnimated:YES];
 	
 	// Start Query
-	if (!typeID) {
-		// Query without type
-		[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region]];
-	} else {
-		// Query with type
-		NSArray *keyArray = [NSArray arrayWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
-		NSArray *valueArray = [NSArray arrayWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
-		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[NSDictionary dictionaryWithObjects:valueArray forKeys:keyArray]];
-	}
+	[self queryAfterSetRangeAndType];
 }
 
 - (void)leaveSelectorWithoutTitleAndQid {
