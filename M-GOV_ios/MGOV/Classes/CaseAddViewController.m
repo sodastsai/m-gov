@@ -37,6 +37,7 @@
 		// Show view
 		[alertEmailPopupBox addSubview:alertEmailInputField];
 		[alertEmailPopupBox show];
+		[alertEmailPopupBox release];
 	} else if ([[PrefAccess readPrefByKey:@"User Email"] length] && qid != 0) {
 		[PrefAccess writePrefByKey:@"NetworkIsAlerted" andObject:[NSNumber numberWithBool:NO]];
 		if ([NetWorkChecking checkNetwork]) {
@@ -209,10 +210,11 @@
 	[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];
 	
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:tempPlistPathInAppDocuments];
 	NSData *data = UIImagePNGRepresentation(selectedImage);
 	[dict setObject:data forKey:@"Photo"];
-	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];	
+	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+	[dict release];
 	
 	// Close Picker,Reload Data, and Call Location Selector
 	[picker dismissModalViewControllerAnimated:YES];
@@ -251,7 +253,7 @@
 			// If this is the First time to Submit, We should ask user's email.
 			// Check plist
 			NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+			NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:tempPlistPathInAppDocuments];
 			
 			// Convert Byte Data to Photo From Plist
 			NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [PrefAccess readPrefByKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
@@ -281,13 +283,14 @@
 			[dict setValue:@"" forKey:@"TypeTitle"];
 			[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 			[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+			[dict release];
 			
 		}
 	}
 	if (alertView.tag==1000) {
 		if (buttonIndex) {
 			NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-			NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+			NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:tempPlistPathInAppDocuments];
 
 			[dict setObject:[NSData data] forKey:@"Photo"];
 			[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
@@ -299,9 +302,12 @@
 			[dict setValue:@"" forKey:@"TypeTitle"];
 			[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 			[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+			
 			MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 			selectedCoord = shared.locationManager.location.coordinate;
 			[locationCell updatingCoordinate:selectedCoord];
+			[dict release];
+			
 			[self viewWillAppear:YES];
 		} else {
 			[self.tableView reloadData];
@@ -417,10 +423,11 @@
 	
 	// Temporary store the coordinate selected by user to CaseAddTempInformation.plist
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:tempPlistPathInAppDocuments];
 	[dict setObject:[NSNumber numberWithDouble:coordinate.longitude] forKey:@"Longitude"];
 	[dict setObject:[NSNumber numberWithDouble:coordinate.latitude] forKey:@"Latitude"];
 	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+	[dict release];
 	
 	// Dismiss the view
 	[locationCell updatingCoordinate:coordinate];
@@ -439,10 +446,11 @@
 	
 	// Temporary store the typeid & typetitle info. to CaseAddTempInformation.plist
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+	NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:tempPlistPathInAppDocuments];
 	[dict setObject:[NSNumber numberWithInt:q] forKey:@"TypeID"];
 	[dict setValue:t forKey:@"TypeTitle"];
 	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+	[dict release];
 	
 	// Dismiss the view
 	[self dismissModalViewControllerAnimated:YES];
@@ -460,8 +468,33 @@
 - (void)keyboardWillShow:(NSNotification *)note {
 	// Add keyboard toolbar
 	if ([nameFieldCell.nameField isFirstResponder] || [descriptionCell.descriptionField isFirstResponder]) {
+		// Set keyboard bar
+		// Prepare Keyboard
+		UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -44, 320, 44)];
+		keyboardToolbar.barStyle = UIBarStyleBlack;
+		keyboardToolbar.translucent = YES;
+		
+		// Prepare Buttons
+		UIBarButtonItem *doneEditing = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(endEditingText)];
+		UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+		
+		// Prepare Labels
+		UILabel *optionalHint = [[UILabel alloc] initWithFrame:CGRectMake(10, 14, 250, 16)];
+		optionalHint.text = @"本欄為選項性欄位，可不填";
+		optionalHint.backgroundColor = [UIColor clearColor];
+		optionalHint.textColor = [UIColor whiteColor];
+		optionalHint.font = [UIFont boldSystemFontOfSize:16.0];
+		[keyboardToolbar addSubview:optionalHint];
+		
+		// Add buttons to keyboard
+		[keyboardToolbar setItems:[NSArray arrayWithObjects:flexibleItem, doneEditing, nil] animated:YES];
+		[doneEditing release];
+		[flexibleItem release];
+		[optionalHint release];
+		
 		keyboard = [[[[[UIApplication sharedApplication] windows] objectAtIndex:1] subviews] objectAtIndex:0];
 		[keyboard addSubview:keyboardToolbar];
+		[keyboardToolbar release];
 	}
 }
 
@@ -499,30 +532,6 @@
 	
 	selectedTypeTitle = @"";
 	selectedImage = nil;
-	
-	// Set keyboard bar
-	// Prepare Keyboard
-	keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -44, 320, 44)];
-	keyboardToolbar.barStyle = UIBarStyleBlack;
-	keyboardToolbar.translucent = YES;
-	
-	// Prepare Buttons
-	UIBarButtonItem *doneEditing = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(endEditingText)];
-	UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-	
-	// Prepare Labels
-	UILabel *optionalHint = [[UILabel alloc] initWithFrame:CGRectMake(10, 14, 250, 16)];
-	optionalHint.text = @"本欄為選項性欄位，可不填";
-	optionalHint.backgroundColor = [UIColor clearColor];
-	optionalHint.textColor = [UIColor whiteColor];
-	optionalHint.font = [UIFont boldSystemFontOfSize:16.0];
-	[keyboardToolbar addSubview:optionalHint];
-	
-	// Add buttons to keyboard
-	[keyboardToolbar setItems:[NSArray arrayWithObjects:flexibleItem, doneEditing, nil] animated:YES];
-	[doneEditing release];
-	[flexibleItem release];
-	[optionalHint release];
 	
 	selectedCoord = shared.locationManager.location.coordinate;
 	shared = nil;

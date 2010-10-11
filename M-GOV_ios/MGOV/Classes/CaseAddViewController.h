@@ -39,7 +39,6 @@
 	NameFieldTableCell *nameFieldCell;
 	DescriptionTableCell *descriptionCell;
 	
-	UIToolbar *keyboardToolbar;
 	UIView *keyboard;
 	LoadingOverlayView *indicatorView;
 	
