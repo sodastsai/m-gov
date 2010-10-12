@@ -4,6 +4,7 @@ package tw.edu.ntu.mgov.gae;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -14,6 +15,8 @@ public class GAECase extends HashMap<String, String>{
 	/**
 	 * 
 	 */
+	public int len;
+	
 	private static final long serialVersionUID = 1L;
 	ArrayList<String> image;
 	
@@ -25,6 +28,13 @@ public class GAECase extends HashMap<String, String>{
 	@SuppressWarnings("unchecked")
 	public GAECase(JSONObject json) throws JSONException {
 		super();
+		image = new ArrayList<String>();
+
+		if(json.optBoolean("result"))
+			json = json.getJSONObject("result");
+		if(json.optBoolean("length"))
+			len = Integer.parseInt(json.getString("length"));
+		
 		
 		Iterator<String> it = json.keys();
 		while (it.hasNext()) {
@@ -60,6 +70,15 @@ public class GAECase extends HashMap<String, String>{
 		return (String[]) image.toArray();
 	}
 
+	
+	public String toString(){
+		Set<String> keyset = this.keySet();
+		String r="";
+		for(String key:keyset){
+			r+=this.get(key)+'\n';
+		}
+		return r;
+	}
 
 }
 /*

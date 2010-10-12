@@ -42,9 +42,9 @@ public class Query extends CaseSelector {
 			public void run () {
 				// Insert Real code here
 				GAEQuery qGAE = new GAEQuery();
-				qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, currentLocationPoint, mapMode.getLatitudeSpan(), mapMode.getLongitudeSpan());
-				GAECase caseSource[] = qGAE.doQuery(0, 9);
-				Log.d("GAEQuery",caseSource[0].getform("date"));
+//				qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, currentLocationPoint, mapMode.getLatitudeSpan(), mapMode.getLongitudeSpan());
+//				GAECase caseSource[] = qGAE.doQuery(0, 9);
+//				Log.d("GAEQuery",caseSource[0].getform("date"));
 			}
 		};
 		Timer timer = new Timer();
