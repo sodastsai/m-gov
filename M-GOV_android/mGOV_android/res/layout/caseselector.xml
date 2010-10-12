@@ -9,10 +9,16 @@
   	android:layout_height="fill_parent"
   	android:layout_alignParentTop="true"
   	android:layout_alignParentLeft="true">
+  	<RelativeLayout android:id="@+id/listModeUpperSpace"
+  	  android:layout_width="fill_parent"
+  	  android:layout_height="50dip"
+  	  android:layout_alignParentTop="true"
+  	  android:layout_alignParentLeft="true">
+  	</RelativeLayout>
 	<ListView android:id="@+id/listMode"
 	  android:layout_width="fill_parent"
 	  android:layout_height="fill_parent"
-	  android:layout_alignParentTop="true"
+	  android:layout_below="@id/listModeUpperSpace"
 	  android:layout_alignParentLeft="true">
 	</ListView>
   </RelativeLayout>
@@ -30,6 +36,13 @@
 	  android:clickable="true"
 	  android:apiKey="@string/google_mapview_api_key">
 	</com.google.android.maps.MapView>
+	<RelativeLayout android:id="@+id/mapModeUpperSpace"
+  	  android:layout_width="fill_parent"
+  	  android:layout_height="50dip"
+  	  android:layout_alignParentTop="true"
+  	  android:layout_alignParentLeft="true"
+  	  android:background="#AA000000">
+  	</RelativeLayout>
 	<ZoomControls android:id="@+id/mapModeZoomControl"
 	  android:layout_width="wrap_content"
 	  android:layout_height="wrap_content"
