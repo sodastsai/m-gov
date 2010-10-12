@@ -14,9 +14,7 @@ import de.android1.overlaymanager.OverlayManager;
 import de.android1.overlaymanager.ZoomEvent;
 
 import tw.edu.ntu.mgov.option.Option;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
@@ -67,8 +65,8 @@ public abstract class CaseSelector extends MapActivity {
 	protected ListView listMode;
 	protected MapView mapMode;
 	protected ZoomControls mapModeZoomControl;
-	OverlayManager overlayManager;
-	GeoPoint mapStartPoint;
+	protected OverlayManager overlayManager;
+	protected GeoPoint currentLocationPoint;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,8 +78,9 @@ public abstract class CaseSelector extends MapActivity {
 		// Call Map View From Layout XML
 		// TODO Make Two Maps Independently or not
 		mapMode = (MapView)findViewById(R.id.mapMode);
+		mapMode.preLoad();
 		mapMode.setBuiltInZoomControls(false); // Use custom Map Control instead
-		mapMode.getController().setZoom(15);
+		mapMode.getController().setZoom(17);
 		overlayManager = new OverlayManager(getApplication(), mapMode);
 		// Call Zoom Controll for Map Mode, since we want to show it automaticlly
 		mapModeZoomControl = (ZoomControls)findViewById(R.id.mapModeZoomControl);
@@ -98,8 +97,8 @@ public abstract class CaseSelector extends MapActivity {
 		LocationListener locationListener = new LocationListener() {
 			@Override
 			public void onLocationChanged(Location location) {
-				mapStartPoint = new GeoPoint((int)(location.getLatitude()*Math.pow(10, 6)), (int)(location.getLongitude()*Math.pow(10, 6)));
-				mapMode.getController().animateTo(mapStartPoint);
+				currentLocationPoint = new GeoPoint((int)(location.getLatitude()*Math.pow(10, 6)), (int)(location.getLongitude()*Math.pow(10, 6)));
+				mapMode.getController().animateTo(currentLocationPoint);
 			}
 			@Override
 			public void onProviderDisabled(String provider) {}
@@ -110,8 +109,8 @@ public abstract class CaseSelector extends MapActivity {
 		};
 		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 		Location lastKnownLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		mapStartPoint = new GeoPoint((int)(lastKnownLocation.getLatitude()*Math.pow(10, 6)), (int)(lastKnownLocation.getLongitude()*Math.pow(10, 6)));
-		mapMode.getController().animateTo(mapStartPoint);
+		currentLocationPoint = new GeoPoint((int)(lastKnownLocation.getLatitude()*Math.pow(10, 6)), (int)(lastKnownLocation.getLongitude()*Math.pow(10, 6)));
+		mapMode.getController().animateTo(currentLocationPoint);
 		// Change to Default Mode
 		if (defaultMode==CaseSelectorMode.CaseSelectorListMode) {
 			currentMode = CaseSelectorMode.CaseSelectorListMode;

@@ -4,6 +4,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.google.android.maps.GeoPoint;
 
 import tw.edu.ntu.mgov.net.ReadUrl;
@@ -22,6 +24,8 @@ public class GAEQuery {
 	String method, args;
 	
 	public GAEQuery(){
+		method = "";
+		args = "";
 	}
 
 	public GAECase getID(String id) throws JSONException{
@@ -37,27 +41,31 @@ public class GAEQuery {
 		else if (conditionType==GAEQueryCondtionType.GAEQueryByType) conditionString = "czone/query/typeid";
 		else if (conditionType==GAEQueryCondtionType.GAEQueryByStatus) conditionString = "case/query/status";
 		
-		this.method += "&"+conditionString;
-		this.args += "&"+condition;
+		if (method=="") this.method = conditionString;
+		else this.method += "&"+conditionString;
+		if (args=="") this.args = condition;
+		else this.args += "&"+condition;
 	}
 	// Overload
-	public void addQuery(GAEQueryCondtionType conditionType, GeoPoint location, int latitudeSpan, int longitudeSpan) {
+	public void addQuery(GAEQueryCondtionType conditionType, GeoPoint location, int latitudeSpanE6, int longitudeSpanE6) {
+		Log.d("GAEQuery", "Span: "+Integer.toString(latitudeSpanE6)+" "+Integer.toString(longitudeSpanE6));
 		// Accept for GAEQueryByCoordinate only
 		if (conditionType!=GAEQueryCondtionType.GAEQueryByCoordinate) return;
 		String locationString;
-		locationString = Integer.toString((int)(location.getLongitudeE6()/Math.pow(10, 6)));
+		locationString = Double.toString((double)(location.getLongitudeE6()/Math.pow(10, 6)));
 		locationString += "&";
-		locationString += Integer.toString((int)(location.getLatitudeE6()/Math.pow(10,6)));
+		locationString += Double.toString((double)(location.getLatitudeE6()/Math.pow(10,6)));
 		locationString += "&";
-		locationString += Integer.toString(longitudeSpan);
+		locationString += Double.toString((double)longitudeSpanE6/Math.pow(10, 6));
 		locationString += "&";
-		locationString += Integer.toString(latitudeSpan);
+		locationString += Double.toString((double)latitudeSpanE6/Math.pow(10, 6));
 		this.addQuery(conditionType, locationString);
 	}
 	
 	//TODO
 	public GAECase[] doQuery(int start,int end){
-		String queryStr = prefixURL + "/" + method + "/" + args +"/"+ start +"/"+ end;
+		String queryStr = prefixURL + method + "/" + args +"/"+ start +"/"+ end;
+		Log.d("GAEQuery", "URL: "+queryStr);
 		String jsonStr = ReadUrl.process(queryStr, "utf-8");
 		
 		try {

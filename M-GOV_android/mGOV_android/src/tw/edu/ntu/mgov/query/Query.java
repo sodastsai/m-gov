@@ -3,6 +3,9 @@
  */
 package tw.edu.ntu.mgov.query;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import tw.edu.ntu.mgov.CaseSelector;
 import tw.edu.ntu.mgov.R;
+import tw.edu.ntu.mgov.gae.GAECase;
 import tw.edu.ntu.mgov.gae.GAEQuery;
+import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryCondtionType;
 import tw.edu.ntu.mgov.typeselector.TypeSelector;
 
 /**
@@ -28,12 +33,22 @@ public class Query extends CaseSelector {
 	protected void onCreate(Bundle savedInstanceState) {
 		// Set Mode before super class execute its method
 		this.defaultMode = CaseSelectorMode.CaseSelectorMapMode;
-		
-		// Prepare DataSource
-		GAEQuery qGAE = new GAEQuery();
-		
 		// Render the list and map by super method
 		super.onCreate(savedInstanceState);
+		
+		// A sputid way to solve the delay of map span
+		TimerTask sendQuery = new TimerTask() {
+			@Override
+			public void run () {
+				// Insert Real code here
+				GAEQuery qGAE = new GAEQuery();
+				qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, currentLocationPoint, mapMode.getLatitudeSpan(), mapMode.getLongitudeSpan());
+				GAECase caseSource[] = qGAE.doQuery(0, 9);
+				Log.d("GAEQuery",caseSource[0].getform("date"));
+			}
+		};
+		Timer timer = new Timer();
+		timer.schedule(sendQuery, 750);
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -69,5 +84,4 @@ public class Query extends CaseSelector {
 		}
 		else if (item.getItemId()==MENU_AllTypeCondition) Log.d("Menu", "All Type");
 	}
-	
 }

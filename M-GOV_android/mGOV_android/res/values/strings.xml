@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
-<string name="google_mapview_api_key">0T9nfS9v0WznVDjn9itrZs6VcqAuty8SkKaTvbQ</string>
+<string name="google_mapview_api_key">0auBQTXpm_WBHU1ezjRIVyj-M0KM7pi58wLUfKA</string>
     
     <string name="app_name">路見不平</string><string name="app_version">0.5</string>
 <string name="tabName_myCase">我的案件</string> 
