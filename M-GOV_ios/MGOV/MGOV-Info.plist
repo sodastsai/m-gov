@@ -32,12 +32,12 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.99</string>
+	<string>0.99.1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>Release State</key>
-	<string>1.0 Beta Release</string>
+	<string>1.0 Beta Release 2</string>
 </dict>
 </plist>

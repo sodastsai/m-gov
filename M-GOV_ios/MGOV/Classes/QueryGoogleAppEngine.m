@@ -30,7 +30,6 @@
 	}
 	
 	// GO with ASIHttpRequest
-	// TODO: ask for ggm: Fail return
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:queryURL];
 	[request setDelegate:self];
 	[request setTimeOutSeconds:60];
@@ -38,9 +37,6 @@
 	[self retain];
 	return YES;
 }
-
-
-
 
 #pragma mark -
 #pragma mark ASIHTTPRequestDelegate

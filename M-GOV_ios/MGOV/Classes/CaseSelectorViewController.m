@@ -65,7 +65,7 @@
 	else {
 		UIImage *image = [UIImage imageNamed:@"orange_pin.png"];
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-		imageView.frame = CGRectMake(-0.25, -0.1, imageView.frame.size.width, imageView.frame.size.height);
+		imageView.frame = CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height);
 		[dataAnnotationView addSubview:imageView];
 		[imageView release];
 	}
@@ -263,6 +263,7 @@
 	[informationBar release];
 	
 	childViewController = [[CaseViewerViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	[childViewController startToQueryCase];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

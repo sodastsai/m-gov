@@ -49,8 +49,8 @@
 	// Preference
 	PrefViewController *preference = [[PrefViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	UINavigationController *prefTab = [[UINavigationController alloc] initWithRootViewController:preference];
-	preference.title = @"偏好設定";
-	prefTab.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"偏好設定" image:[UIImage imageNamed:@"pref.png"] tag:0] autorelease];
+	preference.title = @"設定";
+	prefTab.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"設定" image:[UIImage imageNamed:@"pref.png"] tag:0] autorelease];
 	
 	// Add tabs and view
 	tabBarController = [[UITabBarController alloc] init];

@@ -27,13 +27,13 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if ((self = [super initWithFrame:frame])) {
-		float indicatorX = (kLoadingViewWidth-(kIndicatorSize+kIndicatorLabelInterval+kLabelWidth))/2;
-		float labelX = indicatorX + kIndicatorSize + kIndicatorLabelInterval;
+		int indicatorX = (kLoadingViewWidth-(kIndicatorSize+kIndicatorLabelInterval+kLabelWidth))/2;
+		int labelX = indicatorX + kIndicatorSize + kIndicatorLabelInterval;
 		indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-		indicator.frame = CGRectMake(indicatorX, (kLoadingViewHeight-kIndicatorSize)/2, kIndicatorSize, kIndicatorSize);
+		indicator.frame = CGRectMake(indicatorX, (int)((kLoadingViewHeight-kIndicatorSize)/2), kIndicatorSize, kIndicatorSize);
 		
         loading = [[UILabel alloc] initWithFrame:
-							CGRectMake(labelX, (kLoadingViewHeight-kLabelHeight)/2, kLabelWidth, kLabelHeight)];
+							CGRectMake(labelX, (int)((kLoadingViewHeight-kLabelHeight)/2), kLabelWidth, kLabelHeight)];
 		loading.text = @"正在載入...";
 		loading.textColor = [UIColor whiteColor];
 		loading.backgroundColor = [UIColor clearColor];

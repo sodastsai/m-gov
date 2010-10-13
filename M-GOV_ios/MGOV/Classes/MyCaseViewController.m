@@ -110,13 +110,14 @@
 	// Add Filter
 	filter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"所有案件", @"完工", @"處理中", @"退回", nil]];
 	filter.segmentedControlStyle = UISegmentedControlStyleBar;
-	float filterX = (320 - filter.frame.size.width)/2;
-	float filterY = (44 - filter.frame.size.height)/2;
+	// Use int for clear view
+	int filterX = (320 - filter.frame.size.width)/2;
+	int filterY = (44 - filter.frame.size.height)/2;
 	filter.frame = CGRectMake(filterX, filterY, filter.frame.size.width, filter.frame.size.height);
 	filter.selectedSegmentIndex = 0;
 	currentSegmentIndex = 0;
 	[filter addTarget:self action:@selector(setCaseFilter:) forControlEvents:UIControlEventValueChanged];
-	
+		
 	[informationBar addSubview:filter];
 	[filter release];
 	
