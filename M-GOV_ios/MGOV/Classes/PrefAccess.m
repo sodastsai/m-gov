@@ -44,8 +44,8 @@
 
 - (id)init {
 	if (self = [super init]) {
-		self.prefPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", kPrefPlistFileName]];
-		self.prefDict = [NSMutableDictionary dictionaryWithContentsOfFile:prefPlistPathInAppDocuments];
+		prefPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist", kPrefPlistFileName]];
+		prefDict = [[NSMutableDictionary alloc] initWithContentsOfFile:prefPlistPathInAppDocuments];
 	}
 	return self;
 }
@@ -55,8 +55,7 @@
 
 - (void)dealloc {
 	[super dealloc];
-	[self.prefDict release];
-	[self.prefPlistPathInAppDocuments release];
+	[prefDict release];
 }
 
 @end

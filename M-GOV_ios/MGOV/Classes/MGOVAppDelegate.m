@@ -19,7 +19,9 @@
 	
 	// Set the locationManager be a global variable, and init
 	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
-	shared.locationManager = [[CLLocationManager alloc] init];
+	CLLocationManager *locationManager = [[CLLocationManager alloc] init];
+	shared.locationManager = locationManager;
+	[locationManager release];
 	[shared.locationManager startUpdatingLocation];
 	
 	// Generate Case Add temp file
