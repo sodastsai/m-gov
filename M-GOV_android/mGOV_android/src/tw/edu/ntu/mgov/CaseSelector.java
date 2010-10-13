@@ -30,6 +30,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ZoomControls;
 
@@ -62,6 +63,7 @@ public abstract class CaseSelector extends MapActivity {
 	// Default Mode is List Mode
 	protected CaseSelectorMode defaultMode = CaseSelectorMode.CaseSelectorListMode;
 	// Views
+	protected RelativeLayout infoBar;
 	protected ListView listMode;
 	protected MapView mapMode;
 	protected ZoomControls mapModeZoomControl;
@@ -72,6 +74,8 @@ public abstract class CaseSelector extends MapActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.caseselector);
+		// Call Info bar from Layout XML
+		infoBar = (RelativeLayout)findViewById(R.id.infoBar);
 		// Call List View From Layout XML
 		listMode = (ListView)findViewById(R.id.listMode);
 		listMode.setAdapter(new caseListAdapter(this));

@@ -27,4 +27,6 @@
 <string name="option_personalInfo_Email_prompt">請輸入您的E-Mail帳號</string>
 <string name="option_personalInfo_Name">使用者姓名</string>
 <string name="option_personalInfo_Name_prompt">請輸入您的姓名</string>
+<string name="loading_message">正在載入...</string>
+<string name="query_currentConditionLabel_alltype">所有案件種類</string>
 </resources>
