@@ -85,7 +85,7 @@
 		secondDetail.delegate = self.delegate;
 		
 		// Pass the selected object to the new view controller.
-		[self pushViewController:secondDetail animated:YES];
+		[self.navigationController pushViewController:secondDetail animated:YES];
 		[secondDetail release];
 	} else {
 		// Generate qid

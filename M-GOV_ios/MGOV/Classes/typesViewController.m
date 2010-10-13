@@ -96,7 +96,7 @@
 		details.delegate = self.delegate;
 				
 		// Pass the selected object to the new view controller.
-		[self pushViewController:details animated:YES];
+		[self.navigationController pushViewController:details animated:YES];
 		[details release];
 		
 	} else {

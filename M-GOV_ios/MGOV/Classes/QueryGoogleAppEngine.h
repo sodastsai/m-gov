@@ -12,6 +12,7 @@
 #import "LoadingOverlayView.h"
 #import "NetWorkChecking.h"
 #import "PrefAccess.h"
+#import "CJSONDeserializer.h"
 
 typedef enum {
 	DataSourceGAEQueryByID,

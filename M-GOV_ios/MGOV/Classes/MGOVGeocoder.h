@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
-#import "JSON.h"
+#import "CJSONDeserializer.h"
 
 @interface MGOVGeocoder : NSObject {
 	

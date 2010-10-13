@@ -29,22 +29,22 @@ static MGOVGeocoder *sharedVariable = nil;
 + (NSString *) returnFullAddress:(CLLocationCoordinate2D)coordinate {
 	// Use Google API to transform Latitude & Longitude to the corresponding address
 	NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?latlng=%f,%f&sensor=true&language=zh-TW", coordinate.latitude, coordinate.longitude]];
-	NSString *str = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-	NSDictionary *dict = [[NSDictionary alloc] initWithDictionary:[str JSONValue]];
+	NSData *data = [[NSData alloc] initWithContentsOfURL:url];
+	NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:data error:nil];
 	[url release];
+	[data release];
 	if (![[dict objectForKey:@"status"] isEqual:@"OK"]) return nil;
-	str = [[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"formatted_address"];
-	return [NSString stringWithFormat:@"%@", str];
+	return [NSString stringWithFormat:@"%@", [[[dict objectForKey:@"results"] objectAtIndex:0] objectForKey:@"formatted_address"]];
 }
 + (NSArray *) returnRegion:(CLLocationCoordinate2D)coordinate {
 	// Use Google API to transform Latitude & Longitude to the corresponding address  
 	NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?latlng=%f,%f&sensor=true&language=zh-TW", coordinate.latitude, coordinate.longitude]];
-	NSString *str = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-	NSDictionary *dict = [str JSONValue];	
+	NSData *data = [[NSData alloc] initWithContentsOfURL:url];
+	NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:data error:nil];	
 	[url release];
+	[data release];
 	if (![[dict objectForKey:@"status"] isEqual:@"OK"]) return nil;
-	[str release];
-	NSArray *array = [[NSArray alloc] initWithObjects:[[[[[dict objectForKey:@"results"] objectAtIndex:1] objectForKey:@"address_components" ] objectAtIndex:1] objectForKey:@"long_name"], [[[[[dict objectForKey:@"results"] objectAtIndex:1] objectForKey:@"address_components" ] objectAtIndex:0] objectForKey:@"long_name"], nil];
+	NSArray *array = [NSArray arrayWithObjects:[[[[[dict objectForKey:@"results"] objectAtIndex:1] objectForKey:@"address_components" ] objectAtIndex:1] objectForKey:@"long_name"], [[[[[dict objectForKey:@"results"] objectAtIndex:1] objectForKey:@"address_components" ] objectAtIndex:0] objectForKey:@"long_name"], nil];
 	return array;
 }
 

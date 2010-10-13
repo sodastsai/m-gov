@@ -47,11 +47,12 @@
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
 	NSString *resultString = [request responseString];
+	NSData *resultData = [request responseData];
 	if ([resultString isEqualToString:@"<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>404 NOT_FOUND</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: NOT_FOUND</h1>\n</body></html>"]) {
 		returnType = DataSourceGAEReturnNotFound;
 		queryResult = nil;
 	} else {
-		queryResult = [[request responseString] JSONValue];
+		queryResult = [[CJSONDeserializer deserializer] deserialize:resultData error:nil];
 		// Set type
 		if ([queryResult isKindOfClass:[NSDictionary class]]) {
 			if ([[queryResult valueForKey:@"error"] isEqualToString:@"null"]) {
