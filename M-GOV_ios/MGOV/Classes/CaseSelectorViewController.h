@@ -17,7 +17,7 @@
 	NSRange queryRange;
 	// Case Viewer
 	NSString *caseID;
-	UIViewController *childViewController;
+	CaseViewerViewController *childViewController;
 	UIView *informationBar;
 	// Current condition
 	id currentCondition;

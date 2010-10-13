@@ -13,15 +13,19 @@
 #import "QueryGoogleAppEngine.h"
 
 @interface CaseViewerViewController : UITableViewController <QueryGAEReciever> {
-	NSString *caseID;
+	NSString *query_caseID;
 	NSDictionary *caseData;
 	UIImageView *photoView;
+	BOOL resetFlag;
 	
 	LocationSelectorTableCell *locationCell;
 }
 
 @property (nonatomic, retain) NSDictionary *caseData;
+@property (nonatomic, retain) NSString *query_caseID;
+@property (nonatomic) BOOL resetFlag;
 
-- (id)initWithCaseID:(NSString *)cid;
+- (void)startToQueryCase;
+- (void)cleanTableView;
 
 @end

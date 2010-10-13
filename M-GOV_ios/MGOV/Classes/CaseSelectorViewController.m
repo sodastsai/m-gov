@@ -133,18 +133,16 @@
 	if (indexPath.section != 0) {
 		informationBar.hidden = YES;
 		caseID = [[caseSource objectAtIndex:indexPath.row] valueForKey:@"key"];
-		childViewController = [[CaseViewerViewController alloc] initWithCaseID:caseID];
+		childViewController.query_caseID = caseID;
 		[self pushViewController:childViewController animated:YES];
-		[childViewController release];
+		[childViewController startToQueryCase];
 	}
 }
 
 - (void)didSelectAnnotationViewInMap:(MKAnnotationView *)annotationView {
 	if (![annotationView.annotation isKindOfClass:[MKUserLocation class]]) {
 		caseID = [(AppMKAnnotation *)annotationView.annotation annotationID];
-		CaseViewerViewController *child = [[CaseViewerViewController alloc] initWithCaseID:caseID];
-		self.childViewController = child;
-		[child release];
+		childViewController.query_caseID = caseID;
 	}
 }
 
@@ -263,6 +261,19 @@
 	[self.view addSubview:informationBar];
 	currentCondition = nil;
 	[informationBar release];
+	
+	childViewController = [[CaseViewerViewController alloc] initWithStyle:UITableViewStyleGrouped];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	[super viewDidAppear:animated];
+	listViewController.tableView.delegate = self;
+	listViewController.tableView.dataSource = self;
+}
+
+- (void)dealloc {
+	[childViewController release];
+	[super dealloc];
 }
 
 @end

@@ -21,11 +21,13 @@
 
 - (void)refreshViews {
 	// Map View
-	NSArray *annotationArray = [self annotationArrayForMapView];
-	[self dropAnnotation:annotationArray];
-	[self.mapView setCenterCoordinate:self.mapView.region.center animated:YES];
+	if (mapViewController != nil) {
+		NSArray *annotationArray = [self annotationArrayForMapView];
+		[self dropAnnotation:annotationArray];
+		[self.mapView setCenterCoordinate:self.mapView.region.center animated:YES];
+	}
 	// Table View
-	[listViewController.tableView reloadData];
+	if (listViewController != nil) [listViewController.tableView reloadData];
 }
 
 #pragma mark -
@@ -220,7 +222,8 @@
 }
 
 - (void) pushToChildViewControllerInMap {
-	[self.topViewController.navigationController pushViewController:selectorDelegate.childViewController animated:YES];
+	[self pushViewController:selectorDelegate.childViewController animated:YES];
+	[selectorDelegate.childViewController startToQueryCase];
 }
 
 #pragma mark -
@@ -258,8 +261,8 @@
 #pragma mark Memory Management
 
 - (void)didReceiveMemoryWarning {
-	if (menuMode == HybridViewMapMode) [listViewController release];
-	else [mapViewController release];
+	//if (menuMode == HybridViewMapMode) [listViewController release];
+	//else [mapViewController release];
     [super didReceiveMemoryWarning];
 }
 

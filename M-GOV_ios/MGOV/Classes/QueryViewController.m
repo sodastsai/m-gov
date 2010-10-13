@@ -34,6 +34,11 @@
 	if (queryTotalLength!=-1) [super refreshDataSource];
 }
 
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated {
+	[childViewController cleanTableView];
+	return [super popViewControllerAnimated:animated];
+}
+
 #pragma mark -
 #pragma mark Lifecycle
 

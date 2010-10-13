@@ -25,6 +25,7 @@
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {
 	UIViewController *popResult = [super popViewControllerAnimated:animated];
 	if (![self myCaseDataAvailability]) informationBar.hidden = YES;
+	[childViewController cleanTableView];
 	return popResult;
 }
 
@@ -139,7 +140,7 @@
 	CaseAddViewController *caseAdder = [[CaseAddViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	caseAdder.myCase = self;
 	informationBar.hidden = YES;
-	[self.topViewController.navigationController pushViewController:caseAdder animated:YES];
+	[self pushViewController:caseAdder animated:YES];
 	[caseAdder release];
 }
 

@@ -11,14 +11,25 @@
 @implementation CaseViewerViewController
 
 @synthesize caseData;
+@synthesize query_caseID;
+@synthesize resetFlag;
 
 #pragma mark -
-#pragma mark CaseViewerViewController Method
+#pragma mark Query
 
-- (id)initWithCaseID:(NSString *)cid {
-	if (self = [self initWithStyle:UITableViewStyleGrouped])
-		caseID = cid;
-	return self;
+- (void)startToQueryCase {
+	resetFlag = NO;
+	QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
+	qGAE.conditionType = DataSourceGAEQueryByID;
+	qGAE.queryCondition = query_caseID;
+	qGAE.indicatorTargetView = self.navigationController.view;
+	qGAE.resultTarget = self;
+	[qGAE startQuery];
+}
+
+- (void)cleanTableView {
+	resetFlag = YES;
+	[self.tableView reloadData];
 }
 
 #pragma mark -
@@ -57,22 +68,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = @"案件資料";
-	
-	QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
-	qGAE.conditionType = DataSourceGAEQueryByID;
-	qGAE.queryCondition = caseID;
-	qGAE.indicatorTargetView = self.navigationController.view;
-	qGAE.resultTarget = self;
-	[qGAE startQuery];
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
-}
-
-
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
 }
 
 #pragma mark -
@@ -137,13 +132,14 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	
     static NSString *CellIdentifier = @"Cell";
 	if (!caseData) {
 		UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		return cell;
 	}
-
+	
 	if (indexPath.section == 3) return locationCell;
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
@@ -155,29 +151,32 @@
 		if (indexPath.section==0) {
 			if (indexPath.row == 0) {
 				cell.textLabel.text = @"案件編號";
-				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"key"]];				
-				
+				if(!resetFlag) cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"key"]];				
+				else cell.detailTextLabel.text = @"";
 			} else if (indexPath.row ==1) {
 				cell.textLabel.text = @"報案日期";
-				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"date"]];
+				if(!resetFlag) cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"date"]];
+				else cell.detailTextLabel.text = @"";
 			} else {
 				cell.textLabel.text = @"處理狀態";
-				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"status"]];
+				if(!resetFlag) cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"status"]];
+				else cell.detailTextLabel.text = @"";
 			}
 		} else if (indexPath.section==1) {
 			if (indexPath.row == 0) {
 				// Fetch type from plist
 				NSString *caseType = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[caseData objectForKey:@"typeid"]];
-				
 				cell.textLabel.text = @"案件種類";
-				cell.detailTextLabel.text = caseType;
+				if(!resetFlag) cell.detailTextLabel.text = caseType;
+				else cell.detailTextLabel.text = @"";
 			} else {
 				cell.textLabel.text = @"案件描述";
-				cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"detail"]];
+				if(!resetFlag) cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"detail"]];
+				else cell.detailTextLabel.text = @"";
 			}
 		} else if (indexPath.section==2) {
-			cell.backgroundView = photoView;
-			[photoView release];
+			if(!resetFlag) cell.backgroundView = photoView;
+			else cell.backgroundView = nil;
 		}
 	}
 	
@@ -201,8 +200,8 @@
 }
 
 - (void)dealloc {
+	[photoView release];
 	[locationCell release];
-	[caseID release];
 	[caseData release];
     [super dealloc];
 }
