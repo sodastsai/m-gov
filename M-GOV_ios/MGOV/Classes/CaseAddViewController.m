@@ -12,7 +12,7 @@
 @implementation CaseAddViewController
 
 @synthesize selectedTypeTitle;
-@synthesize qid;
+@synthesize qid, userName;
 @synthesize selectedImage;
 @synthesize myCase;
 
@@ -267,19 +267,21 @@
 			[request setPostValue:[NSString stringWithFormat:@"%d", qid] forKey:@"typeid"];
 			[request setPostValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
 			[request setPostValue:[PrefAccess readPrefByKey:@"User Email"] forKey:@"email"];
+			[request setPostValue:nameFieldCell.nameField.text forKey:@"name"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"coordy"];
 			[request setPostValue:[MGOVGeocoder returnFullAddress:selectedCoord] forKey:@"address"];
 			[request startAsynchronous];
 			
+			[PrefAccess writePrefByKey:@"Name" andObject:nameFieldCell.nameField.text];
+			
 			// After submit case, clean the temp infomation
 			[dict setObject:[NSData data] forKey:@"Photo"];
 			[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
 			[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
-			[dict setValue:@"" forKey:@"Name"];
 			[dict setValue:@"" forKey:@"Description"];
 			descriptionCell.descriptionField.text = @"";
-			nameFieldCell.nameField.text = @"";
+			nameFieldCell.nameField.text = [PrefAccess readPrefByKey:@"Name"];
 			[dict setValue:@"" forKey:@"TypeTitle"];
 			[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 			[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
@@ -295,10 +297,9 @@
 			[dict setObject:[NSData data] forKey:@"Photo"];
 			[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
 			[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
-			[dict setValue:@"" forKey:@"Name"];
 			[dict setValue:@"" forKey:@"Description"];
 			descriptionCell.descriptionField.text = @"";
-			nameFieldCell.nameField.text = @"";
+			nameFieldCell.nameField.text = [PrefAccess readPrefByKey:@"Name"];
 			[dict setValue:@"" forKey:@"TypeTitle"];
 			[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 			[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
@@ -535,6 +536,7 @@
 	
 	selectedCoord = shared.locationManager.location.coordinate;
 	shared = nil;
+	userName = [PrefAccess readPrefByKey:@"Name"];
 	[shared release];
 }
 
@@ -559,7 +561,7 @@
 		selectedCoord.longitude = [[dict objectForKey:@"Longitude"] doubleValue];
 		[locationCell updatingCoordinate:selectedCoord];
 	}
-	nameFieldCell.nameField.text = [dict valueForKey:@"Name"];
+	nameFieldCell.nameField.text = userName;
 	[descriptionCell setPlaceholder:[dict valueForKey:@"Description"]];
 	
 	[self.tableView reloadData];
@@ -573,9 +575,9 @@
 	// Temporary store the name & description info. to CaseAddTempInformation.plist
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
-	[dict setValue:nameFieldCell.nameField.text forKey:@"Name"];
 	if (![descriptionCell.descriptionField.text isEqualToString:@"請輸入描述及建議"]) [dict setValue:descriptionCell.descriptionField.text forKey:@"Description"];
 	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];	
+	userName = nameFieldCell.nameField.text;
 }
 
 #pragma mark -

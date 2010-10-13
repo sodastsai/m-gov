@@ -32,6 +32,7 @@
 	UIAlertView *alertEmailPopupBox;
 	CLLocationCoordinate2D selectedCoord;
 	UIImage *selectedImage;
+	NSString *userName;
 	
 	// Component Cells
 	PhotoPickerTableCell *photoCell;
@@ -50,6 +51,7 @@
 @property (nonatomic) NSInteger qid;
 @property (retain, nonatomic) UIImage *selectedImage;
 @property (retain, nonatomic) CaseSelectorViewController *myCase;
+@property (nonatomic, retain) NSString *userName;
 
 - (void)submitCase;
 - (void)keyboardWillShow:(NSNotification *)note;
