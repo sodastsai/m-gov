@@ -228,7 +228,6 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	// End editing
 	if (textField.superview.tag==3000) {
-		NSLog(@"XD");
 		// Call pre-close method
 		[self alertView:alertEmailPopupBox clickedButtonAtIndex:1];
 		alertEmailPopupBox.message = textField.text;
