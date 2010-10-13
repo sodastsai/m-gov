@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.prefs.Preferences;
 
+import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
@@ -27,11 +28,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.preference.Preference;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,6 +62,7 @@ public class AddCase extends MapActivity {
 	
 	// vars for Case Attributes
 	private int typeId = -1;
+	private GeoPoint locationGeoPoint;
 	private Uri pictureUri;
 	
 	// Views 
@@ -73,8 +79,8 @@ public class AddCase extends MapActivity {
 	private SharedPreferences preferences;
 	private static final String SP_HAVE_UNFINISHED_EDIT = "sp_have_unfinished_edit";
 	private static final String SP_PICTURE_URI = "sp_picture_uri";
-	private static final String SP_LOCATION_LON = "sp_picture_lon";
-	private static final String SP_LOCATION_LAT = "sp_picture_lat";
+	private static final String SP_LOCATION_LONE6 = "sp_picture_lon_e6";
+	private static final String SP_LOCATION_LATE6 = "sp_picture_lat_e6";
 	private static final String SP_TYPE_ID = "sp_type_id";
 	private static final String SP_TYPE_DETAIL = "sp_type_detail";
 	private static final String SP_NAME = "sp_name";
@@ -102,6 +108,10 @@ public class AddCase extends MapActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
+		
+		locationGeoPoint = getDefaultGeoPoint();
+		mapView.getController().animateTo(locationGeoPoint);
+		
 		showContentByPreferences();
 	}
 	
@@ -198,6 +208,22 @@ public class AddCase extends MapActivity {
 			}
 		});
 		
+		// set SelectLicationMapView
+		// ** setOnClickListener is not work for MapView, thus using onTouchListener 
+		mapView.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				switch(event.getAction()) {
+				case MotionEvent.ACTION_UP:
+					if (v.equals(mapView)) {
+						Intent intent = new Intent(mContext, SelectLocationMap.class);
+						startActivity(intent);
+					}
+				}
+				return true;
+			}
+		});
+		
 		// set TypeSelector Button
 		typeButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -263,6 +289,22 @@ public class AddCase extends MapActivity {
 			})
 			.setNegativeButton("取消", null)
 			.create().show();
+	}
+	
+	private GeoPoint getDefaultGeoPoint() {
+		
+		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		Criteria mCriteria = new Criteria();
+		mCriteria.setAccuracy(Criteria.ACCURACY_COARSE);
+		mCriteria.setAltitudeRequired(false);
+		mCriteria.setBearingRequired(false);
+		mCriteria.setCostAllowed(true);
+		mCriteria.setPowerRequirement(Criteria.POWER_LOW);
+		String strLocationProvider = lm.getBestProvider(mCriteria, true);
+		Location retLocation = lm.getLastKnownLocation(strLocationProvider);
+		GeoPoint gpoint = new GeoPoint((int) (retLocation.getLatitude() * 1e6),(int) (retLocation.getLongitude() * 1e6));
+		
+		return gpoint;
 	}
 	
 	/**

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical" >
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical" >
+		<TextView
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:text="請長按以選擇案件的發生地點" />
+	</LinearLayout>
+	<com.google.android.maps.MapView
+		android:id="@+id/AddCase_SelectLication_MapView"
+		android:layout_width="fill_parent"
+		android:clickable="true"
+		android:apiKey="@string/google_mapview_api_key" android:layout_height="0dip" android:layout_weight="1"/>
+	<LinearLayout
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:orientation="horizontal" >
+		<Button
+			android:id="@+id/AddCase_SelectLication_Btn_Confirm"
+			android:layout_width="0dip" 
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="確定" android:layout_margin="5dip" android:textSize="20dip"/>
+		<Button
+			android:id="@+id/AddCase_SelectLication_Btn_Cancel"
+			android:layout_width="0dip" 
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:text="取消" android:layout_margin="5dip" android:textSize="20dip"/>
+	</LinearLayout>
+</LinearLayout>
