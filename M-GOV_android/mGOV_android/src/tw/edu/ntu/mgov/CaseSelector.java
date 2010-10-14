@@ -88,6 +88,7 @@ public abstract class CaseSelector extends MapActivity {
 	protected GAEQuery qGAE;
 	protected GAECase caseSource[];
 	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -251,7 +252,8 @@ public abstract class CaseSelector extends MapActivity {
 		public int getCount() {
 			// TODO Return Data Count
 			//return stringData.length;
-			return 10;
+			if (caseSource == null) return 0;
+			return caseSource.length;
 		}
 
 		@Override
@@ -304,7 +306,6 @@ public abstract class CaseSelector extends MapActivity {
 				Date nowdate = new Date();
 				nowdate = new Date(nowdate.getYear(),nowdate.getMonth(),nowdate.getDate());
 				long timeInterval= nowdate.getTime()-tmpdate.getTime();
-				Log.d("List", String.valueOf(timeInterval));
 				if (timeInterval < 86400*1000) cellContent.caseDate.setText("今天");
 				else if (timeInterval < 2*86400*1000) cellContent.caseDate.setText("昨天");
 				else if (timeInterval < 3*86400*1000) cellContent.caseDate.setText("兩天前");

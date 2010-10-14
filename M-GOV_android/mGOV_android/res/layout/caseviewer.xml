@@ -99,7 +99,12 @@
 			android:text="@string/caseviewer_title_casePhoto"
 			style="@style/AddCase_TitleStyle">
 		</TextView>
-		<ImageView android:id="@+id/CaseViewer_Photo"
+		<FrameLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_horizontal">
+			<ImageView 
+				android:id="@+id/CaseViewer_Photo"
 				android:background="@drawable/addcase_picture_bg"
 				android:layout_width="fill_parent"
 				android:layout_height="fill_parent"
@@ -110,6 +115,16 @@
 				android:focusable="true"
 				android:focusableInTouchMode="true">
 			</ImageView>
+			<TextView
+				android:id="@+id/CaseViewer_NoPhotoMessege"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:text="@string/caseviewer_noPhoto"
+				android:textSize="16dip"
+				android:textColor="@color/darkGray">
+			</TextView>
+		</FrameLayout>
 		<TextView
 			android:paddingTop ="20dip"
 			android:text="@string/caseviewer_title_casePlace"
@@ -127,7 +142,9 @@
 			android:gravity="center_horizontal"
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content"
-			android:textSize="16dip">
+			android:textSize="16dip"
+			android:layout_marginTop="10dip"
+			android:layout_marginBottom="50dip">
 		</TextView>
 	</LinearLayout>
 </ScrollView>
