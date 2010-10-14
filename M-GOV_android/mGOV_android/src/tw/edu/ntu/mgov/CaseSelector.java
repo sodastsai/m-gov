@@ -74,6 +74,7 @@ public abstract class CaseSelector extends MapActivity {
 	public CaseSelectorMode currentMode;
 	// Default Mode is List Mode
 	protected CaseSelectorMode defaultMode = CaseSelectorMode.CaseSelectorListMode;
+	protected Boolean noCaseImageWillShow = true;
 	// Views
 	protected RelativeLayout infoBar;
 	protected ListView listMode;
@@ -250,8 +251,15 @@ public abstract class CaseSelector extends MapActivity {
 		public int getCount() {
 			// TODO Return Data Count
 			//return stringData.length;
-			if (caseSource == null) return 0;
-			return caseSource.length;
+			ImageView noCaseImage;
+			noCaseImage = (ImageView) findViewById(R.id.CaseSelector_NoCaseImage);
+			if (caseSource == null) {
+				if (noCaseImageWillShow == true) noCaseImage.setVisibility(View.VISIBLE);
+				else noCaseImage.setVisibility(View.INVISIBLE);
+				return 0;
+			} else {
+				return caseSource.length;
+			}
 		}
 
 		@Override
@@ -307,12 +315,9 @@ public abstract class CaseSelector extends MapActivity {
 				if (timeInterval < 86400*1000) cellContent.caseDate.setText("今天");
 				else if (timeInterval < 2*86400*1000) cellContent.caseDate.setText("昨天");
 				else if (timeInterval < 3*86400*1000) cellContent.caseDate.setText("兩天前");
-				else cellContent.caseDate.setText(caseSource[position].getform("date"));
-				
+				else cellContent.caseDate.setText(tmp[0]+"/"+tmp[1]+"/"+tmp[2]);
 				cellContent.caseAddress.setText(caseSource[position].getform("address"));
 			}
-			
-			
 			return convertView;
 		}
 	}

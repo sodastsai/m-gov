@@ -50,6 +50,8 @@ public class Query extends CaseSelector {
 	// Lifecycle
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// Did not show noCase Image
+		noCaseImageWillShow = false;
 		qGAE = new GAEQuery();
 		// Set Mode before super class execute its method
 		this.defaultMode = CaseSelectorMode.CaseSelectorMapMode;
