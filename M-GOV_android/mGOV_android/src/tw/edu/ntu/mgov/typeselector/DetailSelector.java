@@ -178,7 +178,7 @@ public class DetailSelector extends PreferenceActivity{
 					Intent intent = new Intent();
 					intent.putExtras(bundle);
 					setResult(RESULT_OK, intent);
-					Toast.makeText(context, "qid=" + qid[index] +"\ndetail=" + getString(des[index]) , Toast.LENGTH_SHORT).show();
+//					Toast.makeText(context, "qid=" + qid[index] +"\ndetail=" + getString(des[index]) , Toast.LENGTH_SHORT).show();
 					finish();
 					return false;
 				}
@@ -226,7 +226,7 @@ public class DetailSelector extends PreferenceActivity{
 					Intent intent = new Intent();
 					intent.putExtras(bundle);
 					setResult(RESULT_OK, intent);
-					Toast.makeText(mContext, "qid=" + holder.qid[which] +"\ndetail=" + getString(holder.des[which]) , Toast.LENGTH_SHORT).show();
+//					Toast.makeText(mContext, "qid=" + holder.qid[which] +"\ndetail=" + getString(holder.des[which]) , Toast.LENGTH_SHORT).show();
 					finish();
 				}
 			})
