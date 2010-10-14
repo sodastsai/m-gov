@@ -90,7 +90,9 @@ public class Query extends CaseSelector {
 		nextButton.setId(NEXT_BUTTON);
 		LayoutParams param3 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		param3.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.CENTER_VERTICAL);
+		param3.setMargins(0, 0, 2, 0);
 		nextButton.setLayoutParams(param3);
+		nextButton.setPadding(0, nextButton.getPaddingTop(), 2, nextButton.getPaddingBottom());
 		infoBar.addView(nextButton);
 		param3=null;
 		
@@ -104,7 +106,9 @@ public class Query extends CaseSelector {
 		LayoutParams param4 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		param4.addRule(RelativeLayout.LEFT_OF, NEXT_BUTTON);
 		param4.addRule(RelativeLayout.CENTER_VERTICAL);
+		param4.setMargins(0, 0, 2, 0);
 		reloadButton.setLayoutParams(param4);
+		reloadButton.setPadding(0, reloadButton.getPaddingTop(), 2, reloadButton.getPaddingBottom());
 		infoBar.addView(reloadButton);
 		param4=null;
 		
@@ -117,7 +121,9 @@ public class Query extends CaseSelector {
 		LayoutParams param5 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		param5.addRule(RelativeLayout.LEFT_OF, RELOAD_BUTTON);
 		param5.addRule(RelativeLayout.CENTER_VERTICAL);
+		param5.setMargins(0, 0, 2, 0);
 		prevButton.setLayoutParams(param5);
+		prevButton.setPadding(0, prevButton.getPaddingTop(), 2, prevButton.getPaddingBottom());
 		infoBar.addView(prevButton);
 		param5=null;
 		
