@@ -17,7 +17,7 @@ public class GAEQuery {
 	private final static String prefixURL = "http://ntu-ecoliving.appspot.com/";
 	private final static String dbstr[] = { "czone/query/", "case/query/" };
 	
-	public int sourceTotalLength;
+	private int sourceTotalLength;
 	
 	public static enum GAEQueryCondtionType {
 		GAEQueryByID,
@@ -90,11 +90,10 @@ public class GAEQuery {
 		try {
 			JSONObject ob = new JSONObject(jsonStr);
 
-			if (ob.has("error")==true)
+			if (ob.has("error"))
 				return null;
 			if (ob.has("length"))
 				sourceTotalLength = ob.getInt("length");
-			Log.d("GAEQuery", Integer.toString(sourceTotalLength));
 			if (ob.has("result")) {
 				JSONArray array = ob.getJSONArray("result");
 				int len = array.length();
@@ -109,6 +108,10 @@ public class GAEQuery {
 		}
 
 		return null;
+	}
+	
+	public int getSourceTotalLength() {
+		return this.sourceTotalLength;
 	}
 	
 	public void resetCondition() {

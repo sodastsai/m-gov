@@ -9,14 +9,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<activity android:label="MyCase" android:name=".mycase.MyCase"></activity>
-<activity android:label="Option" android:name=".option.Option"></activity>
-<activity android:label="Query" android:name=".query.Query"></activity>
+<activity android:name=".mycase.MyCase" android:label="MyCase" android:process=":MyCaseProcess"></activity>
+<activity android:name=".option.Option" android:label="Option"></activity>
+<activity android:name=".query.Query"  android:label="Query" android:process=":QueryProcess"></activity>
 <activity android:name=".typeselector.TypeSelector" android:label="TypeSelector"></activity>
 <activity android:name=".typeselector.DetailSelector" android:label="TypeDetailSelector"></activity>
-<activity android:name=".addcase.AddCase" android:label="AddCase" ></activity>
+<activity android:name=".addcase.AddCase" android:label="AddCase" android:process=":AddCaseProcess"></activity>
 <activity android:name=".addcase.SelectLocationMap" android:label="Select Location"></activity>
-<activity android:name="CaseViewer" android:label="Case Viewer"></activity>
+<activity android:name=".caseviewer.CaseViewer" android:label="Case Viewer"></activity>
 </application>
     <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="7"/>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>

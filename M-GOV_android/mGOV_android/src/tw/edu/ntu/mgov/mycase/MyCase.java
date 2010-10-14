@@ -4,6 +4,7 @@
 package tw.edu.ntu.mgov.mycase;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import tw.edu.ntu.mgov.CaseSelector;
@@ -18,6 +19,10 @@ import tw.edu.ntu.mgov.addcase.AddCase;
 public class MyCase extends CaseSelector {
 	// Menu
 	protected static final int MENU_AddCase = Menu.FIRST+3;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, MENU_AddCase, 0, getResources().getString(R.string.menu_myCase_addCase)).setIcon(android.R.drawable.ic_menu_add);

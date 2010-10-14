@@ -9,7 +9,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * This Activity is call for request the user to choose a type of query.<br>
@@ -129,7 +128,6 @@ public class TypeSelector extends PreferenceActivity {
 						Intent mIntent = new Intent();
 						mIntent.putExtras(bundle);
 						setResult(RESULT_OK, mIntent);
-						Toast.makeText(TypeSelector.this, "qid=" + 1301 +"\ndetail=" + getString(R.string.sec1_3) , Toast.LENGTH_SHORT).show();
 						TypeSelector.this.finish();
 						return false;
 					} else if (i == 4 && j == 1) {
@@ -139,7 +137,6 @@ public class TypeSelector extends PreferenceActivity {
 						Intent mIntent = new Intent();
 						mIntent.putExtras(bundle);
 						setResult(RESULT_OK, mIntent);
-						Toast.makeText(TypeSelector.this, "qid=" + 5201 +"\ndetail=" + getString(R.string.sec5_2) , Toast.LENGTH_SHORT).show();
 						TypeSelector.this.finish();
 						return false;
 					}

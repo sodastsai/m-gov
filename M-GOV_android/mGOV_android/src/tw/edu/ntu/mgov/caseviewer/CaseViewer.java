@@ -57,7 +57,7 @@ public class CaseViewer extends Activity {
 	
 	private void findAllViews() {
 		photoView = (ImageView) findViewById(R.id.CaseViewer_Photo);
-		mapView = (MapView) findViewById(R.id.CaseViewer_Map);
+		//mapView = (MapView) findViewById(R.id.CaseViewer_Map);
 		caseID = (TextView) findViewById(R.id.CaseViewer_CaseID);
 		date = (TextView) findViewById(R.id.CaseViewer_Date);
 		caseStatus = (TextView) findViewById(R.id.CaseViewer_CaseStatus);

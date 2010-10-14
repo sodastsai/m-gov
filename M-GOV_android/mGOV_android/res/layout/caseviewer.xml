@@ -113,12 +113,12 @@
 			android:text="@string/caseviewer_title_casePlace"
 			style="@style/AddCase_TitleStyle">
 		</TextView>
-		<com.google.android.maps.MapView
+		<!-- <com.google.android.maps.MapView
 		        android:id="@+id/CaseViewer_Map"
 		        android:layout_width="fill_parent"
 		        android:clickable="true"
 		        android:apiKey="@string/google_mapview_api_key"
 		    	android:layout_height="140dip">
-		</com.google.android.maps.MapView>
+		</com.google.android.maps.MapView> -->
 	</LinearLayout>
 </ScrollView>

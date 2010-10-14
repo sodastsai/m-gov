@@ -21,15 +21,6 @@
   	android:layout_height="fill_parent"
   	android:layout_alignParentTop="true"
   	android:layout_alignParentLeft="true">
-  	<com.google.android.maps.MapView android:id="@+id/mapMode"
-  	  android:layout_width="fill_parent"
-	  android:layout_height="fill_parent"
-	  android:layout_alignParentTop="true"
-  	  android:layout_alignParentLeft="true"
-	  android:enabled="true"
-	  android:clickable="true"
-	  android:apiKey="@string/google_mapview_api_key">
-	</com.google.android.maps.MapView>
 	<ZoomControls android:id="@+id/mapModeZoomControl"
 	  android:layout_width="wrap_content"
 	  android:layout_height="wrap_content"

@@ -29,4 +29,6 @@
 <string name="option_personalInfo_Name_prompt">請輸入您的姓名</string>
 <string name="loading_message">正在載入...</string>
 <string name="query_currentConditionLabel_alltype">所有案件種類</string>
+<string name="query_currentRangeLabel_emptyCase">找不到此區域符合條件的案件</string>
+<string name="mapOverlay_currentLocation">現在位置</string>
 </resources>

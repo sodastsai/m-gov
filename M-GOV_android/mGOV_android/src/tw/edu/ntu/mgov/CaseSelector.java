@@ -12,10 +12,13 @@ import de.android1.overlaymanager.ManagedOverlayGestureDetector;
 import de.android1.overlaymanager.ManagedOverlayItem;
 import de.android1.overlaymanager.OverlayManager;
 import de.android1.overlaymanager.ZoomEvent;
+import de.android1.overlaymanager.MarkerRenderer;
 
+import tw.edu.ntu.mgov.caseviewer.CaseViewer;
 import tw.edu.ntu.mgov.option.Option;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -33,6 +36,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ZoomControls;
+import android.widget.RelativeLayout.LayoutParams;
 
 /**
  * @author sodas
@@ -49,7 +53,7 @@ import android.widget.ZoomControls;
  * 
  */
 public abstract class CaseSelector extends MapActivity {
-	
+	protected Context selfContext = this;
 	// Constant Identifier for Menu
 	protected static final int MENU_Option = Menu.FIRST;
 	protected static final int MENU_ListMode = Menu.FIRST+1;
@@ -69,6 +73,7 @@ public abstract class CaseSelector extends MapActivity {
 	protected ZoomControls mapModeZoomControl;
 	protected OverlayManager overlayManager;
 	protected GeoPoint currentLocationPoint;
+	protected ManagedOverlay managedOverlay;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +84,15 @@ public abstract class CaseSelector extends MapActivity {
 		// Call List View From Layout XML
 		listMode = (ListView)findViewById(R.id.listMode);
 		listMode.setAdapter(new caseListAdapter(this));
-		// Call Map View From Layout XML
-		// TODO Make Two Maps Independently or not
-		mapMode = (MapView)findViewById(R.id.mapMode);
+		// New Map by Java code for separate maps.
+		mapMode = new MapView(this, getResources().getString(R.string.google_mapview_api_key));
+		LayoutParams param1 = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+		param1.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.ALIGN_PARENT_TOP);
+		RelativeLayout mapModeFrame = (RelativeLayout)findViewById(R.id.mapModeFrame);
+		mapModeFrame.addView(mapMode, 0, param1);
+		// Set Map
+		mapMode.setEnabled(true);
+		mapMode.setClickable(true);
 		mapMode.preLoad();
 		mapMode.setBuiltInZoomControls(false); // Use custom Map Control instead
 		mapMode.getController().setZoom(17);
@@ -128,6 +139,7 @@ public abstract class CaseSelector extends MapActivity {
 			findViewById(R.id.listModeFrame).setVisibility(View.GONE);
 		}
 		locationManager.removeUpdates(locationListener);
+		locationListener = null;
 	}
 	@Override
 	public void onWindowFocusChanged(boolean isFocus) {
@@ -258,41 +270,54 @@ public abstract class CaseSelector extends MapActivity {
 	}
 	
 	public void createOverlayWithListener() {
-        //This time we use our own marker
-		ManagedOverlay managedOverlay = overlayManager.createOverlay("listenerOverlay", getResources().getDrawable(R.drawable.icon));
+		//This time we use our own marker
+		managedOverlay = overlayManager.createOverlay("listenerOverlay");
+		managedOverlay.createItem(currentLocationPoint, getResources().getString(R.string.mapOverlay_currentLocation));
 		managedOverlay.setOnOverlayGestureListener(new ManagedOverlayGestureDetector.OnOverlayGestureListener() {
 			
 			@Override
-			public boolean onZoom(ZoomEvent zoom, ManagedOverlay overlay) {
-				return false;
-			}
-	
-			@Override
 			public boolean onDoubleTap(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
-				mapMode.getController().animateTo(point);
-				if (mapMode.getZoomLevel()+1 < mapMode.getMaxZoomLevel())
-					mapMode.getController().setZoom(mapMode.getZoomLevel()+1);
+				//mapMode.getController().animateTo(point);
+				//if (mapMode.getZoomLevel()+1 < mapMode.getMaxZoomLevel())
+					//mapMode.getController().setZoom(mapMode.getZoomLevel()+1);
 				return true;
 			}
-	
+			
 			@Override
-			public void onLongPress(MotionEvent e, ManagedOverlay overlay) {
-			}
-	
+			public boolean onZoom(ZoomEvent zoom, ManagedOverlay overlay) { return false; }
 			@Override
-			public void onLongPressFinished(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
-			}
-	
+			public void onLongPress(MotionEvent e, ManagedOverlay overlay) {}
 			@Override
-			public boolean onScrolled(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY, ManagedOverlay overlay) {
-				return false;
-			}
-	
+			public void onLongPressFinished(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {}
+			@Override
+			public boolean onScrolled(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY, ManagedOverlay overlay) { return false; }
 			@Override
 			public boolean onSingleTap(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
-				return false;
+				if (item!=null) {
+					Intent caseViewerIntent = new Intent().setClass(selfContext, CaseViewer.class);
+					startActivity(caseViewerIntent);
+				}
+				return true; 
 			}
 		});
 		overlayManager.populate();
+		
+		managedOverlay.setCustomMarkerRenderer(new MarkerRenderer() {
+		    @Override
+			public Drawable render(ManagedOverlayItem item, Drawable defaultMarker, int bitState) {
+		    	// Current Location
+		    	if (item.getTitle()==getResources().getString(R.string.mapOverlay_currentLocation)) {
+		    		Drawable currentLocationMarker = getResources().getDrawable(R.drawable.mapoverlay_current_location);
+		    		int currentLocationMarkerHalfWidth = currentLocationMarker.getIntrinsicWidth()/2;
+		    		int currentLocationMarkerHalfHeight = currentLocationMarker.getIntrinsicHeight()/2;
+		    		currentLocationMarker.setBounds(-currentLocationMarkerHalfWidth, -currentLocationMarkerHalfHeight, currentLocationMarkerHalfWidth, currentLocationMarkerHalfHeight);
+		    		return currentLocationMarker;
+		    	}
+		    	// Default Markup, which is orange
+		    	Drawable marker = getResources().getDrawable(R.drawable.mapoverlay_orangepin);
+		    	marker.setBounds((int)(-marker.getIntrinsicWidth()*0.25), -marker.getIntrinsicHeight(), marker.getIntrinsicWidth()-(int)(marker.getIntrinsicWidth()*0.25), 0);
+		    	return marker;
+			}
+		});
 	}
 }

@@ -64,7 +64,7 @@ public class Query extends CaseSelector {
 		infoBar.addView(currentConditionLabel);
 		
 		currentRangeLabel = new TextView(this);
-		currentRangeLabel.setText("0-0 筆，共 0 筆");
+		currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
 		currentRangeLabel.setPadding(14, 0, 2, 0);
 		currentRangeLabel.setTextSize(14.0f);
 		LayoutParams param2 = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
@@ -101,18 +101,24 @@ public class Query extends CaseSelector {
 			private int typeId = tempTypeId;
 			@Override
 			public void run () {
+				int rangeStart = 0;
+				int rangeEnd = 9;
 				// Set Query Condition and Start Query
 				qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, currentLocationPoint, mapMode.getLatitudeSpan(), mapMode.getLongitudeSpan());
 				if (typeId!=0)
 					qGAE.addQuery(GAEQueryCondtionType.GAEQueryByType, Integer.toString(typeId));
-				caseSource = qGAE.doQuery(GAEQueryDatabase.GAEQueryDatabaseCzone, 0, 9);
-				if (caseSource==null) loadingView.cancel();
-				// Update Range Label
-				Log.d("GAEQuery", caseSource[0].getform("key"));
-				loadingView.cancel();
-				// Set Range Label after loadingView cancelled.
-				currentRangeLabel.setText("1-1 筆，共 "+Integer.toString(qGAE.sourceTotalLength)+" 筆");
+				caseSource = qGAE.doQuery(GAEQueryDatabase.GAEQueryDatabaseCzone, rangeStart, rangeEnd);
+				int sourceLength = qGAE.getSourceTotalLength();
 				qGAE.resetCondition();
+				loadingView.cancel();
+				if (caseSource==null) {
+					currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
+				} else {
+					Log.d("GAEQuery", caseSource[0].getform("key"));
+					
+					if (sourceLength==0) currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
+					else currentRangeLabel.setText(Integer.toString(rangeStart+1)+"-"+Integer.toString(rangeEnd+1)+" 筆，共 "+Integer.toString(sourceLength)+" 筆");
+				}
 			}
 		};
 		Timer timer = new Timer();
