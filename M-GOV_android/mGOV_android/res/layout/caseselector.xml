@@ -11,7 +11,7 @@
   	  android:background="#AA000000">
   </RelativeLayout>
   <!-- Default Mode is List Mode -->
-  <FrameLayout android:id="@+id/listModeFrame"
+  <RelativeLayout android:id="@+id/listModeFrame"
   	android:layout_width="fill_parent"
   	android:layout_height="fill_parent"
   	android:layout_below="@id/infoBar"
@@ -24,11 +24,12 @@
 	</ListView>
 	<ImageView
 		android:id="@+id/CaseSelector_NoCaseImage"
-		android:background="@drawable/fail"
-		android:layout_width="fill_parent"
-		android:layout_height="fill_parent">
+		android:background="@drawable/nomycase"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_centerInParent="true">
 	</ImageView>
-  </FrameLayout>
+  </RelativeLayout>
   <RelativeLayout android:id="@+id/mapModeFrame"
   	android:layout_width="fill_parent"
   	android:layout_height="fill_parent"
