@@ -3,6 +3,11 @@
  */
 package tw.edu.ntu.mgov;
 
+import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
@@ -34,6 +39,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -91,6 +97,17 @@ public abstract class CaseSelector extends MapActivity {
 		// Call List View From Layout XML
 		listMode = (ListView)findViewById(R.id.listMode);
 		listMode.setAdapter(new caseListAdapter(this));
+		listMode.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if (caseSource!=null) {
+					Intent caseViewerIntent = new Intent().setClass(selfContext, CaseViewer.class);
+					caseViewerIntent.putExtra("caseID", caseSource[position].getform("key"));
+					startActivity(caseViewerIntent);
+				}
+			}
+		});
 		// New Map by Java code for separate maps.
 		mapMode = new MapView(this, getResources().getString(R.string.google_mapview_api_key));
 		LayoutParams param1 = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
@@ -248,11 +265,6 @@ public abstract class CaseSelector extends MapActivity {
 		public long getItemId(int position) {
 			// Get the row id associated with the specified position in the list.
 			Log.d("List", "getItemId:"+Integer.toString(position));
-			if (caseSource!=null) {
-				Intent caseViewerIntent = new Intent().setClass(selfContext, CaseViewer.class);
-				caseViewerIntent.putExtra("caseID", caseSource[position].getform("key"));
-				startActivity(caseViewerIntent);
-			}
 			return position;
 		}
 
@@ -285,7 +297,19 @@ public abstract class CaseSelector extends MapActivity {
 					cellContent.caseStatus.setImageResource(R.drawable.unknown);
 				cellContent.caseID.setText(caseSource[position].getform("key"));
 				cellContent.caseType.setText(QidToDescription.getDetailByQID(selfContext, Integer.parseInt(caseSource[position].getform("typeid"))));
-				cellContent.caseDate.setText(caseSource[position].getform("date"));
+
+				String d = caseSource[position].getform("date");
+				String tmp[]=d.split("年|月|日");
+				Date tmpdate = new Date(Integer.parseInt(tmp[0])+11,Integer.parseInt(tmp[1])-1,Integer.parseInt(tmp[2]));
+				Date nowdate = new Date();
+				nowdate = new Date(nowdate.getYear(),nowdate.getMonth(),nowdate.getDate());
+				long timeInterval= nowdate.getTime()-tmpdate.getTime();
+				Log.d("List", String.valueOf(timeInterval));
+				if (timeInterval < 86400*1000) cellContent.caseDate.setText("今天");
+				else if (timeInterval < 2*86400*1000) cellContent.caseDate.setText("昨天");
+				else if (timeInterval < 3*86400*1000) cellContent.caseDate.setText("兩天前");
+				else cellContent.caseDate.setText(caseSource[position].getform("date"));
+				
 				cellContent.caseAddress.setText(caseSource[position].getform("address"));
 			}
 			

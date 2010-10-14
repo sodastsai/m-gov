@@ -40,13 +40,13 @@ public class CaseViewer extends MapActivity {
 	private TextView caseStatus;
 	private TextView caseType;
 	private TextView description;
+	private TextView caseAddress;
 	
 	GAEQuery qGAE;
 	GAECase queryResult;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
 		qGAE = new GAEQuery();
 		try {
 			queryResult = qGAE.getID(getIntent().getExtras().getString("caseID"));
@@ -70,6 +70,8 @@ public class CaseViewer extends MapActivity {
 		caseStatus = (TextView) findViewById(R.id.CaseViewer_CaseStatus);
 		caseType = (TextView) findViewById(R.id.CaseViewer_CaseType);
 		description = (TextView) findViewById(R.id.CaseViewer_Description);
+		caseAddress = (TextView) findViewById(R.id.CaseViewer_Address);
+		photoView.setFocusable(false);
 	}
 	
 	private void setAllAttributes() {
@@ -78,6 +80,7 @@ public class CaseViewer extends MapActivity {
 		caseStatus.setText(queryResult.getform("status"));
 		caseType.setText(QidToDescription.getDetailByQID(this, Integer.parseInt(queryResult.getform("typeid"))));
 		description.setText(queryResult.getform("detail"));
+		caseAddress.setText(queryResult.getform("address"));
 		//String [] str = queryResult.getImage();
 		//Log.d("hey", str[0]);
 		mapView.getController().animateTo(queryResult.getGeoPoint());

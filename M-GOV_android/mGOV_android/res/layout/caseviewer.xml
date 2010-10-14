@@ -122,5 +122,12 @@
 		        android:apiKey="@string/google_mapview_api_key"
 		    	android:layout_height="140dip">
 		</com.google.android.maps.MapView>
+		<TextView
+			android:id="@+id/CaseViewer_Address"
+			android:gravity="center_horizontal"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:textSize="16dip">
+		</TextView>
 	</LinearLayout>
 </ScrollView>
