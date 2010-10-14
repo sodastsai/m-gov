@@ -14,10 +14,12 @@ import de.android1.overlaymanager.OverlayManager;
 import de.android1.overlaymanager.ZoomEvent;
 import de.android1.overlaymanager.MarkerRenderer;
 
+import tw.edu.ntu.mgov.addcase.AddCase;
 import tw.edu.ntu.mgov.caseviewer.CaseViewer;
 import tw.edu.ntu.mgov.gae.GAECase;
 import tw.edu.ntu.mgov.gae.GAEQuery;
 import tw.edu.ntu.mgov.option.Option;
+import tw.edu.ntu.mgov.typeselector.QidToDescription;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -200,6 +202,16 @@ public abstract class CaseSelector extends MapActivity {
 	public abstract void menuActionToTake(MenuItem item);
 	
 	/**
+	 * @category method 
+	 *
+	 */
+	protected int convertStatusStringToStatusCode(String status) {
+		if (status.equals("完工")||status.equals("結案")||status.equals("轉府外單位")) return 1;
+		else if (status.equals("無法辦理")||status.equals("退回區公所")||status.equals("查驗未通過")) return 2;
+		else return 0;
+	}
+	
+	/**
 	 * @category Custom List 
 	 *
 	 */
@@ -236,6 +248,11 @@ public abstract class CaseSelector extends MapActivity {
 		public long getItemId(int position) {
 			// Get the row id associated with the specified position in the list.
 			Log.d("List", "getItemId:"+Integer.toString(position));
+			if (caseSource!=null) {
+				Intent caseViewerIntent = new Intent().setClass(selfContext, CaseViewer.class);
+				caseViewerIntent.putExtra("caseID", caseSource[position].getform("key"));
+				startActivity(caseViewerIntent);
+			}
 			return position;
 		}
 
@@ -259,6 +276,19 @@ public abstract class CaseSelector extends MapActivity {
 			}
 			// Set Cell Content
 			cellContent.caseStatus.setImageResource(R.drawable.ok);
+			if (caseSource!=null) {
+				if (convertStatusStringToStatusCode(caseSource[position].getform("status"))==1)
+					cellContent.caseStatus.setImageResource(R.drawable.ok);
+				else if (convertStatusStringToStatusCode(caseSource[position].getform("status"))==2)
+					cellContent.caseStatus.setImageResource(R.drawable.fail);
+				else
+					cellContent.caseStatus.setImageResource(R.drawable.unknown);
+				cellContent.caseID.setText(caseSource[position].getform("key"));
+				cellContent.caseType.setText(QidToDescription.getDetailByQID(selfContext, Integer.parseInt(caseSource[position].getform("typeid"))));
+				cellContent.caseDate.setText(caseSource[position].getform("date"));
+				cellContent.caseAddress.setText(caseSource[position].getform("address"));
+			}
+			
 			
 			return convertView;
 		}

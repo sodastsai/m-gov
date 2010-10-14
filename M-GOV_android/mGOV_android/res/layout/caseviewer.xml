@@ -17,6 +17,7 @@
 		<TableLayout
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content">
+			<View android:layout_height="2dip" android:background="#FF909090"/>
 			<TableRow android:layout_margin ="5px">
 				<TextView
 					android:layout_column = "0"
@@ -58,13 +59,14 @@
 			</TableRow>
 		</TableLayout>
 		<TextView
-			android:paddingTop ="10dip"
+			android:paddingTop ="20dip"
 			android:text="@string/caseviewer_title_typeAndDescription"
 			style="@style/AddCase_TitleStyle">
 		</TextView>
 		<TableLayout
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content">
+			<View android:layout_height="2dip" android:background="#FF909090" />
 			<TableRow android:layout_margin ="5px">
 				<TextView
 					android:layout_column = "0"
@@ -93,7 +95,7 @@
 			</TableRow>
 		</TableLayout>
 		<TextView
-			android:paddingTop ="10dip"
+			android:paddingTop ="20dip"
 			android:text="@string/caseviewer_title_casePhoto"
 			style="@style/AddCase_TitleStyle">
 		</TextView>
@@ -109,16 +111,16 @@
 				android:focusableInTouchMode="true">
 			</ImageView>
 		<TextView
-			android:paddingTop ="10dip"
+			android:paddingTop ="20dip"
 			android:text="@string/caseviewer_title_casePlace"
 			style="@style/AddCase_TitleStyle">
 		</TextView>
-		<!-- <com.google.android.maps.MapView
+		<com.google.android.maps.MapView
 		        android:id="@+id/CaseViewer_Map"
 		        android:layout_width="fill_parent"
-		        android:clickable="true"
+		        android:clickable="false"
 		        android:apiKey="@string/google_mapview_api_key"
 		    	android:layout_height="140dip">
-		</com.google.android.maps.MapView> -->
+		</com.google.android.maps.MapView>
 	</LinearLayout>
 </ScrollView>

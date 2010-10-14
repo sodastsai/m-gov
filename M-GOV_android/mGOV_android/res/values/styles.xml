@@ -7,21 +7,22 @@
 		<item name="android:layout_margin">5dip</item>
 		<item name="android:textSize">18dip</item>
 		<item name="android:color">@color/white</item>
-	</style>
+	<item name="android:textStyle">bold</item>
+</style>
 <style parent="@android:style/TextAppearance.Large" name="CaseViewer_SubtitleStyle"><item name="android:layout_width">wrap_content</item>
 <item name="android:layout_height">wrap_content</item>
 
 
 
 
-<item name="android:textSize">12dip</item>
+<item name="android:textSize">14dip</item>
 <item name="android:paddingLeft">20dip</item>
 
-<item name="android:color">@color/waterBlue</item>
+<item name="android:textColor">@color/waterBlue</item>
 </style>
 <style name="CaseViewer_Information" parent="@android:style/TextAppearance.Large"><item name="android:layout_width">wrap_content</item>
 <item name="android:layout_height">wrap_content</item>
-<item name="android:textSize">14dip</item>
+<item name="android:textSize">16dip</item>
 <item name="android:paddingLeft">30dip</item>
 </style>
 </resources>
