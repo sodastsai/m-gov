@@ -49,6 +49,9 @@ public class GAECase extends HashMap<String, String>{
 					image.add(array.getString(i));
 				}
 			}
+			if("photo".equals(key)){
+				image.add(json.getString(key).toString());
+			}
 			else if("coordinates".equals(key)){
 				JSONArray array = json.getJSONArray(key);
 				this.put("coordy", array.getString(0));
@@ -77,7 +80,11 @@ public class GAECase extends HashMap<String, String>{
 	}	
 
 	public String[] getImage(){
-		return (String[]) image.toArray();
+		String[] res = new String[image.size()];
+		for(int i=0;i<image.size();i++)
+			res[i]=image.get(i);
+		
+		return res;
 	}
 
 	
