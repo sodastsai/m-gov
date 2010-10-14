@@ -10,14 +10,20 @@
 		android:orientation="vertical" >
 		<TextView
 			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:text="請長按以選擇案件的發生地點" />
+			android:layout_height="wrap_content" 
+			android:text="請點擊以選擇案件的發生地點"/>
 	</LinearLayout>
-	<com.google.android.maps.MapView
-		android:id="@+id/AddCase_SelectLication_MapView"
+	<RelativeLayout
 		android:layout_width="fill_parent"
-		android:clickable="true"
-		android:apiKey="@string/google_mapview_api_key" android:layout_height="0dip" android:layout_weight="1"/>
+		android:layout_height="0dip" 
+		android:layout_weight="1">
+		<com.google.android.maps.MapView
+			android:id="@+id/AddCase_SelectLication_MapView"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent" 
+			android:clickable="true"
+			android:apiKey="@string/google_mapview_api_key" />
+	</RelativeLayout>
 	<LinearLayout
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"

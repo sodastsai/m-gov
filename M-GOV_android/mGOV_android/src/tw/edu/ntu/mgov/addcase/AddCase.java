@@ -19,6 +19,7 @@ import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
 import tw.edu.ntu.mgov.R;
+import tw.edu.ntu.mgov.option.Option;
 import tw.edu.ntu.mgov.typeselector.TypeSelector;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -85,12 +86,20 @@ public class AddCase extends MapActivity {
 	private static final String SP_TYPE_DETAIL = "sp_type_detail";
 	private static final String SP_NAME = "sp_name";
 	private static final String SP_DESCRIPTION = "sp_description";
+	private static final String SP_MAPZOOM = "sp_mapzoom";
+	
+	// sharedPreference of user info
+	private SharedPreferences userPreferences;
+	
+	// others 
+	private int preferedMapViewZoom = 16;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		preferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE);
+		userPreferences = getSharedPreferences(Option.PREFERENCE_NAME, MODE_PRIVATE);
 		
 		setTitle("報案");
 		setContentView(R.layout.addcase);
@@ -108,10 +117,6 @@ public class AddCase extends MapActivity {
 	@Override
 	protected void onStart() {
 		super.onStart();
-		
-		locationGeoPoint = getDefaultGeoPoint();
-		mapView.getController().animateTo(locationGeoPoint);
-		
 		showContentByPreferences();
 	}
 	
@@ -125,10 +130,13 @@ public class AddCase extends MapActivity {
 		if (pictureUri != null) {
 			editor.putString(SP_PICTURE_URI, pictureUri.toString());
 		}
+		editor.putInt(SP_LOCATION_LONE6, locationGeoPoint.getLongitudeE6());
+		editor.putInt(SP_LOCATION_LATE6, locationGeoPoint.getLatitudeE6());
 		editor.putInt(SP_TYPE_ID, typeId);
 		editor.putString(SP_TYPE_DETAIL, typeButton.getText().toString());
 		editor.putString(SP_NAME, nameEditText.getText().toString());
 		editor.putString(SP_DESCRIPTION, descriptionEditText.getText().toString());
+		editor.putInt(SP_MAPZOOM, preferedMapViewZoom);
 		
 		editor.commit();
 	}
@@ -138,11 +146,7 @@ public class AddCase extends MapActivity {
 	 * ** note that picture may not be handle here for that onActivityResult() is called before
 	 *    onStart(), but picture is set in onActivityResult(). 
 	 */
-	void showContentByPreferences() {
-		
-		if (!preferences.getBoolean(SP_HAVE_UNFINISHED_EDIT, false)) {
-			return; 	// no contents was saved in last time, return. 
-		}
+	private void showContentByPreferences() {
 		
 		// reset the content in pictureImageView
 		// ** note that picture may not be handle here for that onActivityResult() is called before
@@ -162,27 +166,52 @@ public class AddCase extends MapActivity {
 					tv.setVisibility(View.GONE);
 				} catch (FileNotFoundException e) {
 					Log.d(LOGTAG, "Fail to open inputStream for imageFile Uri : " + pictureUri, e);
+					pictureImageView.setImageDrawable(null);
+					pictureUri = null;
+					
+					// the text of "add picture" 
+					TextView tv = (TextView) findViewById(R.id.AddCase_TextView_AddPhoto);
+					tv.setVisibility(View.VISIBLE);
 				}
 			}
 		}
 		
 		// MapView
-		
+		if (preferences.contains(SP_LOCATION_LONE6) && preferences.contains(SP_LOCATION_LATE6)) {
+			int latitudeE6  = preferences.getInt(SP_LOCATION_LATE6, -1);
+			int longitudeE6 = preferences.getInt(SP_LOCATION_LONE6, -1);
+			if (latitudeE6 != -1 && longitudeE6 != -1) {
+				locationGeoPoint = new GeoPoint(latitudeE6, longitudeE6);
+			} else {
+				locationGeoPoint = getDefaultGeoPoint();
+			}
+		} else {
+			locationGeoPoint = getDefaultGeoPoint();
+		}
+		mapView.getController().setZoom(preferences.getInt(SP_MAPZOOM, 16));
+		mapView.getController().animateTo(locationGeoPoint);
 		
 		// typeSelectBtn
 		if (preferences.contains(SP_TYPE_ID)) {
 			typeId = preferences.getInt(SP_TYPE_ID, -1);
 			typeButton.setText(preferences.getString(SP_TYPE_DETAIL, ""));
+		} else {
+			typeButton.setText("");
+			typeId = -1;
 		}
 		
 		// nameEditText
 		if (preferences.contains(SP_NAME)) {
 			nameEditText.setText(preferences.getString(SP_NAME, ""));
+		} else {
+			nameEditText.setText(userPreferences.getString(Option.KEY_USER_NAME, ""));
 		}
 		
 		// descriptionEditText 
 		if (preferences.contains(SP_DESCRIPTION)) {
 			descriptionEditText.setText(preferences.getString(SP_DESCRIPTION, ""));
+		} else {
+			descriptionEditText.setText("");
 		}
 	}
 
@@ -216,8 +245,13 @@ public class AddCase extends MapActivity {
 				switch(event.getAction()) {
 				case MotionEvent.ACTION_UP:
 					if (v.equals(mapView)) {
+						Bundle bundle = new Bundle();	// bundle for bring the information of current locationGeoPoint
+						bundle.putInt(SelectLocationMap.BUNDLE_LATE6, locationGeoPoint.getLatitudeE6());
+						bundle.putInt(SelectLocationMap.BUNDLE_LONE6, locationGeoPoint.getLongitudeE6());
+						
 						Intent intent = new Intent(mContext, SelectLocationMap.class);
-						startActivity(intent);
+						intent.putExtras(bundle);
+						startActivityForResult(intent, REQUEST_CODE_SELECT_LOCATION);
 					}
 				}
 				return true;
@@ -318,16 +352,14 @@ public class AddCase extends MapActivity {
 		editor.putBoolean(SP_HAVE_UNFINISHED_EDIT, false);
 		editor.commit();
 		
-		// 
+		// do showContentByPreferences() with no data in sharedPreference
+		showContentByPreferences();
+		
+		// photoImageView should be deal with specially  
 		pictureImageView.setImageDrawable(null);
 		pictureUri = null;
 		
-		typeButton.setText("");
-		typeId = -1;
-		nameEditText.setText("");
-		descriptionEditText.setText("");
-		
-		// hide the text of "add picture" 
+		// the text of "add picture" 
 		TextView tv = (TextView) findViewById(R.id.AddCase_TextView_AddPhoto);
 		tv.setVisibility(View.VISIBLE);
 	}
@@ -455,6 +487,24 @@ public class AddCase extends MapActivity {
 				TextView tv = (TextView) findViewById(R.id.AddCase_TextView_AddPhoto);
 				tv.setVisibility(View.GONE);
 			}
+			break;
+			
+		case REQUEST_CODE_SELECT_LOCATION:
+			if (resultCode == Activity.RESULT_OK) {
+				Bundle bundle = data.getExtras();
+				int latitudeE6  = bundle.getInt(SelectLocationMap.BUNDLE_LATE6, -1);
+				int longitudeE6 = bundle.getInt(SelectLocationMap.BUNDLE_LONE6, -1);
+				
+				if (latitudeE6 != -1 && longitudeE6 != -1) {
+
+					// save the result onto sharePreferences, to be display in onStart() 
+					SharedPreferences.Editor editor = preferences.edit();
+					editor.putInt(SP_LOCATION_LATE6, latitudeE6);
+					editor.putInt(SP_LOCATION_LONE6, longitudeE6);
+					editor.putInt(SP_MAPZOOM, mapView.getZoomLevel());
+					editor.commit();
+				}
+			} 
 			break;
 			
 		default:
