@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import javax.servlet.http.*;
 
+import net.ReadUrlByPOST;
+
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
@@ -47,8 +49,7 @@ public class UploadServlet extends HttpServlet {
 			try {
 				GAENodeCase node = new GAENodeCase();
 				ArrayList<Blob> photos = new ArrayList<Blob>();
-				int i = 0;
-
+				boolean send=false;
 				while (iterator.hasNext()) {
 					FileItemStream item = iterator.next();
 					InputStream stream = item.openStream();
@@ -69,6 +70,9 @@ public class UploadServlet extends HttpServlet {
 						else if ("coordy".equals(field))		node.coordy = Double.valueOf(value);
 						else if ("status".equals(field))		node.status = value;
 						else if ("address".equals(field))		node.address = value;
+						else if ("name".equals(field))			node.name = value;
+
+						else if ("send".equals(field))			send = true;
 						
 						System.out.println(field + ":" + value);
 						// Handle form field
@@ -78,15 +82,16 @@ public class UploadServlet extends HttpServlet {
 						photos.add(bImg);
 
 //						String title = item.getName();
-						// Photo photo = new Photo(title, date, bImg);
-						// PhotoDao.getInstance().insertPhoto(photo);
+//						Photo photo = new Photo(title, date, bImg);
+//						PhotoDao.getInstance().insertPhoto(photo);
 					}
 				}
 				node.setPhoto(photos);
 				if("nodata".equals(node.status))
 					node.genStatus();
 				GAEDataBase.store(node);
-
+				ReadUrlByPOST.doSend(node);
+				
 //				resp.sendRedirect("photo");
 				Blob b = photos.get(0);
 				resp.setContentType("image/jpeg;image/png;charset=utf-8");

@@ -81,7 +81,7 @@ public class ParseID {
 				afterColon(line[i+3]) + " "+ afterColon(line[i+4]), 
 				afterColon(line[i+5]),
 				afterColon(line[i+6]),
-				TypeFilter.Type2Id(afterColon(line[i+6])),
+				TypeFilter.Type22Id(afterColon(line[i+6])),
 				afterColon(line[i+7]),
 				parseAddress(line[i+8]),
 				res2,
@@ -91,7 +91,7 @@ public class ParseID {
 
 		GAENodeSimple node2 = new GAENodeSimple(
 				afterColon(line[i+1]),
-				TypeFilter.Type2Id(afterColon(line[i+6])),
+				TypeFilter.Type22Id(afterColon(line[i+6])),
 				afterColon(line[i+2]),
 				res2,
 				afterColon(line[i+12]),

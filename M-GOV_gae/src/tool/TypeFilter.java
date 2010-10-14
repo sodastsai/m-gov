@@ -23,8 +23,8 @@ public class TypeFilter {
 			"6202", "6301", "6302", "6303", "6304", "6305", "6306", "6307",
 			"6308", "6309", "6310", "6311", "6401", "6402", "6403", "6404",
 			"6405" };
-	
-	final static String typecon[] = { "地下道照明設備損壞修復廢棄物清理及稽查", "道路中心樁損壞維護",
+
+	final static String type2str[] = { "地下道照明設備損壞修復廢棄物清理及稽查", "道路中心樁損壞維護",
 			"人行道(含樹穴緣石)損壞修復", "捷運施工致路面、水溝等損壞修復", "建築執照工程施工致路面、側溝等損壞修復",
 			"道路新建工程施工致路面、水溝等損壞修復", "道路挖掘未修復及修復未完善", "橋梁損壞修復",
 			"建築執照工程工地材料、機具佔用路面", "超過八米之市區道路坑洞處理", "八米以下(含八米)市區道路坑洞處理",
@@ -77,33 +77,65 @@ public class TypeFilter {
 			"捷運營運路線路權範圍內（含線形公園）相關公共設施之維護",
 			"出租國宅範圍內開放空間（如中庭地磚及景觀樹木、人行步道、排水溝（蓋））損壞修復等事項" };
 
+	final static String type1str[] = { "","道路、水溝、下水道、橋梁、河川、堤 防等公共設施之損壞事項",
+			"公園、綠地、廣場及行道樹等之維護、修剪及扶正事項", "廢棄物、廢土、水溝、下水道、公廁等之清理維護事項",
+			"違規廣告物查報事項", "競選廣告物之改善、移除事項", "交通號(標)誌、標線之修復及移除廢棄交通號誌事項",
+			"門牌、街道巷弄名牌之維護事項", "路燈、水電、電信、瓦斯設施之損壞修復事項", "路霸檢舉通報事項",
+			"本市綠美化地點巡查通報事項(專案)", "其他有礙市容觀瞻及妨害公共安全事項" };
+
+	final static int type1v[][]={{},{11,12,13},{21,22},{31,32,33},{41},{42,43,44},{51,52},{53},{54,55},{61},{62},{63,64}};
+	
+	
 	static HashMap<String, String> map = new HashMap<String, String>();
 
 	public static void main(String args[]) {
-		System.out.println(Type2Id("超過八米之市區道路坑洞處理"));
-
+		for(int i=0;i<type1v.length;i++)
+		{
+			System.out.println(type1str[i]+" ");
+			for(int j=0;j<type1v[i].length;j++){
+				System.out.print(type1v[i][j]+" ");
+			}
+			System.out.println("");
+		}
+	
+		System.out.println(Id2Type1("1101"));
+		System.out.println(Id2Type1("6401"));
+		
+	
 	}
 
 	public static void init() {
 
 	}
 
-	public static String Id2Type(String str) {
+	public static String Id2Type2(String str) {
 		for (int i = 0; i < typeid.length; i++) {
 			if (typeid[i].equals(str))
-				return typecon[i];
+				return type2str[i];
 		}
 		return "0";
 	}
 
-	public static String Type2Id(String str) {
-		for (int i = 0; i < typecon.length; i++) {
-			if (typecon[i].equals(str))
+	public static String Type22Id(String str) {
+		for (int i = 0; i < type2str.length; i++) {
+			if (type2str[i].equals(str))
 				return typeid[i];
 		}
 		return "0";
 	}
 
+	public static String Id2Type1(String str){
+		int d=Integer.parseInt(str);
+		d/=100;
+		for(int i=0;i<type1v.length;i++){
+			for(int j=0;j<type1v[i].length;j++){
+				if(type1v[i][j]==d){
+					return type1str[i];
+				}
+			}
+		}
+		return null;
+	}	
 	// final static int
 
 }

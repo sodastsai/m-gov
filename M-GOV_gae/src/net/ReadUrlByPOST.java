@@ -1,7 +1,8 @@
 package net;
 
+import gae.GAENodeCase;
+
 import java.io.BufferedReader;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -9,23 +10,59 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import tool.TypeFilter;
 
 public class ReadUrlByPOST {
 
+	static String add_caseURL = "http://www.czone.tcg.gov.tw/tp95-4/sys/add_case.cfm";
+	static String preview_caseURL = "http://www.czone.tcg.gov.tw/tp95-4/sys/preview_case.cfm";
+	
 	public static void main(String args[]) {
 
-		String url = "http://www.czone.tcg.gov.tw/tp88-1/sys/begin.cfm";
-		HashMap<String, String> forms = new HashMap();
+		HashMap<String, String> forms = new HashMap<String, String>();
 
-		forms.put("LOGIN", "guest");
-		forms.put("PASSWORD", "guest");
+		forms.put("sno","09908-521171");
+		forms.put("unit" ,"區民政課");
+		forms.put("pic_check" ,"1");
+		forms.put("h_item1" ,"道路、水溝、下水道、橋梁、河川、堤防等公共設施之損壞事項");
+		forms.put("h_item2" ,"地下道損壞修復");
+		forms.put("h_admit_name" ,"大安區");
+		forms.put("h_admiv_name" ,"民輝里");
+		forms.put("h_summary" ,"cc");
+		forms.put("h_memo" ,"建議事項：");
+		forms.put("pt_name" ,"民眾");
+		forms.put("h_pname" ,"aa");
+		forms.put("h_punit" ,"民眾");
+		forms.put("h_ptel" ,"");
+		forms.put("h_pfax" ,"");
+		forms.put("h_pemail" ,"example@gmail.com");
+		forms.put("h_x1" ,"121.524838262");
+		forms.put("h_y1" ,"25.0461800482");
+		forms.put("h_width" ,"0");
+		forms.put("h_ddx" ,"121.524838262");
+		forms.put("h_ddy" ,"25.0461800482");
+		forms.put("input_type" ,"pt");
+		forms.put("case_type" ,"0");
+		
+		forms.put("img_name" ,"case_pic");
+		forms.put("img_name1" ,"");
+		forms.put("img_name2" ,"");
+		
+		forms.put("h_pic" ,"");
+		forms.put("h_pic1" ,"");
+		forms.put("h_pic2" ,"");
 
+		
+		forms.put("h_per" ,"0");
+		forms.put("h_item4" ,"");
+		
 		try {
-			String res = doSubmit(url, forms);
-			// System.out.println(res);
+			String res = getSno(forms);
+			System.out.println(res);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -33,6 +70,7 @@ public class ReadUrlByPOST {
 
 	}
 
+	@SuppressWarnings("static-access")
 	public static String doSubmit(String url, HashMap<String, String> data)
 			throws Exception {
 		URL siteUrl = new URL(url);
@@ -50,13 +88,14 @@ public class ReadUrlByPOST {
 		conn.setRequestProperty("Content-Type",
 				"application/x-www-form-urlencoded");
 
-		String cookie = "CFID="+CookiesInURL.CFID+";CFTOKEN="+CookiesInURL.CFTOKEN;
-		conn.setRequestProperty("Cookie",cookie);
+		String cookie = "CFID=" + CookiesInURL.CFID + ";CFTOKEN="
+				+ CookiesInURL.CFTOKEN;
+		conn.setRequestProperty("Cookie", cookie);
 
 		DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-		
-		Set keys = data.keySet();
-		Iterator keyIter = keys.iterator();
+
+		Set<String> keys = data.keySet();
+		Iterator<String> keyIter = keys.iterator();
 		String content = "";
 		for (int i = 0; keyIter.hasNext(); i++) {
 			Object key = keyIter.next();
@@ -70,18 +109,17 @@ public class ReadUrlByPOST {
 		out.close();
 		String line = "", res = "";
 		try {
-
-/*
-			for (int i = 0; i< 15; i++)
-				System.out.println(conn.getHeaderField(i));
-*/
+			/*
+			 * for (int i = 0; i< 15; i++)
+			 * System.out.println(conn.getHeaderField(i));
+			 */
 			BufferedReader in = new BufferedReader(new InputStreamReader(conn
 					.getInputStream(), "big5"));
+
 			while ((line = in.readLine()) != null) {
 				res += line + "\n";
 			}
 			in.close();
-						
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,4 +129,70 @@ public class ReadUrlByPOST {
 		return res;
 	}
 
+	// 藉由預覽 preview_case 先取得案件編號
+	public static String getSno(HashMap<String, String> data){
+		try {
+			
+			String str = doSubmit(preview_caseURL, data);			
+			String res = "";
+			
+			Matcher matcher;
+			matcher = Pattern.compile("<.*input type.*sno.*?>", Pattern.DOTALL).matcher(str);
+			while (matcher.find())
+				res = matcher.group();
+			matcher = Pattern.compile("[0-9]{5}-[0-9]{6}", Pattern.DOTALL).matcher(res);
+			res = "";
+
+			while (matcher.find())
+				res = matcher.group();
+			return res;
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public static void doSend(GAENodeCase node) {
+		// TODO Auto-generated method stub
+		
+		HashMap<String, String> forms = new HashMap<String, String>();
+
+		forms.put("sno","09908-521171");
+		forms.put("unit" ,"區民政課");
+		forms.put("pic_check" ,"0");
+		forms.put("h_item1" ,TypeFilter.Id2Type1(node.typeid));
+		forms.put("h_item2" ,TypeFilter.Id2Type2(node.typeid));
+		forms.put("h_admit_name" ,node.h_admit_name);
+		forms.put("h_admiv_name" ,node.h_admiv_name);
+		forms.put("h_summary" ,node.h_summary);
+		forms.put("h_memo" ,"地點:"+node.address);
+		forms.put("pt_name" ,"民眾");
+		forms.put("h_pname" ,"aa");
+		forms.put("h_punit" ,"民眾");
+		forms.put("h_ptel" ,"");
+		forms.put("h_pfax" ,"");
+		forms.put("h_pemail" ,node.email);
+		forms.put("h_x1" ,String.valueOf(node.coordx));
+		forms.put("h_y1" ,String.valueOf(node.coordy));
+		forms.put("h_width" ,"0");
+		forms.put("h_ddx" ,String.valueOf(node.coordx));
+		forms.put("h_ddy" ,String.valueOf(node.coordy));
+		forms.put("input_type" ,"pt");
+		forms.put("case_type" ,"0");
+		
+		forms.put("img_name" ,"");
+		forms.put("img_name1" ,"");
+		forms.put("img_name2" ,"");
+		
+		forms.put("h_pic" ,"");
+		forms.put("h_pic1" ,"");
+		forms.put("h_pic2" ,"");
+
+		
+		forms.put("h_per" ,"0");
+		forms.put("h_item4" ,"");
+
+	}
 }
