@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.json.JSONException;
 
@@ -18,11 +20,15 @@ import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryDatabase;
 import tw.edu.ntu.mgov.typeselector.QidToDescription;
 
 import com.google.android.maps.GeoPoint;
+import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
+import com.google.android.maps.OverlayItem;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -94,7 +100,38 @@ public class CaseViewer extends MapActivity {
 		caseType = (TextView) findViewById(R.id.CaseViewer_CaseType);
 		description = (TextView) findViewById(R.id.CaseViewer_Description);
 		caseAddress = (TextView) findViewById(R.id.CaseViewer_Address);
-		photoView.setFocusable(false);
+	}
+	
+	protected class MapOverlay extends ItemizedOverlay<OverlayItem> {
+		private ArrayList<OverlayItem> gList = new ArrayList<OverlayItem>();
+		Drawable marker;
+		public MapOverlay(Drawable defaultMarker) {
+			super(defaultMarker);
+			// TODO Auto-generated constructor stub
+			marker = defaultMarker;
+		}
+		protected void addOverlayItem(OverlayItem oItem) {
+			gList.add(oItem);
+			populate();
+		}
+		
+		@Override
+		public void draw(Canvas canvas, MapView mapView, boolean shadow) {
+			// TODO Auto-generated method stub
+			super.draw(canvas, mapView, shadow);
+			boundCenterBottom(marker);
+		}
+		@Override
+		protected OverlayItem createItem(int i) {
+			// TODO Auto-generated method stub
+			return gList.get(i);
+		}
+		@Override
+		public int size() {
+			// TODO Auto-generated method stub
+			return gList.size();
+		}
+		
 	}
 	
 	private void setAllAttributes() {
@@ -104,12 +141,19 @@ public class CaseViewer extends MapActivity {
 		caseType.setText(QidToDescription.getDetailByQID(this, Integer.parseInt(queryResult.getform("typeid"))));
 		description.setText(queryResult.getform("detail"));
 		caseAddress.setText(queryResult.getform("address"));
+		
 		String [] imageURL = queryResult.getImage();
 		Drawable image = LoadImageFromWebOperations(imageURL[0].replace("GET_SHOW_PHOTO.CFM?photo_filename=", "photo/"));
 		photoView.setImageDrawable(image);
 		TextView tv = (TextView) findViewById(R.id.CaseViewer_NoPhotoMessege);
 		if (image==null) tv.setVisibility(View.VISIBLE);
 		else tv.setVisibility(View.INVISIBLE);
+		
+		Drawable marker = this.getResources().getDrawable(R.drawable.mapoverlay_greenpin);
+		MapOverlay mapOverlay = new MapOverlay(marker);
+		OverlayItem overlayItem = new OverlayItem(queryResult.getGeoPoint(), "....", "");
+		mapOverlay.addOverlayItem(overlayItem);
+		mapView.getOverlays().add(mapOverlay);
 		mapView.getController().animateTo(queryResult.getGeoPoint());
 	}
 	
