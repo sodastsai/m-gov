@@ -59,6 +59,7 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 			this.photo[id++]=ob;
 	}
 	
+	//此地方的json格式和GAENode稍微不同。
 	public JSONObject toJson(){
 		String coordinates=String.valueOf(coordx) + "," + String.valueOf(coordy);
 		GAENodeSimple r = new GAENodeSimple(key,typeid,date.toString(),coordinates,status,address);
@@ -67,12 +68,15 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 		try {
 			job.put("email", email);
 			job.put("name", name);
+			
 //			job.put("h_admit_name", h_admit_name);
 //			job.put("h_admiv_name", h_admiv_name);
-			job.put("h_summary", h_summary);
-			for(int i=0;i<photo.length;i++){
-				job.put("photo","http://ntu-ecoliving.appspot.com/view/"+key+"/"+i);
-			}
+			String image[]=new String[photo.length];
+			for(int i=0;i<photo.length;i++)
+				image[i]="http://ntu-ecoliving.appspot.com/view/"+key+"/"+i;
+
+			job.put("image",image);
+			job.put("detail", h_summary);
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

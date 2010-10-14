@@ -1,5 +1,7 @@
 package gae;
 
+import java.util.Date;
+
 import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -29,11 +31,13 @@ public class GAENodeSimple implements Comparable<GAENodeSimple>{
 
 	public GAENodeSimple(){}
 	
+	@SuppressWarnings("deprecation")
 	public GAENodeSimple(String key, String typeid, String date,
 			String coordinates, String status, String address) {
 		this.key = key;
 		this.typeid = typeid;
-		this.date = date;
+		Date tmp = new Date(date);
+		this.date = (tmp.getYear()-11)+"年"+(tmp.getMonth()+1)+"月"+tmp.getDate()+"日";
 
 		String str[]=coordinates.split(",");
 		

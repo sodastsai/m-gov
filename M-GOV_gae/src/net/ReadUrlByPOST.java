@@ -25,17 +25,19 @@ public class ReadUrlByPOST {
 
 		HashMap<String, String> forms = new HashMap<String, String>();
 
+		String unitStr="4209";
+		
 		forms.put("sno","09908-521171");
 		forms.put("unit" ,"區民政課");
 		forms.put("pic_check" ,"1");
-		forms.put("h_item1" ,"道路、水溝、下水道、橋梁、河川、堤防等公共設施之損壞事項");
-		forms.put("h_item2" ,"地下道損壞修復");
+		forms.put("h_item1" ,TypeFilter.Id2Type1(unitStr));
+		forms.put("h_item2" ,TypeFilter.Id2Type2(unitStr));
 		forms.put("h_admit_name" ,"大安區");
 		forms.put("h_admiv_name" ,"民輝里");
 		forms.put("h_summary" ,"cc");
 		forms.put("h_memo" ,"建議事項：");
-		forms.put("pt_name" ,"民眾");
-		forms.put("h_pname" ,"aa");
+		forms.put("pt_name" ,"");
+		forms.put("h_pname" ,"某人");
 		forms.put("h_punit" ,"民眾");
 		forms.put("h_ptel" ,"");
 		forms.put("h_pfax" ,"");
@@ -48,7 +50,7 @@ public class ReadUrlByPOST {
 		forms.put("input_type" ,"pt");
 		forms.put("case_type" ,"0");
 		
-		forms.put("img_name" ,"case_pic");
+		forms.put("img_name" ,"");
 		forms.put("img_name1" ,"");
 		forms.put("img_name2" ,"");
 		
@@ -61,8 +63,9 @@ public class ReadUrlByPOST {
 		forms.put("h_item4" ,"");
 		
 		try {
-			String res = getSno(forms);
-			System.out.println(res);
+			String preRes = doSubmit(preview_caseURL, forms);
+			System.out.println(preRes);
+			System.out.println(getSno(preRes)+"  "+getUnit(preRes));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -130,20 +133,19 @@ public class ReadUrlByPOST {
 	}
 
 	// 藉由預覽 preview_case 先取得案件編號
-	public static String getSno(HashMap<String, String> data){
+	public static String getSno(String htmlcontext){
 		try {
 			
-			String str = doSubmit(preview_caseURL, data);			
 			String res = "";
 			
 			Matcher matcher;
-			matcher = Pattern.compile("<.*input type.*sno.*?>", Pattern.DOTALL).matcher(str);
+			matcher = Pattern.compile("<.*input type.*sno.*?>", Pattern.MULTILINE).matcher(htmlcontext);
 			while (matcher.find())
 				res = matcher.group();
-			matcher = Pattern.compile("[0-9]{5}-[0-9]{6}", Pattern.DOTALL).matcher(res);
+			matcher = Pattern.compile("[0-9]{5}-[0-9]{6}", Pattern.MULTILINE).matcher(res);
 			res = "";
 
-			while (matcher.find())
+			for(res = "";matcher.find();)
 				res = matcher.group();
 			return res;
 
@@ -154,6 +156,30 @@ public class ReadUrlByPOST {
 		return null;
 	}
 
+	// 藉由預覽 preview_case 先取得權責單位
+	public static String getUnit(String htmlcontext){
+		try {
+			String res = "";
+			
+			Matcher matcher;
+			
+			matcher = Pattern.compile("<input type(.*?)name=\"unit\".*?>", Pattern.MULTILINE).matcher(htmlcontext);
+			while (matcher.find())
+				res += matcher.group();
+			matcher = Pattern.compile("[^ <=\">|\\w]", Pattern.MULTILINE).matcher(res);
+
+			for(res = "";matcher.find();)
+				res += matcher.group();
+			return res;
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	
 	public static void doSend(GAENodeCase node) {
 		// TODO Auto-generated method stub
 		
@@ -168,8 +194,8 @@ public class ReadUrlByPOST {
 		forms.put("h_admiv_name" ,node.h_admiv_name);
 		forms.put("h_summary" ,node.h_summary);
 		forms.put("h_memo" ,"地點:"+node.address);
-		forms.put("pt_name" ,"民眾");
-		forms.put("h_pname" ,"aa");
+		forms.put("pt_name" ,"");
+		forms.put("h_pname" ,node.name);
 		forms.put("h_punit" ,"民眾");
 		forms.put("h_ptel" ,"");
 		forms.put("h_pfax" ,"");
@@ -194,5 +220,17 @@ public class ReadUrlByPOST {
 		forms.put("h_per" ,"0");
 		forms.put("h_item4" ,"");
 
+		try {
+			String preRes = doSubmit(preview_caseURL, forms);
+			//preview取得sno和unit後送出
+//			forms.put("sno",getSno(preRes));
+			forms.put("unit",getUnit(preRes));
+
+			doSubmit(preview_caseURL, forms);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 }
