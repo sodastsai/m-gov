@@ -10,6 +10,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.util.Log;
 
 /**
  * @author sodas
@@ -18,6 +19,10 @@ import android.preference.PreferenceScreen;
  */
 public class Option extends PreferenceActivity {
 
+	public static final String PREFERENCE_NAME = "Option-Preferences";
+	public static final String KEY_USER_EMAIL = "User Email";
+	public static final String KEY_USER_NAME = "User Name";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,6 +42,9 @@ public class Option extends PreferenceActivity {
 		// Root
         PreferenceScreen root = getPreferenceManager().createPreferenceScreen(this);
         
+        getPreferenceManager().setSharedPreferencesName(PREFERENCE_NAME);
+        getPreferenceManager().setSharedPreferencesMode(MODE_WORLD_WRITEABLE);
+        
         // Section titles (Categories)
         prefCategory[0] = new PreferenceCategory(this);
         prefCategory[0].setTitle(getResources().getString(R.string.option_personalInformation));
@@ -47,20 +55,34 @@ public class Option extends PreferenceActivity {
         
         // Preference Content
         EditTextPreference personalEMail = new EditTextPreference(this);
-        personalEMail.setKey("User Email");
+        personalEMail.setKey(KEY_USER_EMAIL);
 		personalEMail.setTitle(getResources().getString(R.string.option_personalInfo_Email));
-		personalEMail.setSummary("sodas@gmail.com");
+		personalEMail.setSummary(getPreferenceManager().getSharedPreferences().getString(KEY_USER_EMAIL, ""));
         personalEMail.setDialogTitle(getResources().getString(R.string.option_personalInfo_Email));
         personalEMail.setDialogMessage(getResources().getString(R.string.option_personalInfo_Email_prompt));
         personalEMail.getEditText().setInputType(android.view.inputmethod.EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+        personalEMail.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				preference.setSummary((String)newValue);
+				return true;
+			}
+		});
         prefCategory[0].addPreference(personalEMail);
         
         EditTextPreference userRealName = new EditTextPreference(this);
-        userRealName.setKey("User Name");
+        userRealName.setKey(KEY_USER_NAME);
         userRealName.setTitle(getResources().getString(R.string.option_personalInfo_Name));
-        userRealName.setSummary("sodas");
+        userRealName.setSummary(getPreferenceManager().getSharedPreferences().getString(KEY_USER_NAME, ""));
         userRealName.setDialogTitle(getResources().getString(R.string.option_personalInfo_Name));
         userRealName.setDialogMessage(getResources().getString(R.string.option_personalInfo_Name_prompt));
+        userRealName.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				preference.setSummary((String)newValue);
+				return true;
+			}
+		});
         prefCategory[0].addPreference(userRealName);
 		
 		Preference appInformation = new Preference(this);
