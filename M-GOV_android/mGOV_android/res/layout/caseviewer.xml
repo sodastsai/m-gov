@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="fill_parent"
+	android:layout_width="fill_parent"
+	android:scrollbarFadeDuration="500"
+	android:scrollbarDefaultDelayBeforeFade="2000"
+	android:scrollbarStyle="outsideInset">
+	<LinearLayout
+		android:orientation="vertical"
+		android:layout_height="fill_parent"
+		android:layout_width="fill_parent"
+		android:padding="5dip">
+		<TextView
+			android:text="@string/caseviewer_title_basicInformation"
+			style="@style/AddCase_TitleStyle">
+		</TextView>
+		<TableLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+			<TableRow android:layout_margin ="5px">
+				<TextView
+					android:layout_column = "0"
+					android:text="@string/caseviewer_subtitle_caseID"
+					style="@style/CaseViewer_SubtitleStyle">
+				</TextView>
+				<TextView
+					android:layout_column = "1"
+					android:id="@+id/CaseViewer_CaseID"
+					android:text="@string/caseviewer_subtitle_caseID"
+					style="@style/CaseViewer_Information">
+				</TextView>
+			</TableRow>
+			<TableRow android:layout_margin ="5px">	
+				<TextView
+					android:layout_column = "0"
+					android:text="@string/caseviewer_subtitle_date"
+					style="@style/CaseViewer_SubtitleStyle">
+				</TextView>
+				<TextView
+					android:layout_column = "1"
+					android:id="@+id/CaseViewer_Date"
+					android:text="@string/caseviewer_subtitle_date"
+					style="@style/CaseViewer_Information">
+				</TextView>
+			</TableRow>
+			<TableRow android:layout_margin ="5px">	
+				<TextView
+					android:layout_column = "0"
+					android:text="@string/caseviewer_subtitle_caseStatus"
+					style="@style/CaseViewer_SubtitleStyle">
+				</TextView>
+				<TextView
+					android:layout_column = "1"
+					android:id="@+id/CaseViewer_CaseStatus"
+					android:text="@string/caseviewer_subtitle_caseStatus"
+					style="@style/CaseViewer_Information">
+				</TextView>
+			</TableRow>
+		</TableLayout>
+		<TextView
+			android:paddingTop ="10dip"
+			android:text="@string/caseviewer_title_typeAndDescription"
+			style="@style/AddCase_TitleStyle">
+		</TextView>
+		<TableLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
+			<TableRow android:layout_margin ="5px">
+				<TextView
+					android:layout_column = "0"
+					android:text="@string/caseviewer_subtitle_caseType"
+					style="@style/CaseViewer_SubtitleStyle">
+				</TextView>
+				<TextView
+					android:layout_column = "1"
+					android:id="@+id/CaseViewer_CaseType"
+					android:text="@string/caseviewer_subtitle_caseType"
+					style="@style/CaseViewer_Information">
+				</TextView>
+			</TableRow>
+			<TableRow android:layout_margin ="5px">	
+				<TextView
+					android:layout_column = "0"
+					android:text="@string/caseviewer_subtitle_description"
+					style="@style/CaseViewer_SubtitleStyle">
+				</TextView>
+				<TextView
+					android:layout_column = "1"
+					android:id="@+id/CaseViewer_Description"
+					android:text="@string/caseviewer_subtitle_description"
+					style="@style/CaseViewer_Information">
+				</TextView>
+			</TableRow>
+		</TableLayout>
+		<TextView
+			android:paddingTop ="10dip"
+			android:text="@string/caseviewer_title_casePhoto"
+			style="@style/AddCase_TitleStyle">
+		</TextView>
+		<ImageView android:id="@+id/CaseViewer_Photo"
+				android:background="@drawable/addcase_picture_bg"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent"
+				android:minHeight="240dip"
+				android:maxHeight="420dip"
+				android:padding="8dip"
+				android:adjustViewBounds="true"
+				android:focusable="true"
+				android:focusableInTouchMode="true">
+			</ImageView>
+		<TextView
+			android:paddingTop ="10dip"
+			android:text="@string/caseviewer_title_casePlace"
+			style="@style/AddCase_TitleStyle">
+		</TextView>
+		<com.google.android.maps.MapView
+		        android:id="@+id/CaseViewer_Map"
+		        android:layout_width="fill_parent"
+		        android:clickable="true"
+		        android:apiKey="@string/google_mapview_api_key"
+		    	android:layout_height="140dip">
+		</com.google.android.maps.MapView>
+	</LinearLayout>
+</ScrollView>

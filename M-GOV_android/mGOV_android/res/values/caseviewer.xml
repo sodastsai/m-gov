@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<string name="caseviewer_title_basicInformation">基本資料</string>
+<string name="caseviewer_title_typeAndDescription">案件種類與描述</string>
+<string name="caseviewer_title_casePhoto">案件照片</string>
+<string name="caseviewer_title_casePlace">案件地點</string>
+<string name="caseviewer_subtitle_caseID">案件編號</string>
+<string name="caseviewer_subtitle_date">報案日期</string>
+<string name="caseviewer_subtitle_caseStatus">處理狀態</string>
+<string name="caseviewer_subtitle_caseType">案件種類</string>
+<string name="caseviewer_subtitle_description">案件描述</string>
+</resources>

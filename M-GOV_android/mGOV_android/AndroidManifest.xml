@@ -16,6 +16,7 @@
 <activity android:name=".typeselector.DetailSelector" android:label="TypeDetailSelector"></activity>
 <activity android:name=".addcase.AddCase" android:label="AddCase" ></activity>
 <activity android:name=".addcase.SelectLocationMap" android:label="Select Location"></activity>
+<activity android:name="CaseViewer" android:label="Case Viewer"></activity>
 </application>
     <uses-sdk android:minSdkVersion="3" android:targetSdkVersion="7"/>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
