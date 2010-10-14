@@ -5,4 +5,6 @@
 <color name="waterBlue">#FF66CCFF</color>
 <color name="lightGray">#FFCCCCCC</color>
 <color name="darkGray">#FF666666</color>
+
+<color name="transparentColor">#00000000</color>
 </resources>

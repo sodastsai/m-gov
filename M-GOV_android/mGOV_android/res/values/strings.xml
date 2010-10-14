@@ -31,4 +31,5 @@
 <string name="query_currentConditionLabel_alltype">所有案件種類</string>
 <string name="query_currentRangeLabel_emptyCase">找不到此區域符合條件的案件</string>
 <string name="mapOverlay_currentLocation">現在位置</string>
+<string name="caseselector_toast_hint">長按大頭針以檢視案件資料</string>
 </resources>

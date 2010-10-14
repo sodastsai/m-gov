@@ -3,11 +3,18 @@
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="wrap_content"
   android:layout_height="wrap_content">
+  <RelativeLayout android:id="@+id/infoBar"
+  	  android:layout_width="fill_parent"
+  	  android:layout_height="44dip"
+  	  android:layout_alignParentTop="true"
+  	  android:layout_alignParentLeft="true"
+  	  android:background="#AA000000">
+  </RelativeLayout>
   <!-- Default Mode is List Mode -->
   <RelativeLayout android:id="@+id/listModeFrame"
   	android:layout_width="fill_parent"
   	android:layout_height="fill_parent"
-  	android:layout_alignParentTop="true"
+  	android:layout_below="@id/infoBar"
   	android:layout_alignParentLeft="true">
 	<ListView android:id="@+id/listMode"
 	  android:layout_width="fill_parent"
@@ -19,7 +26,7 @@
   <RelativeLayout android:id="@+id/mapModeFrame"
   	android:layout_width="fill_parent"
   	android:layout_height="fill_parent"
-  	android:layout_alignParentTop="true"
+  	android:layout_below="@id/infoBar"
   	android:layout_alignParentLeft="true">
 	<ZoomControls android:id="@+id/mapModeZoomControl"
 	  android:layout_width="wrap_content"
@@ -27,12 +34,5 @@
 	  android:layout_alignParentBottom="true"
 	  android:layout_alignParentRight="true">
 	</ZoomControls>
-  </RelativeLayout>
-  <RelativeLayout android:id="@+id/infoBar"
-  	  android:layout_width="fill_parent"
-  	  android:layout_height="44dip"
-  	  android:layout_alignParentTop="true"
-  	  android:layout_alignParentLeft="true"
-  	  android:background="#AA000000">
   </RelativeLayout>
 </RelativeLayout>

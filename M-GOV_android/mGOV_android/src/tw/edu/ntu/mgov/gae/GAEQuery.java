@@ -72,9 +72,9 @@ public class GAEQuery {
 		locationString += "&";
 		locationString += Double.toString((double)(location.getLatitudeE6()/Math.pow(10,6)));
 		locationString += "&";
-		locationString += Double.toString((double)longitudeSpanE6/Math.pow(10, 6));
+		locationString += Double.toString((double)longitudeSpanE6/Math.pow(10, 6)/2.5);
 		locationString += "&";
-		locationString += Double.toString((double)latitudeSpanE6/Math.pow(10, 6));
+		locationString += Double.toString((double)latitudeSpanE6/Math.pow(10, 6)/2.5);
 		this.addQuery(conditionType, locationString);
 	}
 	

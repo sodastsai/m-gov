@@ -10,8 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.google.android.maps.GeoPoint;
 
 public class GAECase extends HashMap<String, String>{

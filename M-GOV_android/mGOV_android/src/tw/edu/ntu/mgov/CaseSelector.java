@@ -3,9 +3,6 @@
  */
 package tw.edu.ntu.mgov;
 
-import java.io.UnsupportedEncodingException;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Date;
 
 import com.google.android.maps.GeoPoint;
@@ -19,7 +16,6 @@ import de.android1.overlaymanager.OverlayManager;
 import de.android1.overlaymanager.ZoomEvent;
 import de.android1.overlaymanager.MarkerRenderer;
 
-import tw.edu.ntu.mgov.addcase.AddCase;
 import tw.edu.ntu.mgov.caseviewer.CaseViewer;
 import tw.edu.ntu.mgov.gae.GAECase;
 import tw.edu.ntu.mgov.gae.GAEQuery;
@@ -33,6 +29,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -45,6 +42,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ZoomControls;
 import android.widget.RelativeLayout.LayoutParams;
 
@@ -332,33 +330,58 @@ public abstract class CaseSelector extends MapActivity {
 	public void createOverlayWithListener() {
 		//This time we use our own marker
 		managedOverlay = overlayManager.createOverlay("listenerOverlay");
-		managedOverlay.createItem(currentLocationPoint, getResources().getString(R.string.mapOverlay_currentLocation));
+		//managedOverlay.createItem(currentLocationPoint, getResources().getString(R.string.mapOverlay_currentLocation));
 		managedOverlay.setOnOverlayGestureListener(new ManagedOverlayGestureDetector.OnOverlayGestureListener() {
-			
 			@Override
-			public boolean onDoubleTap(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
-				mapMode.getController().animateTo(point);
-				if (mapMode.getZoomLevel()+1 < mapMode.getMaxZoomLevel())
-					mapMode.getController().setZoom(mapMode.getZoomLevel()+1);
+			public boolean onDoubleTap(MotionEvent me, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
+				try {
+					mapMode.getController().animateTo(point);
+					if (mapMode.getZoomLevel()+1 < mapMode.getMaxZoomLevel())
+						mapMode.getController().setZoom(mapMode.getZoomLevel()+1);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				return true;
 			}
-			
 			@Override
 			public boolean onZoom(ZoomEvent zoom, ManagedOverlay overlay) { return false; }
 			@Override
 			public void onLongPress(MotionEvent e, ManagedOverlay overlay) {}
 			@Override
-			public void onLongPressFinished(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {}
+			public void onLongPressFinished(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
+				if (item!=null) {
+					String overlayInfo[] = item.getSnippet().split(",");
+					// Show Case data
+					Intent caseViewerIntent = new Intent().setClass(selfContext, CaseViewer.class);
+					Bundle bundle = new Bundle();
+					bundle.putString("caseID", overlayInfo[0]);
+					caseViewerIntent.putExtras(bundle);
+					startActivity(caseViewerIntent);
+					caseViewerIntent = null;
+				}
+			}
 			@Override
 			public boolean onScrolled(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY, ManagedOverlay overlay) { return false; }
 			@Override
 			public boolean onSingleTap(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
 				if (item!=null) {
 					// This is Not a Map Event
-					Intent caseViewerIntent = new Intent().setClass(selfContext, CaseViewer.class);
-					startActivity(caseViewerIntent);
+					// Custom Toast
+					LayoutInflater inflater = getLayoutInflater();
+					View layout = inflater.inflate(R.layout.case_selector_toast, (ViewGroup)findViewById(R.id.caseSelector_toast));
+					TextView title = (TextView)layout.findViewById(R.id.caseSelector_toast_Title);
+					ImageView status = (ImageView)layout.findViewById(R.id.caseSelector_toast_Status);
+					title.setText(item.getTitle());
+					status.setImageResource(R.drawable.ok);
+					// Add toast
+					Toast toast = new Toast(getApplicationContext());
+					toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 60);
+					toast.setDuration(Toast.LENGTH_SHORT);
+					toast.setView(layout);
+					toast.show();
+					toast = null;
 				}
-				return true; 
+				return false; 
 			}
 		});
 		overlayManager.populate();
@@ -374,9 +397,16 @@ public abstract class CaseSelector extends MapActivity {
 		    		currentLocationMarker.setBounds(-currentLocationMarkerHalfWidth, -currentLocationMarkerHalfHeight, currentLocationMarkerHalfWidth, currentLocationMarkerHalfHeight);
 		    		return currentLocationMarker;
 		    	}
-		    	Log.d("mapMode", "XD");
-		    	// Default Markup, which is orange
-		    	Drawable marker = getResources().getDrawable(R.drawable.mapoverlay_orangepin);
+		    	// Case
+		    	Drawable marker;
+		    	String overlayInfo[] = item.getSnippet().split(",");
+		    	if (Integer.parseInt(overlayInfo[1])==1)
+		    		marker = getResources().getDrawable(R.drawable.mapoverlay_greenpin);
+		    	else if (Integer.parseInt(overlayInfo[1])==2)
+		    		marker = getResources().getDrawable(R.drawable.mapoverlay_redpin);	
+		    	else 
+		    		marker = getResources().getDrawable(R.drawable.mapoverlay_orangepin);
+		    	
 		    	marker.setBounds((int)(-marker.getIntrinsicWidth()*0.25), -marker.getIntrinsicHeight(), marker.getIntrinsicWidth()-(int)(marker.getIntrinsicWidth()*0.25), 0);
 		    	return marker;
 			}

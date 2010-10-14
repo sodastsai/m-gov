@@ -31,11 +31,13 @@ public class mgov extends TabActivity {
         intent = new Intent().setClass(this, MyCase.class);
         spec = tabHost.newTabSpec("myCaseTab").setIndicator(res.getString(R.string.tabName_myCase), res.getDrawable(R.drawable.ic_tab_mycase)).setContent(intent);
         tabHost.addTab(spec);
+        intent = null;
 
         // Add QueryCase Tab
         intent = new Intent().setClass(this, Query.class);
         spec = tabHost.newTabSpec("queryCaseTab").setIndicator(res.getString(R.string.tabName_query), res.getDrawable(R.drawable.ic_tab_query)).setContent(intent);
         tabHost.addTab(spec);
+        intent = null;
         
         tabHost.setCurrentTab(0);
     }
