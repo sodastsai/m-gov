@@ -15,6 +15,8 @@ import de.android1.overlaymanager.ZoomEvent;
 import de.android1.overlaymanager.MarkerRenderer;
 
 import tw.edu.ntu.mgov.caseviewer.CaseViewer;
+import tw.edu.ntu.mgov.gae.GAECase;
+import tw.edu.ntu.mgov.gae.GAEQuery;
 import tw.edu.ntu.mgov.option.Option;
 import android.content.Context;
 import android.content.Intent;
@@ -74,6 +76,9 @@ public abstract class CaseSelector extends MapActivity {
 	protected OverlayManager overlayManager;
 	protected GeoPoint currentLocationPoint;
 	protected ManagedOverlay managedOverlay;
+	// Query Google App Engine
+	protected GAEQuery qGAE;
+	protected GAECase caseSource[];
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -277,9 +282,9 @@ public abstract class CaseSelector extends MapActivity {
 			
 			@Override
 			public boolean onDoubleTap(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
-				//mapMode.getController().animateTo(point);
-				//if (mapMode.getZoomLevel()+1 < mapMode.getMaxZoomLevel())
-					//mapMode.getController().setZoom(mapMode.getZoomLevel()+1);
+				mapMode.getController().animateTo(point);
+				if (mapMode.getZoomLevel()+1 < mapMode.getMaxZoomLevel())
+					mapMode.getController().setZoom(mapMode.getZoomLevel()+1);
 				return true;
 			}
 			
@@ -294,6 +299,7 @@ public abstract class CaseSelector extends MapActivity {
 			@Override
 			public boolean onSingleTap(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
 				if (item!=null) {
+					// This is Not a Map Event
 					Intent caseViewerIntent = new Intent().setClass(selfContext, CaseViewer.class);
 					startActivity(caseViewerIntent);
 				}
@@ -313,6 +319,7 @@ public abstract class CaseSelector extends MapActivity {
 		    		currentLocationMarker.setBounds(-currentLocationMarkerHalfWidth, -currentLocationMarkerHalfHeight, currentLocationMarkerHalfWidth, currentLocationMarkerHalfHeight);
 		    		return currentLocationMarker;
 		    	}
+		    	Log.d("mapMode", "XD");
 		    	// Default Markup, which is orange
 		    	Drawable marker = getResources().getDrawable(R.drawable.mapoverlay_orangepin);
 		    	marker.setBounds((int)(-marker.getIntrinsicWidth()*0.25), -marker.getIntrinsicHeight(), marker.getIntrinsicWidth()-(int)(marker.getIntrinsicWidth()*0.25), 0);

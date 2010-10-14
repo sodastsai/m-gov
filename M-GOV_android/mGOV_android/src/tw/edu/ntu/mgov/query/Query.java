@@ -39,9 +39,6 @@ public class Query extends CaseSelector {
 	// UI
 	private TextView currentConditionLabel;
 	private TextView currentRangeLabel;
-	// Query Google App Engine
-	GAEQuery qGAE;
-	GAECase caseSource[];
 	private ProgressDialog loadingView;
 	// Lifecycle
 	@Override
@@ -114,8 +111,8 @@ public class Query extends CaseSelector {
 				if (caseSource==null) {
 					currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
 				} else {
-					Log.d("GAEQuery", caseSource[0].getform("key"));
-					
+					managedOverlay.createItem(caseSource[0].getGeoPoint());
+					Log.d("mapMode", "XDD");
 					if (sourceLength==0) currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
 					else currentRangeLabel.setText(Integer.toString(rangeStart+1)+"-"+Integer.toString(rangeEnd+1)+" 筆，共 "+Integer.toString(sourceLength)+" 筆");
 				}
