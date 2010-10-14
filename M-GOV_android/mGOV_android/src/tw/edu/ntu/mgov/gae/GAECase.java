@@ -10,6 +10,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
+import com.google.android.maps.GeoPoint;
+
 public class GAECase extends HashMap<String, String>{
 
 	/**
@@ -47,8 +51,8 @@ public class GAECase extends HashMap<String, String>{
 			}
 			else if("coordinates".equals(key)){
 				JSONArray array = json.getJSONArray(key);
-				this.put("coordx", array.getString(0));
-				this.put("coordy", array.getString(1));
+				this.put("coordy", array.getString(0));
+				this.put("coordx", array.getString(1));
 			}
 			this.put(key, json.getString(key));
 		}
@@ -61,7 +65,13 @@ public class GAECase extends HashMap<String, String>{
 	public String getform(String key){
 		return this.get(key);
 	}
-
+	
+	public GeoPoint getGeoPoint() {
+		double lat = Double.parseDouble(this.getform("coordx"));
+		double lon = Double.parseDouble(this.getform("coordy"));
+		return new GeoPoint((int)(lat*Math.pow(10, 6)), (int)(lon*Math.pow(10, 6)));
+	}
+	
 	public void addImage(String photo){
 		this.image.add(photo);
 	}	
