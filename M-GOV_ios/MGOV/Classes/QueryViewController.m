@@ -79,9 +79,11 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated {
+	if (queryTotalLength == -1) {
+		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+		[mapView setCenterCoordinate:shared.locationManager.location.coordinate];
+	}
 	queryTotalLength = 0;
-	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
-	[mapView setCenterCoordinate:shared.locationManager.location.coordinate];
 }
 
 #pragma mark -

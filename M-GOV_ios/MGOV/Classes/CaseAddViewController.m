@@ -270,6 +270,7 @@
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"coordy"];
 			[request setPostValue:[MGOVGeocoder returnFullAddress:selectedCoord] forKey:@"address"];
+			[request setPostValue:@"send" forKey:@"send"];
 			[request startAsynchronous];
 			
 			[PrefAccess writePrefByKey:@"Name" andObject:nameFieldCell.nameField.text];
