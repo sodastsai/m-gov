@@ -49,6 +49,8 @@ import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -326,6 +328,8 @@ public class AddCase extends MapActivity {
 	 * Each choice has the corresponding Intent, which will be thrown as 
 	 * the choice is clicked.
 	 */
+	File tmpPhoto;
+	
 	private void requestForPicture() {
 		// build the dialog
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -338,9 +342,9 @@ public class AddCase extends MapActivity {
 				if (which == 0) {
 					// Intent to take new picture
 					Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-					File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
-				    intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
-				    imageUri = Uri.fromFile(photo);
+					tmpPhoto = new File(Environment.getExternalStorageDirectory(),  "pictemp937942.jpg");
+				    intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(tmpPhoto));
+				    imageUri = Uri.fromFile(tmpPhoto);
 					startActivityForResult(intent, REQUEST_CODE_TAKE_PICTURE);
 				} else {
 					// Intent to select picture from device
@@ -552,6 +556,11 @@ public class AddCase extends MapActivity {
 		
 		submitFlag = true;
 		
+		if (!checkNetworkStatus(this)) {
+			showNoNetworkAlertDialog(this);
+			return;
+		}
+		
 		if (!checkType()) {
 			return;
 		}
@@ -566,19 +575,13 @@ public class AddCase extends MapActivity {
 		addressSet = getAddressSet(locationGeoPoint);
 
 		// create GAECase and add the attributes to submit 
-		String show = ""; 
 		
-		GAECase newcase = new GAECase();
+		final GAECase newcase = new GAECase();
 		
 		newcase.addform("address", addressSet.fullAddress);
 		newcase.addform("h_admiv_name", addressSet.hAdmivName);
 		newcase.addform("h_admit_name", addressSet.hAdmitName);
 		
-		show = show.concat("address= " + addressSet.fullAddress);
-		show = show.concat("\nh_admit_name= "+addressSet.hAdmitName);
-		show = show.concat("\nh_admiv_name= "+addressSet.hAdmivName);
-		
-		new AlertDialog.Builder(this).setTitle("Test Submit").setMessage(show).create().show();
 		
 		if (pictureUri != null) {
 			newcase.addImage(pictureUri.toString());
@@ -590,7 +593,58 @@ public class AddCase extends MapActivity {
 		newcase.addform("coordy", "" + ( ((double)locationGeoPoint.getLatitudeE6()) /1e6));
 		newcase.addform("h_summary", descriptionEditText.getText().toString() );
 		
-		new GAESubmit(newcase, this).doSubmit();
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("即將送出案件")
+			.setMessage("您確定要送出此案件到1999嗎？")
+			.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					new GAESubmit(newcase, AddCase.this).doSubmit();
+					Toast.makeText(AddCase.this, "案件已送出。", Toast.LENGTH_LONG).show();
+					resetContent();
+					finish();					
+				}
+			})
+			.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+			})
+			.create().show();
+	}
+	
+	
+	void showNoNetworkAlertDialog(Context context) {
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		builder.setTitle("沒有網路連線")
+				.setMessage("此功能需要雲端服務，請開啟網路服務以使用此功能。")
+				.setCancelable(false)
+				.setPositiveButton("設定網路",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								Intent intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
+								startActivity(intent);
+							}
+						})
+				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.cancel();
+					}
+				}).create().show();
+
+	}
+	
+
+	private boolean checkNetworkStatus(Context context) {
+		ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+		if (networkInfo == null || !networkInfo.isAvailable()) {
+			return false;
+		}
+		return true;
 	}
 	
 	private boolean checkEmail() {
@@ -681,6 +735,8 @@ public class AddCase extends MapActivity {
 				editor.putInt(SP_TYPE_ID, bundle.getInt("qid"));
 				editor.putString(SP_TYPE_DETAIL, bundle.getString("detail"));
 				editor.commit();
+				typeId = preferences.getInt(SP_TYPE_ID, -1);
+				
 				if (submitFlag) {
 					doSubmit();
 				}
@@ -691,24 +747,22 @@ public class AddCase extends MapActivity {
 			
 		case REQUEST_CODE_TAKE_PICTURE:
 			if (resultCode == Activity.RESULT_OK) {
-				Log.d(LOGTAG, "Take Picture");
 
 				Uri selectedImage = imageUri;
 	            getContentResolver().notifyChange(selectedImage, null);
+	            
 
-				System.gc();	// run gc for sure that there's enough memory to open the picture 
-				ImageView iv = (ImageView) findViewById(R.id.AddCase_ImageView_Picture);
-				ContentResolver cr = getContentResolver();
-	            Bitmap bitmap;
-	            Log.d("photo", "!!");
+				System.gc();	// run gc for sure that there's enough memory to open the picture
+	            
 	            try {
-	                 bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, selectedImage);
-	                iv.setImageBitmap(bitmap);
-	                Toast.makeText(this, selectedImage.toString(),
-	                        Toast.LENGTH_LONG).show();
+	            	if (tmpPhoto.length() > 0l) {
+	            		pictureImageView.setImageBitmap(makeDuplicatePicture(imageUri));
+	            		tmpPhoto.delete();
+		            } else {
+		            	pictureImageView.setImageBitmap(makeDuplicatePicture(data.getData()));
+		            }
 	            } catch (Exception e) {
-	                Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT)
-	                        .show();
+	                Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT).show();
 	                Log.e("Camera", e.toString());
 	            }
 				// hide the text of "add picture" 

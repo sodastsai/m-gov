@@ -5,6 +5,7 @@ import java.util.Locale;
 
 import tw.edu.ntu.mgov.R;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -13,6 +14,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -131,6 +134,15 @@ public class SelectLocationMap extends MapActivity {
 		});
 	}
 	
+	private boolean checkNetworkStatus(Context context) {
+		ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+		if (networkInfo == null || !networkInfo.isAvailable()) {
+			return false;
+		}
+		return true;
+	}	
+	
 	private void createOverlayWithListener() {
 		
 		final ManagedOverlay managedOverlay = overlayManager.createOverlay("listenerOverlay", getResources().getDrawable(android.R.drawable.btn_star_big_on));
@@ -176,20 +188,27 @@ public class SelectLocationMap extends MapActivity {
 			public boolean onSingleTap(MotionEvent arg0, ManagedOverlay arg1, GeoPoint arg2, ManagedOverlayItem arg3) {
 				// TODO Auto-generated method stub
 				
-				address = getAddress(arg2);
-				ManagedOverlayItem item = managedOverlay.createItem(arg2, "onLongPressFinished", address);
+				ManagedOverlayItem item = managedOverlay.createItem(arg2, "onLongPressFinished", "");
 				
-				if (addressToast != null ) {
-					addressToast.cancel();
+				if (checkNetworkStatus(SelectLocationMap.this)) {
+				
+					address = getAddress(arg2);
+				
+					if (addressToast != null ) {
+						addressToast.cancel();
+					}
+				
+					addressToast = Toast.makeText(SelectLocationMap.this, address, Toast.LENGTH_SHORT);
+					addressToast.show();
+				} else {
+					address = null;
 				}
-				
-				addressToast = Toast.makeText(SelectLocationMap.this, address, Toast.LENGTH_LONG);
-				addressToast.show();
 				
 				managedOverlay.add(item);
 				mapView.getController().animateTo(arg2);
 				overlayManager.populate();
 				selectedGeoPoint = arg2;
+				
 				return false;
 			}
 
@@ -222,25 +241,6 @@ public class SelectLocationMap extends MapActivity {
 		return a.getAddressLine(0);
 	}
 	
-	private static class TextDrawable extends ShapeDrawable {
-		
-		private String str;
-		
-		public TextDrawable (String displayStr) {
-			str = displayStr;
-		}
-
-		@Override
-		public void draw(Canvas canvas) {
-			
-			Paint p = new Paint();
-			p.setColor(Color.BLUE);
-			
-			canvas.drawText(str, 5.0f, 5.0f, p);
-			
-			super.draw(canvas);
-		}
-	}
 	
 	/* (non-Javadoc)
 	 * @see com.google.android.maps.MapActivity#isRouteDisplayed()
