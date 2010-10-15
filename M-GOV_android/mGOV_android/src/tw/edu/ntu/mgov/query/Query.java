@@ -13,6 +13,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,12 +42,17 @@ public class Query extends CaseSelector {
 	private static final int REQUEST_CODE_typeSelector = 1630;
 	private static final int CURRENT_CONDITION_LABEL = 2048;
 	private static final int NEXT_BUTTON = 2049;
-	private static final int RELOAD_BUTTON = 2050;
 	
 	// UI
 	private TextView currentConditionLabel;
 	private TextView currentRangeLabel;
 	private ProgressDialog loadingView;
+	
+	// Datasource
+	//protected ArrayList<ManagedOverlayItem> overlayList;
+	protected int sourceLength;
+	private int typeId = 0;
+	
 	// Lifecycle
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -96,39 +102,22 @@ public class Query extends CaseSelector {
 		infoBar.addView(nextButton);
 		param3=null;
 		
-		ImageButton reloadButton = new ImageButton(this);
-		reloadButton.setImageResource(R.drawable.reload);
-		reloadButton.setBackgroundResource(R.color.transparentColor);
-		reloadButton.setId(RELOAD_BUTTON);
-		reloadButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) { Log.d("mapMode", "reload"); }
-        });
-		LayoutParams param4 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		param4.addRule(RelativeLayout.LEFT_OF, NEXT_BUTTON);
-		param4.addRule(RelativeLayout.CENTER_VERTICAL);
-		param4.setMargins(0, 0, 2, 0);
-		reloadButton.setLayoutParams(param4);
-		reloadButton.setPadding(0, reloadButton.getPaddingTop(), 2, reloadButton.getPaddingBottom());
-		infoBar.addView(reloadButton);
-		param4=null;
-		
 		ImageButton prevButton = new ImageButton(this);
 		prevButton.setImageResource(R.drawable.prev);
 		prevButton.setBackgroundResource(R.color.transparentColor);
 		prevButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) { Log.d("mapMode", "prev"); }
         });
-		LayoutParams param5 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		param5.addRule(RelativeLayout.LEFT_OF, RELOAD_BUTTON);
-		param5.addRule(RelativeLayout.CENTER_VERTICAL);
-		param5.setMargins(0, 0, 2, 0);
-		prevButton.setLayoutParams(param5);
+		LayoutParams param4 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		param4.addRule(RelativeLayout.LEFT_OF, NEXT_BUTTON);
+		param4.addRule(RelativeLayout.CENTER_VERTICAL);
+		param4.setMargins(0, 0, 2, 0);
+		prevButton.setLayoutParams(param4);
 		prevButton.setPadding(0, prevButton.getPaddingTop(), 2, prevButton.getPaddingBottom());
 		infoBar.addView(prevButton);
-		param5=null;
+		param4=null;
 		
 		nextButton=null;
-		reloadButton=null;
 		prevButton=null;
 		
 		this.startQueryWithMap();
@@ -138,9 +127,9 @@ public class Query extends CaseSelector {
 		if (requestCode == REQUEST_CODE_typeSelector) {
 			// Get the result from Type Selector
 			if (resultCode == RESULT_OK) {
-				int typeId = data.getExtras().getInt("qid");
+				typeId = data.getExtras().getInt("qid");
 				String typeName = QidToDescription.getDetailByQID(this,typeId);
-				this.startQueryWithMap(typeId);
+				this.startQueryWithMap();
 				currentConditionLabel.setText(typeName);
 			} else if (resultCode == RESULT_CANCELED) {
 			}
@@ -150,45 +139,44 @@ public class Query extends CaseSelector {
 	/**
 	 * @category DataSource Method
 	 */
-	protected void startQueryWithMap() { this.startQueryWithMap(0); }
-	protected void startQueryWithMap(int typeId) {
-		final int tempTypeId = typeId;
+	protected void startQueryWithMap() {
 		loadingView = ProgressDialog.show(this, "", getResources().getString(R.string.loading_message), false);
 		// A sputid way to solve the delay of map span
 		TimerTask sendQuery = new TimerTask() {
-			private int typeId = tempTypeId;
 			@Override
 			public void run () {
-				int rangeStart = 0;
-				int rangeEnd = 9;
+				final int rangeStart = 0;
+				final int rangeEnd = 9;
 				// Set Query Condition and Start Query
 				qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, currentLocationPoint, mapMode.getLatitudeSpan(), mapMode.getLongitudeSpan());
 				if (typeId!=0)
 					qGAE.addQuery(GAEQueryCondtionType.GAEQueryByType, Integer.toString(typeId));
 				caseSource = qGAE.doQuery(GAEQueryDatabase.GAEQueryDatabaseCzone, rangeStart, rangeEnd);
-				int sourceLength = qGAE.getSourceTotalLength();
+				sourceLength = qGAE.getSourceTotalLength();
 				qGAE.resetCondition();
-				loadingView.cancel();
-				if (caseSource==null) {
-					currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
-				} else {
-					// Set Overlay
-					ArrayList<ManagedOverlayItem> overlayList = new ArrayList<ManagedOverlayItem>();
-					for (int i=0; i<caseSource.length; i++) {
-						String typeName = QidToDescription.getDetailByQID(selfContext, Integer.parseInt(caseSource[i].getform("typeid")));
-						String info = caseSource[i].getform("key")+","+Integer.toString(convertStatusStringToStatusCode(caseSource[i].getform("status")));
-						ManagedOverlayItem item = new ManagedOverlayItem(caseSource[i].getGeoPoint(), typeName, info);
-						overlayList.add(item);
-					}
-					try {
-						managedOverlay.addAll(overlayList);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-					// Set Label
-					if (sourceLength==0) currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
-					else currentRangeLabel.setText(Integer.toString(rangeStart+1)+"-"+Integer.toString(rangeEnd+1)+" 筆，共 "+Integer.toString(sourceLength)+" 筆");
-				}
+				
+				//runOnUiThread(new Runnable(){  
+		           // @Override  
+		            //public void run() {
+		            	loadingView.cancel();
+		            	if (caseSource==null) {
+							currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
+						} else {
+							// Set Overlay
+							ArrayList<ManagedOverlayItem> overlayList = new ArrayList<ManagedOverlayItem>();
+							for (int i=0; i<caseSource.length; i++) {
+								String typeName = QidToDescription.getDetailByQID(selfContext, Integer.parseInt(caseSource[i].getform("typeid")));
+								String info = caseSource[i].getform("key")+","+Integer.toString(convertStatusStringToStatusCode(caseSource[i].getform("status")));
+								ManagedOverlayItem item = new ManagedOverlayItem(caseSource[i].getGeoPoint(), typeName, info);
+								overlayList.add(item);
+							}
+							managedOverlay.addAll(overlayList);
+							// Set Label
+							if (sourceLength==0) currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
+							else currentRangeLabel.setText(Integer.toString(rangeStart+1)+"-"+Integer.toString(rangeEnd+1)+" 筆，共 "+Integer.toString(sourceLength)+" 筆");  
+					    }		            	  
+		            //}
+		        //});
 			}
 		};
 		Timer timer = new Timer();
@@ -221,5 +209,9 @@ public class Query extends CaseSelector {
 			currentConditionLabel.setText(getResources().getString(R.string.query_currentConditionLabel_alltype));
 			
 		}
+	}
+	@Override
+	protected void mapChangeRegionOrZoom() {
+		startQueryWithMap();
 	}
 }

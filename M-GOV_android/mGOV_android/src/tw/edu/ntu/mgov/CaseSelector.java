@@ -120,7 +120,6 @@ public abstract class CaseSelector extends MapActivity {
 		mapMode.preLoad();
 		mapMode.setBuiltInZoomControls(false); // Use custom Map Control instead
 		mapMode.getController().setZoom(17);
-		overlayManager = new OverlayManager(getApplication(), mapMode);
 		// Call Zoom Controll for Map Mode, since we want to show it automaticlly
 		mapModeZoomControl = (ZoomControls)findViewById(R.id.mapModeZoomControl);
 		mapModeZoomControl.setOnZoomInClickListener(new View.OnClickListener() {
@@ -159,16 +158,17 @@ public abstract class CaseSelector extends MapActivity {
 			findViewById(R.id.listModeFrame).setVisibility(View.VISIBLE);
 		} else {
 			currentMode = CaseSelectorMode.CaseSelectorMapMode;
-			findViewById(R.id.mapModeFrame).setVisibility(View.VISIBLE);
 			findViewById(R.id.listModeFrame).setVisibility(View.GONE);
+			findViewById(R.id.mapModeFrame).setVisibility(View.VISIBLE);
 		}
 		locationManager.removeUpdates(locationListener);
 		locationListener = null;
 	}
 	@Override
 	public void onWindowFocusChanged(boolean isFocus) {
-		if (currentMode==CaseSelectorMode.CaseSelectorMapMode)
+		if (currentMode==CaseSelectorMode.CaseSelectorMapMode) {
 			createOverlayWithListener();
+		}
 	}
 	
 	protected void changCaseSelectorMode(CaseSelectorMode targetMode) {
@@ -326,6 +326,7 @@ public abstract class CaseSelector extends MapActivity {
 	 * @category MapActivity and Overlay
 	 * 
 	 */
+	protected abstract void mapChangeRegionOrZoom();
 	@Override
 	protected boolean isRouteDisplayed() {
 		// We do not use route service, so return false.
@@ -334,8 +335,8 @@ public abstract class CaseSelector extends MapActivity {
 	
 	public void createOverlayWithListener() {
 		//This time we use our own marker
+		overlayManager = new OverlayManager(getApplication(), mapMode);
 		managedOverlay = overlayManager.createOverlay("listenerOverlay");
-		//managedOverlay.createItem(currentLocationPoint, getResources().getString(R.string.mapOverlay_currentLocation));
 		managedOverlay.setOnOverlayGestureListener(new ManagedOverlayGestureDetector.OnOverlayGestureListener() {
 			@Override
 			public boolean onDoubleTap(MotionEvent me, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
@@ -349,7 +350,10 @@ public abstract class CaseSelector extends MapActivity {
 				return true;
 			}
 			@Override
-			public boolean onZoom(ZoomEvent zoom, ManagedOverlay overlay) { return false; }
+			public boolean onZoom(ZoomEvent zoom, ManagedOverlay overlay) {
+				mapChangeRegionOrZoom();
+				return false;
+			}
 			@Override
 			public void onLongPress(MotionEvent e, ManagedOverlay overlay) {}
 			@Override
@@ -366,7 +370,10 @@ public abstract class CaseSelector extends MapActivity {
 				}
 			}
 			@Override
-			public boolean onScrolled(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY, ManagedOverlay overlay) { return false; }
+			public boolean onScrolled(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY, ManagedOverlay overlay) {
+				mapChangeRegionOrZoom();
+				return false;
+			}
 			@Override
 			public boolean onSingleTap(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
 				if (item!=null) {

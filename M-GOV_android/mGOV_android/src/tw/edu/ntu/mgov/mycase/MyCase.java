@@ -41,6 +41,9 @@ public class MyCase extends CaseSelector {
 			startActivity(caseAdderIntent);
 		}
 	}
+	@Override
+	protected void mapChangeRegionOrZoom() {
+	}
 
 }
 
