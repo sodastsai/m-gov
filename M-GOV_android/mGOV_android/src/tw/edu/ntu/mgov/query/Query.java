@@ -4,8 +4,6 @@
 package tw.edu.ntu.mgov.query;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import de.android1.overlaymanager.ManagedOverlayItem;
 
@@ -52,6 +50,8 @@ public class Query extends CaseSelector {
 	//protected ArrayList<ManagedOverlayItem> overlayList;
 	protected int sourceLength;
 	private int typeId = 0;
+	int rangeStart = 0;
+	int rangeEnd = 9;
 	
 	// Lifecycle
 	@Override
@@ -91,7 +91,17 @@ public class Query extends CaseSelector {
 		nextButton.setImageResource(R.drawable.next);
 		nextButton.setBackgroundResource(R.color.transparentColor);
 		nextButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) { Log.d("mapMode", "next"); }
+            public void onClick(View v) { 
+            	if (rangeEnd+10 < sourceLength) {
+            		rangeStart = rangeEnd+1;
+            		rangeEnd+=10;
+            		startQueryWithMap();
+            	} else if (rangeEnd < sourceLength) {
+            		rangeStart = rangeEnd+1;
+            		rangeEnd = sourceLength-1;
+            		startQueryWithMap();
+            	}
+            }
         });
 		nextButton.setId(NEXT_BUTTON);
 		LayoutParams param3 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -106,7 +116,13 @@ public class Query extends CaseSelector {
 		prevButton.setImageResource(R.drawable.prev);
 		prevButton.setBackgroundResource(R.color.transparentColor);
 		prevButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) { Log.d("mapMode", "prev"); }
+            public void onClick(View v) { 
+            	if (rangeStart!= 0) {
+            		rangeStart -= 10;
+            		rangeEnd = rangeStart+9;
+            		startQueryWithMap();
+            	}
+            }
         });
 		LayoutParams param4 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		param4.addRule(RelativeLayout.LEFT_OF, NEXT_BUTTON);
@@ -146,8 +162,6 @@ public class Query extends CaseSelector {
 		handler.postDelayed(new Runnable() {
 			@Override
 			public void run() {
-				final int rangeStart = 0;
-				final int rangeEnd = 9;
 				// Set Query Condition and Start Query
 				qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, mapMode.getMapCenter(), mapMode.getLatitudeSpan(), mapMode.getLongitudeSpan());
 				if (typeId!=0)
@@ -168,18 +182,18 @@ public class Query extends CaseSelector {
 						overlayList.add(item);
 					}
 					// Set Label
+					int rangeEndToShow;
+					if (sourceLength < rangeEnd+1) rangeEndToShow = sourceLength;
+					else rangeEndToShow = rangeEnd+1;
 					if (sourceLength==0) currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
-					else currentRangeLabel.setText(Integer.toString(rangeStart+1)+"-"+Integer.toString(rangeEnd+1)+" 筆，共 "+Integer.toString(sourceLength)+" 筆");
+					else currentRangeLabel.setText(Integer.toString(rangeStart+1)+"-"+Integer.toString(rangeEndToShow)+" 筆，共 "+Integer.toString(sourceLength)+" 筆");
 					try {
 						managedOverlay.addAll(overlayList);
-						Log.d("mapMode", "...");
-					} catch (Exception e) {
-						Log.d("mapMode", "QQ");
-					}
+					} catch (Exception e) { }
 			    }
 				((caseListAdapter) listMode.getAdapter()).notifyDataSetChanged();
 			}
-		}, 600);
+		}, 800);
 	}
 	/**
 	 * @category Menu
@@ -204,6 +218,7 @@ public class Query extends CaseSelector {
 			intent.setClass(Query.this, TypeSelector.class);
 			startActivityForResult(intent, REQUEST_CODE_typeSelector);
 		} else if (item.getItemId()==MENU_AllTypeCondition) {
+			typeId = 0;
 			this.startQueryWithMap();
 			currentConditionLabel.setText(getResources().getString(R.string.query_currentConditionLabel_alltype));
 			

@@ -21,6 +21,7 @@ import tw.edu.ntu.mgov.gae.GAECase;
 import tw.edu.ntu.mgov.gae.GAEQuery;
 import tw.edu.ntu.mgov.option.Option;
 import tw.edu.ntu.mgov.typeselector.QidToDescription;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -28,6 +29,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -355,7 +357,12 @@ public abstract class CaseSelector extends MapActivity {
 				return false;
 			}
 			@Override
-			public void onLongPress(MotionEvent e, ManagedOverlay overlay) {}
+			public void onLongPress(MotionEvent e, ManagedOverlay overlay) {
+				if (e.getAction()==MotionEvent.ACTION_UP) {
+					Vibrator myVibrator = (Vibrator) getApplication().getSystemService(Service.VIBRATOR_SERVICE);
+					myVibrator.vibrate(100);
+				}
+			}
 			@Override
 			public void onLongPressFinished(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
 				if (item!=null) {
