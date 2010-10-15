@@ -188,7 +188,7 @@ public abstract class CaseSelector extends MapActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, MENU_Option, 0, getResources().getString(R.string.menu_option)).setIcon(android.R.drawable.ic_menu_preferences);
-		menu.add(0, MENU_ListMode, 0, getResources().getString(R.string.menu_ListMode)).setIcon(android.R.drawable.ic_menu_info_details);
+		menu.add(0, MENU_ListMode, 0, getResources().getString(R.string.menu_ListMode)).setIcon(R.drawable.menu_list);
 		menu.add(0, MENU_MapMode, 0, getResources().getString(R.string.menu_mapMode)).setIcon(android.R.drawable.ic_menu_mapmode);
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -334,10 +334,8 @@ public abstract class CaseSelector extends MapActivity {
 	
 	public void createOverlayWithListener() {
 		//This time we use our own marker
-		if (overlayManager==null) {
-			Log.d("mapMode", "H");
+		if (overlayManager==null) 
 			overlayManager = new OverlayManager(getApplication(), mapMode);
-		}
 		managedOverlay = overlayManager.createOverlay("listenerOverlay");
 		managedOverlay.setOnOverlayGestureListener(new ManagedOverlayGestureDetector.OnOverlayGestureListener() {
 			@Override

@@ -12,7 +12,6 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -187,11 +186,13 @@ public class Query extends CaseSelector {
 					else rangeEndToShow = rangeEnd+1;
 					if (sourceLength==0) currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
 					else currentRangeLabel.setText(Integer.toString(rangeStart+1)+"-"+Integer.toString(rangeEndToShow)+" 筆，共 "+Integer.toString(sourceLength)+" 筆");
-					try {
-						managedOverlay.addAll(overlayList);
-					} catch (Exception e) { }
+					// Set Map Overlay
+					managedOverlay.addAll(overlayList);
+					// Refresh Map
+					mapMode.invalidate();
+					// Refresh List
+					((caseListAdapter) listMode.getAdapter()).notifyDataSetChanged();
 			    }
-				((caseListAdapter) listMode.getAdapter()).notifyDataSetChanged();
 			}
 		}, 800);
 	}
@@ -200,7 +201,7 @@ public class Query extends CaseSelector {
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, MENU_SetTypeCondition, 0, getResources().getString(R.string.menu_query_setTypeCondition)).setIcon(android.R.drawable.ic_menu_search);
+		menu.add(0, MENU_SetTypeCondition, 0, getResources().getString(R.string.menu_query_setTypeCondition)).setIcon(R.drawable.menu_type);
 		menu.add(0, MENU_AllTypeCondition, 0, getResources().getString(R.string.menu_query_setAllType)).setIcon(android.R.drawable.ic_menu_search);
 		return super.onCreateOptionsMenu(menu);
 	}
