@@ -39,12 +39,17 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 	@Persistent
 	public String address;
 
+//	@Persistent
+//	public boolean send;
+
 	@Persistent
 	private Blob photo[];
 
 	@Persistent
 	private Date date;
 
+
+	
 	public GAENodeCase(){
 		sno = String.valueOf(Math.random());
 		date = new Date();

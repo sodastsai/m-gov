@@ -6,6 +6,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import net.ReadUrlByPOST;
+
 
 @Path("case")
 public class CaseMain {
@@ -17,6 +19,15 @@ public class CaseMain {
 		return CaseList.go();
 	}	
 
+	@Path("send")
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public static String doSend() {
+		ReadUrlByPOST.main(null);
+		return "done";
+	}	
+
+	
 	@Path("delete")
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)

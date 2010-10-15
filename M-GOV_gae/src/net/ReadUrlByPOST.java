@@ -63,7 +63,7 @@ public class ReadUrlByPOST {
 		forms.put("h_item4" ,"");
 		
 		try {
-			String preRes = doSubmit(preview_caseURL, forms);
+			String preRes = doSubmit(add_caseURL, forms);
 			System.out.println(preRes);
 			System.out.println(getSno(preRes)+"  "+getUnit(preRes));
 		} catch (Exception e) {
@@ -85,7 +85,7 @@ public class ReadUrlByPOST {
 		conn.setDoOutput(true);
 		conn.setDoInput(true);
 		conn.setInstanceFollowRedirects(true);
-		conn.setFollowRedirects(true);
+//		conn.setFollowRedirects(true);
 		conn.setRequestProperty("User-Agent",
 				"Mozilla/5.0 (compatible; MSIE 6.0; Windows NT)");
 		conn.setRequestProperty("Content-Type",
@@ -226,7 +226,7 @@ public class ReadUrlByPOST {
 //			forms.put("sno",getSno(preRes));
 			forms.put("unit",getUnit(preRes));
 
-			doSubmit(preview_caseURL, forms);
+			doSubmit(add_caseURL, forms);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

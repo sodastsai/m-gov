@@ -87,12 +87,13 @@ public class UploadServlet extends HttpServlet {
 					}
 				}
 				node.setPhoto(photos);
+//				node.send = send;
 				if("nodata".equals(node.status))
 					node.genStatus();
-				GAEDataBase.store(node);
-				if(send)
+				if(send==true)
 					ReadUrlByPOST.doSend(node);
-				
+
+				GAEDataBase.store(node);
 				
 //				resp.sendRedirect("photo");
 				Blob b = photos.get(0);
