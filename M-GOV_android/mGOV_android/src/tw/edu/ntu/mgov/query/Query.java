@@ -155,7 +155,7 @@ public class Query extends CaseSelector {
 				caseSource = qGAE.doQuery(GAEQueryDatabase.GAEQueryDatabaseCzone, rangeStart, rangeEnd);
 				sourceLength = qGAE.getSourceTotalLength();
 				qGAE.resetCondition();
-				loadingView.cancel();
+				try { loadingView.cancel(); } catch (Exception e) {}
 				if (caseSource==null) {
 					currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
 				} else {
@@ -172,8 +172,9 @@ public class Query extends CaseSelector {
 					else currentRangeLabel.setText(Integer.toString(rangeStart+1)+"-"+Integer.toString(rangeEnd+1)+" 筆，共 "+Integer.toString(sourceLength)+" 筆");
 					try {
 						managedOverlay.addAll(overlayList);
+						Log.d("mapMode", "...");
 					} catch (Exception e) {
-						e.printStackTrace();
+						Log.d("mapMode", "QQ");
 					}
 			    }
 			}

@@ -163,12 +163,9 @@ public abstract class CaseSelector extends MapActivity {
 		}
 		locationManager.removeUpdates(locationListener);
 		locationListener = null;
-	}
-	@Override
-	public void onWindowFocusChanged(boolean isFocus) {
-		if (currentMode==CaseSelectorMode.CaseSelectorMapMode) {
+		
+		if (currentMode==CaseSelectorMode.CaseSelectorMapMode)
 			createOverlayWithListener();
-		}
 	}
 	
 	protected void changCaseSelectorMode(CaseSelectorMode targetMode) {
@@ -335,7 +332,10 @@ public abstract class CaseSelector extends MapActivity {
 	
 	public void createOverlayWithListener() {
 		//This time we use our own marker
-		overlayManager = new OverlayManager(getApplication(), mapMode);
+		if (overlayManager==null) {
+			Log.d("mapMode", "H");
+			overlayManager = new OverlayManager(getApplication(), mapMode);
+		}
 		managedOverlay = overlayManager.createOverlay("listenerOverlay");
 		managedOverlay.setOnOverlayGestureListener(new ManagedOverlayGestureDetector.OnOverlayGestureListener() {
 			@Override
