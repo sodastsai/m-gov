@@ -80,7 +80,7 @@ public abstract class CaseSelector extends MapActivity {
 	protected ListView listMode;
 	protected MapView mapMode;
 	protected ZoomControls mapModeZoomControl;
-	protected OverlayManager overlayManager;
+	public OverlayManager overlayManager;
 	protected GeoPoint currentLocationPoint;
 	protected ManagedOverlay managedOverlay;
 	// Query Google App Engine

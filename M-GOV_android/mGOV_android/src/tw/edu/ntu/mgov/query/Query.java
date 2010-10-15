@@ -142,45 +142,42 @@ public class Query extends CaseSelector {
 	protected void startQueryWithMap() {
 		loadingView = ProgressDialog.show(this, "", getResources().getString(R.string.loading_message), false);
 		// A sputid way to solve the delay of map span
-		TimerTask sendQuery = new TimerTask() {
+		Handler handler = new Handler();
+		handler.postDelayed(new Runnable() {
 			@Override
-			public void run () {
+			public void run() {
 				final int rangeStart = 0;
 				final int rangeEnd = 9;
 				// Set Query Condition and Start Query
-				qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, currentLocationPoint, mapMode.getLatitudeSpan(), mapMode.getLongitudeSpan());
+				qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, mapMode.getMapCenter(), mapMode.getLatitudeSpan(), mapMode.getLongitudeSpan());
 				if (typeId!=0)
 					qGAE.addQuery(GAEQueryCondtionType.GAEQueryByType, Integer.toString(typeId));
 				caseSource = qGAE.doQuery(GAEQueryDatabase.GAEQueryDatabaseCzone, rangeStart, rangeEnd);
 				sourceLength = qGAE.getSourceTotalLength();
 				qGAE.resetCondition();
-				
-				//runOnUiThread(new Runnable(){  
-		           // @Override  
-		            //public void run() {
-		            	loadingView.cancel();
-		            	if (caseSource==null) {
-							currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
-						} else {
-							// Set Overlay
-							ArrayList<ManagedOverlayItem> overlayList = new ArrayList<ManagedOverlayItem>();
-							for (int i=0; i<caseSource.length; i++) {
-								String typeName = QidToDescription.getDetailByQID(selfContext, Integer.parseInt(caseSource[i].getform("typeid")));
-								String info = caseSource[i].getform("key")+","+Integer.toString(convertStatusStringToStatusCode(caseSource[i].getform("status")));
-								ManagedOverlayItem item = new ManagedOverlayItem(caseSource[i].getGeoPoint(), typeName, info);
-								overlayList.add(item);
-							}
-							managedOverlay.addAll(overlayList);
-							// Set Label
-							if (sourceLength==0) currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
-							else currentRangeLabel.setText(Integer.toString(rangeStart+1)+"-"+Integer.toString(rangeEnd+1)+" 筆，共 "+Integer.toString(sourceLength)+" 筆");  
-					    }		            	  
-		            //}
-		        //});
+				loadingView.cancel();
+				if (caseSource==null) {
+					currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
+				} else {
+					// Set Overlay
+					ArrayList<ManagedOverlayItem> overlayList = new ArrayList<ManagedOverlayItem>();
+					for (int i=0; i<caseSource.length; i++) {
+						String typeName = QidToDescription.getDetailByQID(selfContext, Integer.parseInt(caseSource[i].getform("typeid")));
+						String info = caseSource[i].getform("key")+","+Integer.toString(convertStatusStringToStatusCode(caseSource[i].getform("status")));
+						ManagedOverlayItem item = new ManagedOverlayItem(caseSource[i].getGeoPoint(), typeName, info);
+						overlayList.add(item);
+					}
+					// Set Label
+					if (sourceLength==0) currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
+					else currentRangeLabel.setText(Integer.toString(rangeStart+1)+"-"+Integer.toString(rangeEnd+1)+" 筆，共 "+Integer.toString(sourceLength)+" 筆");
+					try {
+						managedOverlay.addAll(overlayList);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+			    }
 			}
-		};
-		Timer timer = new Timer();
-		timer.schedule(sendQuery, 600);
+		}, 600);
 	}
 	/**
 	 * @category Menu
