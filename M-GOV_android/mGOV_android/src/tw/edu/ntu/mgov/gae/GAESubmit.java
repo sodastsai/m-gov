@@ -1,7 +1,12 @@
 package tw.edu.ntu.mgov.gae;
 
+import java.io.File;
+import java.io.InputStream;
+
 import android.content.Context;
+import android.net.Uri;
 import tw.edu.ntu.mgov.net.ReadUrlByPOST;
+import tw.edu.ntu.mgov.net.SendImage;
 
 public class GAESubmit {
 
@@ -20,6 +25,26 @@ public class GAESubmit {
 	
 	public boolean doSubmit(){
 		try {
+
+			String path[] = czone.getImage();
+			byte[] image_bytes = null;
+			if(path!=null){
+				String uri=path[0];
+				
+				InputStream is = context.getContentResolver().openInputStream(Uri.parse(uri));
+				long size = context.getContentResolver().openFileDescriptor(Uri.parse(uri), "r").getStatSize();
+				image_bytes = new byte[(int) size];
+				is.read(image_bytes, 0, (int) size);
+			}
+
+			
+			SendImage u = new SendImage(defualtURL);
+			u.setTextMap(czone);
+			u.addByteParameter("photo",image_bytes);
+			
+			byte[] b = u.send();
+			String result = new String(b);
+			System.out.println(result);
 			
 			String res;
 			res = ReadUrlByPOST.doSubmit(defualtURL, czone,context);
