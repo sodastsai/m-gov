@@ -37,24 +37,9 @@ public class ReadUrlByPOST {
 
 	}
 
-	public static String doSubmit(String url, GAECase data,Context context)
+	public static String doSubmit(String url, GAECase data)
 			throws Exception {
 
-		String path[] = data.getImage();
-		byte[] bytes = null;
-		if(path!=null){
-			String uri=path[0];
-			
-			InputStream is = context.getContentResolver().openInputStream(Uri.parse(uri));
-			long size = context.getContentResolver().openFileDescriptor(Uri.parse(uri), "r").getStatSize();
-			bytes = new byte[(int) size];
-			is.read(bytes, 0, (int) size);
-			
-			Log.d("NSLog", bytes + "");
-		}
-		
-		
-		
 		URL siteUrl = new URL(url);
 		HttpURLConnection conn = (HttpURLConnection) siteUrl.openConnection();
 
@@ -98,7 +83,6 @@ public class ReadUrlByPOST {
 		out.close();
 		String line = "", res = "";
 		try {
-
 /*
 			for (int i = 0; i< 15; i++)
 				System.out.println(conn.getHeaderField(i));

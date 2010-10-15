@@ -45,10 +45,6 @@ public class GAESubmit {
 			byte[] b = u.send();
 			String result = new String(b);
 			System.out.println(result);
-			
-			String res;
-			res = ReadUrlByPOST.doSubmit(defualtURL, czone,context);
-			System.out.println(res);
 		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -61,8 +57,7 @@ public class GAESubmit {
 
 	public boolean doSubmit2(){
 		try {
-
-			String res = ReadUrlByPOST.doSubmit(defualtURL, czone, context);
+			String res = ReadUrlByPOST.doSubmit(defualtURL, czone);
 			System.out.println(res);
 		
 		} catch (Exception e) {
