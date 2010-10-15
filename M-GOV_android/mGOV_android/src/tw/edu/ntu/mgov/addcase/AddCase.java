@@ -29,6 +29,7 @@ import com.google.android.maps.OverlayItem;
 
 import tw.edu.ntu.mgov.R;
 import tw.edu.ntu.mgov.gae.GAECase;
+import tw.edu.ntu.mgov.gae.GAESubmit;
 import tw.edu.ntu.mgov.option.Option;
 import tw.edu.ntu.mgov.typeselector.TypeSelector;
 import android.app.Activity;
@@ -588,6 +589,8 @@ public class AddCase extends MapActivity {
 		newcase.addform("coordx", "" + ( ((double)locationGeoPoint.getLongitudeE6()) /1e6));
 		newcase.addform("coordy", "" + ( ((double)locationGeoPoint.getLatitudeE6()) /1e6));
 		newcase.addform("h_summary", descriptionEditText.getText().toString() );
+		
+		new GAESubmit(newcase, this).doSubmit();
 	}
 	
 	private boolean checkEmail() {

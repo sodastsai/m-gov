@@ -9,8 +9,9 @@ public class GAESubmit {
 	private String defualtURL = "http://ntu-ecoliving.appspot.com/case?method=upload";
 	private Context context;
 	
-	public GAESubmit(GAECase czone){
+	public GAESubmit(GAECase czone, Context context){
 		this.czone = czone;
+		this.context = context;
 	}
 
 	public void setContext(Context context){

@@ -13,6 +13,7 @@ import java.util.Iterator;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 
 import tw.edu.ntu.mgov.gae.GAECase;
 
@@ -46,8 +47,10 @@ public class ReadUrlByPOST {
 			
 			InputStream is = context.getContentResolver().openInputStream(Uri.parse(uri));
 			long size = context.getContentResolver().openFileDescriptor(Uri.parse(uri), "r").getStatSize();
+			bytes = new byte[(int) size];
 			is.read(bytes, 0, (int) size);
 			
+			Log.d("NSLog", bytes + "");
 		}
 		
 		

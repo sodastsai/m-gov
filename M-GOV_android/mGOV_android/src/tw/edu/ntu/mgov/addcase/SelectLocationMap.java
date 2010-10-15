@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -38,6 +39,7 @@ import de.android1.overlaymanager.ZoomEvent;
 public class SelectLocationMap extends MapActivity {
 
 	private MapView mapView;
+	private Toast addressToast;
 	
 	private OverlayManager overlayManager;
 	private Geocoder geocoder;
@@ -133,13 +135,17 @@ public class SelectLocationMap extends MapActivity {
 		
 		final ManagedOverlay managedOverlay = overlayManager.createOverlay("listenerOverlay", getResources().getDrawable(android.R.drawable.btn_star_big_on));
 		
+		final Drawable marker = this.getResources().getDrawable(R.drawable.mapoverlay_greenpin);
+		
 		managedOverlay.setCustomMarkerRenderer(new MarkerRenderer() {
 			@Override
 			public Drawable render(ManagedOverlayItem item, Drawable defaultMarker, int bitState) {
 				
-				Drawable d = new TextDrawable("<-" + item.getSnippet());
+				int currentLocationMarkerHalfWidth =  marker.getIntrinsicWidth()/2;
+				int currentLocationMarkerHalfHeight =  marker.getIntrinsicHeight()/2;
+				marker.setBounds(-currentLocationMarkerHalfWidth, -currentLocationMarkerHalfHeight, currentLocationMarkerHalfWidth, currentLocationMarkerHalfHeight);
 				
-				return d;
+				return marker;
 			}
 		});
 		
@@ -172,6 +178,13 @@ public class SelectLocationMap extends MapActivity {
 				
 				address = getAddress(arg2);
 				ManagedOverlayItem item = managedOverlay.createItem(arg2, "onLongPressFinished", address);
+				
+				if (addressToast != null ) {
+					addressToast.cancel();
+				}
+				
+				addressToast = Toast.makeText(SelectLocationMap.this, address, Toast.LENGTH_LONG);
+				addressToast.show();
 				
 				managedOverlay.add(item);
 				mapView.getController().animateTo(arg2);
