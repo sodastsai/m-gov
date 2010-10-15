@@ -24,19 +24,16 @@ public class SendImage {
 	String boundary = "--------httppost123";
 	Map<String, String> textParams = new HashMap<String, String>();
 	Map<String, File> fileparams = new HashMap<String, File>();
+	Map<String, byte[]> byteparams = new HashMap<String, byte[]>();
+
+	static String photo_name = "pic";
 	DataOutputStream ds;
 
 	public static void main(String[] args) throws Exception {
-		SendImage u = new SendImage("http://ntu-ecoliving.appspot.com/case/add?method=upload");
-		u.addFileParameter("photo", new File("/Users/wildmind5/Desktop/111198358590.jpg"));
+		SendImage u = new SendImage("http://ggm-test.appspot.com/photo?method=upload");
+		u.addByteParameter("photo", getBytes(new File("/Users/wildmind5/Desktop/111198358590.jpg")) );
 		u.addTextParameter("description", "測試");
 
-		u.addTextParameter("h_admit_name","大安區");
-		u.addTextParameter("h_admiv_name","大安區");
-		u.addTextParameter("h_summary", "lost of problem");
-		u.addTextParameter("name", "ggm_send_image_test");
-		u.addTextParameter("email","ggm@ggm.com");
-		
 		byte[] b = u.send();
 		String result = new String(b);
 		System.out.println(result);
@@ -59,6 +56,10 @@ public class SendImage {
 		fileparams.put(name, value);
 	}
 
+	public void addByteParameter(String name, byte[] value) {
+		byteparams.put(name, value);
+	}
+
 	public void clearAllParameters() {
 		textParams.clear();
 		fileparams.clear();
@@ -75,6 +76,7 @@ public class SendImage {
 		ds = new DataOutputStream(conn.getOutputStream());
 		writeFileParams();
 		writeStringParams();
+		writeByteParams();
 		paramsEnd();
 		InputStream in = conn.getInputStream();
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -123,7 +125,23 @@ public class SendImage {
 			ds.writeBytes("\r\n");
 		}
 	}
-    //获取文件的上传类型，图片格式为image/png,image/jpg等。非图片为application/octet-stream
+    //二進制数据
+	private void writeByteParams() throws Exception {
+		Set<String> keySet = byteparams.keySet();
+		for (Iterator<String> it = keySet.iterator(); it.hasNext();) {
+			String name = it.next();
+			byte[] value = byteparams.get(name);
+			ds.writeBytes("--" + boundary + "\r\n");
+			ds.writeBytes("Content-Disposition: form-data; name=\"" + name
+					+ "\"; filename=\"" + encode(String.valueOf(value.hashCode())) + "\"\r\n");
+			ds.writeBytes("Content-Type: " + "image/png,image/jpg" + "\r\n");
+			ds.writeBytes("\r\n");
+			ds.write(value);
+			ds.writeBytes("\r\n");
+		}
+	}
+	
+	//获取文件的上传类型，图片格式为image/png,image/jpg等。非图片为application/octet-stream
 	private String getContentType(File f) throws Exception {
 		
 //		return "application/octet-stream";  // 此行不再细分是否为图片，全部作为application/octet-stream 类型
@@ -141,7 +159,7 @@ public class SendImage {
 
 	}
     //把文件转换成字节数组
-	private byte[] getBytes(File f) throws Exception {
+	private static byte[] getBytes(File f) throws Exception {
 		FileInputStream in = new FileInputStream(f);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 		byte[] b = new byte[1024];
