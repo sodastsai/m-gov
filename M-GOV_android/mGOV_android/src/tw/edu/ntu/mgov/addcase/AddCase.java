@@ -3,22 +3,29 @@
  */
 package tw.edu.ntu.mgov.addcase;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URI;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URISyntaxException;
-import java.util.prefs.Preferences;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.Locale;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 
 import tw.edu.ntu.mgov.R;
+import tw.edu.ntu.mgov.gae.GAECase;
 import tw.edu.ntu.mgov.option.Option;
 import tw.edu.ntu.mgov.typeselector.TypeSelector;
 import android.app.Activity;
@@ -29,13 +36,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.SumPathEffect;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
-import android.preference.Preference;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -43,6 +52,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * 
@@ -64,6 +74,7 @@ public class AddCase extends MapActivity {
 	// vars for Case Attributes
 	private int typeId = -1;
 	private GeoPoint locationGeoPoint;
+	private String address;
 	private Uri pictureUri;
 	
 	// Views 
@@ -82,6 +93,7 @@ public class AddCase extends MapActivity {
 	private static final String SP_PICTURE_URI = "sp_picture_uri";
 	private static final String SP_LOCATION_LONE6 = "sp_picture_lon_e6";
 	private static final String SP_LOCATION_LATE6 = "sp_picture_lat_e6";
+	private static final String SP_LOCATION_ADDRESS = "sp_location_address";
 	private static final String SP_TYPE_ID = "sp_type_id";
 	private static final String SP_TYPE_DETAIL = "sp_type_detail";
 	private static final String SP_NAME = "sp_name";
@@ -120,6 +132,16 @@ public class AddCase extends MapActivity {
 		showContentByPreferences();
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		// for submit 
+		if (submitFlag) {
+			doSubmit();
+		}
+	}
+	
 	/**
 	 * save the contents which user have edited. 
 	 */
@@ -132,6 +154,7 @@ public class AddCase extends MapActivity {
 		}
 		editor.putInt(SP_LOCATION_LONE6, locationGeoPoint.getLongitudeE6());
 		editor.putInt(SP_LOCATION_LATE6, locationGeoPoint.getLatitudeE6());
+		editor.putString(SP_LOCATION_ADDRESS, address);
 		editor.putInt(SP_TYPE_ID, typeId);
 		editor.putString(SP_TYPE_DETAIL, typeButton.getText().toString());
 		editor.putString(SP_NAME, nameEditText.getText().toString());
@@ -176,7 +199,7 @@ public class AddCase extends MapActivity {
 			}
 		}
 		
-		// MapView
+		// MapView & address 
 		if (preferences.contains(SP_LOCATION_LONE6) && preferences.contains(SP_LOCATION_LATE6)) {
 			int latitudeE6  = preferences.getInt(SP_LOCATION_LATE6, -1);
 			int longitudeE6 = preferences.getInt(SP_LOCATION_LONE6, -1);
@@ -185,8 +208,13 @@ public class AddCase extends MapActivity {
 			} else {
 				locationGeoPoint = getDefaultGeoPoint();
 			}
+			
+			address = preferences.getString(SP_LOCATION_ADDRESS, "");
 		} else {
 			locationGeoPoint = getDefaultGeoPoint();
+		}
+		if (address == null || address.equals("")) {
+			address = getAddress(locationGeoPoint);
 		}
 		mapView.getController().setZoom(preferences.getInt(SP_MAPZOOM, 16));
 		mapView.getController().animateTo(locationGeoPoint);
@@ -272,6 +300,14 @@ public class AddCase extends MapActivity {
 			@Override
 			public void onClick(View v) {
 				requestResetContent();
+			}
+		});
+		
+		// set Submit Button
+		submitButton.setOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				doSubmit();
 			}
 		});
 	}
@@ -424,6 +460,202 @@ public class AddCase extends MapActivity {
 		return bmp;
 	}
 	
+	
+	private String getAddress (GeoPoint geoPoint) {
+		
+		double latitude = ((double)geoPoint.getLatitudeE6() /1e6) ;
+		double longitude = ((double)geoPoint.getLongitudeE6() /1e6) ;
+		
+		Address a = null;
+		
+		try {
+			a = new Geocoder(this, Locale.getDefault()).getFromLocation(latitude, longitude, 1).get(0);
+		} catch (IOException e) {
+			Log.e(LOGTAG, "fail to get form location ", e);
+			return "";
+		}
+		
+		return a.getAddressLine(0);
+	}
+	
+	private class AddressSet {
+		String fullAddress;
+		String hAdmitName;
+		String hAdmivName;
+	}
+	
+	
+	private AddressSet getAddressSet(GeoPoint geoPoint) {
+	
+		double latDouble = ((double)geoPoint.getLatitudeE6() / 1e6);
+		double lonDouble = ((double)geoPoint.getLongitudeE6() / 1e6);
+		
+		String requestURL = "http://maps.google.com/maps/api/geocode/json?latlng=" + latDouble + "," + lonDouble + "&sensor=true&language=zh-TW";
+		String returnValue = "";
+		JSONObject jObject = null;
+		
+		try {
+			URLConnection urlc = (new URL(requestURL)).openConnection();
+			BufferedReader br = new BufferedReader(new InputStreamReader(urlc.getInputStream(), "utf8"));
+			String tmp;
+			while((tmp = br.readLine()) != null ) {
+				returnValue = returnValue.concat(tmp);
+			}
+			jObject = new JSONObject(returnValue);
+
+			if (jObject == null || !jObject.has("status") || !jObject.getString("status").equals("OK")) {
+				return null;
+			}
+			
+			JSONArray results = jObject.getJSONArray("results");
+			JSONObject address = results.getJSONObject(0);
+			
+			AddressSet aSet = new AddressSet();
+			aSet.fullAddress = address.getString("formatted_address");
+			
+			JSONArray address_components = address.getJSONArray("address_components");
+			for (int i = 0 ; i < address_components.length(); i++) {
+				JSONObject tmpObject = address_components.getJSONObject(i);
+				JSONArray types = tmpObject.getJSONArray("types");
+				
+				if (types.length() == 2) {
+					if (types.getString(0).equals("sublocality") && types.getString(1).equals("political")) {
+						aSet.hAdmivName = tmpObject.getString("long_name");
+					} else if (types.getString(0).equals("locality") && types.getString(1).equals("political")) {
+						aSet.hAdmitName = tmpObject.getString("long_name");
+					}
+				}
+			}
+			
+			return aSet;
+			
+		} catch (Exception e) {
+			Log.d(LOGTAG, "Fail to get more infomation from GeoPoint : " + geoPoint.toString(), e);
+			return null;
+		}
+		
+	}
+	
+	private boolean submitFlag = false;
+	
+	private void doSubmit() {
+		
+		submitFlag = true;
+		
+		if (!checkType()) {
+			return;
+		}
+		
+		if (!checkEmail()) {
+			return;
+		}	
+		
+		// get Address 
+		AddressSet addressSet;
+		
+		addressSet = getAddressSet(locationGeoPoint);
+
+		// create GAECase and add the attributes to submit 
+		String show = ""; 
+		
+		GAECase newcase = new GAECase();
+		
+		newcase.addform("address", addressSet.fullAddress);
+		newcase.addform("h_admiv_name", addressSet.hAdmivName);
+		newcase.addform("h_admit_name", addressSet.hAdmitName);
+		
+		show = show.concat("address= " + addressSet.fullAddress);
+		show = show.concat("\nh_admit_name= "+addressSet.hAdmitName);
+		show = show.concat("\nh_admiv_name= "+addressSet.hAdmivName);
+		
+		new AlertDialog.Builder(this).setTitle("Test Submit").setMessage(show).create().show();
+		
+		if (pictureUri != null) {
+			newcase.addImage(pictureUri.toString());
+		}
+		newcase.addform("email", userPreferences.getString(Option.KEY_USER_EMAIL, "a@a.a"));
+		newcase.addform("name", nameEditText.getText().toString());
+		newcase.addform("typeid", ""+typeId);
+		newcase.addform("coordx", "" + ( ((double)locationGeoPoint.getLongitudeE6()) /1e6));
+		newcase.addform("coordy", "" + ( ((double)locationGeoPoint.getLatitudeE6()) /1e6));
+		newcase.addform("h_summary", descriptionEditText.getText().toString() );
+	}
+	
+	private boolean checkEmail() {
+		
+		String email = userPreferences.getString(Option.KEY_USER_EMAIL, "");
+		
+		if (!checkEmailFormat(email)) {
+			
+			final EditText et = new EditText(this);
+			et.setHint("請在此輸入您的 E-mail");
+			et.setInputType(android.view.inputmethod.EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+			et.setText(email);
+			
+			final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("請設定您的 E-mail")
+				.setMessage(getResources().getString(R.string.app_name) + "會使用您的 E-mail 來辨認您的案件。")
+				.setView(et)
+				.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						String editEmail = et.getText().toString();
+						if (checkEmailFormat(editEmail)) {
+							userPreferences.edit().putString(Option.KEY_USER_EMAIL, editEmail).commit();
+						} else {
+							Toast.makeText(AddCase.this, "E-mail 格式錯誤\n請輸入正確的 E-mail 呦～", Toast.LENGTH_LONG).show();
+							doSubmit();
+						}
+					}
+				})
+				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						submitFlag = false;
+						Toast.makeText(AddCase.this, "案件沒有送出 :(", Toast.LENGTH_SHORT);
+					}
+				})
+				.create()
+				.show();
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	private boolean checkEmailFormat(String emailAddress) {
+		
+		if (emailAddress == null) {
+			return false;
+			
+		}
+		
+		return emailAddress.matches("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9.-]+");
+	}
+	
+	private boolean checkType() {
+		
+		if (typeId < 0) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("尚未選擇案件種類")
+				.setMessage("案件種類為必填項目，麻煩請選擇案件種類呦～")
+				.setPositiveButton("好", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(AddCase.this, TypeSelector.class);
+						startActivityForResult(intent, REQUEST_CODE_SELECT_TYPE);
+					}
+				})
+				.create()
+				.show();
+			
+			return false;
+			
+		} else {
+			return true;
+		}
+	}
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		
@@ -438,6 +670,8 @@ public class AddCase extends MapActivity {
 				editor.putInt(SP_TYPE_ID, bundle.getInt("qid"));
 				editor.putString(SP_TYPE_DETAIL, bundle.getString("detail"));
 				editor.commit();
+			} else if (resultCode == Activity.RESULT_CANCELED) {
+				submitFlag = false;
 			}
 			break;
 			
@@ -501,6 +735,7 @@ public class AddCase extends MapActivity {
 					SharedPreferences.Editor editor = preferences.edit();
 					editor.putInt(SP_LOCATION_LATE6, latitudeE6);
 					editor.putInt(SP_LOCATION_LONE6, longitudeE6);
+					editor.putString(SP_LOCATION_ADDRESS, bundle.getString(SelectLocationMap.BUNDLE_ADDRESS));
 					editor.putInt(SP_MAPZOOM, mapView.getZoomLevel());
 					editor.commit();
 				}
@@ -511,6 +746,8 @@ public class AddCase extends MapActivity {
 			super.onActivityResult(requestCode, resultCode, data);
 		}
 	}
+
+
 
 	/* (non-Javadoc)
 	 * @see com.google.android.maps.MapActivity#isRouteDisplayed()

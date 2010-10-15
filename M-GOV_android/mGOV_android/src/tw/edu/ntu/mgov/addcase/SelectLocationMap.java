@@ -44,7 +44,9 @@ public class SelectLocationMap extends MapActivity {
 	
 	private GeoPoint previousGeoPoint;
 	private GeoPoint selectedGeoPoint;
-	private GeoPoint userLocationGeoPoint;	// used for user want to relocate his location 
+	private GeoPoint userLocationGeoPoint;	// used for user want to relocate his location
+	
+	private String address;
 	
 	// define the tag of bundle that exchanges information to other Activity 
 	public static final String BUNDLE_LONE6 = "bundle_lone6";
@@ -106,6 +108,7 @@ public class SelectLocationMap extends MapActivity {
 					Bundle bundle = new Bundle();
 					bundle.putInt(BUNDLE_LATE6, selectedGeoPoint.getLatitudeE6());
 					bundle.putInt(BUNDLE_LONE6, selectedGeoPoint.getLongitudeE6());
+					bundle.putString(BUNDLE_ADDRESS, address);
 					
 					Intent intent = new Intent();
 					intent.putExtras(bundle);
@@ -142,58 +145,32 @@ public class SelectLocationMap extends MapActivity {
 		managedOverlay.setOnOverlayGestureListener(new ManagedOverlayGestureDetector.OnOverlayGestureListener() {
 
 			@Override
-			public boolean onDoubleTap(MotionEvent arg0, ManagedOverlay arg1, 
-					GeoPoint arg2, ManagedOverlayItem arg3) {
+			public boolean onDoubleTap(MotionEvent arg0, ManagedOverlay arg1, GeoPoint arg2, ManagedOverlayItem arg3) {
 				
-				Log.d(LOGTAG, "MapEvent -- onDoubleTag");				
-				Log.d(LOGTAG, "\targ0 = " + arg0);
-				Log.d(LOGTAG, "\targ1 = " + arg1);
-				Log.d(LOGTAG, "\targ2 = " + arg2);
-				Log.d(LOGTAG, "\targ3 = " + arg3);
 				return false;
 			}
 
 			@Override
 			public void onLongPress(MotionEvent arg0, ManagedOverlay arg1) {
 				// TODO Auto-generated method stub
-				Log.d(LOGTAG, "MapEvent -- onLongPress");				
-				Log.d(LOGTAG, "\targ0 = " + arg0);
-				Log.d(LOGTAG, "\targ1 = " + arg1);
 			}
 
 			@Override
-			public void onLongPressFinished(MotionEvent arg0,
-					ManagedOverlay arg1, GeoPoint arg2, ManagedOverlayItem arg3) {
+			public void onLongPressFinished(MotionEvent arg0, ManagedOverlay arg1, GeoPoint arg2, ManagedOverlayItem arg3) {
 				// TODO Auto-generated method stub
-				Log.d(LOGTAG, "MapEvent -- onLongPressFinished");
-				Log.d(LOGTAG, "\targ0 = " + arg0);
-				Log.d(LOGTAG, "\targ1 = " + arg1);
-				Log.d(LOGTAG, "\targ2 = " + arg2);
-				Log.d(LOGTAG, "\targ3 = " + arg3);
 			}
 
 			@Override
-			public boolean onScrolled(MotionEvent arg0, MotionEvent arg1,
-					float arg2, float arg3, ManagedOverlay arg4) {
-				Log.d(LOGTAG, "MapEvent -- onScrolled");
-				Log.d(LOGTAG, "\targ0 = " + arg0);
-				Log.d(LOGTAG, "\targ1 = " + arg1);
-				Log.d(LOGTAG, "\targ2 = " + arg2);
-				Log.d(LOGTAG, "\targ3 = " + arg3);
+			public boolean onScrolled(MotionEvent arg0, MotionEvent arg1, float arg2, float arg3, ManagedOverlay arg4) {
 				return false;
 			}
 
 			@Override
-			public boolean onSingleTap(MotionEvent arg0, ManagedOverlay arg1,
-					GeoPoint arg2, ManagedOverlayItem arg3) {
+			public boolean onSingleTap(MotionEvent arg0, ManagedOverlay arg1, GeoPoint arg2, ManagedOverlayItem arg3) {
 				// TODO Auto-generated method stub
-				Log.d(LOGTAG, "MapEvent -- onSingleTap");
-				Log.d(LOGTAG, "\targ0 = " + arg0);
-				Log.d(LOGTAG, "\targ1 = " + arg1);
-				Log.d(LOGTAG, "\targ2 = " + arg2);
-				Log.d(LOGTAG, "\targ3 = " + arg3);
 				
-				ManagedOverlayItem item = managedOverlay.createItem(arg2, "onLongPressFinished", getAddress(arg2));
+				address = getAddress(arg2);
+				ManagedOverlayItem item = managedOverlay.createItem(arg2, "onLongPressFinished", address);
 				
 				managedOverlay.add(item);
 				mapView.getController().animateTo(arg2);
@@ -205,9 +182,6 @@ public class SelectLocationMap extends MapActivity {
 			@Override
 			public boolean onZoom(ZoomEvent arg0, ManagedOverlay arg1) {
 				// TODO Auto-generated method stub
-				Log.d(LOGTAG, "MapEvent -- onZoom");
-				Log.d(LOGTAG, "\targ0 = " + arg0);
-				Log.d(LOGTAG, "\targ1 = " + arg1);
 				return false;
 			}
 			
@@ -231,7 +205,7 @@ public class SelectLocationMap extends MapActivity {
 			return "";
 		}
 		
-		return a.getAdminArea() + a.getThoroughfare() + a.getFeatureName();
+		return a.getAddressLine(0);
 	}
 	
 	private static class TextDrawable extends ShapeDrawable {
