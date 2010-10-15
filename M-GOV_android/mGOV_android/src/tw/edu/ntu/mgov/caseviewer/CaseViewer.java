@@ -32,6 +32,8 @@ import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -44,7 +46,7 @@ import android.widget.TextView;
  * 2010/10/13
  * @company NTU CSIE Mobile HCI Lab
  */
-public class CaseViewer extends MapActivity {
+public class CaseViewer extends MapActivity implements Runnable {
 
 	// Views 
 	private ImageView photoView;
@@ -59,36 +61,35 @@ public class CaseViewer extends MapActivity {
 	GAEQuery qGAE;
 	GAECase queryResult;
 	private ProgressDialog loadingView;
+	protected Drawable image;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		loadingView = ProgressDialog.show(this, "", getResources().getString(R.string.loading_message), false);
-		qGAE = new GAEQuery();
+		Thread thread = new Thread(this);
+		thread.start();
 		super.onCreate(savedInstanceState);
 		setTitle("案件資料");
 		setContentView(R.layout.caseviewer);
 		findAllViews();
 	}
-	
+	private Handler handler = new Handler() {
+		public void handleMessage(Message msg) {
+			loadingView.cancel();
+			setAllAttributes();
+		}
+	};
 	@Override
-	protected void onStart() {
-		super.onStart();
-	}
-
-	/* (non-Javadoc)
-	 * @see com.google.android.maps.MapActivity#onResume()
-	 */
-	@Override
-	protected void onResume() {
-		super.onResume();
+	public void run() {
 		qGAE = new GAEQuery();
 		try {
 			queryResult = qGAE.getID(getIntent().getExtras().getString("caseID"));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		setAllAttributes();
-		loadingView.cancel();
+		String [] imageURL = queryResult.getImage();
+		image = LoadImageFromWebOperations(imageURL[0].replace("GET_SHOW_PHOTO.CFM?photo_filename=", "photo/"));
+		handler.sendEmptyMessage(0);
 	}
 
 	private void findAllViews() {
@@ -142,8 +143,6 @@ public class CaseViewer extends MapActivity {
 		description.setText(queryResult.getform("detail"));
 		caseAddress.setText(queryResult.getform("address"));
 		
-		String [] imageURL = queryResult.getImage();
-		Drawable image = LoadImageFromWebOperations(imageURL[0].replace("GET_SHOW_PHOTO.CFM?photo_filename=", "photo/"));
 		photoView.setImageDrawable(image);
 		TextView tv = (TextView) findViewById(R.id.CaseViewer_NoPhotoMessege);
 		if (image==null) tv.setVisibility(View.VISIBLE);

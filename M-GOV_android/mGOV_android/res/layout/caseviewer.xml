@@ -27,7 +27,6 @@
 				<TextView
 					android:layout_column = "1"
 					android:id="@+id/CaseViewer_CaseID"
-					android:text="@string/caseviewer_subtitle_caseID"
 					style="@style/CaseViewer_Information">
 				</TextView>
 			</TableRow>
@@ -40,7 +39,6 @@
 				<TextView
 					android:layout_column = "1"
 					android:id="@+id/CaseViewer_Date"
-					android:text="@string/caseviewer_subtitle_date"
 					style="@style/CaseViewer_Information">
 				</TextView>
 			</TableRow>
@@ -53,7 +51,6 @@
 				<TextView
 					android:layout_column = "1"
 					android:id="@+id/CaseViewer_CaseStatus"
-					android:text="@string/caseviewer_subtitle_caseStatus"
 					style="@style/CaseViewer_Information">
 				</TextView>
 			</TableRow>
@@ -76,7 +73,6 @@
 				<TextView
 					android:layout_column = "1"
 					android:id="@+id/CaseViewer_CaseType"
-					android:text="@string/caseviewer_subtitle_caseType"
 					style="@style/CaseViewer_Information">
 				</TextView>
 			</TableRow>
@@ -89,7 +85,6 @@
 				<TextView
 					android:layout_column = "1"
 					android:id="@+id/CaseViewer_Description"
-					android:text="@string/caseviewer_subtitle_description"
 					style="@style/CaseViewer_Information">
 				</TextView>
 			</TableRow>

@@ -237,7 +237,7 @@ public abstract class CaseSelector extends MapActivity {
 		ImageView caseStatus;
 	}
 	
-	class caseListAdapter extends BaseAdapter {
+	protected class caseListAdapter extends BaseAdapter {
 		LayoutInflater myInflater;
 		// Constructor
 		public caseListAdapter(Context c) {

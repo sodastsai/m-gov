@@ -177,6 +177,7 @@ public class Query extends CaseSelector {
 						Log.d("mapMode", "QQ");
 					}
 			    }
+				((caseListAdapter) listMode.getAdapter()).notifyDataSetChanged();
 			}
 		}, 600);
 	}
