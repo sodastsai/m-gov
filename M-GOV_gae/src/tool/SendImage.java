@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 
-public class SendImageTest2 {
+public class SendImage {
 	URL url;
 	HttpURLConnection conn;
 	String boundary = "--------httppost123";
@@ -27,16 +27,23 @@ public class SendImageTest2 {
 	DataOutputStream ds;
 
 	public static void main(String[] args) throws Exception {
-		SendImageTest2 u = new SendImageTest2("http://ggm-test.appspot.com/photo?method=upload");
-		u.addFileParameter("photo", new File("/Users/wildmind5/Desktop/image.jpg"));
+		SendImage u = new SendImage("http://ntu-ecoliving.appspot.com/case/add?method=upload");
+		u.addFileParameter("photo", new File("/Users/wildmind5/Desktop/111198358590.jpg"));
 		u.addTextParameter("description", "測試");
+
+		u.addTextParameter("h_admit_name","大安區");
+		u.addTextParameter("h_admiv_name","大安區");
+		u.addTextParameter("h_summary", "lost of problem");
+		u.addTextParameter("name", "ggm_send_image_test");
+		u.addTextParameter("email","ggm@ggm.com");
+		
 		byte[] b = u.send();
 		String result = new String(b);
 		System.out.println(result);
 
 	}
 	
-	public SendImageTest2(String url) throws Exception {
+	public SendImage(String url) throws Exception {
 		this.url = new URL(url);
 	}
 
