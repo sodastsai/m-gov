@@ -57,4 +57,20 @@ public class GAESubmit {
 	
 		return true;
 	}
+
+
+	public boolean doSubmit2(){
+		try {
+
+			String res = ReadUrlByPOST.doSubmit(defualtURL, czone, context);
+			System.out.println(res);
+		
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	
+		return true;
+	}
+
 }
