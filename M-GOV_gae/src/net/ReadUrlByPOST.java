@@ -223,7 +223,7 @@ public class ReadUrlByPOST {
 		try {
 			String preRes = doSubmit(preview_caseURL, forms);
 			//preview取得sno和unit後送出
-//			forms.put("sno",getSno(preRes));
+			forms.put("sno",getSno(preRes));
 			forms.put("unit",getUnit(preRes));
 
 			doSubmit(add_caseURL, forms);
