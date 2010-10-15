@@ -37,4 +37,5 @@
 <string name="mycase_filter_unknown">處理中</string>
 <string name="mycase_filter_rejected">退回</string>
 <string name="mycase_filter_selectFilter">選擇案件狀態</string>
+<string name="mycase_emptycase">沒有案件記錄</string>
 </resources>

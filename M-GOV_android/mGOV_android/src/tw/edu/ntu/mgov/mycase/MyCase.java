@@ -38,6 +38,7 @@ public class MyCase extends CaseSelector {
 	String[] filterType;
 	// UI
 	TextView filterState;
+	TextView filterTitle;
 	/**
 	 * @category Life cycle
 	 */
@@ -46,9 +47,9 @@ public class MyCase extends CaseSelector {
 		super.onCreate(savedInstanceState);
 		db=GAEQueryDatabase.GAEQueryDatabaseCase;
 		// Fetch Preference
-		userPreferences = getSharedPreferences(Option.PREFERENCE_NAME, MODE_PRIVATE);
+		userPreferences = getSharedPreferences(Option.PREFERENCE_NAME, MODE_WORLD_READABLE);
 		
-		TextView filterTitle = new TextView(this);
+		filterTitle = new TextView(this);
 		filterTitle.setId(FILTER_TITLE);
 		filterTitle.setText(userPreferences.getString(Option.KEY_USER_EMAIL, ""));
 		filterTitle.setPadding(2, 0, 2, 0);
@@ -61,7 +62,10 @@ public class MyCase extends CaseSelector {
 		param1=null;
 		
 		filterState = new TextView(this);
-		filterState.setText(getResources().getString(R.string.mycase_filter_allcase));
+		if (userPreferences.getString(Option.KEY_USER_EMAIL, "")=="")
+			filterState.setText("");
+		else
+			filterState.setText(getResources().getString(R.string.mycase_filter_allcase));
 		filterState.setPadding(2, 0, 2, 0);
 		filterState.setTextSize(14.0f);
 		LayoutParams param2 = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
@@ -70,12 +74,11 @@ public class MyCase extends CaseSelector {
 		filterState.setLayoutParams(param2);
 		infoBar.addView(filterState);
 		param2=null;
-		
-		filterTitle = null;
 	}
 	@Override
 	protected void onResume() {
 		statusId=-1;
+		filterTitle.setText(userPreferences.getString(Option.KEY_USER_EMAIL, ""));
 		super.onResume();
 	}
 	/**
@@ -159,7 +162,19 @@ public class MyCase extends CaseSelector {
 		
 	}
 	protected void qGAEReturnData() {
-		
+		switch(statusId) {
+		case -1:
+			filterState.setText(getResources().getString(R.string.mycase_filter_allcase));
+			break;
+		case 1:
+			filterState.setText(getResources().getString(R.string.mycase_filter_finished));
+			break;
+		case 0:
+			filterState.setText(getResources().getString(R.string.mycase_filter_unknown));
+			break;
+		case 2:
+			filterState.setText(getResources().getString(R.string.mycase_filter_rejected));
+		}
 	}
 }
 

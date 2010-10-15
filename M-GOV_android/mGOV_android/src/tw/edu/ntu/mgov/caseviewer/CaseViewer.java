@@ -8,36 +8,26 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
 
 import org.json.JSONException;
 
 import tw.edu.ntu.mgov.R;
 import tw.edu.ntu.mgov.gae.GAECase;
 import tw.edu.ntu.mgov.gae.GAEQuery;
-import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryCondtionType;
-import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryDatabase;
 import tw.edu.ntu.mgov.typeselector.QidToDescription;
 
-import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
-import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -108,7 +98,6 @@ public class CaseViewer extends MapActivity implements Runnable {
 		Drawable marker;
 		public MapOverlay(Drawable defaultMarker) {
 			super(defaultMarker);
-			// TODO Auto-generated constructor stub
 			marker = defaultMarker;
 		}
 		protected void addOverlayItem(OverlayItem oItem) {
@@ -118,18 +107,15 @@ public class CaseViewer extends MapActivity implements Runnable {
 		
 		@Override
 		public void draw(Canvas canvas, MapView mapView, boolean shadow) {
-			// TODO Auto-generated method stub
 			super.draw(canvas, mapView, false);
 			boundCenterBottom(marker);
 		}
 		@Override
 		protected OverlayItem createItem(int i) {
-			// TODO Auto-generated method stub
 			return gList.get(i);
 		}
 		@Override
 		public int size() {
-			// TODO Auto-generated method stub
 			return gList.size();
 		}
 		
@@ -171,13 +157,8 @@ public class CaseViewer extends MapActivity implements Runnable {
 		}
 	}
 
-
-	/* (non-Javadoc)
-	 * @see com.google.android.maps.MapActivity#isRouteDisplayed()
-	 */
 	@Override
 	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	

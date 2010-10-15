@@ -35,7 +35,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -253,8 +252,8 @@ public abstract class CaseSelector extends MapActivity {
 		
 		final Handler loadingViewhandler = new Handler() {
 			public void handleMessage(Message msg) {
-				loadingView.cancel();
 				qGAEReturned();
+				loadingView.cancel();
 			}
 		};
 		
@@ -263,7 +262,7 @@ public abstract class CaseSelector extends MapActivity {
 			public void run() {
 				// A sputid way to solve the delay of map span
 				try {
-					Thread.sleep(600);
+					Thread.sleep(1500);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
