@@ -119,7 +119,7 @@ public class CaseViewer extends MapActivity implements Runnable {
 		@Override
 		public void draw(Canvas canvas, MapView mapView, boolean shadow) {
 			// TODO Auto-generated method stub
-			super.draw(canvas, mapView, shadow);
+			super.draw(canvas, mapView, false);
 			boundCenterBottom(marker);
 		}
 		@Override

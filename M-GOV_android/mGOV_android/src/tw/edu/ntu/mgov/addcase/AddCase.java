@@ -33,6 +33,7 @@ import tw.edu.ntu.mgov.option.Option;
 import tw.edu.ntu.mgov.typeselector.TypeSelector;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -49,6 +50,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -111,6 +113,7 @@ public class AddCase extends MapActivity {
 	
 	// others 
 	private int preferedMapViewZoom = 16;
+	private Uri imageUri;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -334,6 +337,9 @@ public class AddCase extends MapActivity {
 				if (which == 0) {
 					// Intent to take new picture
 					Intent intent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+					File photo = new File(Environment.getExternalStorageDirectory(),  "Pic.jpg");
+				    intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(photo));
+				    imageUri = Uri.fromFile(photo);
 					startActivityForResult(intent, REQUEST_CODE_TAKE_PICTURE);
 				} else {
 					// Intent to select picture from device
@@ -683,21 +689,25 @@ public class AddCase extends MapActivity {
 		case REQUEST_CODE_TAKE_PICTURE:
 			if (resultCode == Activity.RESULT_OK) {
 				Log.d(LOGTAG, "Take Picture");
-				Log.d(LOGTAG, "\t data.toURI() = " + data.toURI());
-				Log.d(LOGTAG, "\t data.getData() = " + data.getData());
-				
+
+				Uri selectedImage = imageUri;
+	            getContentResolver().notifyChange(selectedImage, null);
+
 				System.gc();	// run gc for sure that there's enough memory to open the picture 
 				ImageView iv = (ImageView) findViewById(R.id.AddCase_ImageView_Picture);
-				try {
-					iv.setImageBitmap(makeDuplicatePicture(data.getData()));
-				} catch (IOException e) {
-					Log.e(LOGTAG, "iv.setImageBitmap(makeDuplicatePicture(data.getData())); fail!!!", e);
-					break;
-				} catch (URISyntaxException e) {
-					Log.e(LOGTAG, "iv.setImageBitmap(makeDuplicatePicture(data.getData())); fail!!!", e);
-					break;
-				}
-				
+				ContentResolver cr = getContentResolver();
+	            Bitmap bitmap;
+	            Log.d("photo", "!!");
+	            try {
+	                 bitmap = android.provider.MediaStore.Images.Media.getBitmap(cr, selectedImage);
+	                iv.setImageBitmap(bitmap);
+	                Toast.makeText(this, selectedImage.toString(),
+	                        Toast.LENGTH_LONG).show();
+	            } catch (Exception e) {
+	                Toast.makeText(this, "Failed to load", Toast.LENGTH_SHORT)
+	                        .show();
+	                Log.e("Camera", e.toString());
+	            }
 				// hide the text of "add picture" 
 				TextView tv = (TextView) findViewById(R.id.AddCase_TextView_AddPhoto);
 				tv.setVisibility(View.GONE);
