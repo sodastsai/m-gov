@@ -3,15 +3,9 @@
  */
 package tw.edu.ntu.mgov.query;
 
-import java.util.ArrayList;
-
-import de.android1.overlaymanager.ManagedOverlayItem;
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +15,6 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import tw.edu.ntu.mgov.CaseSelector;
 import tw.edu.ntu.mgov.R;
-import tw.edu.ntu.mgov.gae.GAEQuery;
 import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryCondtionType;
 import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryDatabase;
 import tw.edu.ntu.mgov.typeselector.QidToDescription;
@@ -43,21 +36,15 @@ public class Query extends CaseSelector {
 	// UI
 	private TextView currentConditionLabel;
 	private TextView currentRangeLabel;
-	private ProgressDialog loadingView;
-	
 	// Datasource
-	//protected ArrayList<ManagedOverlayItem> overlayList;
-	protected int sourceLength;
 	private int typeId = 0;
-	int rangeStart = 0;
-	int rangeEnd = 9;
 	
 	// Lifecycle
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// Did not show noCase Image
 		noCaseImageWillShow = false;
-		qGAE = new GAEQuery();
+		db = GAEQueryDatabase.GAEQueryDatabaseCzone;
 		// Set Mode before super class execute its method
 		this.defaultMode = CaseSelectorMode.CaseSelectorMapMode;
 		// Render the list and map by super method
@@ -91,14 +78,14 @@ public class Query extends CaseSelector {
 		nextButton.setBackgroundResource(R.color.transparentColor);
 		nextButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) { 
-            	if (rangeEnd+10 < sourceLength) {
+            	if (rangeEnd+10 < sourceLength-1) {
             		rangeStart = rangeEnd+1;
             		rangeEnd+=10;
-            		startQueryWithMap();
-            	} else if (rangeEnd < sourceLength) {
+            		startFetchDataSource();
+            	} else if (rangeEnd < sourceLength-1) {
             		rangeStart = rangeEnd+1;
             		rangeEnd = sourceLength-1;
-            		startQueryWithMap();
+            		startFetchDataSource();
             	}
             }
         });
@@ -119,7 +106,7 @@ public class Query extends CaseSelector {
             	if (rangeStart!= 0) {
             		rangeStart -= 10;
             		rangeEnd = rangeStart+9;
-            		startQueryWithMap();
+            		startFetchDataSource();
             	}
             }
         });
@@ -134,8 +121,6 @@ public class Query extends CaseSelector {
 		
 		nextButton=null;
 		prevButton=null;
-		
-		this.startQueryWithMap();
 	}
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -144,7 +129,7 @@ public class Query extends CaseSelector {
 			if (resultCode == RESULT_OK) {
 				typeId = data.getExtras().getInt("qid");
 				String typeName = QidToDescription.getDetailByQID(this,typeId);
-				this.startQueryWithMap();
+				startFetchDataSource();
 				currentConditionLabel.setText(typeName);
 			} else if (resultCode == RESULT_CANCELED) {
 			}
@@ -152,49 +137,24 @@ public class Query extends CaseSelector {
 		super.onActivityResult(requestCode, resultCode, data);
 	}
 	/**
-	 * @category DataSource Method
+	 * @category Datasource Method
 	 */
-	protected void startQueryWithMap() {
-		loadingView = ProgressDialog.show(this, "", getResources().getString(R.string.loading_message), false);
-		// A sputid way to solve the delay of map span
-		Handler handler = new Handler();
-		handler.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				// Set Query Condition and Start Query
-				qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, mapMode.getMapCenter(), mapMode.getLatitudeSpan(), mapMode.getLongitudeSpan());
-				if (typeId!=0)
-					qGAE.addQuery(GAEQueryCondtionType.GAEQueryByType, Integer.toString(typeId));
-				caseSource = qGAE.doQuery(GAEQueryDatabase.GAEQueryDatabaseCzone, rangeStart, rangeEnd);
-				sourceLength = qGAE.getSourceTotalLength();
-				qGAE.resetCondition();
-				try { loadingView.cancel(); } catch (Exception e) {}
-				if (caseSource==null) {
-					currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
-				} else {
-					// Set Overlay
-					ArrayList<ManagedOverlayItem> overlayList = new ArrayList<ManagedOverlayItem>();
-					for (int i=0; i<caseSource.length; i++) {
-						String typeName = QidToDescription.getDetailByQID(selfContext, Integer.parseInt(caseSource[i].getform("typeid")));
-						String info = caseSource[i].getform("key")+","+Integer.toString(convertStatusStringToStatusCode(caseSource[i].getform("status")));
-						ManagedOverlayItem item = new ManagedOverlayItem(caseSource[i].getGeoPoint(), typeName, info);
-						overlayList.add(item);
-					}
-					// Set Label
-					int rangeEndToShow;
-					if (sourceLength < rangeEnd+1) rangeEndToShow = sourceLength;
-					else rangeEndToShow = rangeEnd+1;
-					if (sourceLength==0) currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
-					else currentRangeLabel.setText(Integer.toString(rangeStart+1)+"-"+Integer.toString(rangeEndToShow)+" 筆，共 "+Integer.toString(sourceLength)+" 筆");
-					// Set Map Overlay
-					managedOverlay.addAll(overlayList);
-					// Refresh Map
-					mapMode.invalidate();
-					// Refresh List
-					((caseListAdapter) listMode.getAdapter()).notifyDataSetChanged();
-			    }
-			}
-		}, 800);
+	protected boolean setQGAECondition() {
+		qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, mapMode.getMapCenter(), mapMode.getLatitudeSpan(), mapMode.getLongitudeSpan());
+		if (typeId!=0)
+			qGAE.addQuery(GAEQueryCondtionType.GAEQueryByType, Integer.toString(typeId));
+		return true;
+	}
+	protected void qGAEReturnNull() {
+		currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
+	}
+	protected void qGAEReturnData() {
+		// Set Label
+		int rangeEndToShow;
+		if (sourceLength < rangeEnd+1) rangeEndToShow = sourceLength;
+		else rangeEndToShow = rangeEnd+1;
+		if (sourceLength==0) currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
+		else currentRangeLabel.setText(Integer.toString(rangeStart+1)+"-"+Integer.toString(rangeEndToShow)+" 筆，共 "+Integer.toString(sourceLength)+" 筆");
 	}
 	/**
 	 * @category Menu
@@ -220,13 +180,16 @@ public class Query extends CaseSelector {
 			startActivityForResult(intent, REQUEST_CODE_typeSelector);
 		} else if (item.getItemId()==MENU_AllTypeCondition) {
 			typeId = 0;
-			this.startQueryWithMap();
+			startFetchDataSource();
 			currentConditionLabel.setText(getResources().getString(R.string.query_currentConditionLabel_alltype));
 			
 		}
 	}
+	/**
+	 * @category Map setting
+	 */
 	@Override
 	protected void mapChangeRegionOrZoom() {
-		startQueryWithMap();
+		startFetchDataSource();
 	}
 }

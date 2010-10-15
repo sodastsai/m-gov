@@ -14,7 +14,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * The second level caseFilter, only called by CaseFilter Activity.
@@ -165,6 +164,7 @@ public class DetailSelector extends PreferenceActivity{
 	 */
 	private void setClickListenerOn (Preference pref, final int index) {
 		
+		@SuppressWarnings("unused")
 		final Context context = this;
 		
 		if (qid[index] != -1) {	
@@ -204,6 +204,7 @@ public class DetailSelector extends PreferenceActivity{
 	private void selectForMoreDetial(Preference preference, final int index) {
 		final MoreDetailHolder holder = getHolder(index);
 		
+		@SuppressWarnings("unused")
 		final Context mContext = this;
 		
 		ArrayList<String> dess = new ArrayList<String>();

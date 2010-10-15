@@ -32,4 +32,9 @@
 <string name="query_currentRangeLabel_emptyCase">找不到此區域符合條件的案件</string>
 <string name="mapOverlay_currentLocation">現在位置</string>
 <string name="caseselector_toast_hint">長按大頭針以檢視案件資料</string>
+<string name="mycase_filter_allcase">所有案件</string>
+<string name="mycase_filter_finished">完工</string>
+<string name="mycase_filter_unknown">處理中</string>
+<string name="mycase_filter_rejected">退回</string>
+<string name="mycase_filter_selectFilter">選擇案件狀態</string>
 </resources>

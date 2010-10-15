@@ -22,8 +22,7 @@
 	  android:layout_alignParentTop="true"
 	  android:layout_alignParentLeft="true">
 	</ListView>
-	<ImageView
-		android:id="@+id/CaseSelector_NoCaseImage"
+	<ImageView android:id="@+id/CaseSelector_NoCaseImage"
 		android:background="@drawable/nomycase"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"

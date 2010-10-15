@@ -85,8 +85,7 @@ public class GAEQuery {
 		
 		String queryStr = prefixURL + dbstr[dbNumber] + method + "/" + args + "/" + start + "/" + end;
 		String jsonStr = ReadUrl.process(queryStr, "utf-8");
-		Log.d("GAEQuery", queryStr);
-
+		
 		try {
 			JSONObject ob = new JSONObject(jsonStr);
 

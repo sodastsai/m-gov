@@ -3,6 +3,7 @@
  */
 package tw.edu.ntu.mgov;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.google.android.maps.GeoPoint;
@@ -19,8 +20,10 @@ import de.android1.overlaymanager.MarkerRenderer;
 import tw.edu.ntu.mgov.caseviewer.CaseViewer;
 import tw.edu.ntu.mgov.gae.GAECase;
 import tw.edu.ntu.mgov.gae.GAEQuery;
+import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryDatabase;
 import tw.edu.ntu.mgov.option.Option;
 import tw.edu.ntu.mgov.typeselector.QidToDescription;
+import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +32,8 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.Gravity;
@@ -88,12 +93,18 @@ public abstract class CaseSelector extends MapActivity {
 	// Query Google App Engine
 	protected GAEQuery qGAE;
 	protected GAECase caseSource[];
-	
+	protected GAEQueryDatabase db = GAEQueryDatabase.GAEQueryDatabaseCase;
+	protected int rangeStart = 0;
+	protected int rangeEnd = 9;
+	protected int sourceLength;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.caseselector);
+
+		qGAE = new GAEQuery();
+		
 		// Call Info bar from Layout XML
 		infoBar = (RelativeLayout)findViewById(R.id.infoBar);
 		// Call List View From Layout XML
@@ -165,11 +176,16 @@ public abstract class CaseSelector extends MapActivity {
 		}
 		locationManager.removeUpdates(locationListener);
 		locationListener = null;
-		
-		if (currentMode==CaseSelectorMode.CaseSelectorMapMode)
-			createOverlayWithListener();
+		// Create Overlay
+		createOverlayWithListener();
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		startFetchDataSource();
+	}
+
 	protected void changCaseSelectorMode(CaseSelectorMode targetMode) {
 		if (targetMode == CaseSelectorMode.CaseSelectorListMode) {
 			findViewById(R.id.mapModeFrame).setVisibility(View.GONE);
@@ -226,7 +242,81 @@ public abstract class CaseSelector extends MapActivity {
 		else if (status.equals("無法辦理")||status.equals("退回區公所")||status.equals("查驗未通過")) return 2;
 		else return 0;
 	}
-	
+	/**
+	 * @category DataSource Method
+	 */
+	protected void startFetchDataSource() {
+		// LoadingView
+		final ProgressDialog loadingView = new ProgressDialog(selfContext);
+		loadingView.setMessage(getResources().getString(R.string.loading_message));
+		loadingView.show();
+		
+		final Handler loadingViewhandler = new Handler() {
+			public void handleMessage(Message msg) {
+				loadingView.cancel();
+				qGAEReturned();
+			}
+		};
+		
+		Thread qGAEThread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				// A sputid way to solve the delay of map span
+				try {
+					Thread.sleep(600);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				// Set Query Condition and Start Query
+				if(!setQGAECondition()) {
+					loadingViewhandler.sendEmptyMessage(0);
+					return;
+				}
+				caseSource = qGAE.doQuery(db, rangeStart, rangeEnd);
+				sourceLength = qGAE.getSourceTotalLength();
+				qGAE.resetCondition();
+				loadingViewhandler.sendEmptyMessage(0);
+			}
+		});
+		qGAEThread.start();
+	}
+	protected void qGAEReturned() {
+		ArrayList<ManagedOverlayItem> overlayList = new ArrayList<ManagedOverlayItem>();
+		if (caseSource==null) {
+			ManagedOverlayItem item = new ManagedOverlayItem(new GeoPoint(0, 0), "0", "0,0");
+			overlayList.add(item);
+			// Set Map Overlay
+			managedOverlay.addAll(overlayList);
+			// Refresh Map
+			mapMode.invalidate();
+			// Refresh List
+			((caseListAdapter) listMode.getAdapter()).notifyDataSetChanged();
+			
+			qGAEReturnNull();
+			item=null;
+		} else {
+			// Set Overlay
+			for (int i=0; i<caseSource.length; i++) {
+				String typeName = QidToDescription.getDetailByQID(selfContext, Integer.parseInt(caseSource[i].getform("typeid")));
+				String info = caseSource[i].getform("key")+","+Integer.toString(convertStatusStringToStatusCode(caseSource[i].getform("status")));
+				ManagedOverlayItem item = new ManagedOverlayItem(caseSource[i].getGeoPoint(), typeName, info);
+				overlayList.add(item);
+				item=null;
+			}
+			// Set Map Overlay
+			managedOverlay.addAll(overlayList);
+			// Refresh Map
+			mapMode.invalidate();
+			// Refresh List
+			((caseListAdapter) listMode.getAdapter()).notifyDataSetChanged();
+			
+			qGAEReturnData();
+	    }
+		overlayList = null;
+	}
+	protected abstract boolean setQGAECondition();
+	protected abstract void qGAEReturnNull();
+	protected abstract void qGAEReturnData();
 	/**
 	 * @category Custom List 
 	 *
@@ -248,15 +338,15 @@ public abstract class CaseSelector extends MapActivity {
 		
 		@Override
 		public int getCount() {
-			// TODO Return Data Count
 			//return stringData.length;
 			ImageView noCaseImage;
 			noCaseImage = (ImageView) findViewById(R.id.CaseSelector_NoCaseImage);
 			if (caseSource == null) {
 				if (noCaseImageWillShow == true) noCaseImage.setVisibility(View.VISIBLE);
-				else noCaseImage.setVisibility(View.INVISIBLE);
+				else noCaseImage.setVisibility(View.GONE);
 				return 0;
 			} else {
+				noCaseImage.setVisibility(View.GONE);
 				return caseSource.length;
 			}
 		}
@@ -264,20 +354,17 @@ public abstract class CaseSelector extends MapActivity {
 		@Override
 		public Object getItem(int position) {
 			// Get the data item associated with the specified position in the data set.
-			Log.d("List", "getItem:"+Integer.toString(position));
 			return position;
 		}
 
 		@Override
 		public long getItemId(int position) {
 			// Get the row id associated with the specified position in the list.
-			Log.d("List", "getItemId:"+Integer.toString(position));
 			return position;
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			Log.d("List", "getView:"+Integer.toString(position));
 			// Get a View that displays the data at the specified position in the data set.
 			ListCellContainer cellContent = new ListCellContainer();
 			// Reuse Cell
@@ -383,13 +470,17 @@ public abstract class CaseSelector extends MapActivity {
 			public boolean onSingleTap(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
 				if (item!=null) {
 					// This is Not a Map Event
+					String overlayInfo[] = item.getSnippet().split(",");
 					// Custom Toast
 					LayoutInflater inflater = getLayoutInflater();
 					View layout = inflater.inflate(R.layout.case_selector_toast, (ViewGroup)findViewById(R.id.caseSelector_toast));
+					// Set Content
 					TextView title = (TextView)layout.findViewById(R.id.caseSelector_toast_Title);
 					ImageView status = (ImageView)layout.findViewById(R.id.caseSelector_toast_Status);
 					title.setText(item.getTitle());
-					status.setImageResource(R.drawable.ok);
+					if (Integer.parseInt(overlayInfo[1])==1) status.setImageResource(R.drawable.ok);
+					else if (Integer.parseInt(overlayInfo[1])==2) status.setImageResource(R.drawable.fail);
+					else status.setImageResource(R.drawable.unknown);
 					// Add toast
 					Toast toast = new Toast(getApplicationContext());
 					toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 60);
