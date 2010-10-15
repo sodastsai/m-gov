@@ -109,6 +109,7 @@ public class SelectLocationMap extends MapActivity {
 					bundle.putInt(BUNDLE_LATE6, selectedGeoPoint.getLatitudeE6());
 					bundle.putInt(BUNDLE_LONE6, selectedGeoPoint.getLongitudeE6());
 					bundle.putString(BUNDLE_ADDRESS, address);
+					bundle.putInt("zoomLevel", mapView.getZoomLevel());
 					
 					Intent intent = new Intent();
 					intent.putExtras(bundle);

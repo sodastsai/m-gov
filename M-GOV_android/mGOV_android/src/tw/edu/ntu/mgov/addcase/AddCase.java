@@ -14,6 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.Locale;
 
 import org.json.JSONArray;
@@ -21,8 +22,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.android.maps.GeoPoint;
+import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
+import com.google.android.maps.OverlayItem;
 
 import tw.edu.ntu.mgov.R;
 import tw.edu.ntu.mgov.gae.GAECase;
@@ -36,7 +39,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.SumPathEffect;
+import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -80,6 +85,7 @@ public class AddCase extends MapActivity {
 	// Views 
 	private ImageView pictureImageView;
 	private MapView mapView;
+	private MyOverlay mapOverlay;
 	private Button typeButton;
 	private EditText nameEditText;
 	private EditText descriptionEditText;
@@ -130,16 +136,6 @@ public class AddCase extends MapActivity {
 	protected void onStart() {
 		super.onStart();
 		showContentByPreferences();
-	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		
-		// for submit 
-		if (submitFlag) {
-			doSubmit();
-		}
 	}
 	
 	/**
@@ -216,6 +212,10 @@ public class AddCase extends MapActivity {
 		if (address == null || address.equals("")) {
 			address = getAddress(locationGeoPoint);
 		}
+		if (mapOverlay.size() > 0) {
+			mapOverlay.clearAllOverlayItem();
+		}
+		mapOverlay.addOverlayItem(new OverlayItem(locationGeoPoint, "", ""));
 		mapView.getController().setZoom(preferences.getInt(SP_MAPZOOM, 16));
 		mapView.getController().animateTo(locationGeoPoint);
 		
@@ -251,6 +251,9 @@ public class AddCase extends MapActivity {
 		descriptionEditText = (EditText) findViewById(R.id.AddCase_EditText_Detail);
 		resetButton = (Button) findViewById(R.id.AddCase_Btn_Reset);
 		submitButton = (Button) findViewById(R.id.AddCase_Btn_Submit);
+		// set up overlay 
+		mapOverlay = new MyOverlay(this.getResources().getDrawable(R.drawable.mapoverlay_greenpin));
+		mapView.getOverlays().add(mapOverlay);
 	}
 	
 	private void setAllOnClickListeners() {
@@ -603,7 +606,7 @@ public class AddCase extends MapActivity {
 						if (checkEmailFormat(editEmail)) {
 							userPreferences.edit().putString(Option.KEY_USER_EMAIL, editEmail).commit();
 						} else {
-							Toast.makeText(AddCase.this, "E-mail 格式錯誤\n請輸入正確的 E-mail 呦～", Toast.LENGTH_LONG).show();
+							Toast.makeText(AddCase.this, "E-mail 格式錯誤\n請輸入正確的 E-mail 。", Toast.LENGTH_LONG).show();
 							doSubmit();
 						}
 					}
@@ -627,7 +630,6 @@ public class AddCase extends MapActivity {
 		
 		if (emailAddress == null) {
 			return false;
-			
 		}
 		
 		return emailAddress.matches("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9.-]+");
@@ -638,7 +640,7 @@ public class AddCase extends MapActivity {
 		if (typeId < 0) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("尚未選擇案件種類")
-				.setMessage("案件種類為必填項目，麻煩請選擇案件種類呦～")
+				.setMessage("案件種類為必填項目，麻煩請選擇案件種類。")
 				.setPositiveButton("好", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -670,6 +672,9 @@ public class AddCase extends MapActivity {
 				editor.putInt(SP_TYPE_ID, bundle.getInt("qid"));
 				editor.putString(SP_TYPE_DETAIL, bundle.getString("detail"));
 				editor.commit();
+				if (submitFlag) {
+					doSubmit();
+				}
 			} else if (resultCode == Activity.RESULT_CANCELED) {
 				submitFlag = false;
 			}
@@ -736,7 +741,7 @@ public class AddCase extends MapActivity {
 					editor.putInt(SP_LOCATION_LATE6, latitudeE6);
 					editor.putInt(SP_LOCATION_LONE6, longitudeE6);
 					editor.putString(SP_LOCATION_ADDRESS, bundle.getString(SelectLocationMap.BUNDLE_ADDRESS));
-					editor.putInt(SP_MAPZOOM, mapView.getZoomLevel());
+					editor.putInt(SP_MAPZOOM, bundle.getInt("zoomLevel", preferedMapViewZoom));
 					editor.commit();
 				}
 			} 
@@ -747,8 +752,6 @@ public class AddCase extends MapActivity {
 		}
 	}
 
-
-
 	/* (non-Javadoc)
 	 * @see com.google.android.maps.MapActivity#isRouteDisplayed()
 	 */
@@ -756,5 +759,53 @@ public class AddCase extends MapActivity {
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	private class MyOverlay extends ItemizedOverlay<OverlayItem> {
+
+		private ArrayList<OverlayItem> items = new ArrayList<OverlayItem>();
+		private Drawable defaultMarker;
+		
+		/**
+		 * @param defaultMarker
+		 */
+		public MyOverlay(Drawable defaultMarker) {
+			super(defaultMarker);
+			this.defaultMarker = defaultMarker;
+		}
+		
+		protected void clearAllOverlayItem() {
+			items.clear();
+		}
+
+		protected void addOverlayItem(OverlayItem oItem) {
+			items.add(oItem);
+			populate();
+		}
+		
+		@Override
+		public void draw(Canvas canvas, MapView mapView, boolean shadow) {
+			// TODO Auto-generated method stub
+			super.draw(canvas, mapView, false);
+			boundCenterBottom(defaultMarker);
+		}
+		
+		/* (non-Javadoc)
+		 * @see com.google.android.maps.ItemizedOverlay#createItem(int)
+		 */
+		@Override
+		protected OverlayItem createItem(int i) {
+			// TODO Auto-generated method stub
+			return items.get(i);
+		}
+
+		/* (non-Javadoc)
+		 * @see com.google.android.maps.ItemizedOverlay#size()
+		 */
+		@Override
+		public int size() {
+			// TODO Auto-generated method stub
+			return items.size();
+		}
 	}
 }
