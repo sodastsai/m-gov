@@ -1,13 +1,20 @@
 package tw.edu.ntu.mgov.net;
 
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import android.content.Context;
+import android.net.Uri;
+
+import tw.edu.ntu.mgov.gae.GAECase;
 
 public class ReadUrlByPOST {
 
@@ -20,8 +27,8 @@ public class ReadUrlByPOST {
 		forms.put("PASSWORD", "guest");
 
 		try {
-			String res = doSubmit(url, forms);
-			System.out.println(res);
+//			String res = doSubmit(url, forms);
+//			System.out.println(res);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -29,8 +36,22 @@ public class ReadUrlByPOST {
 
 	}
 
-	public static String doSubmit(String url, HashMap<String, String> data)
+	public static String doSubmit(String url, GAECase data,Context context)
 			throws Exception {
+
+		String path[] = data.getImage();
+		byte[] bytes = null;
+		if(path!=null){
+			String uri=path[0];
+			
+			InputStream is = context.getContentResolver().openInputStream(Uri.parse(uri));
+			long size = context.getContentResolver().openFileDescriptor(Uri.parse(uri), "r").getStatSize();
+			is.read(bytes, 0, (int) size);
+			
+		}
+		
+		
+		
 		URL siteUrl = new URL(url);
 		HttpURLConnection conn = (HttpURLConnection) siteUrl.openConnection();
 
