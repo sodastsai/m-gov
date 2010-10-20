@@ -87,9 +87,6 @@
 		FE4EE77A1223F6D100737028 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7751223F6D100737028 /* DetailViewController.m */; };
 		FE4EE77B1223F6D100737028 /* SecondDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7771223F6D100737028 /* SecondDetailViewController.m */; };
 		FE4EE77C1223F6D100737028 /* TypesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7791223F6D100737028 /* TypesViewController.m */; };
-		FE4EE7801223F72E00737028 /* detailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77D1223F72E00737028 /* detailViewController.xib */; };
-		FE4EE7811223F72E00737028 /* secondDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */; };
-		FE4EE7821223F72E00737028 /* typesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FE4EE77F1223F72E00737028 /* typesViewController.xib */; };
 		FE74CC551258ADED00267C80 /* EditibleTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */; };
 		FE74CD621258D39400267C80 /* PrefAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = FE74CD611258D39400267C80 /* PrefAccess.m */; };
 		FE7D048312352AA5007FA0A1 /* QidToType.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE7D048212352AA5007FA0A1 /* QidToType.plist */; };
@@ -99,6 +96,9 @@
 		FEB39CA412389597007359AB /* HybridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39CA312389597007359AB /* HybridViewController.m */; };
 		FEB39FE71238CF32007359AB /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39FE61238CF32007359AB /* QueryViewController.m */; };
 		FEB7C7FF12557EBD00436BB2 /* CaseSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB7C7FE12557EBD00436BB2 /* CaseSelectorViewController.m */; };
+		FEC679CE126EEB37000AF355 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEC679CB126EEB37000AF355 /* DetailViewController.xib */; };
+		FEC679CF126EEB37000AF355 /* SecondDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEC679CC126EEB37000AF355 /* SecondDetailViewController.xib */; };
+		FEC679D0126EEB37000AF355 /* TypesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEC679CD126EEB37000AF355 /* TypesViewController.xib */; };
 		FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */ = {isa = PBXBuildFile; fileRef = FED3DDE71224EA3A001D3C73 /* UserInformation.plist */; };
 		FEE81538122791BF00D82E46 /* AppMKAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE81537122791BF00D82E46 /* AppMKAnnotation.m */; };
 		FEE907DE1251C95400A1CBAF /* LoadingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE907DD1251C95400A1CBAF /* LoadingOverlayView.m */; };
@@ -228,9 +228,6 @@
 		FE4EE7771223F6D100737028 /* SecondDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondDetailViewController.m; sourceTree = "<group>"; };
 		FE4EE7781223F6D100737028 /* TypesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypesViewController.h; sourceTree = "<group>"; };
 		FE4EE7791223F6D100737028 /* TypesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypesViewController.m; sourceTree = "<group>"; };
-		FE4EE77D1223F72E00737028 /* detailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = detailViewController.xib; sourceTree = "<group>"; };
-		FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = secondDetailViewController.xib; sourceTree = "<group>"; };
-		FE4EE77F1223F72E00737028 /* typesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = typesViewController.xib; sourceTree = "<group>"; };
 		FE71EEB01250C082008AF579 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		FE74CC531258ADED00267C80 /* EditibleTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditibleTextFieldCell.h; sourceTree = "<group>"; };
 		FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditibleTextFieldCell.m; sourceTree = "<group>"; };
@@ -249,6 +246,9 @@
 		FEB39FE61238CF32007359AB /* QueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryViewController.m; sourceTree = "<group>"; };
 		FEB7C7FD12557EBD00436BB2 /* CaseSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseSelectorViewController.h; sourceTree = "<group>"; };
 		FEB7C7FE12557EBD00436BB2 /* CaseSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseSelectorViewController.m; sourceTree = "<group>"; };
+		FEC679CB126EEB37000AF355 /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
+		FEC679CC126EEB37000AF355 /* SecondDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondDetailViewController.xib; sourceTree = "<group>"; };
+		FEC679CD126EEB37000AF355 /* TypesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypesViewController.xib; sourceTree = "<group>"; };
 		FED3DDE71224EA3A001D3C73 /* UserInformation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInformation.plist; sourceTree = "<group>"; };
 		FEE81536122791BF00D82E46 /* AppMKAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMKAnnotation.h; sourceTree = "<group>"; };
 		FEE81537122791BF00D82E46 /* AppMKAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppMKAnnotation.m; sourceTree = "<group>"; };
@@ -419,13 +419,13 @@
 		2A79AC2D1223FB9B00F140A2 /* Interface Builder */ = {
 			isa = PBXGroup;
 			children = (
+				FEC679CB126EEB37000AF355 /* DetailViewController.xib */,
+				FEC679CC126EEB37000AF355 /* SecondDetailViewController.xib */,
+				FEC679CD126EEB37000AF355 /* TypesViewController.xib */,
 				FE4628A11257664200936914 /* PrefViewController.xib */,
 				FE3FFE13122F7904008B0E48 /* CaseViewerViewController.xib */,
 				2A0974F3122BC7270048D841 /* LocationSelectorViewController.xib */,
 				2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */,
-				FE4EE77D1223F72E00737028 /* detailViewController.xib */,
-				FE4EE77E1223F72E00737028 /* secondDetailViewController.xib */,
-				FE4EE77F1223F72E00737028 /* typesViewController.xib */,
 				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 			);
 			name = "Interface Builder";
@@ -676,9 +676,6 @@
 				FE4EE7711223F68F00737028 /* reportSecondDetails.plist in Resources */,
 				FE4EE7721223F68F00737028 /* reportSections.plist in Resources */,
 				FE4EE7731223F68F00737028 /* reportTypes.plist in Resources */,
-				FE4EE7801223F72E00737028 /* detailViewController.xib in Resources */,
-				FE4EE7811223F72E00737028 /* secondDetailViewController.xib in Resources */,
-				FE4EE7821223F72E00737028 /* typesViewController.xib in Resources */,
 				2A79AC241223FB7C00F140A2 /* CaseAddViewController.xib in Resources */,
 				FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */,
 				2A0974F5122BC7270048D841 /* LocationSelectorViewController.xib in Resources */,
@@ -715,6 +712,9 @@
 				FE4D13C01264BA1200B3E415 /* iTunesArtwork in Resources */,
 				FEF23A82126EE18100877766 /* Default.png in Resources */,
 				FEF23A83126EE18100877766 /* Default@2x.png in Resources */,
+				FEC679CE126EEB37000AF355 /* DetailViewController.xib in Resources */,
+				FEC679CF126EEB37000AF355 /* SecondDetailViewController.xib in Resources */,
+				FEC679D0126EEB37000AF355 /* TypesViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
