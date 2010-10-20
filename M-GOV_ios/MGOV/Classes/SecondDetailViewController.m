@@ -17,6 +17,19 @@
 @synthesize delegate;
 
 #pragma mark -
+#pragma mark Lifecycle
+
+- (void)viewDidLoad {
+	NSString *path;
+	
+	// Second Detail Dict
+	path = [[NSBundle mainBundle] pathForResource:@"reportSecondDetails" ofType:@"plist"];
+	secondDetailDict = [[NSDictionary alloc] initWithContentsOfFile:path];
+	
+	path = nil;
+}
+
+#pragma mark -
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -25,12 +38,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	// Open plist
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"reportSecondDetails" ofType:@"plist"];
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
 	NSString *typeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
 	NSString *detailId = [NSString stringWithFormat:@"Detail%d", finalDetailId];
 
-    return [[[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] objectForKey:detailId] count];
+    return [[[[secondDetailDict objectForKey:sectionId] objectForKey:typeId] objectForKey:detailId] count];
 }
 
 // Customize the appearance of table view cells.
@@ -44,16 +56,14 @@
     }
     
      // Open plist - First class
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"reportSecondDetails" ofType:@"plist"];
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
 	NSString *typeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
 	NSString *detailId = [NSString stringWithFormat:@"Detail%d", finalDetailId];
 	NSString *secondDetailId = [NSString stringWithFormat:@"SecondDetail%d", indexPath.row];
 		
-	cell.textLabel.text = [[[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] objectForKey:detailId] valueForKey:secondDetailId];
+	cell.textLabel.text = [[[[secondDetailDict objectForKey:sectionId] objectForKey:typeId] objectForKey:detailId] valueForKey:secondDetailId];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	
-	path = nil;
 	sectionId = nil;
 	typeId = nil;
 	detailId = nil;
@@ -78,13 +88,12 @@
 	NSInteger qid = [[[[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] objectForKey:detailId] valueForKey:secondDetailId] intValue];
 	
 	// Title
-	NSString *titlePlistPath=[[NSBundle mainBundle] pathForResource:@"reportSecondDetails" ofType:@"plist"];
 	NSString *finalSection = [NSString stringWithFormat:@"Section%d", finalSectionId];
 	NSString *finalType = [NSString stringWithFormat:@"Type%d", finalTypeId];
 	NSString *finalDetail = [NSString stringWithFormat:@"Detail%d", finalDetailId];
 	NSString *finalSecondDetail = [NSString stringWithFormat:@"SecondDetail%d", finalSecondDetailId];
 	
-	NSString *selectedTitle = [[[[[NSDictionary dictionaryWithContentsOfFile:titlePlistPath] objectForKey:finalSection] objectForKey:finalType] objectForKey:finalDetail] valueForKey:finalSecondDetail];
+	NSString *selectedTitle = [[[[secondDetailDict objectForKey:finalSection] objectForKey:finalType] objectForKey:finalDetail] valueForKey:finalSecondDetail];
 	
 	// Switch back
 	[delegate typeSelectorDidSelectWithTitle:selectedTitle andQid:qid];
@@ -94,7 +103,6 @@
 	typeId = nil;
 	detailId = nil;
 	secondDetailId = nil;
-	titlePlistPath = nil;
 	finalSection = nil;
 	finalType = nil;
 	finalDetail = nil;
@@ -109,10 +117,8 @@
     [super didReceiveMemoryWarning];
 }
 
-- (void)viewDidUnload {
-}
-
 - (void)dealloc {
+	[secondDetailDict release];
     [super dealloc];
 }
 

@@ -14,6 +14,11 @@
 	NSInteger finalSectionId;
 	NSInteger finalTypeId;
 	id<TypeSelectorDelegateProtocol> delegate;
+	
+	// Data source
+	NSDictionary *sectionDict;
+	NSDictionary *typeDict;
+	NSDictionary *detailDict;
 }
 
 @property (nonatomic, retain) id<TypeSelectorDelegateProtocol> delegate;

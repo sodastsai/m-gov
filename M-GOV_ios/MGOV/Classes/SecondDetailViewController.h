@@ -15,6 +15,9 @@
 	NSInteger finalDetailId;
 	NSInteger finalSecondDetailId;
 	id<TypeSelectorDelegateProtocol> delegate;
+	
+	// Data source
+	NSDictionary *secondDetailDict;
 }
 
 @property (nonatomic) NSInteger finalSectionId;

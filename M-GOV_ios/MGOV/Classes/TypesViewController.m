@@ -14,29 +14,42 @@
 @synthesize delegate;
 
 #pragma mark -
+#pragma mark Lifecycle
+
+- (void)viewDidLoad {
+	NSString *path;
+	
+	// Section
+	path = [[NSBundle mainBundle] pathForResource:@"reportSections" ofType:@"plist"];
+	sectionDict = [[NSDictionary alloc] initWithContentsOfFile:path];
+	
+	// Type
+	path = [[NSBundle mainBundle] pathForResource:@"reportTypes" ofType:@"plist"];
+	typeDict = [[NSDictionary alloc] initWithContentsOfFile:path];
+	
+	// Detail
+	path = [[NSBundle mainBundle] pathForResource:@"reportDetails" ofType:@"plist"];
+	detailDict = [[NSDictionary alloc] initWithContentsOfFile:path];
+	
+	path = nil;
+}
+
+#pragma mark -
 #pragma mark Table view data source
 
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	// Open and set sectionDict
-	NSString *path=[[NSBundle mainBundle] pathForResource:@"reportSections" ofType:@"plist"];
-    return [[NSDictionary dictionaryWithContentsOfFile:path] count];
+    return [sectionDict count];
 }
 
 // Section names
 - (NSString*)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section {
-	NSString *path=[[NSBundle mainBundle] pathForResource:@"reportSections" ofType:@"plist"];
-	NSString *sectionId = [NSString stringWithFormat:@"Section%d", section];
-	return [[NSDictionary dictionaryWithContentsOfFile:path] valueForKey:sectionId];
+	return [sectionDict valueForKey:[NSString stringWithFormat:@"Section%d", section]];
 }
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	// Set typeDict
-    // Open the plist
-	NSString *path=[[NSBundle mainBundle] pathForResource:@"reportTypes" ofType:@"plist"];
-	NSString *sectionId = [NSString stringWithFormat:@"Section%d", section];
-	return [[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] count];
+	return [[typeDict objectForKey:[NSString stringWithFormat:@"Section%d", section]] count];
 }
 
 // Customize the appearance of table view cells.
@@ -49,14 +62,12 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	
 	// Open the plist
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"reportTypes" ofType:@"plist"];
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", indexPath.section];
 	NSString *typeString = [NSString stringWithFormat:@"Type%d", indexPath.row];
 	
-	cell.textLabel.text = [[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] valueForKey:typeString];
+	cell.textLabel.text = [[typeDict objectForKey:sectionId] valueForKey:typeString];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	
-	path = nil;
 	sectionId = nil;
 	typeString = nil;
 	
@@ -74,18 +85,14 @@
 	
 	// Check if 1-level only
 	// Open plist
-	NSString *path = [[NSBundle mainBundle] pathForResource:@"reportDetails" ofType:@"plist"];
-	NSString *detailSectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
-	NSString *detailTypeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
+	NSString *sectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
+	NSString *typeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
 
 	// Title
-	// Open the plist
-	NSString *titlePath=[[NSBundle mainBundle] pathForResource:@"reportTypes" ofType:@"plist"];
-	NSDictionary *titleTypeDict = [[NSDictionary dictionaryWithContentsOfFile:titlePath] objectForKey:detailSectionId];
-	NSString *selectedTitle = [titleTypeDict valueForKey:detailTypeId];
+	NSString *selectedTitle = [[typeDict objectForKey:sectionId] valueForKey:typeId];
 	
 	// Check detail
-    if([[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:detailSectionId] objectForKey:detailTypeId] count]){
+    if([[[detailDict objectForKey:sectionId] objectForKey:typeId] count]){
 		// 2-level or more
 		DetailViewController *details = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
 		// Record
@@ -103,8 +110,6 @@
 		// Generate qid
 		// Merge names
 		NSString *qidPath = [[NSBundle mainBundle] pathForResource:@"reportQid" ofType:@"plist"];
-		NSString *sectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
-		NSString *typeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
 		// Open the qid plist
 		NSInteger qid = [[[[NSDictionary dictionaryWithContentsOfFile:qidPath] objectForKey:sectionId] valueForKey:typeId] intValue];
 				
@@ -112,15 +117,10 @@
 		[delegate typeSelectorDidSelectWithTitle:selectedTitle andQid:qid];
 		
 		qidPath = nil;
-		sectionId = nil;
-		typeId = nil;
 	}
 	
-	path = nil;
-	detailTypeId = nil;
-	detailSectionId = nil;
-	titlePath = nil;
-	titleTypeDict = nil;
+	typeId = nil;
+	sectionId = nil;
 	selectedTitle = nil;
 	
 }
@@ -140,6 +140,9 @@
 }
 
 - (void)dealloc {
+	[sectionDict release];
+	[typeDict release];
+	[detailDict release];
     [super dealloc];
 }
 
