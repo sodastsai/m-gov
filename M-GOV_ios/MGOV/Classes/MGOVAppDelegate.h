@@ -12,8 +12,7 @@
 #import "QueryViewController.h"
 #import "PrefViewController.h"
 #import "PrefAccess.h"
-#import "CaseAddViewController.h"
-#import "CaseViewerViewController.h"
+#import "NetworkChecking.h"
 
 @interface MGOVAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;

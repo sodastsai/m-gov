@@ -23,10 +23,12 @@
 }
 
 - (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)title {
-	UIBarButtonItem *setConditionButton = [[UIBarButtonItem alloc] initWithTitle:@"設定條件" style:UIBarButtonItemStyleBordered target:self action:@selector(setQueryCondition)];
 	caseSource = nil;
+	
+	UIBarButtonItem *setConditionButton = [[UIBarButtonItem alloc] initWithTitle:@"設定條件" style:UIBarButtonItemStyleBordered target:self action:@selector(setQueryCondition)];
 	self = [self initWithMode:mode andTitle:title withRightBarButtonItem:setConditionButton];
 	[setConditionButton release];
+	
 	return self;
 }
 
@@ -193,8 +195,10 @@
 		// Select Type
 		typesViewController *typeSelector = [[typesViewController alloc] init];
 		typeSelector.delegate = self;
+		
 		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typeSelector];
 		[self presentModalViewController:typeAndDetailSelector animated:YES];
+		
 		[typeSelector release];
 		[typeAndDetailSelector release];
 	} else if (buttonIndex==0) {

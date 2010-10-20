@@ -11,9 +11,7 @@
 #import "CJSONDeserializer.h"
 
 @interface MGOVGeocoder : NSObject {
-	
 	CLLocationManager *locationManager;
-	
 }
 
 @property (nonatomic, retain) CLLocationManager *locationManager;

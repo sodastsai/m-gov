@@ -63,8 +63,7 @@
 	else if ([self convertStatusStringToStatusCode:[(AppMKAnnotation *)annotation annotationStatus]]==2)
 		dataAnnotationView.pinColor = MKPinAnnotationColorRed;
 	else {
-		UIImage *image = [UIImage imageNamed:@"orange_pin.png"];
-		UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"orange_pin.png"]];
 		imageView.frame = CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height);
 		[dataAnnotationView addSubview:imageView];
 		[imageView release];
@@ -107,10 +106,7 @@
 	self.topViewController.navigationItem.leftBarButtonItem.enabled =  NO;
 	self.topViewController.navigationItem.rightBarButtonItem.enabled = NO;
 	// Save state
-	if (![currentCondition isEqual:condition]) {
-		[currentCondition release];
-		self.currentCondition = condition;
-	}
+	self.currentCondition = condition;
 	self.currentConditionType = conditionType;
 	[qGAE startQuery];
 }
@@ -219,6 +215,12 @@
 		} else {
 			cell.caseDate.text = originalDate;
 		}
+		
+		originalDate = nil;
+		originalLongDate = nil;
+		formattedDate = nil;
+		todayDate = nil;
+		todayEnd = nil;
 	} else {
 		// No Date
 		cell.caseDate.text = @"";
@@ -233,20 +235,27 @@
 	else
 		cell.caseStatus.image = [UIImage imageNamed:@"unknown.png"];
 	
+	caseTypeText= nil;
+	
 	return cell;
 }
 
 - (NSArray *) setupAnnotationArrayForMapView {
 	CLLocationCoordinate2D coordinate;
 	NSMutableArray *annotationArray = [[[NSMutableArray alloc] init] autorelease];
+	NSString *typeStr;
+	NSAutoreleasePool *tmpPool = [[NSAutoreleasePool alloc] init];
 	for (int i = 0; i < [caseSource count]; i++) {
 		coordinate.longitude = [[[[caseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 		coordinate.latitude = [[[[caseSource objectAtIndex:i] objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
-		NSString *typeStr = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[[caseSource objectAtIndex:i] valueForKey:@"typeid"]];
+		typeStr = [[NSDictionary dictionaryWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"QidToType" ofType:@"plist"]] valueForKey:[[caseSource objectAtIndex:i] valueForKey:@"typeid"]];
 		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:typeStr andSubtitle:@"" andCaseID:[[caseSource objectAtIndex:i] objectForKey:@"key"] andStatus:[[caseSource objectAtIndex:i] objectForKey:@"status"]];
 		[annotationArray addObject:casePlace];
 		[casePlace release];
+		
+		typeStr = nil;
 	}
+	[tmpPool drain];
 	return annotationArray;
 }
 
@@ -272,8 +281,11 @@
 	listViewController.tableView.dataSource = self;
 }
 
-- (void)dealloc {
+- (void)viewDidUnload {
 	[childViewController release];
+}
+
+- (void)dealloc {
 	[super dealloc];
 }
 

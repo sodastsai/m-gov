@@ -31,6 +31,8 @@
 	// Copy plist file
 	if (![[NSFileManager defaultManager] fileExistsAtPath:tempPlistPathInAppDocuments]) 
 		[[NSFileManager defaultManager] copyItemAtPath:tempPlistPathInAppBundle toPath:tempPlistPathInAppDocuments error:nil];
+	tempPlistPathInAppBundle = nil;
+	tempPlistPathInAppDocuments = nil;
 	
 	[PrefAccess copyEmptyPrefPlistToDocumentsByRecover:NO];
 	
@@ -82,9 +84,14 @@
 	[dict setValue:@"" forKey:@"TypeTitle"];
 	[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+	dict = nil;
+	tempPlistPathInAppDocuments = nil;
+	// Reset network alert status
+	[PrefAccess writePrefByKey:@"NetworkIsAlerted" andObject:[NSNumber numberWithBool:NO]];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
+	[NetworkChecking checkNetwork];
 	// Refesh views after coming back
 	NSEnumerator *enumerator = [tabBarController.viewControllers objectEnumerator];
 	id eachViewController;

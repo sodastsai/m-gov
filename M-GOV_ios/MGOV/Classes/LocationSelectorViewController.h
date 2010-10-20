@@ -18,7 +18,6 @@
 
 @end
 
-
 @interface LocationSelectorViewController : UIViewController <MKMapViewDelegate> {
 	id<LocationSelectorViewControllerDelegate> delegate;
 	MKMapView *mapView;
@@ -40,6 +39,5 @@
 - (void) updatingAddress:(AppMKAnnotation *)annotation;
 - (void) transformCoordinate;
 - (void) showAnnotationCallout;
-
 
 @end

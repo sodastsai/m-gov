@@ -40,13 +40,15 @@
 	if ([key isEqualToString:@"User Email"]) {
 		// Check Email Format
 		if (![value length]) {
-			[self alertWhileFailToWriteWithTitle:@"即將清除您的E-Mail帳號" andContent:@"如果要查詢以前報過的案件，請再次輸入您的E-Mail帳號即可。"];
+			[self alertWhileFailToWriteWithTitle:@"已清除您的E-Mail帳號" andContent:@"如果要查詢以前報過的案件，請再次輸入您的E-Mail帳號即可。"];
 			return YES; 
 		}
 		NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z0-9.-]";
 		NSRange r = [value rangeOfString:emailRegex options:NSRegularExpressionSearch];
 		if (r.location != NSNotFound) return YES;
 		else return NO;
+		
+		emailRegex = nil;
 	} else {
 		// Nothing to check
 		return YES;
@@ -152,12 +154,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)viewDidLoad {
-}
-
-- (void)viewDidUnload {
 }
 
 - (void)dealloc {

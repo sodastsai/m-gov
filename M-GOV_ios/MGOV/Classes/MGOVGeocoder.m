@@ -45,6 +45,8 @@ static MGOVGeocoder *sharedVariable = nil;
 	[data release];
 	if (![[dict objectForKey:@"status"] isEqual:@"OK"]) return nil;
 	NSArray *array = [NSArray arrayWithObjects:[[[[[dict objectForKey:@"results"] objectAtIndex:1] objectForKey:@"address_components" ] objectAtIndex:1] objectForKey:@"long_name"], [[[[[dict objectForKey:@"results"] objectAtIndex:1] objectForKey:@"address_components" ] objectAtIndex:0] objectForKey:@"long_name"], nil];
+	
+	dict = nil;
 	return array;
 }
 
@@ -62,6 +64,9 @@ static MGOVGeocoder *sharedVariable = nil;
 	CLLocationCoordinate2D finalCoord;
 	finalCoord.longitude = longitude;
 	finalCoord.latitude = latitude;
+	
+	regEx1 = nil;
+	regEx2 = nil;
 	return finalCoord;
 }
 

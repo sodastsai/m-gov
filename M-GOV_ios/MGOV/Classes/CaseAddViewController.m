@@ -22,7 +22,7 @@
 - (void)submitCase {
 	// If this is the First time to Submit, We should ask user's email.
 	if (![[PrefAccess readPrefByKey:@"User Email"] length]) {
-		alertEmailPopupBox = [[UIAlertView alloc] initWithTitle:@"請輸入您的E-Mail" message:[NSString stringWithFormat:@"路見不平會使用E-Mail記錄您的案件\n\n\n"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好", nil];
+		alertEmailPopupBox = [[UIAlertView alloc] initWithTitle:@"請輸入您的E-Mail" message:[NSString stringWithFormat:@"路見不平會使用E-Mail追蹤您的案件\n\n\n"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好", nil];
 		alertEmailPopupBox.tag = 3000;
 		// Email Text Field
 		alertEmailInputField = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 75.0, 260.0, 30.0)];
@@ -40,7 +40,7 @@
 		[alertEmailPopupBox release];
 	} else if ([[PrefAccess readPrefByKey:@"User Email"] length] && qid != 0) {
 		[PrefAccess writePrefByKey:@"NetworkIsAlerted" andObject:[NSNumber numberWithBool:NO]];
-		if ([NetWorkChecking checkNetwork]) {
+		if ([NetworkChecking checkNetwork]) {
 			UIAlertView *submitConfirm = [[UIAlertView alloc] initWithTitle:@"送出案件" message:@"確定要送出此案件至1999?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
 			submitConfirm.tag = 2000;
 			[submitConfirm show];

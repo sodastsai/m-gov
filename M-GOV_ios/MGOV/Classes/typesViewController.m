@@ -18,10 +18,8 @@
 
 // Customize the number of sections in the table view.
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
 	// Open and set sectionDict
 	NSString *path=[[NSBundle mainBundle] pathForResource:@"reportSections" ofType:@"plist"];
-	
     return [[NSDictionary dictionaryWithContentsOfFile:path] count];
 }
 
@@ -29,18 +27,15 @@
 - (NSString*)tableView:(UITableView*)tableView titleForHeaderInSection:(NSInteger)section {
 	NSString *path=[[NSBundle mainBundle] pathForResource:@"reportSections" ofType:@"plist"];
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", section];
-	
 	return [[NSDictionary dictionaryWithContentsOfFile:path] valueForKey:sectionId];
 }
 
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
 	// Set typeDict
     // Open the plist
 	NSString *path=[[NSBundle mainBundle] pathForResource:@"reportTypes" ofType:@"plist"];
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", section];
-
 	return [[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] count];
 }
 
@@ -54,12 +49,16 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	
 	// Open the plist
-	NSString *path=[[NSBundle mainBundle] pathForResource:@"reportTypes" ofType:@"plist"];
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"reportTypes" ofType:@"plist"];
 	NSString *sectionId = [NSString stringWithFormat:@"Section%d", indexPath.section];
 	NSString *typeString = [NSString stringWithFormat:@"Type%d", indexPath.row];
 	
 	cell.textLabel.text = [[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] valueForKey:typeString];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+	
+	path = nil;
+	sectionId = nil;
+	typeString = nil;
 	
     return cell;
 }
@@ -103,15 +102,27 @@
 		// 1-level only
 		// Generate qid
 		// Merge names
-		NSString *path = [[NSBundle mainBundle] pathForResource:@"reportQid" ofType:@"plist"];
+		NSString *qidPath = [[NSBundle mainBundle] pathForResource:@"reportQid" ofType:@"plist"];
 		NSString *sectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
 		NSString *typeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
 		// Open the qid plist
-		NSInteger qid = [[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] valueForKey:typeId] intValue];
+		NSInteger qid = [[[[NSDictionary dictionaryWithContentsOfFile:qidPath] objectForKey:sectionId] valueForKey:typeId] intValue];
 				
 		// Switch back
 		[delegate typeSelectorDidSelectWithTitle:selectedTitle andQid:qid];
+		
+		qidPath = nil;
+		sectionId = nil;
+		typeId = nil;
 	}
+	
+	path = nil;
+	detailTypeId = nil;
+	detailSectionId = nil;
+	titlePath = nil;
+	titleTypeDict = nil;
+	selectedTitle = nil;
+	
 }
 
 #pragma mark -

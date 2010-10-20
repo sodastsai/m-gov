@@ -32,8 +32,7 @@
 		indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
 		indicator.frame = CGRectMake(indicatorX, (int)((kLoadingViewHeight-kIndicatorSize)/2), kIndicatorSize, kIndicatorSize);
 		
-        loading = [[UILabel alloc] initWithFrame:
-							CGRectMake(labelX, (int)((kLoadingViewHeight-kLabelHeight)/2), kLabelWidth, kLabelHeight)];
+        loading = [[UILabel alloc] initWithFrame:CGRectMake(labelX, (int)((kLoadingViewHeight-kLabelHeight)/2), kLabelWidth, kLabelHeight)];
 		loading.text = @"正在載入...";
 		loading.textColor = [UIColor whiteColor];
 		loading.backgroundColor = [UIColor clearColor];
@@ -45,6 +44,8 @@
 		[self addSubview:indicator];
 		
 		[indicator stopAnimating];
+		[indicator release];
+		[loading release];
     }
     return self;
 }
@@ -61,7 +62,6 @@
 #pragma mark Memory Management
 
 - (void)dealloc {
-	[loading release];
     [super dealloc];
 }
 

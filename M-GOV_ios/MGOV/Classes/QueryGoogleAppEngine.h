@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "ASIHTTPRequest.h"
 #import "LoadingOverlayView.h"
-#import "NetWorkChecking.h"
+#import "NetworkChecking.h"
 #import "PrefAccess.h"
 #import "CJSONDeserializer.h"
 
@@ -55,6 +55,7 @@ typedef enum {
 	NSString *queryType;
 	id queryResult;
 	
+	// Loading View
 	LoadingOverlayView *indicatorView;
 	UIView *indicatorTargetView;
 }

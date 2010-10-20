@@ -1,5 +1,5 @@
 //
-//  NetWorkChecking.h
+//  NetworkChecking.h
 //  MGOV
 //
 //  Created by shou on 2010/10/4.
@@ -10,16 +10,9 @@
 #import "Reachability.h"
 #import "PrefAccess.h"
 
-@interface NetWorkChecking : NSObject {
-	// Check Network
-	//Reachability* internetReachable;
-	//Reachability* hostReachable;
-	//BOOL networkCheck;
+@interface NetworkChecking : NSObject {
 }
 
-//@property (nonatomic) BOOL networkCheck;
-
-//- (void) checkNetworkStatus:(NSNotification *)notice;
-+ (BOOL) checkNetwork;
++ (BOOL)checkNetwork;
 
 @end

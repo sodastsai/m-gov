@@ -26,6 +26,8 @@
 	} else if (![[NSFileManager defaultManager] fileExistsAtPath:userInformationPlistPathInAppDocuments]) {
 		[[NSFileManager defaultManager] copyItemAtPath:userInformationPlistPathInAppBundle toPath:userInformationPlistPathInAppDocuments error:nil];
 	}
+	userInformationPlistPathInAppBundle = nil;
+	userInformationPlistPathInAppDocuments = nil;
 }
 
 + (id)readPrefByKey:(NSString *)key {
@@ -34,9 +36,10 @@
 }
 
 + (void)writePrefByKey:(NSString *)key andObject:(id)object {
-	PrefAccess *tmp = [[[PrefAccess alloc] init] autorelease];
+	PrefAccess *tmp = [[PrefAccess alloc] init];
 	[tmp.prefDict setObject:object forKey:key];
 	[tmp.prefDict writeToFile:tmp.prefPlistPathInAppDocuments atomically:NO];
+	[tmp release];
 }
 
 #pragma mark -
@@ -54,8 +57,9 @@
 #pragma mark Memory Management
 
 - (void)dealloc {
-	[super dealloc];
+	prefPlistPathInAppDocuments = nil;
 	[prefDict release];
+	[super dealloc];
 }
 
 @end

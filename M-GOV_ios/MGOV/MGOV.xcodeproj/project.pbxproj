@@ -104,6 +104,7 @@
 		FEE907DE1251C95400A1CBAF /* LoadingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE907DD1251C95400A1CBAF /* LoadingOverlayView.m */; };
 		FEEB1FEE12392E6B00B24560 /* CaseSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEB1FED12392E6B00B24560 /* CaseSelectorCell.m */; };
 		FEF0D2C01230CACA000317C5 /* AppClassExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */; };
+		FEF239A6126EC09800877766 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FEF239A5126EC09800877766 /* Default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -256,6 +257,7 @@
 		FEEB1FED12392E6B00B24560 /* CaseSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseSelectorCell.m; sourceTree = "<group>"; };
 		FEF0D2BE1230CACA000317C5 /* AppClassExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppClassExtension.h; sourceTree = "<group>"; };
 		FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppClassExtension.m; sourceTree = "<group>"; };
+		FEF239A5126EC09800877766 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -334,6 +336,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FEF239A5126EC09800877766 /* Default.png */,
 				FE4D13BF1264BA1200B3E415 /* iTunesArtwork */,
 				FE4D13B31264BA0900B3E415 /* Icon-72.png */,
 				FE4D13B41264BA0900B3E415 /* Icon-Small-50.png */,
@@ -707,6 +710,7 @@
 				FE4D13BD1264BA0900B3E415 /* Icon.png in Resources */,
 				FE4D13BE1264BA0900B3E415 /* Icon@2x.png in Resources */,
 				FE4D13C01264BA1200B3E415 /* iTunesArtwork in Resources */,
+				FEF239A6126EC09800877766 /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -20,7 +20,7 @@
 #import "LoadingOverlayView.h"
 #import "CaseSelectorViewController.h"
 #import "PrefAccess.h"
-#import "NetWorkChecking.h"
+#import "NetworkChecking.h"
 
 #define kPhotoScale 640
 

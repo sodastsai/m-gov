@@ -52,6 +52,11 @@
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	cell.textLabel.font = [UIFont boldSystemFontOfSize:18.0];
 	
+	path = nil;
+	sectionId = nil;
+	typeId = nil;
+	detailId = nil;
+	
     return cell;
 }
 
@@ -90,16 +95,26 @@
 	} else {
 		// Generate qid
 		// Merge names
-		NSString *path = [[NSBundle mainBundle] pathForResource:@"reportQid" ofType:@"plist"];
+		NSString *qidPath = [[NSBundle mainBundle] pathForResource:@"reportQid" ofType:@"plist"];
 		NSString *sectionId = [NSString stringWithFormat:@"Section%d", finalSectionId];
 		NSString *typeId = [NSString stringWithFormat:@"Type%d", finalTypeId];
 		NSString *detailId = [NSString stringWithFormat:@"Detail%d", finalDetailId];
 		// Open the qid plist
-		NSInteger qid = [[[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] valueForKey:detailId] intValue];
+		NSInteger qid = [[[[[NSDictionary dictionaryWithContentsOfFile:qidPath] objectForKey:sectionId] objectForKey:typeId] valueForKey:detailId] intValue];
 		
 		// Switch back
 		[delegate typeSelectorDidSelectWithTitle:selectedTitle andQid:qid];
+		
+		qidPath = nil;
+		sectionId = nil;
+		typeId = nil;
+		detailId = nil;
 	}
+	
+	path = nil;
+	sectionId = nil;
+	typeId = nil;
+	detailId = nil;
 }
 
 #pragma mark -

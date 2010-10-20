@@ -39,5 +39,7 @@
 	<string>MainWindow</string>
 	<key>Release State</key>
 	<string>1.0 Beta Release 2</string>
+	<key>UILaunchImageFile</key>
+	<string>Default.png</string>
 </dict>
 </plist>

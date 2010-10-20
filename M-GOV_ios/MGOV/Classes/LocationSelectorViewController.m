@@ -16,7 +16,6 @@
 @synthesize bottomBar, selectedCoord, caseImage;
 @synthesize annotationAddress;
 
-
 #pragma mark -
 #pragma mark MKMapViewDelegate
 
@@ -61,6 +60,7 @@
 			// Update annotation subtitle
 			[self updatingAddress:annotationView.annotation];
 		}
+		tempAddress = nil;
 	}
 }
 
@@ -126,7 +126,7 @@
 		coord.latitude = 25.046337;
 		coord.longitude = 121.51745;
 		casePlace.coordinate = coord;
-		UIAlertView *outofTaipeiCity = [[UIAlertView alloc] initWithTitle:@"超出服務範圍" message:@"1999的服務範圍僅限於台北市內！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
+		UIAlertView *outofTaipeiCity = [[UIAlertView alloc] initWithTitle:@"超出服務範圍" message:@"本服務目前僅受理台北市內的案件！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
 		[outofTaipeiCity show];
 		[outofTaipeiCity release];
 	}
@@ -150,12 +150,10 @@
     [super viewDidUnload];
 }
 
-
 - (void)dealloc {
 	// MapView could not release
 	[bottomBar release];
     [super dealloc];
 }
-
 
 @end

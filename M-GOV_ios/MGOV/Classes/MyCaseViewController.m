@@ -14,18 +14,24 @@
 #pragma mark Override
 
 - (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)title {
-	UIBarButtonItem *addCaseButton = [[UIBarButtonItem alloc] initWithTitle:@"新增案件" style:UIBarButtonItemStyleBordered target:self action:@selector(addCase)];
 	// Set Range length to 0 to fectch all data
 	queryRange = NSRangeFromString(@"0,0");
+	
+	UIBarButtonItem *addCaseButton = [[UIBarButtonItem alloc] initWithTitle:@"新增案件" style:UIBarButtonItemStyleBordered target:self action:@selector(addCase)];
 	self = [self initWithMode:mode andTitle:title withRightBarButtonItem:addCaseButton];
 	[addCaseButton release];
+	
 	return self;
 }
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {
+	// Pop original one
 	UIViewController *popResult = [super popViewControllerAnimated:animated];
+	
 	if (![self myCaseDataAvailability]) informationBar.hidden = YES;
 	[childViewController cleanTableView];
+	
+	// Return original one
 	return popResult;
 }
 
@@ -73,6 +79,7 @@
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		return cell;
+		
 	} else return [super tableView:tableView cellForRowAtIndexPath:indexPath];
 }
 

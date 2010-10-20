@@ -35,8 +35,10 @@
 
 - (UIViewController *)initialMapViewController {
 	if (mapViewController == nil) {
+		// New a mapView
 		mapView = [[MKMapView alloc] initWithFrame:CGRectMake(0, 0, 320, 342)];
 		mapView.delegate = self;
+		// Set map view center to current location
 		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];	
 		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
 		MKCoordinateRegion region;
@@ -46,9 +48,11 @@
 		span.longitudeDelta = 0.004;
 		region.span = span;
 		[mapView setRegion:region];
+		// Set map to show user current location
 		mapView.showsUserLocation = YES;
 		mapView.userLocation.title = @"Current Location!";
 		mapView.userLocation.subtitle = @"";
+		// View Controller
 		mapViewController = [[UIViewController alloc] init];
 		mapViewController.view = mapView;
 		[mapView release];
@@ -69,6 +73,7 @@
 
 - (UITableViewController *)initialListViewController {
 	if (listViewController == nil) {
+		// View Controller
 		listViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
 		listViewController.tableView.delegate = self;
 		listViewController.tableView.dataSource = self;
@@ -259,9 +264,7 @@
 #pragma mark Memory Management
 
 - (void)didReceiveMemoryWarning {
-	//if (menuMode == HybridViewMapMode) [listViewController release];
-	//else [mapViewController release];
-    [super didReceiveMemoryWarning];
+	[super didReceiveMemoryWarning];
 }
 
 - (void)dealloc {

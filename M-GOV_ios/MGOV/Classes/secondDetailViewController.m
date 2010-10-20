@@ -53,6 +53,12 @@
 	cell.textLabel.text = [[[[[NSDictionary dictionaryWithContentsOfFile:path] objectForKey:sectionId] objectForKey:typeId] objectForKey:detailId] valueForKey:secondDetailId];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	
+	path = nil;
+	sectionId = nil;
+	typeId = nil;
+	detailId = nil;
+	secondDetailId = nil;
+	
     return cell;
 }
 
@@ -82,6 +88,18 @@
 	
 	// Switch back
 	[delegate typeSelectorDidSelectWithTitle:selectedTitle andQid:qid];
+	
+	path = nil;
+	sectionId = nil;
+	typeId = nil;
+	detailId = nil;
+	secondDetailId = nil;
+	titlePlistPath = nil;
+	finalSection = nil;
+	finalType = nil;
+	finalDetail = nil;
+	finalSecondDetail = nil;
+	selectedTitle = nil;
 }
 
 #pragma mark -

@@ -53,7 +53,8 @@
 			photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
 			photoView.layer.cornerRadius = 10.0;
 			photoView.layer.masksToBounds = YES;	
-		}		
+		}
+		str = nil;
 	}
 	else {
 		photoView = nil;
@@ -119,11 +120,13 @@
 	if (photoView == nil && section == 2) {
 		UIView *emptyPhoto = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 200)] autorelease];
 		emptyPhoto.backgroundColor = [UIColor clearColor];
+		// Text Label
 		UILabel *emptyPhotoHint = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 200)];
 		emptyPhotoHint.backgroundColor = [UIColor clearColor];
 		emptyPhotoHint.text = @"此案件無照片！";
 		emptyPhotoHint.textAlignment = UITextAlignmentCenter;
 		emptyPhotoHint.textColor = [UIColor colorWithRed:0.298 green:0.337 blue:0.424 alpha:1];
+		
 		[emptyPhoto addSubview:emptyPhotoHint];
 		[emptyPhotoHint release];
 		return emptyPhoto;
