@@ -216,7 +216,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (indexPath.section==2 && indexPath.row==0) {
-		typesViewController *typesView = [[typesViewController alloc] init];
+		TypesViewController *typesView = [[TypesViewController alloc] init];
 		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typesView];
 		// Show the view
 		typesView.delegate = self;
@@ -392,7 +392,7 @@
 	
 	// Submit with no type selected
 	if (alertView.tag==4000) {
-		typesViewController *typesView = [[typesViewController alloc] init];
+		TypesViewController *typesView = [[TypesViewController alloc] init];
 		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typesView];
 		// Show the view
 		typesView.delegate = self;

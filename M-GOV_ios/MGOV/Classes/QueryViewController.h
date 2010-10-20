@@ -12,7 +12,7 @@
 #import "QueryGoogleAppEngine.h"
 #import "CaseSelectorCell.h"
 #import "MGOVGeocoder.h"
-#import "typesViewController.h"
+#import "TypesViewController.h"
 #import "ASIHTTPRequest.h"
 
 #define kDataSectorSize 10

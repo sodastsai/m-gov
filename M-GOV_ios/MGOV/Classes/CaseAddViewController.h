@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "typesViewController.h"
+#import "TypesViewController.h"
 #import "TypeSelectorDelegateProtocol.h"
 #import "PhotoPickerTableCell.h"
 #import "LocationSelectorTableCell.h"

@@ -193,7 +193,7 @@
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
 	if (buttonIndex==1) {
 		// Select Type
-		typesViewController *typeSelector = [[typesViewController alloc] init];
+		TypesViewController *typeSelector = [[TypesViewController alloc] init];
 		typeSelector.delegate = self;
 		
 		UINavigationController *typeAndDetailSelector = [[UINavigationController alloc] initWithRootViewController:typeSelector];
