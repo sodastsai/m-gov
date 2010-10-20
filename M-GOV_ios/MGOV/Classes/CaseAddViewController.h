@@ -41,6 +41,7 @@
 	
 	UIView *keyboard;
 	LoadingOverlayView *indicatorView;
+	NSMutableDictionary *columnSaving;
 	
 	// Parent
 	CaseSelectorViewController *myCase;
@@ -51,6 +52,7 @@
 @property (retain, nonatomic) UIImage *selectedImage;
 @property (retain, nonatomic) CaseSelectorViewController *myCase;
 @property (nonatomic, retain) NSString *userName;
+@property (nonatomic, retain) NSMutableDictionary *columnSaving;
 
 - (void)submitCase;
 - (void)keyboardWillShow:(NSNotification *)note;

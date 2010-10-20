@@ -15,6 +15,7 @@
 @synthesize qid, userName;
 @synthesize selectedImage;
 @synthesize myCase;
+@synthesize columnSaving;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -56,10 +57,10 @@
 	
 	// Fetch the data user key in last time
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
+	self.columnSaving = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
 	
 	// Photo Cell
-	UIImage *image = [UIImage imageWithData:[dict objectForKey:@"Photo"]];
+	UIImage *image = [UIImage imageWithData:[self.columnSaving objectForKey:@"Photo"]];
 	[photoCell.photoButton setImage:[image fitToSize:CGSizeMake(300, [PhotoPickerTableCell cellHeight])] forState:UIControlStateNormal];
 	[photoCell.photoButton setTitle:@"按一下以加入照片..." forState:UIControlStateNormal];
 	if (image != nil) {
@@ -67,21 +68,21 @@
 	}
 	
 	// Location Cell
-	if ([[dict objectForKey:@"Latitude"] doubleValue]!=0 && [[dict objectForKey:@"Longitude"] doubleValue]!=0) {
-		selectedCoord.latitude = [[dict objectForKey:@"Latitude"] doubleValue];
-		selectedCoord.longitude = [[dict objectForKey:@"Longitude"] doubleValue];
+	if ([[self.columnSaving objectForKey:@"Latitude"] doubleValue]!=0 && [[self.columnSaving objectForKey:@"Longitude"] doubleValue]!=0) {
+		selectedCoord.latitude = [[self.columnSaving objectForKey:@"Latitude"] doubleValue];
+		selectedCoord.longitude = [[self.columnSaving objectForKey:@"Longitude"] doubleValue];
 		[locationCell updatingCoordinate:selectedCoord];
 	}
 	
 	// Type Cell
-	self.qid = [[dict objectForKey:@"TypeID"] intValue];
-	self.selectedTypeTitle = [dict valueForKey:@"TypeTitle"];
+	self.qid = [[self.columnSaving objectForKey:@"TypeID"] intValue];
+	self.selectedTypeTitle = [self.columnSaving valueForKey:@"TypeTitle"];
 	
 	// Name Cell
 	nameFieldCell.nameField.text = userName;
 	
 	// Description Cell
-	[descriptionCell setPlaceholder:[dict valueForKey:@"Description"]];
+	[descriptionCell setPlaceholder:[self.columnSaving valueForKey:@"Description"]];
 	
 	[self.tableView reloadData];
 	tempPlistPathInAppDocuments = nil;
@@ -95,9 +96,9 @@
 	
 	// Temporary store the name & description info. to CaseAddTempInformation.plist
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
-	if (![descriptionCell.descriptionField.text isEqualToString:@"請輸入描述及建議"]) [dict setValue:descriptionCell.descriptionField.text forKey:@"Description"];
-	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];	
+	if (![descriptionCell.descriptionField.text isEqualToString:@"請輸入描述及建議"]) [self.columnSaving setValue:descriptionCell.descriptionField.text forKey:@"Description"];
+	[self.columnSaving writeToFile:tempPlistPathInAppDocuments atomically:YES];
+	
 	userName = nameFieldCell.nameField.text;
 }
 
@@ -286,22 +287,19 @@
 	if (alertView.tag==1000) {
 		if (buttonIndex) {
 			NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-			NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:tempPlistPathInAppDocuments];
-			
-			[dict setObject:[NSData data] forKey:@"Photo"];
-			[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
-			[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
-			[dict setValue:@"" forKey:@"Description"];
+			[self.columnSaving setObject:[NSData data] forKey:@"Photo"];
+			[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
+			[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
+			[self.columnSaving setValue:@"" forKey:@"Description"];
 			descriptionCell.descriptionField.text = @"";
 			nameFieldCell.nameField.text = [PrefAccess readPrefByKey:@"Name"];
-			[dict setValue:@"" forKey:@"TypeTitle"];
-			[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
-			[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+			[self.columnSaving setValue:@"" forKey:@"TypeTitle"];
+			[self.columnSaving setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
+			[self.columnSaving writeToFile:tempPlistPathInAppDocuments atomically:YES];
 			
 			MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 			selectedCoord = shared.locationManager.location.coordinate;
 			[locationCell updatingCoordinate:selectedCoord];
-			[dict release];
 			
 			[self viewWillAppear:YES];
 		} else {
@@ -318,18 +316,14 @@
 			indicatorView.loading.text = @"正在送出...";
 			[indicatorView startedLoad];
 			
-			// If this is the First time to Submit, We should ask user's email.
-			// Check plist
-			NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-			NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:tempPlistPathInAppDocuments];
-			
+
 			// Convert Byte Data to Photo From Plist
 			NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [PrefAccess readPrefByKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
 			
 			// Post the submt data to App Engine
 			ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case/add?method=upload"]];
 			request.delegate = self;
-			[request setFile:[dict objectForKey:@"Photo"] withFileName:filename andContentType:@"image/png" forKey:@"photo"];
+			[request setFile:[self.columnSaving objectForKey:@"Photo"] withFileName:filename andContentType:@"image/png" forKey:@"photo"];
 			[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:0] forKey:@"h_admit_name"];
 			[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:1] forKey:@"h_admiv_name"];
 			[request setPostValue:[NSString stringWithFormat:@"%d", qid] forKey:@"typeid"];
@@ -345,16 +339,14 @@
 			[PrefAccess writePrefByKey:@"Name" andObject:nameFieldCell.nameField.text];
 			
 			// After submit case, clean the temp infomation
-			[dict setObject:[NSData data] forKey:@"Photo"];
-			[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
-			[dict setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
-			[dict setValue:@"" forKey:@"Description"];
+			[self.columnSaving setObject:[NSData data] forKey:@"Photo"];
+			[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
+			[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
+			[self.columnSaving setValue:@"" forKey:@"Description"];
 			descriptionCell.descriptionField.text = @"";
 			nameFieldCell.nameField.text = [PrefAccess readPrefByKey:@"Name"];
-			[dict setValue:@"" forKey:@"TypeTitle"];
-			[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
-			[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
-			[dict release];
+			[self.columnSaving setValue:@"" forKey:@"TypeTitle"];
+			[self.columnSaving setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 			
 			filename = nil;
 		}
@@ -447,11 +439,9 @@
 	[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];
 	
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-	NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:tempPlistPathInAppDocuments];
 	NSData *data = UIImagePNGRepresentation(selectedImage);
-	[dict setObject:data forKey:@"Photo"];
-	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
-	[dict release];
+	[self.columnSaving setObject:data forKey:@"Photo"];
+	[self.columnSaving writeToFile:tempPlistPathInAppDocuments atomically:YES];
 	data = nil;
 	
 	// Close Picker,Reload Data, and Call Location Selector
@@ -506,11 +496,9 @@
 	
 	// Temporary store the coordinate selected by user to CaseAddTempInformation.plist
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-	NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:tempPlistPathInAppDocuments];
-	[dict setObject:[NSNumber numberWithDouble:coordinate.longitude] forKey:@"Longitude"];
-	[dict setObject:[NSNumber numberWithDouble:coordinate.latitude] forKey:@"Latitude"];
-	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
-	[dict release];
+	[self.columnSaving setObject:[NSNumber numberWithDouble:coordinate.longitude] forKey:@"Longitude"];
+	[self.columnSaving setObject:[NSNumber numberWithDouble:coordinate.latitude] forKey:@"Latitude"];
+	[self.columnSaving writeToFile:tempPlistPathInAppDocuments atomically:YES];
 	
 	// Dismiss the view
 	[locationCell updatingCoordinate:coordinate];
@@ -545,11 +533,10 @@
 	
 	// Temporary store the typeid & typetitle info. to CaseAddTempInformation.plist
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-	NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithContentsOfFile:tempPlistPathInAppDocuments];
-	[dict setObject:[NSNumber numberWithInt:q] forKey:@"TypeID"];
-	[dict setValue:t forKey:@"TypeTitle"];
-	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
-	[dict release];
+	[self.columnSaving setObject:[NSNumber numberWithInt:q] forKey:@"TypeID"];
+	[self.columnSaving setValue:t forKey:@"TypeTitle"];
+	[self.columnSaving writeToFile:tempPlistPathInAppDocuments atomically:YES];
+	tempPlistPathInAppDocuments = nil;
 	
 	// Dismiss the view
 	[self dismissModalViewControllerAnimated:YES];
