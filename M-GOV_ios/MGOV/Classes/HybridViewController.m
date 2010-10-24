@@ -1,10 +1,27 @@
-//
-//  HybridViewController.m
-//  MGOV
-//
-//  Created by sodas on 2010/9/9.
-//  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
-//
+/*
+ * 
+ * HybridViewController.m
+ * 2010/9/9
+ * sodas
+ * 
+ * A hybrid view controller which combines MapView and TableView with Navigation Controller
+ * Use this view controller to show location-related data in list way and map way
+ *
+ * Copyright 2010 NTU CSIE Mobile & HCI Lab
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 
 #import "HybridViewController.h"
 
@@ -64,7 +81,7 @@
 		mapViewController.navigationItem.leftBarButtonItem = changeMode;
 		[changeMode release];
 		mapViewController.navigationItem.title = self.title;
-		mapViewController.navigationItem.rightBarButtonItem = rightButtonItem;
+		mapViewController.navigationItem.rightBarButtonItem = self.rightButtonItem;
 		mapViewController.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
 	}
 	[self refreshViews];
@@ -82,7 +99,7 @@
 		listViewController.navigationItem.leftBarButtonItem = changeMode;
 		[changeMode release];
 		listViewController.navigationItem.title = self.title;
-		listViewController.navigationItem.rightBarButtonItem = rightButtonItem;
+		listViewController.navigationItem.rightBarButtonItem = self.rightButtonItem;
 		listViewController.navigationController.navigationBar.barStyle = UIBarStyleDefault;
 		
 		listViewController.view.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin;
@@ -111,7 +128,7 @@
 		[listViewController viewWillAppear:YES];
         [mapViewController viewWillDisappear:YES];
         [self setRootViewController:listViewController];
-        [mapViewController viewDidDisappear:YES];
+		[mapViewController viewDidDisappear:YES];
         [listViewController viewDidAppear:YES];
 		menuMode = HybridViewListMode;
 	} else {
@@ -121,7 +138,7 @@
 		[mapViewController viewWillAppear:YES];
         [listViewController viewWillDisappear:YES];
         [self setRootViewController:mapViewController];
-        [listViewController viewDidDisappear:YES];
+		[listViewController viewDidDisappear:YES];
         [mapViewController viewDidAppear:YES];
 		menuMode = HybridViewMapMode;
 	}
@@ -130,16 +147,18 @@
 #pragma mark -
 #pragma mark Lifecycle
 
-- (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)title {
-	return [self initWithMode:mode andTitle:title withRightBarButtonItem:nil];
+- (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)aTitle {
+	return [self initWithMode:mode andTitle:aTitle withRightBarButtonItem:nil];
 }
 
-- (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)title withRightBarButtonItem:(UIBarButtonItem *)rightButton {
+- (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)aTitle withRightBarButtonItem:(UIBarButtonItem *)rightButton {
 	emptyRootViewController = [[UIViewController alloc] init];
 	emptyRootViewController.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
 	
 	if (self = [super initWithRootViewController:emptyRootViewController]) {
-		self.title = title;
+		
+		self.title = aTitle;
+		self.navigationItem.title = aTitle;
 		self.rightButtonItem = rightButton;
 		menuMode = mode;
 		
@@ -153,13 +172,13 @@
 			[self pushViewController:listViewController animated:NO];
 		}
 	}
-	[emptyRootViewController release];
+	
 	return self;
 }
 
 //override to remove empty root controller
 - (NSArray *)viewControllers {
-    NSArray *viewControllers = [super viewControllers];
+    NSArray *viewControllers = super.viewControllers;
 	if (viewControllers != nil && viewControllers.count > 0) {
 		NSMutableArray *array = [NSMutableArray arrayWithArray:viewControllers];
 		[array removeObjectAtIndex:0];
@@ -197,7 +216,7 @@
 #pragma mark MapViewDelegate
 
 - (MKAnnotationView *)mapView:(MKMapView *)MapView viewForAnnotation:(id <MKAnnotation>)annotation {
-	//Let the system use the "blue dot" for the user location
+	// Let the system use the "blue dot" for the user location
 	if ([annotation isKindOfClass:[MKUserLocation class]]) return nil; 
 	
 	// Act like table view cells
@@ -252,7 +271,6 @@
 	return [dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
 }
 
-
 #pragma mark -
 #pragma mark Table view delegate
 
@@ -274,6 +292,7 @@
 	[(id)dataSource release];
 	[(id)selectorDelegate release];
 	[rightButtonItem release];
+	[emptyRootViewController release];
 }
 
 @end

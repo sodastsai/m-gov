@@ -1,10 +1,26 @@
-//
-//  CaseAddViewController.m
-//  MGOV
-//
-//  Created by Shou on 2010/8/25.
-//  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
-//
+/*
+ * 
+ * CaseAddViewController.h
+ * 2010/8/25
+ * Shou
+ * 
+ * The main layout of Case Adder
+ *
+ * Copyright 2010 NTU CSIE Mobile & HCI Lab
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 
 #import "CaseAddViewController.h"
 #import "AppMKAnnotation.h"
@@ -34,20 +50,21 @@
 	// Add Component
 	photoCell = [[PhotoPickerTableCell alloc] init];
 	photoCell.delegate = self;
+	
 	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:100 andCoordinate:shared.locationManager.location.coordinate actionTarget:self setAction:@selector(openLocationSelector)];
 	locationCell.delegate = self;
+	
 	nameFieldCell = [[NameFieldTableCell alloc] init];
 	nameFieldCell.nameField.delegate = self;
+	
 	descriptionCell = [[DescriptionTableCell alloc] init];
 	
 	selectedTypeTitle = @"";
 	selectedImage = nil;
 	
 	selectedCoord = shared.locationManager.location.coordinate;
-	shared = nil;
-	userName = [PrefAccess readPrefByKey:@"Name"];
-	[shared release];
+	self.userName = [PrefAccess readPrefByKey:@"Name"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -63,9 +80,8 @@
 	UIImage *image = [UIImage imageWithData:[self.columnSaving objectForKey:@"Photo"]];
 	[photoCell.photoButton setImage:[image fitToSize:CGSizeMake(300, [PhotoPickerTableCell cellHeight])] forState:UIControlStateNormal];
 	[photoCell.photoButton setTitle:@"按一下以加入照片..." forState:UIControlStateNormal];
-	if (image != nil) {
+	if (image != nil)
 		[photoCell.photoButton setTitle:@"" forState:UIControlStateNormal];
-	}
 	
 	// Location Cell
 	if ([[self.columnSaving objectForKey:@"Latitude"] doubleValue]!=0 && [[self.columnSaving objectForKey:@"Longitude"] doubleValue]!=0) {
@@ -106,7 +122,8 @@
 #pragma mark Memory management
 
 - (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
+    self.tableView.delegate = self;
+	self.tableView.dataSource = self;
 }
 
 - (void)dealloc {
@@ -197,6 +214,7 @@
 	if (indexPath.section == 2) {
 		if ([selectedTypeTitle length]) cell.textLabel.text = selectedTypeTitle;
 		else cell.textLabel.text = @"請按此選擇案件種類";
+		cell.textLabel.textAlignment = UITextAlignmentLeft;
 		
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
@@ -333,7 +351,10 @@
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"coordy"];
 			[request setPostValue:[MGOVGeocoder returnFullAddress:selectedCoord] forKey:@"address"];
-			[request setPostValue:@"send" forKey:@"send"];
+			
+			if (![[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"])
+				[request setPostValue:@"send" forKey:@"send"];
+			
 			[request startAsynchronous];
 			
 			[PrefAccess writePrefByKey:@"Name" andObject:nameFieldCell.nameField.text];
@@ -409,7 +430,7 @@
 	[indicatorView finishedLoad];
 	[indicatorView removeFromSuperview];
 	[indicatorView release];
-	UIAlertView *uploadFailed = [[UIAlertView alloc] initWithTitle:@"資料上傳失敗" message:@"資料上傳失敗，請重新上傳！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
+	UIAlertView *uploadFailed = [[UIAlertView alloc] initWithTitle:@"案件傳送失敗" message:@"案件傳送失敗，請重新傳送！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
 	[uploadFailed show];
 	[uploadFailed release];
 }
@@ -451,29 +472,29 @@
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-	if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
-		if (buttonIndex == 0) {
-			UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-			picker.delegate = self;
-			picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-			[self presentModalViewController:picker animated:YES];
-			[picker release];
-		} else if ( buttonIndex == 1 ) {
-			UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-			picker.delegate = self;
-			picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-			[self presentModalViewController:picker animated:YES];
-			[picker release];	
-		}
+	BOOL cameraAvailibility = [UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear];
+	
+	// Cancel
+	if (cameraAvailibility) {
+		if (buttonIndex == 2) return;
 	} else {
-		if (buttonIndex == 0) {
-			UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-			picker.delegate = self;
-			picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-			[self presentModalViewController:picker animated:YES];
-			[picker release];
-		}
+		if (buttonIndex == 1) return;
 	}
+	
+	UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+	picker.delegate = self;
+	
+	if (cameraAvailibility)
+		if (buttonIndex == 0)
+			picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+		else if ( buttonIndex == 1 )
+			picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+	else
+		if (buttonIndex == 0)
+			picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+	
+	[self presentModalViewController:picker animated:YES];
+	[picker release];
 }
 
 #pragma mark -
@@ -509,14 +530,14 @@
 }
 
 - (void)openPhotoDialogAction {
-	UIActionSheet *actionSheet;
+	UIActionSheet *actionSheet = nil;
 	if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
 		actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍攝新的照片", @"選擇現有的照片", nil];
 		actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
 		// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
 		[actionSheet showInView:self.parentViewController.tabBarController.view];
 	} else {
-		UIActionSheet *actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"選擇現有的照片", nil];
+		actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"選擇現有的照片", nil];
 		actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
 		// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
 		[actionSheet showFromTabBar:self.parentViewController.tabBarController.tabBar];

@@ -1,10 +1,26 @@
-//
-//  QueryViewController.m
-//  MGOV
-//
-//  Created by sodas on 2010/9/9.
-//  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
-//
+/*
+ * 
+ * QueryViewController.m
+ * 2010/9/9
+ * sodas
+ * 
+ * The Main View Controller of Query Case
+ *
+ * Copyright 2010 NTU CSIE Mobile & HCI Lab
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 
 #import "QueryViewController.h"
 
@@ -83,7 +99,8 @@
 - (void)viewDidAppear:(BOOL)animated {
 	if (queryTotalLength == -1) {
 		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
-		[mapView setCenterCoordinate:shared.locationManager.location.coordinate];
+		if (menuMode==HybridViewMapMode)
+			[mapView setCenterCoordinate:shared.locationManager.location.coordinate];
 	}
 	queryTotalLength = 0;
 }

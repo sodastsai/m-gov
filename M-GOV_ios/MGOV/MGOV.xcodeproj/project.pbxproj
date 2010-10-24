@@ -87,6 +87,8 @@
 		FE4EE77A1223F6D100737028 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7751223F6D100737028 /* DetailViewController.m */; };
 		FE4EE77B1223F6D100737028 /* SecondDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7771223F6D100737028 /* SecondDetailViewController.m */; };
 		FE4EE77C1223F6D100737028 /* TypesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7791223F6D100737028 /* TypesViewController.m */; };
+		FE71ADEF1274809F0022D733 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FE71ADED1274809F0022D733 /* Default.png */; };
+		FE71ADF01274809F0022D733 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE71ADEE1274809F0022D733 /* Default@2x.png */; };
 		FE74CC551258ADED00267C80 /* EditibleTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */; };
 		FE74CD621258D39400267C80 /* PrefAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = FE74CD611258D39400267C80 /* PrefAccess.m */; };
 		FE7D048312352AA5007FA0A1 /* QidToType.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE7D048212352AA5007FA0A1 /* QidToType.plist */; };
@@ -104,8 +106,6 @@
 		FEE907DE1251C95400A1CBAF /* LoadingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE907DD1251C95400A1CBAF /* LoadingOverlayView.m */; };
 		FEEB1FEE12392E6B00B24560 /* CaseSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEB1FED12392E6B00B24560 /* CaseSelectorCell.m */; };
 		FEF0D2C01230CACA000317C5 /* AppClassExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */; };
-		FEF23A82126EE18100877766 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FEF23A80126EE18100877766 /* Default.png */; };
-		FEF23A83126EE18100877766 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FEF23A81126EE18100877766 /* Default@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -228,6 +228,8 @@
 		FE4EE7771223F6D100737028 /* SecondDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondDetailViewController.m; sourceTree = "<group>"; };
 		FE4EE7781223F6D100737028 /* TypesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypesViewController.h; sourceTree = "<group>"; };
 		FE4EE7791223F6D100737028 /* TypesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypesViewController.m; sourceTree = "<group>"; };
+		FE71ADED1274809F0022D733 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		FE71ADEE1274809F0022D733 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		FE71EEB01250C082008AF579 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		FE74CC531258ADED00267C80 /* EditibleTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditibleTextFieldCell.h; sourceTree = "<group>"; };
 		FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditibleTextFieldCell.m; sourceTree = "<group>"; };
@@ -258,8 +260,6 @@
 		FEEB1FED12392E6B00B24560 /* CaseSelectorCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseSelectorCell.m; sourceTree = "<group>"; };
 		FEF0D2BE1230CACA000317C5 /* AppClassExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppClassExtension.h; sourceTree = "<group>"; };
 		FEF0D2BF1230CACA000317C5 /* AppClassExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppClassExtension.m; sourceTree = "<group>"; };
-		FEF23A80126EE18100877766 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		FEF23A81126EE18100877766 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -338,8 +338,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FEF23A80126EE18100877766 /* Default.png */,
-				FEF23A81126EE18100877766 /* Default@2x.png */,
+				FE71ADED1274809F0022D733 /* Default.png */,
+				FE71ADEE1274809F0022D733 /* Default@2x.png */,
 				FE4D13BF1264BA1200B3E415 /* iTunesArtwork */,
 				FE4D13B31264BA0900B3E415 /* Icon-72.png */,
 				FE4D13B41264BA0900B3E415 /* Icon-Small-50.png */,
@@ -710,11 +710,11 @@
 				FE4D13BD1264BA0900B3E415 /* Icon.png in Resources */,
 				FE4D13BE1264BA0900B3E415 /* Icon@2x.png in Resources */,
 				FE4D13C01264BA1200B3E415 /* iTunesArtwork in Resources */,
-				FEF23A82126EE18100877766 /* Default.png in Resources */,
-				FEF23A83126EE18100877766 /* Default@2x.png in Resources */,
 				FEC679CE126EEB37000AF355 /* DetailViewController.xib in Resources */,
 				FEC679CF126EEB37000AF355 /* SecondDetailViewController.xib in Resources */,
 				FEC679D0126EEB37000AF355 /* TypesViewController.xib in Resources */,
+				FE71ADEF1274809F0022D733 /* Default.png in Resources */,
+				FE71ADF01274809F0022D733 /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

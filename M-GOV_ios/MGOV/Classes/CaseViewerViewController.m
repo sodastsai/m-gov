@@ -1,10 +1,26 @@
-//
-//  CaseViewerViewController.m
-//  MGOV
-//
-//  Created by sodas on 2010/9/2.
-//  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
-//
+/*
+ * 
+ * CaseViewerViewController.h
+ * 2010/9/2
+ * sodas
+ * 
+ * The main layout of Case Viewer which shows detail info of a case
+ *
+ * Copyright 2010 NTU CSIE Mobile & HCI Lab
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 
 #import "CaseViewerViewController.h"
 
@@ -18,6 +34,8 @@
 #pragma mark Query
 
 - (void)startToQueryCase {
+	if (query_caseID==nil) return;
+	
 	resetFlag = NO;
 	QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
 	qGAE.conditionType = DataSourceGAEQueryByID;
@@ -136,14 +154,14 @@
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	
+	if (indexPath.section == 3) return locationCell;
+	
     static NSString *CellIdentifier = @"Cell";
 	if (!caseData) {
 		UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		return cell;
 	}
-	
-	if (indexPath.section == 3) return locationCell;
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 2) {
@@ -197,9 +215,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-}
-
-- (void)viewDidUnload {
 }
 
 - (void)dealloc {

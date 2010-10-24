@@ -1,16 +1,12 @@
-//
-//  AppClassExtension.m
-//  MGOV
-//
-//  Created by sodas on 2010/9/3.
-//  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
-//
-
-#import "AppClassExtension.h"
-
-@implementation UIImage (AppExtension)
-
 /*
+ * 
+ * AppClassExtension.m
+ * 2010/9/3
+ * sodas
+ * 
+ * Provide extensions to OS-provided classes 
+ *
+ * ==UIImage==
  *  The drawRect in next two method means the new place and size to draw the image in CGContextDrawImage
  *  And the image will draw again in context which is defined with the new CGSize
  *  So since the size of new image is defined and the image will draw again following the rect.
@@ -25,7 +21,28 @@
  *  In order to fix this, you must run fixImageSize first.
  *  This is already combined into following scale and crop methods.
  *
+ * ==NSDate==
+ *  Convert ROC year to A.D.
+ *
+ * Copyright 2010 NTU CSIE Mobile & HCI Lab
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
+
+#import "AppClassExtension.h"
+
+@implementation UIImage (AppExtension)
 
 #pragma mark -
 #pragma mark Basic

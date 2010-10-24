@@ -1,10 +1,26 @@
-//
-//  MyCaseViewController.m
-//  MGOV
-//
-//  Created by sodas on 2010/9/9.
-//  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
-//
+/*
+ * 
+ * MyCaseViewController.m
+ * 2010/9/9
+ * sodas
+ * 
+ * The Main View Controller of My Case
+ *
+ * Copyright 2010 NTU CSIE Mobile & HCI Lab
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 
 #import "MyCaseViewController.h"
 
@@ -107,9 +123,11 @@
 	[super viewDidLoad];
 	// Update Datasource
 	caseSourceDidLoaded = NO;
-	if ([[PrefAccess readPrefByKey:@"User Email"] length])
+	if ([[PrefAccess readPrefByKey:@"User Email"] length]) {
+		// Since App Engine will be slow at first start up and then time out, we send twice here.
 		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[PrefAccess readPrefByKey:@"User Email"]];
-	else caseSourceDidLoaded = YES;
+		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[PrefAccess readPrefByKey:@"User Email"]];
+	} else caseSourceDidLoaded = YES;
 	
 	// Add Filter
 	filter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"所有案件", @"完工", @"處理中", @"退回", nil]];
@@ -142,9 +160,11 @@
 
 - (void)addCase {
 	// Call the add case view
-	CaseAddViewController *caseAdder = [[CaseAddViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	if (caseAdder==nil)
+		caseAdder = [[CaseAddViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	caseAdder.myCase = self;
 	informationBar.hidden = YES;
+	
 	[self pushViewController:caseAdder animated:YES];
 	[caseAdder release];
 }
@@ -154,7 +174,7 @@
 		// Defined a new case query condition
 		NSArray *keyArray = [[NSArray alloc] initWithObjects:@"DataSourceGAEQueryByEmail", @"DataSourceGAEQueryByStatus", nil];
 		// Set status by selected segment
-		NSString *statusCondition;
+		NSString *statusCondition = @"";
 		if (segmentedControl.selectedSegmentIndex==0) {
 			[keyArray release];
 			keyArray = [[NSArray alloc] initWithObjects:@"DataSourceGAEQueryByEmail", nil];

@@ -1,10 +1,26 @@
-//
-//  LocationSelectorViewController.m
-//  MGOV
-//
-//  Created by Shou on 2010/8/30.
-//  Copyright 2010 NTU Mobile HCI Lab. All rights reserved.
-//
+/*
+ * 
+ * LocationSelectorViewController.h
+ * 2010/8/30
+ * Shou
+ * 
+ * Address Selector with MapView
+ *
+ * Copyright 2010 NTU CSIE Mobile & HCI Lab
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 
 #import "LocationSelectorViewController.h"
 #import "MGOVGeocoder.h"
@@ -82,15 +98,15 @@
 }
 
 - (id) initWithCoordinate:(CLLocationCoordinate2D)coordinate {
-	selectedCoord = coordinate;
-	caseImage = nil;
-	return [self init];
+	return [self initWithCoordinate:coordinate andImage:nil];
 }
 
 - (id) initWithCoordinate:(CLLocationCoordinate2D)coordinate andImage:(UIImage *)image {
-	selectedCoord = coordinate;
-	self.caseImage = image;
-	return [self init];
+	if (self = [self init]) {
+		selectedCoord = coordinate;
+		self.caseImage = image;
+	}
+	return self;
 }
 
 #pragma mark -
