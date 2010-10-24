@@ -64,7 +64,7 @@
 		dataAnnotationView.pinColor = MKPinAnnotationColorRed;
 	else {
 		UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"orange_pin.png"]];
-		imageView.frame = CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height);
+		imageView.frame = CGRectMake(-0.5, -0.5, imageView.frame.size.width, imageView.frame.size.height);
 		[dataAnnotationView addSubview:imageView];
 		[imageView release];
 	}
@@ -271,7 +271,9 @@
 	currentCondition = nil;
 	[informationBar release];
 	
-	childViewController = [[CaseViewerViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	// New Case Viewer for reuse
+	if (childViewController==nil)
+		childViewController = [[CaseViewerViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	[childViewController startToQueryCase];
 }
 
@@ -281,12 +283,9 @@
 	listViewController.tableView.dataSource = self;
 }
 
-- (void)viewDidUnload {
-	[childViewController release];
-}
-
 - (void)dealloc {
 	[super dealloc];
+	[childViewController release];
 }
 
 @end
