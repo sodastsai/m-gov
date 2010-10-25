@@ -769,7 +769,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Wantoto Inc.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Wantoto Inc.";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -777,7 +778,8 @@
 				GCC_PREFIX_HEADER = MGOV_Prefix.pch;
 				INFOPLIST_FILE = "MGOV-Info.plist";
 				PRODUCT_NAME = MGOV;
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "5A010082-364C-49F6-AF6C-2C79417AAC1F";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5A010082-364C-49F6-AF6C-2C79417AAC1F";
 				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
