@@ -354,7 +354,7 @@
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"coordy"];
 			[request setPostValue:[MGOVGeocoder returnFullAddress:selectedCoord] forKey:@"address"];
 			
-			if (![[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"])
+			if (![[[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"] boolValue])
 				[request setPostValue:@"send" forKey:@"send"];
 			
 			[request startAsynchronous];

@@ -105,11 +105,16 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
 	// Last section
-	if (section == [self numberOfSectionsInTableView:tableView]-1) 
-		if ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"Release State"]!=nil)
-			return [NSString stringWithFormat:@"路見不平 %@\n%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"], [[[NSBundle mainBundle] infoDictionary] objectForKey:@"Release State"]];
-		else return [NSString stringWithFormat:@"路見不平 %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
-	else return nil;
+	if (section == [self numberOfSectionsInTableView:tableView]-1) {
+		NSString *infoString = [NSString stringWithFormat:@"路見不平 版本 %@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]];
+		
+		if ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"Release Info"]!=@"")
+			infoString = [infoString stringByAppendingFormat:@"\n%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"Release Info"]];
+		if ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"] boolValue])
+			infoString = [infoString stringByAppendingFormat:@"\nDebug Mode"];
+		
+		return infoString;
+	} else return nil;
 }
 
 

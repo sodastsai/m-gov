@@ -20,7 +20,7 @@
 	CFBundleVersion = "1.0";
 	LSRequiresIPhoneOS = YES;
 	NSMainNibFile = MainWindow;
-	"Release State" = "";
+	"Release Info" = "Wantoto Inc.";
 	UILaunchImageFile = "Default.png";
-	"Develop Mode" = YES;
+	"Develop Mode" = NO;
 }

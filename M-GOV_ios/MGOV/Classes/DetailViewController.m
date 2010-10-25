@@ -62,7 +62,6 @@
     return [[[detailDict objectForKey:sectionId] objectForKey:typeId] count];
 }
 
-// Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *CellIdentifier = @"Cell";
@@ -79,7 +78,9 @@
 		
 	cell.textLabel.text = [[[detailDict objectForKey:sectionId] objectForKey:typeId] valueForKey:detailId];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	cell.textLabel.font = [UIFont boldSystemFontOfSize:18.0];
+	cell.textLabel.adjustsFontSizeToFitWidth = YES;
+	cell.textLabel.minimumFontSize = 14.0;
+	cell.textLabel.numberOfLines = 1;
 
     return cell;
 }

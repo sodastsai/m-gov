@@ -193,6 +193,9 @@
 				cell.textLabel.text = @"案件描述";
 				if(!resetFlag) cell.detailTextLabel.text = [NSString stringWithFormat:@"%@", [caseData objectForKey:@"detail"]];
 				else cell.detailTextLabel.text = @"";
+				cell.detailTextLabel.numberOfLines = 1;
+				cell.detailTextLabel.minimumFontSize = 12.0;
+				cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
 			}
 		} else if (indexPath.section==2) {
 			if(!resetFlag) cell.backgroundView = photoView;

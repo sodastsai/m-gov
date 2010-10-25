@@ -49,7 +49,7 @@
 	}
 	
 	// GO with ASIHttpRequest
-	if ([[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"])
+	if ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"] boolValue])
 		NSLog(@"%@", queryURL);
 	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:queryURL];
 	[request setDelegate:self];
