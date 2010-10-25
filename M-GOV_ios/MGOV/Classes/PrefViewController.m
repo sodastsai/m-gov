@@ -33,10 +33,12 @@
 
 - (void)writeToPrefWithKey:(NSString *)key andObject:(id)value {
 	if (![self preScriptBeforeSaveKey:key andObject:value]) {
-		[self alertWhileFailToWriteWithTitle:@"E-Mail格式錯誤" andContent:@"請輸入正確的E-Mail！"];
+		if ([key isEqualToString:@"User Email"])
+			[self alertWhileFailToWriteWithTitle:@"E-Mail格式錯誤" andContent:@"請輸入正確的E-Mail！"];
+		
 		[self.tableView reloadData];
 	} else {
-		[PrefAccess writePrefByKey:key andObject:value];
+		[[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
 		[self.tableView reloadData];
 		// Run post action
 		[self postScriptAfterSaveKey:key andObject:value];
@@ -124,7 +126,7 @@
 			editibleCell.delegate = self;
 			editibleCell.prefKey = @"User Email";
 			editibleCell.titleField.text = @"E-Mail";
-			editibleCell.contentField.text = [PrefAccess readPrefByKey:@"User Email"];
+			editibleCell.contentField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"];
 			editibleCell.contentField.placeholder = @"請輸入您的E-Mail帳號";
 			editibleCell.contentField.keyboardType = UIKeyboardTypeEmailAddress;
 			editibleCell.contentField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -133,11 +135,11 @@
 			editibleCell.delegate = self;
 			editibleCell.prefKey = @"Name";
 			editibleCell.titleField.text = @"姓名";
-			editibleCell.contentField.text = [PrefAccess readPrefByKey:@"Name"];
+			editibleCell.contentField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
 			editibleCell.contentField.placeholder = @"請輸入您的姓名";
-			editibleCell.contentField.keyboardType = UIKeyboardTypeEmailAddress;
+			editibleCell.contentField.keyboardType = UIKeyboardTypeDefault;
 			editibleCell.contentField.autocorrectionType = UITextAutocorrectionTypeNo;
-			editibleCell.contentField.autocapitalizationType = UITextAutocapitalizationTypeNone;
+			editibleCell.contentField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 		}
 
 		editibleCell.selectionStyle = UITableViewCellSeparatorStyleNone;

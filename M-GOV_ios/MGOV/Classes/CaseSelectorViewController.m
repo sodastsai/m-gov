@@ -225,12 +225,6 @@
 		} else {
 			cell.caseDate.text = originalDate;
 		}
-		
-		originalDate = nil;
-		originalLongDate = nil;
-		formattedDate = nil;
-		todayDate = nil;
-		todayEnd = nil;
 	} else {
 		// No Date
 		cell.caseDate.text = @"";
@@ -244,8 +238,6 @@
 		cell.caseStatus.image = [UIImage imageNamed:@"fail.png"];
 	else
 		cell.caseStatus.image = [UIImage imageNamed:@"unknown.png"];
-	
-	caseTypeText= nil;
 	
 	return cell;
 }
@@ -262,8 +254,6 @@
 		AppMKAnnotation *casePlace = [[AppMKAnnotation alloc] initWithCoordinate:coordinate andTitle:typeStr andSubtitle:@"" andCaseID:[[caseSource objectAtIndex:i] objectForKey:@"key"] andStatus:[[caseSource objectAtIndex:i] objectForKey:@"status"]];
 		[annotationArray addObject:casePlace];
 		[casePlace release];
-		
-		typeStr = nil;
 	}
 	[tmpPool drain];
 	return annotationArray;

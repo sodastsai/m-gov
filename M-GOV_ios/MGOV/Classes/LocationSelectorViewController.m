@@ -76,7 +76,6 @@
 			// Update annotation subtitle
 			[self updatingAddress:annotationView.annotation];
 		}
-		tempAddress = nil;
 	}
 }
 

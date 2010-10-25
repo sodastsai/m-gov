@@ -26,7 +26,6 @@
 #import <UIKit/UIKit.h>
 #import "EditibleTextFieldCell.h"
 #import "WritePrefDelegate.h"
-#import "PrefAccess.h"
 #import "MyCaseViewController.h"
 
 @interface PrefViewController : UITableViewController <WritePrefDelegate> {

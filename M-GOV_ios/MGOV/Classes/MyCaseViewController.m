@@ -100,9 +100,9 @@
 }
 
 - (void)refreshDataSource {
-	if ([[PrefAccess readPrefByKey:@"User Email"] length]) {
+	if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] length]) {
 		self.currentConditionType = DataSourceGAEQueryByEmail;
-		self.currentCondition = [PrefAccess readPrefByKey:@"User Email"];
+		self.currentCondition = [[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"];
 		[filter setSelectedSegmentIndex:0];
 		[super refreshDataSource];
 	} else {
@@ -123,10 +123,10 @@
 	[super viewDidLoad];
 	// Update Datasource
 	caseSourceDidLoaded = NO;
-	if ([[PrefAccess readPrefByKey:@"User Email"] length]) {
+	if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] length]) {
 		// Since App Engine will be slow at first start up and then time out, we send twice here.
-		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[PrefAccess readPrefByKey:@"User Email"]];
-		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[PrefAccess readPrefByKey:@"User Email"]];
+		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"]];
+		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"]];
 	} else caseSourceDidLoaded = YES;
 	
 	// Add Filter
@@ -155,7 +155,7 @@
 #pragma mark Method
 
 - (BOOL)myCaseDataAvailability {
-	return (([[PrefAccess readPrefByKey:@"User Email"] length]!=0 && [caseSource count]!=0)||filter.selectedSegmentIndex!=0);
+	return (([[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] length]!=0 && [caseSource count]!=0)||filter.selectedSegmentIndex!=0);
 }
 
 - (void)addCase {
@@ -187,7 +187,7 @@
 			statusCondition = [NSString stringWithFormat:@"%d", 2];
 		}
 		currentSegmentIndex = segmentedControl.selectedSegmentIndex;
-		NSArray *valueArray = [[NSArray alloc] initWithObjects:[PrefAccess readPrefByKey:@"User Email"], statusCondition, nil];
+		NSArray *valueArray = [[NSArray alloc] initWithObjects:[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"], statusCondition, nil];
 		NSDictionary *conditionDictionary = [[NSDictionary alloc] initWithObjects:valueArray forKeys:keyArray];
 		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:conditionDictionary];
 		[conditionDictionary release];

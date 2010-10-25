@@ -72,7 +72,6 @@
 			photoView.layer.cornerRadius = 10.0;
 			photoView.layer.masksToBounds = YES;	
 		}
-		str = nil;
 	}
 	else {
 		photoView = nil;

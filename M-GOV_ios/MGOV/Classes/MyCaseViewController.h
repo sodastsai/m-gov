@@ -29,7 +29,6 @@
 #import "CaseSelectorCell.h"
 #import "CaseViewerViewController.h"
 #import "AppMKAnnotation.h"
-#import "PrefAccess.h"
 
 @interface MyCaseViewController : CaseSelectorViewController <MKMapViewDelegate> {
 	UISegmentedControl *filter;

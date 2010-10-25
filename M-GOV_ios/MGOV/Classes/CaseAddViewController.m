@@ -48,23 +48,27 @@
 	[submitButton release];
 	
 	// Add Component
-	photoCell = [[PhotoPickerTableCell alloc] init];
+	if (photoCell==nil)
+		photoCell = [[PhotoPickerTableCell alloc] init];
 	photoCell.delegate = self;
 	
 	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
-	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:100 andCoordinate:shared.locationManager.location.coordinate actionTarget:self setAction:@selector(openLocationSelector)];
+	if (locationCell==nil)
+		locationCell = [[LocationSelectorTableCell alloc] initWithHeight:100 andCoordinate:shared.locationManager.location.coordinate actionTarget:self setAction:@selector(openLocationSelector)];
 	locationCell.delegate = self;
 	
-	nameFieldCell = [[NameFieldTableCell alloc] init];
+	if (nameFieldCell==nil)
+		nameFieldCell = [[NameFieldTableCell alloc] init];
 	nameFieldCell.nameField.delegate = self;
 	
-	descriptionCell = [[DescriptionTableCell alloc] init];
+	if (descriptionCell==nil)
+		descriptionCell = [[DescriptionTableCell alloc] init];
 	
 	selectedTypeTitle = @"";
 	selectedImage = nil;
 	
 	selectedCoord = shared.locationManager.location.coordinate;
-	self.userName = [PrefAccess readPrefByKey:@"Name"];
+	self.userName = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -101,8 +105,6 @@
 	[descriptionCell setPlaceholder:[self.columnSaving valueForKey:@"Description"]];
 	
 	[self.tableView reloadData];
-	tempPlistPathInAppDocuments = nil;
-	image = nil;
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -264,7 +266,7 @@
 
 - (void)submitCase {
 	// If this is the First time to Submit, We should ask user's email.
-	if (![[PrefAccess readPrefByKey:@"User Email"] length]) {
+	if (![[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] length]) {
 		alertEmailPopupBox = [[UIAlertView alloc] initWithTitle:@"請輸入您的E-Mail" message:[NSString stringWithFormat:@"路見不平會使用E-Mail追蹤您的案件\n\n\n"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"好", nil];
 		alertEmailPopupBox.tag = 3000;
 		// Email Text Field
@@ -281,8 +283,8 @@
 		[alertEmailPopupBox addSubview:alertEmailInputField];
 		[alertEmailPopupBox show];
 		[alertEmailPopupBox release];
-	} else if ([[PrefAccess readPrefByKey:@"User Email"] length] && qid != 0) {
-		[PrefAccess writePrefByKey:@"NetworkIsAlerted" andObject:[NSNumber numberWithBool:NO]];
+	} else if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] length] && qid != 0) {
+		[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NetworkIsAlerted"];
 		if ([NetworkChecking checkNetwork]) {
 			UIAlertView *submitConfirm = [[UIAlertView alloc] initWithTitle:@"送出案件" message:@"確定要送出此案件至1999?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
 			submitConfirm.tag = 2000;
@@ -310,7 +312,7 @@
 			[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
 			[self.columnSaving setValue:@"" forKey:@"Description"];
 			descriptionCell.descriptionField.text = @"";
-			nameFieldCell.nameField.text = [PrefAccess readPrefByKey:@"Name"];
+			nameFieldCell.nameField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
 			[self.columnSaving setValue:@"" forKey:@"TypeTitle"];
 			[self.columnSaving setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 			[self.columnSaving writeToFile:tempPlistPathInAppDocuments atomically:YES];
@@ -336,7 +338,7 @@
 			
 
 			// Convert Byte Data to Photo From Plist
-			NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [PrefAccess readPrefByKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
+			NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
 			
 			// Post the submt data to App Engine
 			ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case/add?method=upload"]];
@@ -346,7 +348,7 @@
 			[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:1] forKey:@"h_admiv_name"];
 			[request setPostValue:[NSString stringWithFormat:@"%d", qid] forKey:@"typeid"];
 			[request setPostValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
-			[request setPostValue:[PrefAccess readPrefByKey:@"User Email"] forKey:@"email"];
+			[request setPostValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] forKey:@"email"];
 			[request setPostValue:nameFieldCell.nameField.text forKey:@"name"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"coordy"];
@@ -357,7 +359,7 @@
 			
 			[request startAsynchronous];
 			
-			[PrefAccess writePrefByKey:@"Name" andObject:nameFieldCell.nameField.text];
+			[[NSUserDefaults standardUserDefaults] setObject:nameFieldCell.nameField.text forKey:@"Name"];
 			
 			// After submit case, clean the temp infomation
 			[self.columnSaving setObject:[NSData data] forKey:@"Photo"];
@@ -365,11 +367,9 @@
 			[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
 			[self.columnSaving setValue:@"" forKey:@"Description"];
 			descriptionCell.descriptionField.text = @"";
-			nameFieldCell.nameField.text = [PrefAccess readPrefByKey:@"Name"];
+			nameFieldCell.nameField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
 			[self.columnSaving setValue:@"" forKey:@"TypeTitle"];
 			[self.columnSaving setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
-			
-			filename = nil;
 		}
 	}
 	
@@ -382,15 +382,13 @@
 				r = [alertEmailInputField.text rangeOfString:emailRegex options:NSRegularExpressionSearch];
 				if (r.location != NSNotFound) {
 					// Write email to plist
-					[PrefAccess writePrefByKey:@"User Email" andObject:alertEmailInputField.text];
+					[[NSUserDefaults standardUserDefaults] setObject:alertEmailInputField.text forKey:@"User Email"];
 					[self submitCase];
 				} else {
 					UIAlertView *errorEmail = [[UIAlertView alloc] initWithTitle:@"E-Mail格式錯誤" message:@"請輸入正確的E-Mail！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
 					[errorEmail show];
 					[errorEmail release];
 				}
-				
-				emailRegex = nil;
 			} else {
 				UIAlertView *emptyEmail = [[UIAlertView alloc] initWithTitle:@"E-Mail為必填項目" message:@"請輸入您的E-Mail，否則無法報案！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
 				[emptyEmail show];
@@ -441,6 +439,22 @@
 #pragma mark -
 #pragma mark Add Photo
 
+- (void)openPhotoDialogAction {
+	UIActionSheet *actionSheet = nil;
+	if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
+		actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍攝新的照片", @"選擇現有的照片", nil];
+		actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
+		// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
+		[actionSheet showInView:self.parentViewController.tabBarController.view];
+	} else {
+		actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"選擇現有的照片", nil];
+		actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
+		// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
+		[actionSheet showFromTabBar:self.parentViewController.tabBarController.tabBar];
+	}
+	[actionSheet release];
+}
+
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	// Get New photo
 	// Use property for retain
@@ -468,7 +482,7 @@
 	// Close Picker,Reload Data, and Call Location Selector
 	[picker dismissModalViewControllerAnimated:YES];
 	[self.tableView reloadData];
-	[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(openLocationSelector) userInfo:nil repeats:NO];
+	[NSTimer scheduledTimerWithTimeInterval:0.75 target:self selector:@selector(openLocationSelector) userInfo:nil repeats:NO];
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -527,22 +541,6 @@
 	selectedCoord = coordinate;
 	[self.tableView reloadData];
 	[self dismissModalViewControllerAnimated:YES];
-}
-
-- (void)openPhotoDialogAction {
-	UIActionSheet *actionSheet = nil;
-	if ([UIImagePickerController isCameraDeviceAvailable:UIImagePickerControllerCameraDeviceRear]) {
-		actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"拍攝新的照片", @"選擇現有的照片", nil];
-		actionSheet.actionSheetStyle = UIActionSheetStyleAutomatic;
-		// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
-		[actionSheet showInView:self.parentViewController.tabBarController.view];
-	} else {
-		actionSheet = [[UIActionSheet alloc] initWithTitle:@"請選擇照片來源" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"選擇現有的照片", nil];
-		actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
-		// Cannot use [actionSheet showInView:self.view]! This will be affected by the UITabBar 
-		[actionSheet showFromTabBar:self.parentViewController.tabBarController.tabBar];
-	}
-	[actionSheet release];
 }
 
 #pragma mark -

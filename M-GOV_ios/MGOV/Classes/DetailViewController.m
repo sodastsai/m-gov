@@ -45,8 +45,6 @@
 	// Second Detail Dict
 	path = [[NSBundle mainBundle] pathForResource:@"reportSecondDetails" ofType:@"plist"];
 	secondDetailDict = [[NSDictionary alloc] initWithContentsOfFile:path];
-	
-	path = nil;
 }
 
 #pragma mark -
@@ -82,11 +80,7 @@
 	cell.textLabel.text = [[[detailDict objectForKey:sectionId] objectForKey:typeId] valueForKey:detailId];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	cell.textLabel.font = [UIFont boldSystemFontOfSize:18.0];
-	
-	sectionId = nil;
-	typeId = nil;
-	detailId = nil;
-	
+
     return cell;
 }
 
@@ -132,16 +126,7 @@
 		
 		// Switch back
 		[delegate typeSelectorDidSelectWithTitle:selectedTitle andQid:qid];
-		
-		qidPath = nil;
-		sectionId = nil;
-		typeId = nil;
-		detailId = nil;
 	}
-	
-	sectionId = nil;
-	typeId = nil;
-	detailId = nil;
 }
 
 #pragma mark -

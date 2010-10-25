@@ -24,7 +24,6 @@
 
 #import "NetworkChecking.h"
 
-
 @implementation NetworkChecking
 
 #pragma mark -
@@ -40,22 +39,18 @@
 	switch (internetStatus) {
 		case NotReachable:
 			networkCheck = NO;
-			if ([[PrefAccess readPrefByKey:@"NetworkIsAlerted"] boolValue] == NO) {
+			if (![[NSUserDefaults standardUserDefaults] boolForKey:@"NetworkIsAlerted"]) {
 				UIAlertView *netowrkAlert = [[UIAlertView alloc] initWithTitle:@"沒有網路連線" message:@"無法查詢案件資料" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
 				[netowrkAlert show];
 				[netowrkAlert release];
-				[PrefAccess writePrefByKey:@"NetworkIsAlerted" andObject:[NSNumber numberWithBool:YES]];
+				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NetworkIsAlerted"];
 			}
 			break;
 		case ReachableViaWiFi:
-			networkCheck = YES;
-			if ([[PrefAccess readPrefByKey:@"NetworkIsAlerted"] boolValue] == YES)
-				[PrefAccess writePrefByKey:@"NetworkIsAlerted" andObject:[NSNumber numberWithBool:NO]];
-			break;
 		case ReachableViaWWAN:
 			networkCheck = YES;
-			if ([[PrefAccess readPrefByKey:@"NetworkIsAlerted"] boolValue] == YES)
-				[PrefAccess writePrefByKey:@"NetworkIsAlerted" andObject:[NSNumber numberWithBool:NO]];
+			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NetworkIsAlerted"])
+				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NetworkIsAlerted"];
 			break;
 	}
 	return networkCheck;

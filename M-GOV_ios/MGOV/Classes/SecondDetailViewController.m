@@ -36,13 +36,9 @@
 #pragma mark Lifecycle
 
 - (void)viewDidLoad {
-	NSString *path;
-	
 	// Second Detail Dict
-	path = [[NSBundle mainBundle] pathForResource:@"reportSecondDetails" ofType:@"plist"];
+	NSString *path = [[NSBundle mainBundle] pathForResource:@"reportSecondDetails" ofType:@"plist"];
 	secondDetailDict = [[NSDictionary alloc] initWithContentsOfFile:path];
-	
-	path = nil;
 }
 
 #pragma mark -
@@ -79,12 +75,7 @@
 		
 	cell.textLabel.text = [[[[secondDetailDict objectForKey:sectionId] objectForKey:typeId] objectForKey:detailId] valueForKey:secondDetailId];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-	
-	sectionId = nil;
-	typeId = nil;
-	detailId = nil;
-	secondDetailId = nil;
-	
+
     return cell;
 }
 
@@ -113,17 +104,6 @@
 	
 	// Switch back
 	[delegate typeSelectorDidSelectWithTitle:selectedTitle andQid:qid];
-	
-	path = nil;
-	sectionId = nil;
-	typeId = nil;
-	detailId = nil;
-	secondDetailId = nil;
-	finalSection = nil;
-	finalType = nil;
-	finalDetail = nil;
-	finalSecondDetail = nil;
-	selectedTitle = nil;
 }
 
 #pragma mark -

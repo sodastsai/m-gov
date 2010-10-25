@@ -91,8 +91,6 @@
 	[indicatorView finishedLoad];
 	[indicatorView removeFromSuperview];
 	[indicatorView release];
-	resultData = nil;
-	resultString = nil;
 	[self release];
 }
 
@@ -194,11 +192,6 @@
 	// Set Range
 	if (resultRange.length!=0) restURL = [NSString stringWithFormat:@"%@/%@/", restURL, [self convertNSRangeToString]];
 	if (resultRange.length==0) restURL = [NSString stringWithFormat:@"%@/0/10000/", restURL];
-	
-	queryEmail = nil;
-	queryCoord = nil; 
-	queryTypes = nil;
-	queryStatus = nil;
 	
 	return [NSURL URLWithString:[NSString stringWithFormat:@"%@%@", queryBaseURL, restURL]];
 }

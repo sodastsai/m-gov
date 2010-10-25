@@ -90,7 +90,6 @@
 		FE71ADEF1274809F0022D733 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FE71ADED1274809F0022D733 /* Default.png */; };
 		FE71ADF01274809F0022D733 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE71ADEE1274809F0022D733 /* Default@2x.png */; };
 		FE74CC551258ADED00267C80 /* EditibleTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */; };
-		FE74CD621258D39400267C80 /* PrefAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = FE74CD611258D39400267C80 /* PrefAccess.m */; };
 		FE7D048312352AA5007FA0A1 /* QidToType.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE7D048212352AA5007FA0A1 /* QidToType.plist */; };
 		FE8BF5191250D6FC009498CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8BF5181250D6FC009498CA /* CFNetwork.framework */; };
 		FEB39A5C1237EF70007359AB /* QueryGoogleAppEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */; };
@@ -101,7 +100,6 @@
 		FEC679CE126EEB37000AF355 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEC679CB126EEB37000AF355 /* DetailViewController.xib */; };
 		FEC679CF126EEB37000AF355 /* SecondDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEC679CC126EEB37000AF355 /* SecondDetailViewController.xib */; };
 		FEC679D0126EEB37000AF355 /* TypesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEC679CD126EEB37000AF355 /* TypesViewController.xib */; };
-		FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */ = {isa = PBXBuildFile; fileRef = FED3DDE71224EA3A001D3C73 /* UserInformation.plist */; };
 		FEE81538122791BF00D82E46 /* AppMKAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE81537122791BF00D82E46 /* AppMKAnnotation.m */; };
 		FEE907DE1251C95400A1CBAF /* LoadingOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = FEE907DD1251C95400A1CBAF /* LoadingOverlayView.m */; };
 		FEEB1FEE12392E6B00B24560 /* CaseSelectorCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEEB1FED12392E6B00B24560 /* CaseSelectorCell.m */; };
@@ -234,8 +232,6 @@
 		FE74CC531258ADED00267C80 /* EditibleTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditibleTextFieldCell.h; sourceTree = "<group>"; };
 		FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditibleTextFieldCell.m; sourceTree = "<group>"; };
 		FE74CCCF1258C0AE00267C80 /* WritePrefDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WritePrefDelegate.h; sourceTree = "<group>"; };
-		FE74CD601258D39400267C80 /* PrefAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrefAccess.h; sourceTree = "<group>"; };
-		FE74CD611258D39400267C80 /* PrefAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrefAccess.m; sourceTree = "<group>"; };
 		FE7D048212352AA5007FA0A1 /* QidToType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QidToType.plist; sourceTree = "<group>"; };
 		FE8BF5181250D6FC009498CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FEB39A5A1237EF70007359AB /* QueryGoogleAppEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryGoogleAppEngine.h; sourceTree = "<group>"; };
@@ -251,7 +247,6 @@
 		FEC679CB126EEB37000AF355 /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		FEC679CC126EEB37000AF355 /* SecondDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondDetailViewController.xib; sourceTree = "<group>"; };
 		FEC679CD126EEB37000AF355 /* TypesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypesViewController.xib; sourceTree = "<group>"; };
-		FED3DDE71224EA3A001D3C73 /* UserInformation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserInformation.plist; sourceTree = "<group>"; };
 		FEE81536122791BF00D82E46 /* AppMKAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMKAnnotation.h; sourceTree = "<group>"; };
 		FEE81537122791BF00D82E46 /* AppMKAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppMKAnnotation.m; sourceTree = "<group>"; };
 		FEE907DC1251C95400A1CBAF /* LoadingOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadingOverlayView.h; sourceTree = "<group>"; };
@@ -352,7 +347,6 @@
 				2A79AC2D1223FB9B00F140A2 /* Interface Builder */,
 				FE4EE75F1223F5F700737028 /* Types and Detail Strings */,
 				8D1107310486CEB800E47090 /* MGOV-Info.plist */,
-				FED3DDE71224EA3A001D3C73 /* UserInformation.plist */,
 				2AE48A861240AE37005547F3 /* CaseAddTempInformation.plist */,
 			);
 			name = Resources;
@@ -552,8 +546,6 @@
 				FE74CC531258ADED00267C80 /* EditibleTextFieldCell.h */,
 				FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */,
 				FE74CCCF1258C0AE00267C80 /* WritePrefDelegate.h */,
-				FE74CD601258D39400267C80 /* PrefAccess.h */,
-				FE74CD611258D39400267C80 /* PrefAccess.m */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -677,7 +669,6 @@
 				FE4EE7721223F68F00737028 /* reportSections.plist in Resources */,
 				FE4EE7731223F68F00737028 /* reportTypes.plist in Resources */,
 				2A79AC241223FB7C00F140A2 /* CaseAddViewController.xib in Resources */,
-				FED3DDE81224EA3A001D3C73 /* UserInformation.plist in Resources */,
 				2A0974F5122BC7270048D841 /* LocationSelectorViewController.xib in Resources */,
 				FE3FFE15122F7904008B0E48 /* CaseViewerViewController.xib in Resources */,
 				FE7D048312352AA5007FA0A1 /* QidToType.plist in Resources */,
@@ -756,7 +747,6 @@
 				FEB7C7FF12557EBD00436BB2 /* CaseSelectorViewController.m in Sources */,
 				FE4628A21257664200936914 /* PrefViewController.m in Sources */,
 				FE74CC551258ADED00267C80 /* EditibleTextFieldCell.m in Sources */,
-				FE74CD621258D39400267C80 /* PrefAccess.m in Sources */,
 				2A9CEBD5125994A300735370 /* NetWorkChecking.m in Sources */,
 				2A7934D61265AF3A00440BF0 /* CDataScanner.m in Sources */,
 				2A1EBDBB1265B61900553FEA /* CDataScanner_Extensions.m in Sources */,

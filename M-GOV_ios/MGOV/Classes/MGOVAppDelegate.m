@@ -47,10 +47,15 @@
 	// Copy plist file
 	if (![[NSFileManager defaultManager] fileExistsAtPath:tempPlistPathInAppDocuments]) 
 		[[NSFileManager defaultManager] copyItemAtPath:tempPlistPathInAppBundle toPath:tempPlistPathInAppDocuments error:nil];
-	tempPlistPathInAppBundle = nil;
-	tempPlistPathInAppDocuments = nil;
 	
-	[PrefAccess copyEmptyPrefPlistToDocumentsByRecover:NO];
+	// User Preference default value
+	NSDictionary *defaultDict = [[NSDictionary alloc] initWithObjectsAndKeys:
+								 @"", @"User Email",
+								 @"", @"Name",
+								 [NSNumber numberWithBool:NO], @"NetworkIsAlerted",
+								 nil];
+	[[NSUserDefaults standardUserDefaults] registerDefaults:defaultDict];
+	[defaultDict release];
 	
 	// My Case
 	MyCaseViewController *myCase = [[MyCaseViewController alloc] initWithMode:HybridViewListMode andTitle:@"我的案件"];
@@ -100,10 +105,8 @@
 	[dict setValue:@"" forKey:@"TypeTitle"];
 	[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
-	dict = nil;
-	tempPlistPathInAppDocuments = nil;
 	// Reset network alert status
-	[PrefAccess writePrefByKey:@"NetworkIsAlerted" andObject:[NSNumber numberWithBool:NO]];
+	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NetworkIsAlerted"];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

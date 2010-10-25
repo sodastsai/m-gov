@@ -27,7 +27,6 @@
 #import "MyCaseViewController.h"
 #import "QueryViewController.h"
 #import "PrefViewController.h"
-#import "PrefAccess.h"
 #import "NetworkChecking.h"
 
 @interface MGOVAppDelegate : NSObject <UIApplicationDelegate> {

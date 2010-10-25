@@ -24,7 +24,6 @@
 
 #import <Foundation/Foundation.h>
 #import "Reachability.h"
-#import "PrefAccess.h"
 
 @interface NetworkChecking : NSObject {
 }

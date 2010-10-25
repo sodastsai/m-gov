@@ -46,8 +46,6 @@
 	// Detail
 	path = [[NSBundle mainBundle] pathForResource:@"reportDetails" ofType:@"plist"];
 	detailDict = [[NSDictionary alloc] initWithContentsOfFile:path];
-	
-	path = nil;
 }
 
 #pragma mark -
@@ -84,10 +82,7 @@
 	cell.textLabel.text = [[typeDict objectForKey:sectionId] valueForKey:typeString];
 	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	
-	sectionId = nil;
-	typeString = nil;
-	
-    return cell;
+	return cell;
 }
 
 #pragma mark -
@@ -131,14 +126,7 @@
 				
 		// Switch back
 		[delegate typeSelectorDidSelectWithTitle:selectedTitle andQid:qid];
-		
-		qidPath = nil;
 	}
-	
-	typeId = nil;
-	sectionId = nil;
-	selectedTitle = nil;
-	
 }
 
 #pragma mark -
