@@ -10,4 +10,5 @@
 <string name="caseviewer_subtitle_caseType">案件種類</string>
 <string name="caseviewer_subtitle_description">案件描述</string>
 <string name="caseviewer_noPhoto">此案件無照片</string>
+<string name="caseviewer_activity_title">案件資料</string>
 </resources>

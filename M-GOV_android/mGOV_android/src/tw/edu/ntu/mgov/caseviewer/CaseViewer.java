@@ -59,10 +59,11 @@ public class CaseViewer extends MapActivity implements Runnable {
 		Thread thread = new Thread(this);
 		thread.start();
 		super.onCreate(savedInstanceState);
-		setTitle("案件資料");
+		setTitle(getResources().getString(R.string.caseviewer_activity_title));
 		setContentView(R.layout.caseviewer);
 		findAllViews();
 	}
+	// Load Data in another thread
 	private Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			loadingView.cancel();

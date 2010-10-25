@@ -129,6 +129,9 @@ public class Query extends CaseSelector {
 			if (resultCode == RESULT_OK) {
 				typeId = data.getExtras().getInt("qid");
 				String typeName = QidToDescription.getDetailByQID(this,typeId);
+				// Should Reset Data range
+				rangeEnd = 9;
+				rangeStart = 0;
 				startFetchDataSource();
 				currentConditionLabel.setText(typeName);
 			} else if (resultCode == RESULT_CANCELED) {
@@ -180,6 +183,9 @@ public class Query extends CaseSelector {
 			startActivityForResult(intent, REQUEST_CODE_typeSelector);
 		} else if (item.getItemId()==MENU_AllTypeCondition) {
 			typeId = 0;
+			// Should Reset Data range
+			rangeEnd = 9;
+			rangeStart = 0;
 			startFetchDataSource();
 			currentConditionLabel.setText(getResources().getString(R.string.query_currentConditionLabel_alltype));
 			
@@ -190,6 +196,9 @@ public class Query extends CaseSelector {
 	 */
 	@Override
 	protected void mapChangeRegionOrZoom() {
+		// Should Reset Data range
+		rangeEnd = 9;
+		rangeStart = 0;
 		startFetchDataSource();
 	}
 }
