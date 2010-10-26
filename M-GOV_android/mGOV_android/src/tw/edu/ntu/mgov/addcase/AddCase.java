@@ -689,7 +689,7 @@ public class AddCase extends MapActivity {
 		}
 	}
 	
-	private boolean checkEmailFormat(String emailAddress) {
+	static public boolean checkEmailFormat(String emailAddress) {
 		
 		if (emailAddress == null) {
 			return false;

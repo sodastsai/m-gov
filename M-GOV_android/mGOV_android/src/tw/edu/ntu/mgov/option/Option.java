@@ -1,10 +1,32 @@
-/**
+/*
  * 
+ * Option.java
+ * 2010/10/04
+ * sodas
+ * 
+ * User preferences
+ *
+ * Copyright 2010 NTU CSIE Mobile & HCI Lab
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package tw.edu.ntu.mgov.option;
 
 import tw.edu.ntu.mgov.R;
 import tw.edu.ntu.mgov.mgov;
+import tw.edu.ntu.mgov.addcase.AddCase;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
@@ -12,11 +34,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 
-/**
- * @author sodas
- * 2010/10/4
- * @company NTU CSIE Mobile HCI Lab
- */
 public class Option extends PreferenceActivity {
 
 	public static final String PREFERENCE_NAME = "Option-Preferences";
@@ -54,20 +71,44 @@ public class Option extends PreferenceActivity {
         root.addPreference(prefCategory[1]);
         
         // Preference Content
-        EditTextPreference personalEMail = new EditTextPreference(this);
+        EditTextPreference personalEMail = new EditTextPreference(this) {
+			@Override
+			protected void onDialogClosed(boolean positiveResult) {
+				if (!positiveResult) {
+					// "Cancel" pressed
+				} else {
+					// "OK" pressed
+					if (this.getEditText().getEditableText().length()==0) {
+						// Save Result
+						this.setSummary(this.getEditText().getEditableText());
+						this.setText(this.getEditText().getEditableText().toString());
+						// Clear Alert
+						AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+						builder.setTitle(getResources().getString(R.string.option_clearEmail_title)).setMessage(getResources().getString(R.string.option_clearEmail_msg)).setPositiveButton("好", null).show();
+						builder = null;
+					} else {
+						// Check Email Format
+						if (AddCase.checkEmailFormat(this.getEditText().getEditableText().toString())) {
+							// Save Result
+							this.setSummary(this.getEditText().getEditableText());
+							this.setText(this.getEditText().getEditableText().toString());
+						} else {
+							// Error Format
+							AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+							builder.setTitle(getResources().getString(R.string.option_errorEmail_title)).setMessage(getResources().getString(R.string.option_errorEmail_msg)).setPositiveButton("好", null).show();
+							builder = null;
+						}
+					}
+				}
+			}
+        	
+        };
         personalEMail.setKey(KEY_USER_EMAIL);
-		personalEMail.setTitle(getResources().getString(R.string.option_personalInfo_Email));
+        personalEMail.setTitle(getResources().getString(R.string.option_personalInfo_Email));
 		personalEMail.setSummary(getPreferenceManager().getSharedPreferences().getString(KEY_USER_EMAIL, ""));
         personalEMail.setDialogTitle(getResources().getString(R.string.option_personalInfo_Email));
         personalEMail.setDialogMessage(getResources().getString(R.string.option_personalInfo_Email_prompt));
         personalEMail.getEditText().setInputType(android.view.inputmethod.EditorInfo.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
-        personalEMail.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-			@Override
-			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				preference.setSummary((String)newValue);
-				return true;
-			}
-		});
         prefCategory[0].addPreference(personalEMail);
         
         EditTextPreference userRealName = new EditTextPreference(this);
