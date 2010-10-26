@@ -15,6 +15,13 @@ import tool.TypeFilter;
 public class ParseID {
 
 	static String strurl ;
+	static String email ;
+	
+	public static String go(String cmd,String _email){
+		email = _email;
+		return go(cmd);
+	}
+	
 	public static String go(String cmd) {
 		try {
 			
@@ -95,7 +102,8 @@ public class ParseID {
 				afterColon(line[i+2]),
 				res2,
 				afterColon(line[i+12]),
-				parseAddress(line[i+8])
+				parseAddress(line[i+8]),
+				email
 		);
 		
 		// System.out.println(node.getKey());

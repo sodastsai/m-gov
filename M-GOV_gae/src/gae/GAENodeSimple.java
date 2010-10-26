@@ -24,6 +24,8 @@ public class GAENodeSimple implements Comparable<GAENodeSimple>{
 	public String status;
 	@Persistent
 	public String address;
+	@Persistent
+	public String email;
 
 	@Persistent
 	public double coordx,coordy;
@@ -33,7 +35,7 @@ public class GAENodeSimple implements Comparable<GAENodeSimple>{
 	
 	@SuppressWarnings("deprecation")
 	public GAENodeSimple(String key, String typeid, String date,
-			String coordinates, String status, String address) {
+			String coordinates, String status, String address, String email) {
 		this.key = key;
 		this.typeid = typeid;
 		Date tmp = new Date(date);
@@ -48,6 +50,7 @@ public class GAENodeSimple implements Comparable<GAENodeSimple>{
 		this.coordy=d2;
 		this.status = status;
 		this.address = address;
+		this.email = email;
 	}
 
 	public String getKey() {

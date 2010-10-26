@@ -67,7 +67,7 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 	//此地方的json格式和GAENode稍微不同。
 	public JSONObject toJson(){
 		String coordinates=String.valueOf(coordx) + "," + String.valueOf(coordy);
-		GAENodeSimple r = new GAENodeSimple(key,typeid,date.toString(),coordinates,status,address);
+		GAENodeSimple r = new GAENodeSimple(key,typeid,date.toString(),coordinates,status,address,email);
 		JSONObject job = r.toJson();
 
 		try {
@@ -98,6 +98,10 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 			return "null".getBytes();
 	}
 
+	public void setKey(String key){
+		this.key = key;
+	}
+
 	public String getKey(){
 		return key;
 	}
@@ -113,7 +117,7 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 	@Override
 	public int compareTo(GAENodeCase o) {
 		// TODO Auto-generated method stub
-		return this.key.compareTo(o.getKey());
+		return this.date.compareTo(o.date)*-1;
 	}
 
 }

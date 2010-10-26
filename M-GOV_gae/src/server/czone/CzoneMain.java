@@ -6,6 +6,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import server.caseDB.CaseMain;
+
 @Path("czone")
 public class CzoneMain {
 
@@ -37,8 +39,12 @@ public class CzoneMain {
 			@PathParam("c1") String method,	@PathParam("c2") String arg, 
 			@PathParam("c3") int st, @PathParam("c4") int ed) {
 
+
 		if ("query".equals(chk))
-			return QueryAll.go(method, arg, st, ed);
+		{
+			return CaseMain.doQuery(chk, method, arg, st, ed);
+//			return QueryAll.go(method, arg, st, ed);
+		}
 		else
 			return "{\"error\":\"method error\"}";
 		

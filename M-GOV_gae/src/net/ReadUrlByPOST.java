@@ -132,7 +132,7 @@ public class ReadUrlByPOST {
 		return res;
 	}
 
-	// 藉由預覽 preview_case 先取得案件編號
+	// 藉由預覽 preview_case 先取得案件編號 分析html內容取得sno
 	public static String getSno(String htmlcontext){
 		try {
 			
@@ -156,7 +156,7 @@ public class ReadUrlByPOST {
 		return null;
 	}
 
-	// 藉由預覽 preview_case 先取得權責單位
+	// 藉由預覽 preview_case 先取得權責單位 分析html內容取得unit
 	public static String getUnit(String htmlcontext){
 		try {
 			String res = "";
@@ -223,8 +223,12 @@ public class ReadUrlByPOST {
 		try {
 			String preRes = doSubmit(preview_caseURL, forms);
 			//preview取得sno和unit後送出
-			forms.put("sno",getSno(preRes));
-			forms.put("unit",getUnit(preRes));
+			node.sno = getSno(preRes);
+			node.setKey(node.sno);
+			node.unit = getUnit(preRes);
+			
+			forms.put("sno",node.sno);
+			forms.put("unit",node.unit);
 
 			doSubmit(add_caseURL, forms);
 		} catch (Exception e) {
