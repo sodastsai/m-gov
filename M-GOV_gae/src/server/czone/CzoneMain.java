@@ -25,7 +25,7 @@ public class CzoneMain {
 		if ("get_id".equals(chk))
 			return GetID.query(arg);
 		else if ("parse_id".equals(chk))
-			return GetID.query(arg);
+			return ParseID.go(arg);
 		else
 			return "{\"error\":\"method error\"}";
 	}

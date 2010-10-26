@@ -65,9 +65,13 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 	}
 	
 	//此地方的json格式和GAENode稍微不同。
+	@SuppressWarnings("deprecation")
 	public JSONObject toJson(){
 		String coordinates=String.valueOf(coordx) + "," + String.valueOf(coordy);
-		GAENodeSimple r = new GAENodeSimple(key,typeid,date.toString(),coordinates,status,address,email);
+
+		String dateStr = (date.getYear()-11)+"年"+(date.getMonth()+1)+"月"+date.getDate()+"日";
+		
+		GAENodeSimple r = new GAENodeSimple(key,typeid,dateStr,coordinates,status,address,email);
 		JSONObject job = r.toJson();
 
 		try {
