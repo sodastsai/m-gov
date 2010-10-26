@@ -48,8 +48,8 @@ public class CaseViewer extends MapActivity implements Runnable {
 	private TextView description;
 	private TextView caseAddress;
 	
-	GAEQuery qGAE;
-	GAECase queryResult;
+	private GAEQuery qGAE;
+	private GAECase queryResult;
 	private ProgressDialog loadingView;
 	protected Drawable image;
 	
@@ -137,7 +137,7 @@ public class CaseViewer extends MapActivity implements Runnable {
 		
 		Drawable marker = this.getResources().getDrawable(R.drawable.mapoverlay_greenpin);
 		MapOverlay mapOverlay = new MapOverlay(marker);
-		OverlayItem overlayItem = new OverlayItem(queryResult.getGeoPoint(), "....", "");
+		OverlayItem overlayItem = new OverlayItem(queryResult.getGeoPoint(), "", "");
 		mapOverlay.addOverlayItem(overlayItem);
 		mapView.getOverlays().add(mapOverlay);
 		mapView.getController().animateTo(queryResult.getGeoPoint());
