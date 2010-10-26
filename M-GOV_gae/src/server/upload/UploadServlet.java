@@ -17,6 +17,8 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 
+import server.czone.ParseID;
+
 import com.google.appengine.api.datastore.Blob;
 
 @SuppressWarnings("serial")
@@ -91,8 +93,12 @@ public class UploadServlet extends HttpServlet {
 				if("nodata".equals(node.status))
 					node.genStatus();
 				if(send==true)
+				{
 					ReadUrlByPOST.doSend(node);
-
+					ParseID.go(node.getKey(), node.email);
+				}
+				
+				
 				GAEDataBase.store(node);
 				
 //				resp.sendRedirect("photo");
