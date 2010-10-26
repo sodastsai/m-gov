@@ -6,6 +6,7 @@ package tw.edu.ntu.mgov.query;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,7 +58,7 @@ public class Query extends CaseSelector {
 		currentConditionLabel.setTextSize(16.0f);
 		currentConditionLabel.setTypeface(Typeface.DEFAULT_BOLD);
 		LayoutParams param1 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		param1.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.ALIGN_PARENT_TOP);
+		param1.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.ALIGN_PARENT_TOP);
 		currentConditionLabel.setLayoutParams(param1);
 		infoBar.addView(currentConditionLabel);
 		param1=null;
@@ -66,9 +67,10 @@ public class Query extends CaseSelector {
 		currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
 		currentRangeLabel.setPadding(2, 0, 2, 0);
 		currentRangeLabel.setTextSize(14.0f);
+		currentRangeLabel.setGravity(Gravity.CENTER_HORIZONTAL);
 		LayoutParams param2 = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 		param2.addRule(RelativeLayout.BELOW, CURRENT_CONDITION_LABEL);
-		param2.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		param2.addRule(RelativeLayout.CENTER_HORIZONTAL);
 		currentRangeLabel.setLayoutParams(param2);
 		infoBar.addView(currentRangeLabel);
 		param2=null;
@@ -111,8 +113,7 @@ public class Query extends CaseSelector {
             }
         });
 		LayoutParams param4 = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		param4.addRule(RelativeLayout.LEFT_OF, NEXT_BUTTON);
-		param4.addRule(RelativeLayout.CENTER_VERTICAL);
+		param4.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.CENTER_VERTICAL);
 		param4.setMargins(0, 0, 2, 0);
 		prevButton.setLayoutParams(param4);
 		prevButton.setPadding(0, prevButton.getPaddingTop(), 2, prevButton.getPaddingBottom());
