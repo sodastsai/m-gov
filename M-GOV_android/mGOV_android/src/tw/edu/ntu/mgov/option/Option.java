@@ -4,6 +4,7 @@
 package tw.edu.ntu.mgov.option;
 
 import tw.edu.ntu.mgov.R;
+import tw.edu.ntu.mgov.mgov;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
@@ -84,9 +85,13 @@ public class Option extends PreferenceActivity {
 		});
         prefCategory[0].addPreference(userRealName);
 		
+        String versionInfo = getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version);
+        if (mgov.DEBUG_MODE)
+        	versionInfo += " Debug Mode.";
+        
 		Preference appInformation = new Preference(this);
 		appInformation.setTitle(getResources().getString(R.string.app_name));
-		appInformation.setSummary(getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version));
+		appInformation.setSummary(versionInfo);
 		appInformation.setSelectable(false);
 		prefCategory[1].addPreference(appInformation);
 		

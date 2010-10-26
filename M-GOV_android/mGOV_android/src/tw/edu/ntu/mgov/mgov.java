@@ -34,6 +34,9 @@ import tw.edu.ntu.mgov.query.Query;
 
 public class mgov extends TabActivity {
     /** Called when the activity is first created. */
+	// Global Constant
+	public static final boolean DEBUG_MODE = true;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
