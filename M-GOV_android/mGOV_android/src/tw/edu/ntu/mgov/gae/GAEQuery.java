@@ -4,10 +4,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.google.android.maps.GeoPoint;
 
 //import com.google.android.maps.GeoPoint;
 
+import tw.edu.ntu.mgov.mgov;
 import tw.edu.ntu.mgov.net.ReadUrl;
 
 public class GAEQuery {
@@ -40,6 +43,8 @@ public class GAEQuery {
 
 	public GAECase getID(String id) throws JSONException {
 		String res = ReadUrl.process(prefixURL + "czone/get_id/" + id, "utf-8");
+		if (mgov.DEBUG_MODE)
+			Log.d("GAEQuery", prefixURL + "czone/get_id/" + id);
 		return new GAECase(new JSONObject(res));
 	}
 
@@ -83,6 +88,9 @@ public class GAEQuery {
 		
 		String queryStr = prefixURL + dbstr[dbNumber] + method + "/" + args + "/" + start + "/" + end;
 		String jsonStr = ReadUrl.process(queryStr, "utf-8");
+		
+		if (mgov.DEBUG_MODE)
+			Log.d("GAEQuery", queryStr);
 		
 		try {
 			JSONObject ob = new JSONObject(jsonStr);
