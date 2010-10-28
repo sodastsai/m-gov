@@ -1,21 +1,37 @@
-/**
+/*
  * 
+ * CaseSelector.java
+ * 2010/10/04
+ * sodas
+ * 
+ * This class is set for data source.
+ * Unlike iPhone, Android do not have to put all views with same data source in view controller,
+ * so there's no Hybrid activity.
+ *
+ * Copyright 2010 NTU CSIE Mobile & HCI Lab
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
+
 package tw.edu.ntu.mgov;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
-
-import de.android1.overlaymanager.ManagedOverlay;
-import de.android1.overlaymanager.ManagedOverlayGestureDetector;
-import de.android1.overlaymanager.ManagedOverlayItem;
-import de.android1.overlaymanager.OverlayManager;
-import de.android1.overlaymanager.ZoomEvent;
-import de.android1.overlaymanager.MarkerRenderer;
+import com.google.android.maps.OverlayItem;
 
 import tw.edu.ntu.mgov.caseviewer.CaseViewer;
 import tw.edu.ntu.mgov.gae.GAECase;
@@ -24,18 +40,14 @@ import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryDatabase;
 import tw.edu.ntu.mgov.option.Option;
 import tw.edu.ntu.mgov.typeselector.QidToDescription;
 import android.app.ProgressDialog;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Vibrator;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -48,24 +60,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ZoomControls;
 import android.widget.RelativeLayout.LayoutParams;
 
-/**
- * @author sodas
- * 2010/10/4
- * @company NTU CSIE Mobile HCI Lab
- * 
- * This class is set for data source.
- * Unlike iPhone, Android do not have to put all views with same data source in view controller,
- * so there's no Hybrid activity.
- * 
- * We use another open-source tool:
- * mapview-overlay-manager, Extension for Overlayer in the Android Maps-API
- * http://code.google.com/p/mapview-overlay-manager/
- * 
- */
 public abstract class CaseSelector extends MapActivity {
 	protected Context selfContext = this;
 	// Constant Identifier for Menu
@@ -85,10 +82,7 @@ public abstract class CaseSelector extends MapActivity {
 	protected RelativeLayout infoBar;
 	protected ListView listMode;
 	protected MapView mapMode;
-	protected ZoomControls mapModeZoomControl;
-	public OverlayManager overlayManager;
 	protected GeoPoint currentLocationPoint;
-	protected ManagedOverlay managedOverlay;
 	// Query Google App Engine
 	protected GAEQuery qGAE;
 	protected GAECase caseSource[];
@@ -96,21 +90,26 @@ public abstract class CaseSelector extends MapActivity {
 	protected int rangeStart = 0;
 	protected int rangeEnd = 9;
 	protected int sourceLength;
+	// Map Overlay
+	protected PopoutItemizedOverlay okOverlay;
+	protected PopoutItemizedOverlay unknownOverlay;
+	protected PopoutItemizedOverlay failOverlay;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.caseselector);
 
+		// Network connector
 		qGAE = new GAEQuery();
 		
 		// Call Info bar from Layout XML
 		infoBar = (RelativeLayout)findViewById(R.id.infoBar);
+		
 		// Call List View From Layout XML
 		listMode = (ListView)findViewById(R.id.listMode);
 		listMode.setAdapter(new caseListAdapter(this));
 		listMode.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if (caseSource!=null) {
@@ -120,8 +119,22 @@ public abstract class CaseSelector extends MapActivity {
 				}
 			}
 		});
+		
 		// New Map by Java code for separate maps.
-		mapMode = new MapView(this, getResources().getString(R.string.google_mapview_api_key));
+		mapMode = new MapView(this, getResources().getString(R.string.google_mapview_api_key)) {
+			@Override
+			public boolean onTouchEvent(MotionEvent ev) {
+				if (ev.getAction()==MotionEvent.ACTION_UP) {
+					if ((Math.abs(mapMode.getMapCenter().getLatitudeE6()-currentLocationPoint.getLatitudeE6()) > mapMode.getLatitudeSpan()/3)||
+						(Math.abs(mapMode.getMapCenter().getLongitudeE6()-currentLocationPoint.getLongitudeE6()) > mapMode.getLongitudeSpan()/3)) {
+						// Don't disturb user, so don't always not reload. Only reload while change is too big
+						mapChangeRegionOrZoom();
+						currentLocationPoint=mapMode.getMapCenter();
+					}
+				}
+				return super.onTouchEvent(ev);
+			}
+		};
 		LayoutParams param1 = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
 		param1.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.ALIGN_PARENT_TOP);
 		RelativeLayout mapModeFrame = (RelativeLayout)findViewById(R.id.mapModeFrame);
@@ -133,15 +146,23 @@ public abstract class CaseSelector extends MapActivity {
 		mapMode.setBuiltInZoomControls(false); // Use custom Map Control instead
 		mapMode.getController().setZoom(17);
 		// Call Zoom Controll for Map Mode, since we want to show it automaticlly
-		mapModeZoomControl = (ZoomControls)findViewById(R.id.mapModeZoomControl);
+		ZoomControls mapModeZoomControl = (ZoomControls)findViewById(R.id.mapModeZoomControl);
 		mapModeZoomControl.setOnZoomInClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { mapMode.getController().zoomIn(); }
+            public void onClick(View v) { 
+            	mapMode.getController().zoomIn();
+            	mapChangeRegionOrZoom();
+            }
 		});
 		mapModeZoomControl.setOnZoomOutClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { mapMode.getController().zoomOut(); }
+            public void onClick(View v) {
+            	mapMode.getController().zoomOut();
+            	mapChangeRegionOrZoom();
+            }
 		});
+		currentLocationPoint = mapMode.getMapCenter();
+		
 		// Get Current User Location
 		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 		LocationListener locationListener = new LocationListener() {
@@ -149,6 +170,7 @@ public abstract class CaseSelector extends MapActivity {
 			public void onLocationChanged(Location location) {
 				currentLocationPoint = new GeoPoint((int)(location.getLatitude()*Math.pow(10, 6)), (int)(location.getLongitude()*Math.pow(10, 6)));
 				mapMode.getController().animateTo(currentLocationPoint);
+				currentLocationPoint=mapMode.getMapCenter();
 			}
 			@Override
 			public void onProviderDisabled(String provider) {}
@@ -162,7 +184,16 @@ public abstract class CaseSelector extends MapActivity {
 		if (lastKnownLocation!=null) {
 			currentLocationPoint = new GeoPoint((int)(lastKnownLocation.getLatitude()*Math.pow(10, 6)), (int)(lastKnownLocation.getLongitude()*Math.pow(10, 6)));
 			mapMode.getController().animateTo(currentLocationPoint);
+			currentLocationPoint=mapMode.getMapCenter();
 		}
+		locationManager.removeUpdates(locationListener);
+		locationListener = null;
+		
+		// Set Overlay
+		okOverlay = new PopoutItemizedOverlay(getResources().getDrawable(R.drawable.okspot), mapMode);
+		unknownOverlay = new PopoutItemizedOverlay(getResources().getDrawable(R.drawable.unknownspot), mapMode);
+		failOverlay = new PopoutItemizedOverlay(getResources().getDrawable(R.drawable.failspot), mapMode);
+		
 		// Change to Default Mode
 		if (defaultMode==CaseSelectorMode.CaseSelectorListMode) {
 			currentMode = CaseSelectorMode.CaseSelectorListMode;
@@ -173,10 +204,6 @@ public abstract class CaseSelector extends MapActivity {
 			findViewById(R.id.listModeFrame).setVisibility(View.GONE);
 			findViewById(R.id.mapModeFrame).setVisibility(View.VISIBLE);
 		}
-		locationManager.removeUpdates(locationListener);
-		locationListener = null;
-		// Create Overlay
-		createOverlayWithListener();
 	}
 	
 	@Override
@@ -250,6 +277,7 @@ public abstract class CaseSelector extends MapActivity {
 		loadingView.setMessage(getResources().getString(R.string.loading_message));
 		loadingView.show();
 		
+		// After Thread end
 		final Handler loadingViewhandler = new Handler() {
 			public void handleMessage(Message msg) {
 				qGAEReturned();
@@ -257,6 +285,7 @@ public abstract class CaseSelector extends MapActivity {
 			}
 		};
 		
+		// Fetch Data in another thread
 		Thread qGAEThread = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -279,31 +308,44 @@ public abstract class CaseSelector extends MapActivity {
 		});
 		qGAEThread.start();
 	}
+	
 	protected void qGAEReturned() {
-		ArrayList<ManagedOverlayItem> overlayList = new ArrayList<ManagedOverlayItem>();
+		// Clear Overlay
+		okOverlay.clearOverLayList();
+		unknownOverlay.clearOverLayList();
+		failOverlay.clearOverLayList();
+		// Process data
 		if (caseSource==null) {
-			ManagedOverlayItem item = new ManagedOverlayItem(new GeoPoint(0, 0), "0", "0,0");
-			overlayList.add(item);
-			// Set Map Overlay
-			managedOverlay.addAll(overlayList);
+			mapMode.getOverlays().clear();
 			// Refresh Map
 			mapMode.invalidate();
 			// Refresh List
 			((caseListAdapter) listMode.getAdapter()).notifyDataSetChanged();
 			
 			qGAEReturnNull();
-			item=null;
 		} else {
 			// Set Overlay
 			for (int i=0; i<caseSource.length; i++) {
 				String typeName = QidToDescription.getDetailByQID(selfContext, Integer.parseInt(caseSource[i].getform("typeid")));
-				String info = caseSource[i].getform("key")+","+Integer.toString(convertStatusStringToStatusCode(caseSource[i].getform("status")));
-				ManagedOverlayItem item = new ManagedOverlayItem(caseSource[i].getGeoPoint(), typeName, info);
-				overlayList.add(item);
-				item=null;
+				int status = convertStatusStringToStatusCode(caseSource[i].getform("status"));
+				OverlayItem overlayItem = new OverlayItem(caseSource[i].getGeoPoint(), typeName, caseSource[i].getform("key")); 
+				// Add
+				if (status==1)
+					okOverlay.addOverlay(overlayItem);
+				else if (status==2)
+					failOverlay.addOverlay(overlayItem);
+				else 
+					unknownOverlay.addOverlay(overlayItem);
 			}
-			// Set Map Overlay
-			managedOverlay.addAll(overlayList);
+			
+			mapMode.getOverlays().clear();
+			if (okOverlay.size()!=0)
+				mapMode.getOverlays().add(okOverlay);
+			if (failOverlay.size()!=0)
+				mapMode.getOverlays().add(failOverlay);
+			if (unknownOverlay.size()!=0)
+				mapMode.getOverlays().add(unknownOverlay);
+			
 			// Refresh Map
 			mapMode.invalidate();
 			// Refresh List
@@ -311,7 +353,7 @@ public abstract class CaseSelector extends MapActivity {
 			
 			qGAEReturnData();
 	    }
-		overlayList = null;
+		//overlayList = null;
 	}
 	protected abstract boolean setQGAECondition();
 	protected abstract void qGAEReturnNull();
@@ -416,107 +458,5 @@ public abstract class CaseSelector extends MapActivity {
 	protected boolean isRouteDisplayed() {
 		// We do not use route service, so return false.
 		return false;
-	}
-	
-	public void createOverlayWithListener() {
-		//This time we use our own marker
-		if (overlayManager==null) 
-			overlayManager = new OverlayManager(getApplication(), mapMode);
-		managedOverlay = overlayManager.createOverlay("listenerOverlay");
-		managedOverlay.setOnOverlayGestureListener(new ManagedOverlayGestureDetector.OnOverlayGestureListener() {
-			@Override
-			public boolean onDoubleTap(MotionEvent me, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
-				try {
-					mapMode.getController().animateTo(point);
-					if (mapMode.getZoomLevel()+1 < mapMode.getMaxZoomLevel())
-						mapMode.getController().setZoom(mapMode.getZoomLevel()+1);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return true;
-			}
-			@Override
-			public boolean onZoom(ZoomEvent zoom, ManagedOverlay overlay) {
-				mapChangeRegionOrZoom();
-				return false;
-			}
-			@Override
-			public void onLongPress(MotionEvent e, ManagedOverlay overlay) {
-				if (e.getAction()==MotionEvent.ACTION_UP) {
-					Vibrator myVibrator = (Vibrator) getApplication().getSystemService(Service.VIBRATOR_SERVICE);
-					myVibrator.vibrate(100);
-				}
-			}
-			@Override
-			public void onLongPressFinished(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
-				if (item!=null) {
-					String overlayInfo[] = item.getSnippet().split(",");
-					// Show Case data
-					Intent caseViewerIntent = new Intent().setClass(selfContext, CaseViewer.class);
-					Bundle bundle = new Bundle();
-					bundle.putString("caseID", overlayInfo[0]);
-					caseViewerIntent.putExtras(bundle);
-					startActivity(caseViewerIntent);
-					caseViewerIntent = null;
-				}
-			}
-			@Override
-			public boolean onScrolled(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY, ManagedOverlay overlay) {
-				mapChangeRegionOrZoom();
-				return false;
-			}
-			@Override
-			public boolean onSingleTap(MotionEvent e, ManagedOverlay overlay, GeoPoint point, ManagedOverlayItem item) {
-				if (item!=null) {
-					// This is Not a Map Event
-					String overlayInfo[] = item.getSnippet().split(",");
-					// Custom Toast
-					LayoutInflater inflater = getLayoutInflater();
-					View layout = inflater.inflate(R.layout.case_selector_toast, (ViewGroup)findViewById(R.id.caseSelector_toast));
-					// Set Content
-					TextView title = (TextView)layout.findViewById(R.id.caseSelector_toast_Title);
-					ImageView status = (ImageView)layout.findViewById(R.id.caseSelector_toast_Status);
-					title.setText(item.getTitle());
-					if (Integer.parseInt(overlayInfo[1])==1) status.setImageResource(R.drawable.ok);
-					else if (Integer.parseInt(overlayInfo[1])==2) status.setImageResource(R.drawable.fail);
-					else status.setImageResource(R.drawable.unknown);
-					// Add toast
-					Toast toast = new Toast(getApplicationContext());
-					toast.setGravity(Gravity.BOTTOM|Gravity.CENTER, 0, 60);
-					toast.setDuration(Toast.LENGTH_SHORT);
-					toast.setView(layout);
-					toast.show();
-					toast = null;
-				}
-				return false; 
-			}
-		});
-		overlayManager.populate();
-		
-		managedOverlay.setCustomMarkerRenderer(new MarkerRenderer() {
-		    @Override
-			public Drawable render(ManagedOverlayItem item, Drawable defaultMarker, int bitState) {
-		    	// Current Location
-		    	if (item.getTitle()==getResources().getString(R.string.mapOverlay_currentLocation)) {
-		    		Drawable currentLocationMarker = getResources().getDrawable(R.drawable.mapoverlay_current_location);
-		    		int currentLocationMarkerHalfWidth = currentLocationMarker.getIntrinsicWidth()/2;
-		    		int currentLocationMarkerHalfHeight = currentLocationMarker.getIntrinsicHeight()/2;
-		    		currentLocationMarker.setBounds(-currentLocationMarkerHalfWidth, -currentLocationMarkerHalfHeight, currentLocationMarkerHalfWidth, currentLocationMarkerHalfHeight);
-		    		return currentLocationMarker;
-		    	}
-		    	// Case
-		    	Drawable marker;
-		    	String overlayInfo[] = item.getSnippet().split(",");
-		    	if (Integer.parseInt(overlayInfo[1])==1)
-		    		marker = getResources().getDrawable(R.drawable.mapoverlay_greenpin);
-		    	else if (Integer.parseInt(overlayInfo[1])==2)
-		    		marker = getResources().getDrawable(R.drawable.mapoverlay_redpin);	
-		    	else 
-		    		marker = getResources().getDrawable(R.drawable.mapoverlay_orangepin);
-		    	
-		    	marker.setBounds((int)(-marker.getIntrinsicWidth()*0.25), -marker.getIntrinsicHeight(), marker.getIntrinsicWidth()-(int)(marker.getIntrinsicWidth()*0.25), 0);
-		    	return marker;
-			}
-		});
 	}
 }

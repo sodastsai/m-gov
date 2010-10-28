@@ -10,4 +10,6 @@
 <string name="addcase_hint_description">請輸入描述與建議（選填）</string>
 <string name="addcase_button_reset">重設</string>
 <string name="addcase_button_submit">送出</string>
+<string name="addcase_locationSelector_hint">點一下地圖以更換位置</string>
+<string name="addcase_locationSelector_addrNull">沒有網路連線 無法顯示地址</string>
 </resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content"
+	android:orientation="horizontal" 
+	android:paddingLeft="10dip"
+	android:paddingRight="10dip"
+	android:paddingTop="10dip" 
+	android:paddingBottom="25dip"
+	android:minWidth="100dip" 
+	android:id="@+id/balloon_main_layout"
+	android:background="@drawable/balloon_overlay_bg_selector" >
+
+	<LinearLayout 
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:orientation="vertical" 
+		android:layout_weight="1"
+		android:id="@+id/balloon_inner_layout">
+		<TextView android:layout_height="wrap_content"
+			android:layout_width="fill_parent" 
+			android:id="@+id/balloon_item_title"
+			android:text="balloon_item_title" 
+			android:textSize="16dip"
+			android:textColor="#FF000000"></TextView>
+		<TextView android:layout_height="wrap_content"
+			android:layout_width="fill_parent" 
+			android:id="@+id/balloon_item_snippet"
+			android:text="balloon_item_snippet" 
+			android:textSize="12dip"
+			android:textColor="#FF666666"></TextView>
+	</LinearLayout>
+	
+	<ImageView android:layout_width="wrap_content"
+		android:layout_height="wrap_content" 
+		android:src="@drawable/balloon_overlay_close"
+		android:id="@+id/close_img_button"
+		android:paddingTop="8dip" 
+		android:paddingLeft="16dip"></ImageView>
+
+</LinearLayout>

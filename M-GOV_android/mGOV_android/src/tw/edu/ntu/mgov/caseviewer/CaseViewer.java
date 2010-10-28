@@ -156,7 +156,7 @@ public class CaseViewer extends MapActivity implements Runnable {
 		if (image==null) tv.setVisibility(View.VISIBLE);
 		else tv.setVisibility(View.INVISIBLE);
 		
-		Drawable marker = this.getResources().getDrawable(R.drawable.mapoverlay_greenpin);
+		Drawable marker = this.getResources().getDrawable(R.drawable.okspot);
 		MapOverlay mapOverlay = new MapOverlay(marker);
 		OverlayItem overlayItem = new OverlayItem(queryResult.getGeoPoint(), "", "");
 		mapOverlay.addOverlayItem(overlayItem);

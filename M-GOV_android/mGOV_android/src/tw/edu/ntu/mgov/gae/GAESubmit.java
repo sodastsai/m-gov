@@ -1,6 +1,5 @@
 package tw.edu.ntu.mgov.gae;
 
-import java.io.File;
 import java.io.InputStream;
 
 import android.content.Context;

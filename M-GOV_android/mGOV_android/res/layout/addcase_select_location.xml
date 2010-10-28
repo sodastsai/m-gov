@@ -1,44 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
-	android:layout_height="fill_parent"
-	android:orientation="vertical" >
-	<LinearLayout
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical" >
-		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content" 
-			android:text="請點擊以選擇案件的發生地點"/>
-	</LinearLayout>
-	<RelativeLayout
-		android:layout_width="fill_parent"
-		android:layout_height="0dip" 
-		android:layout_weight="1">
-		<com.google.android.maps.MapView
-			android:id="@+id/AddCase_SelectLication_MapView"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent" 
-			android:clickable="true"
-			android:apiKey="@string/google_mapview_api_key" />
-	</RelativeLayout>
-	<LinearLayout
+	android:layout_height="fill_parent">
+	<TableLayout android:id="@+id/addcase_locationSelector_buttons"
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
-		android:orientation="horizontal" >
-		<Button
-			android:id="@+id/AddCase_SelectLication_Btn_Confirm"
-			android:layout_width="0dip" 
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="確定" android:layout_margin="5dip" android:textSize="20dip"/>
-		<Button
-			android:id="@+id/AddCase_SelectLication_Btn_Cancel"
-			android:layout_width="0dip" 
-			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:text="取消" android:layout_margin="5dip" android:textSize="20dip"/>
-	</LinearLayout>
-</LinearLayout>
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentBottom="true"
+		android:background="#77000000"
+		android:stretchColumns="*">
+		<TableRow>
+			<Button android:id="@+id/AddCase_SelectLication_Btn_Cancel"
+				android:layout_column="0"
+				android:layout_width="fill_parent" 
+				android:layout_height="wrap_content"
+				android:layout_alignParentLeft="true"
+				android:layout_centerVertical="true"
+				android:text="取消"
+				android:gravity="center"
+				android:layout_margin="5dip"
+				android:textSize="18dip" />
+			<Button android:id="@+id/AddCase_SelectLication_Btn_Confirm"
+				android:layout_column="1"
+				android:layout_width="fill_parent" 
+				android:layout_height="fill_parent"
+				android:layout_alignParentRight="true"
+				android:layout_centerVertical="true"
+				android:text="確定"
+				android:gravity="center"
+				android:layout_margin="5dip"
+				android:textSize="18dip" />
+		</TableRow>
+	</TableLayout>
+	<RelativeLayout android:id="@+id/addcase_locationSelector_mapFrame"
+		android:layout_above="@id/addcase_locationSelector_buttons"
+		android:layout_alignParentLeft="true"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+			<TextView android:id="@+id/addcase_locationSelector_addrLabel"
+				android:layout_width="fill_parent"
+				android:layout_height="wrap_content"
+				android:layout_alignParentTop="true"
+				android:layout_alignParentLeft="true"
+				android:paddingLeft="6dip"
+				android:paddingRight="6dip"
+				android:paddingTop="10dip"
+				android:paddingBottom="10dip"
+				android:background="#AA000000" 
+				android:textColor="#FFFFFFFF"
+				android:textSize="16dip"
+				android:text="@string/addcase_locationSelector_hint"/>
+			<ZoomControls android:id="@+id/LocationSelectoyZoomControl"
+				android:layout_alignParentRight="true"
+				android:layout_alignParentBottom="true"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" />
+	</RelativeLayout>
+</RelativeLayout>

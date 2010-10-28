@@ -10,15 +10,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.google.android.maps.GeoPoint;
@@ -34,7 +31,6 @@ import tw.edu.ntu.mgov.option.Option;
 import tw.edu.ntu.mgov.typeselector.TypeSelector;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -42,11 +38,8 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.SumPathEffect;
 import android.graphics.drawable.Drawable;
-import android.location.Address;
 import android.location.Criteria;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
@@ -216,7 +209,7 @@ public class AddCase extends MapActivity {
 			locationGeoPoint = getDefaultGeoPoint();
 		}
 		if (address == null || address.equals("")) {
-			address = getAddress(locationGeoPoint);
+			address = SelectLocationMap.getAddress(locationGeoPoint, this);
 		}
 		if (mapOverlay.size() > 0) {
 			mapOverlay.clearAllOverlayItem();
@@ -258,7 +251,7 @@ public class AddCase extends MapActivity {
 		resetButton = (Button) findViewById(R.id.AddCase_Btn_Reset);
 		submitButton = (Button) findViewById(R.id.AddCase_Btn_Submit);
 		// set up overlay 
-		mapOverlay = new MyOverlay(this.getResources().getDrawable(R.drawable.mapoverlay_greenpin));
+		mapOverlay = new MyOverlay(this.getResources().getDrawable(R.drawable.okspot));
 		mapView.getOverlays().add(mapOverlay);
 	}
 	
@@ -472,24 +465,6 @@ public class AddCase extends MapActivity {
 		Log.d(LOGTAG, "  new saved picture file size = " + (this.getContentResolver().openFileDescriptor(pictureUri, "r").getStatSize() / 1024) + "KBs" );
 		
 		return bmp;
-	}
-	
-	
-	private String getAddress (GeoPoint geoPoint) {
-		
-		double latitude = ((double)geoPoint.getLatitudeE6() /1e6) ;
-		double longitude = ((double)geoPoint.getLongitudeE6() /1e6) ;
-		
-		Address a = null;
-		
-		try {
-			a = new Geocoder(this, Locale.getDefault()).getFromLocation(latitude, longitude, 1).get(0);
-		} catch (IOException e) {
-			Log.e(LOGTAG, "fail to get form location ", e);
-			return "";
-		}
-		
-		return a.getAddressLine(0);
 	}
 	
 	private class AddressSet {
@@ -819,12 +794,8 @@ public class AddCase extends MapActivity {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see com.google.android.maps.MapActivity#isRouteDisplayed()
-	 */
 	@Override
 	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	
@@ -852,26 +823,17 @@ public class AddCase extends MapActivity {
 		
 		@Override
 		public void draw(Canvas canvas, MapView mapView, boolean shadow) {
-			// TODO Auto-generated method stub
 			super.draw(canvas, mapView, false);
-			boundCenterBottom(defaultMarker);
+			boundCenter(defaultMarker);
 		}
 		
-		/* (non-Javadoc)
-		 * @see com.google.android.maps.ItemizedOverlay#createItem(int)
-		 */
 		@Override
 		protected OverlayItem createItem(int i) {
-			// TODO Auto-generated method stub
 			return items.get(i);
 		}
 
-		/* (non-Javadoc)
-		 * @see com.google.android.maps.ItemizedOverlay#size()
-		 */
 		@Override
 		public int size() {
-			// TODO Auto-generated method stub
 			return items.size();
 		}
 	}
