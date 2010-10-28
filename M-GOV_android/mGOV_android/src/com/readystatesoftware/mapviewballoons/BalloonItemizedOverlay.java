@@ -161,6 +161,12 @@ public abstract class BalloonItemizedOverlay<Item> extends ItemizedOverlay<Overl
 		
 	}
 	
+	static public void hideBallons(List<Overlay> overlays) {
+		for (Overlay overlay:overlays) {
+			((BalloonItemizedOverlay<?>) overlay).hideBalloon();
+		}
+	}
+	
 	/**
 	 * Sets the onTouchListener for the balloon being displayed, calling the
 	 * overridden onBalloonTap if implemented.

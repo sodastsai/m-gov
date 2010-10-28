@@ -26,12 +26,15 @@
 
 package tw.edu.ntu.mgov;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
+import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import com.readystatesoftware.mapviewballoons.BalloonItemizedOverlay;
 
 import tw.edu.ntu.mgov.caseviewer.CaseViewer;
 import tw.edu.ntu.mgov.gae.GAECase;
@@ -132,7 +135,11 @@ public abstract class CaseSelector extends MapActivity {
 						currentLocationPoint=mapMode.getMapCenter();
 					}
 				}
-				return super.onTouchEvent(ev);
+				try {
+					return super.onTouchEvent(ev);
+				} catch (Exception e) {
+					return true;
+				}
 			}
 		};
 		LayoutParams param1 = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
@@ -272,6 +279,14 @@ public abstract class CaseSelector extends MapActivity {
 	 * @category DataSource Method
 	 */
 	protected void startFetchDataSource() {
+		ArrayList<Overlay> allOverlays = new ArrayList<Overlay>();
+		allOverlays.add(okOverlay);
+		allOverlays.add(unknownOverlay);
+		allOverlays.add(failOverlay);
+		BalloonItemizedOverlay.hideBallons(allOverlays);
+		allOverlays.clear();
+		allOverlays = null;
+		
 		// LoadingView
 		final ProgressDialog loadingView = new ProgressDialog(selfContext);
 		loadingView.setMessage(getResources().getString(R.string.loading_message));
