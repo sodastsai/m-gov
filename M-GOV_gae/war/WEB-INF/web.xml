@@ -16,16 +16,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
           <load-on-startup>1</load-on-startup>  
 	</servlet>
 
-	<servlet>
-		<servlet-name>case</servlet-name>
-		<servlet-class>server.upload.UploadServlet</servlet-class>
-
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>case</servlet-name>
-		<url-pattern>/case/add/*</url-pattern>
-	</servlet-mapping>
-	
 	<servlet-mapping>
 		<servlet-name>server</servlet-name>
 		<url-pattern>/*</url-pattern>

@@ -1,4 +1,4 @@
-package tool;
+package net;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -14,24 +14,19 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
-
-public class SendImage {
+public class SendPost {
 	URL url;
 	HttpURLConnection conn;
 	String boundary = "--------httppost123";
 	Map<String, String> textParams = new HashMap<String, String>();
-	Map<String, File> fileparams = new HashMap<String, File>();
-	Map<String, byte[]> byteparams = new HashMap<String, byte[]>();
+	Map<String, byte[]> byteParams = new HashMap<String, byte[]>();
 
 	static String photo_name = "pic";
 	DataOutputStream ds;
 
 	public static void main(String[] args) throws Exception {
-		SendImage u = new SendImage("http://ggm-test.appspot.com/photo?method=upload");
-		u.addByteParameter("photo", getBytes(new File("/Users/wildmind5/Desktop/111198358590.jpg")) );
+		SendPost u = new SendPost("http://ggm-test.appspot.com/photo?method=upload");
+		u.addByteParameter("photo", getBytes(new File("/Users/wildmind5/Desktop/DSC01474.JPG")) );
 		u.addTextParameter("description", "測試");
 
 		byte[] b = u.send();
@@ -40,7 +35,7 @@ public class SendImage {
 
 	}
 	
-	public SendImage(String url) throws Exception {
+	public SendPost(String url) throws Exception {
 		this.url = new URL(url);
 	}
 
@@ -52,17 +47,13 @@ public class SendImage {
 		textParams.put(name, value);
 	}
 
-	public void addFileParameter(String name, File value) {
-		fileparams.put(name, value);
-	}
-
 	public void addByteParameter(String name, byte[] value) {
-		byteparams.put(name, value);
+		byteParams.put(name, value);
 	}
 
 	public void clearAllParameters() {
 		textParams.clear();
-		fileparams.clear();
+		byteParams.clear();
 	}
     // 发送数据到服务器，返回一个字节包含服务器的返回结果的数组
 	public byte[] send() throws Exception {
@@ -74,8 +65,7 @@ public class SendImage {
 			throw new RuntimeException();
 		}
 		ds = new DataOutputStream(conn.getOutputStream());
-		writeFileParams();
-		writeStringParams();
+		writeTextsParams();
 		writeByteParams();
 		paramsEnd();
 		InputStream in = conn.getInputStream();
@@ -87,7 +77,7 @@ public class SendImage {
 		conn.disconnect();
 		return out.toByteArray();
 	}
-    //文件上传的connection的一些必须设置
+    //connection init
 	private void initConnection() throws Exception {
 		conn = (HttpURLConnection) this.url.openConnection();
 		conn.setDoOutput(true);
@@ -97,8 +87,8 @@ public class SendImage {
 		conn.setRequestProperty("Content-Type",
 				"multipart/form-data; boundary=" + boundary);
 	}
-    //普通字符串数据
-	private void writeStringParams() throws Exception {
+    //傳text
+	private void writeTextsParams() throws Exception {
 		Set<String> keySet = textParams.keySet();
 		for (Iterator<String> it = keySet.iterator(); it.hasNext();) {
 			String name = it.next();
@@ -110,27 +100,12 @@ public class SendImage {
 			ds.writeBytes(encode(value) + "\r\n");
 		}
 	}
-    //文件数据
-	private void writeFileParams() throws Exception {
-		Set<String> keySet = fileparams.keySet();
-		for (Iterator<String> it = keySet.iterator(); it.hasNext();) {
-			String name = it.next();
-			File value = fileparams.get(name);
-			ds.writeBytes("--" + boundary + "\r\n");
-			ds.writeBytes("Content-Disposition: form-data; name=\"" + name
-					+ "\"; filename=\"" + encode(value.getName()) + "\"\r\n");
-			ds.writeBytes("Content-Type: " + getContentType(value) + "\r\n");
-			ds.writeBytes("\r\n");
-			ds.write(getBytes(value));
-			ds.writeBytes("\r\n");
-		}
-	}
-    //二進制数据
+    //傳bytes
 	private void writeByteParams() throws Exception {
-		Set<String> keySet = byteparams.keySet();
+		Set<String> keySet = byteParams.keySet();
 		for (Iterator<String> it = keySet.iterator(); it.hasNext();) {
 			String name = it.next();
-			byte[] value = byteparams.get(name);
+			byte[] value = byteParams.get(name);
 			ds.writeBytes("--" + boundary + "\r\n");
 			ds.writeBytes("Content-Disposition: form-data; name=\"" + name
 					+ "\"; filename=\"" + encode(String.valueOf(value.hashCode())) + "\"\r\n");
@@ -140,25 +115,7 @@ public class SendImage {
 			ds.writeBytes("\r\n");
 		}
 	}
-	
-	//获取文件的上传类型，图片格式为image/png,image/jpg等。非图片为application/octet-stream
-	private String getContentType(File f) throws Exception {
-		
-//		return "application/octet-stream";  // 此行不再细分是否为图片，全部作为application/octet-stream 类型
-		ImageInputStream imagein = ImageIO.createImageInputStream(f);
-		if (imagein == null) {
-			return "application/octet-stream";
-		}
-		Iterator<ImageReader> it = ImageIO.getImageReaders(imagein);
-		if (!it.hasNext()) {
-			imagein.close();
-			return "application/octet-stream";
-		}
-		imagein.close();
-		return "image/" + it.next().getFormatName().toLowerCase();//将FormatName返回的值转换成小写，默认为大写
 
-	}
-    //把文件转换成字节数组
 	private static byte[] getBytes(File f) throws Exception {
 		FileInputStream in = new FileInputStream(f);
 		ByteArrayOutputStream out = new ByteArrayOutputStream();

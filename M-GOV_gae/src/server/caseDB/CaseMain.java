@@ -1,12 +1,25 @@
 package server.caseDB;
 
+import gae.GAEDataBase;
+import gae.GAENodeCase;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import com.sun.jersey.core.header.FormDataContentDisposition;
+
 import server.czone.CzoneMain;
+import server.czone.ParseID;
 
 import net.ReadUrlByPOST;
 
@@ -52,4 +65,61 @@ public class CaseMain {
 		
 	}
 	
+	@Path("add")
+	@POST
+	@Produces(MediaType.TEXT_PLAIN)
+	@Consumes("multipart/form-data")
+	public static String doUploadCourse(
+			@FormParam("photo") FormDataContentDisposition dispostion,
+		    @FormParam("photo") InputStream photo_inputstream,
+		    @FormParam("email") String email,
+		    @FormParam("name") String name,
+		    @FormParam("h_admit_name") String h_admit_name,
+		    @FormParam("h_admiv_name") String h_admiv_name,
+		    @FormParam("h_summary") String h_summary,
+		    @FormParam("typeid") String typeid,
+		    @FormParam("coordx") String coordx,
+		    @FormParam("coordy") String coordy,
+		    @FormParam("address") String address,
+		    @FormParam("send") String send) {
+
+		
+		GAENodeCase node = null;
+		try{
+			node = new GAENodeCase(email, name, typeid, h_admit_name, h_admiv_name, h_summary,Double.parseDouble(coordx), Double.parseDouble(coordy), address);
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println(e);
+			return e.toString();
+		}		
+
+		ByteArrayOutputStream photo = new ByteArrayOutputStream();
+		byte[] b = new byte[1024];
+		int n;
+		try {
+			while ((n = photo_inputstream.read(b)) != -1) {
+				photo.write(b, 0, n);
+			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		if(photo.size()!=0)
+			node.setPhoto(photo.toByteArray());
+		GAEDataBase.store(node);
+			
+		if("send".equals(send))
+		{
+			ReadUrlByPOST.doSend(node);
+			ParseID.go(node.getKey(), node.email);
+		}
+		else
+		{
+		}
+		
+	
+		return node.toJson().toString();
+	}
 }
