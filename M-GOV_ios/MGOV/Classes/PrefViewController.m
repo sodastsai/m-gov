@@ -90,7 +90,7 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -100,6 +100,7 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section==0) return @"個人資訊";
+	else if (section == [self numberOfSectionsInTableView:tableView]-1) return @"版本資訊";
 	else return nil;
 }
 
@@ -112,6 +113,8 @@
 			infoString = [infoString stringByAppendingFormat:@"\n%@", [[[NSBundle mainBundle] infoDictionary] objectForKey:@"Release Info"]];
 		if ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"] boolValue])
 			infoString = [infoString stringByAppendingFormat:@"\nDebug Mode"];
+		
+		infoString = [infoString stringByAppendingFormat:@"\n\n路見不平為開放原始碼軟體\n採用Apache License 2.0授權條款\nhttp://www.apache.org/licenses/\n\n程式原始碼可由Google Code取得\nhttp://code.google.com/p/m-gov/"];
 		
 		return infoString;
 	} else return nil;
