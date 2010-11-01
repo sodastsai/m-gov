@@ -357,19 +357,16 @@
 			if (![[[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"] boolValue])
 				[request setPostValue:@"send" forKey:@"send"];
 			
+			QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
+			qGAE.conditionType = DataSourceGAEQueryByID;
+			qGAE.queryCondition = @"000";
+			qGAE.resultTarget = nil;
+			[qGAE startQuery];
+			
+			[request setTimeOutSeconds:90];
 			[request startAsynchronous];
 			
-			[[NSUserDefaults standardUserDefaults] setObject:nameFieldCell.nameField.text forKey:@"Name"];
 			
-			// After submit case, clean the temp infomation
-			[self.columnSaving setObject:[NSData data] forKey:@"Photo"];
-			[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
-			[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
-			[self.columnSaving setValue:@"" forKey:@"Description"];
-			descriptionCell.descriptionField.text = @"";
-			nameFieldCell.nameField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
-			[self.columnSaving setValue:@"" forKey:@"TypeTitle"];
-			[self.columnSaving setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 		}
 	}
 	
@@ -421,6 +418,23 @@
 	[indicatorView removeFromSuperview];
 	[indicatorView release];
 	[myCase refreshDataSource];
+	
+	[[NSUserDefaults standardUserDefaults] setObject:nameFieldCell.nameField.text forKey:@"Name"];
+	
+	// After submit case, clean the temp infomation
+	[self.columnSaving setObject:[NSData data] forKey:@"Photo"];
+	[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
+	[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
+	[self.columnSaving setValue:@"" forKey:@"Description"];
+	descriptionCell.descriptionField.text = @"";
+	nameFieldCell.nameField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
+	[self.columnSaving setValue:@"" forKey:@"TypeTitle"];
+	[self.columnSaving setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
+	
+	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+	selectedCoord = shared.locationManager.location.coordinate;
+	[locationCell updatingCoordinate:selectedCoord];
+	
 	[self.navigationController popViewControllerAnimated:YES];
 }
 
