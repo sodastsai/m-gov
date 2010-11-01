@@ -537,17 +537,11 @@ public class AddCase extends MapActivity {
 			return;
 		}
 		
-		if (!checkType()) {
-			return;
-		}
-		
-		if (!checkEmail()) {
-			return;
-		}	
+		if (!checkType()) return;
+		if (!checkEmail()) return;
 		
 		// get Address 
 		AddressSet addressSet;
-		
 		addressSet = getAddressSet(locationGeoPoint);
 
 		// create GAECase and add the attributes to submit 
@@ -557,7 +551,6 @@ public class AddCase extends MapActivity {
 		newcase.addform("address", addressSet.fullAddress);
 		newcase.addform("h_admiv_name", addressSet.hAdmivName);
 		newcase.addform("h_admit_name", addressSet.hAdmitName);
-		
 		
 		if (pictureUri != null) {
 			newcase.addImage(pictureUri.toString());
@@ -583,13 +576,10 @@ public class AddCase extends MapActivity {
 			})
 			.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					dialog.dismiss();
-				}
+				public void onClick(DialogInterface dialog, int which) { dialog.dismiss(); }
 			})
 			.create().show();
 	}
-	
 	
 	void showNoNetworkAlertDialog(Context context) {
 
