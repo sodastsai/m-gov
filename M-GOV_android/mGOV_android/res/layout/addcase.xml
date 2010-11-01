@@ -26,9 +26,7 @@
 				android:minHeight="240dip"
 				android:maxHeight="420dip"
 				android:padding="8dip"
-				android:adjustViewBounds="true"
-				android:focusable="true"
-				android:focusableInTouchMode="true">
+				android:adjustViewBounds="true">
 			</ImageView>
 			<TextView android:id="@+id/AddCase_TextView_AddPhoto"
 				android:layout_width="wrap_content"
@@ -39,8 +37,11 @@
 				android:textColor="@color/darkGray">
 			</TextView>
 		</FrameLayout>
-		<FrameLayout android:layout_height="wrap_content"
-			android:layout_marginBottom="10dip" android:layout_width="fill_parent">
+		<FrameLayout
+			android:background="@drawable/addcase_picture_bg_normal"
+			android:padding ="8dip"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content">
 		    <com.google.android.maps.MapView
 		        android:id="@+id/AddCase_Map"
 		        android:layout_width="fill_parent"

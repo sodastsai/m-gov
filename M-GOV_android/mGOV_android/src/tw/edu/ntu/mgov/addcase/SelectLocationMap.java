@@ -75,7 +75,7 @@ public class SelectLocationMap extends MapActivity {
 	@Override
 	protected void onResume() {
 		Toast selectHint = Toast.makeText(this, getResources().getString(R.string.addcase_locationSelector_hint), Toast.LENGTH_LONG);
-		selectHint.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 120);
+		selectHint.setGravity(Gravity.BOTTOM|Gravity.CENTER_HORIZONTAL, 0, 100);
 		selectHint.show();
 		selectHint=null;
 		super.onResume();

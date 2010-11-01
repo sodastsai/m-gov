@@ -56,6 +56,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.TextView.BufferType;
 
 /**
  * 
@@ -182,6 +183,7 @@ public class AddCase extends MapActivity {
 					// hide the text of "add picture" 
 					TextView tv = (TextView) findViewById(R.id.AddCase_TextView_AddPhoto);
 					tv.setVisibility(View.GONE);
+					
 				} catch (FileNotFoundException e) {
 					Log.d(LOGTAG, "Fail to open inputStream for imageFile Uri : " + pictureUri, e);
 					pictureImageView.setImageDrawable(null);
@@ -228,11 +230,10 @@ public class AddCase extends MapActivity {
 		}
 		
 		// nameEditText
-		if (preferences.contains(SP_NAME)) {
-			nameEditText.setText(preferences.getString(SP_NAME, ""));
-		} else {
+		if (preferences.getString(SP_NAME, "")!="")
+			nameEditText.setText(preferences.getString(SP_NAME, ""), BufferType.NORMAL);
+		else
 			nameEditText.setText(userPreferences.getString(Option.KEY_USER_NAME, ""));
-		}
 		
 		// descriptionEditText 
 		if (preferences.contains(SP_DESCRIPTION)) {
