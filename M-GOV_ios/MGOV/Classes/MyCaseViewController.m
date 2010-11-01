@@ -112,10 +112,6 @@
 	}
 }
 
-- (void)queryGAEwithConditonType:(DataSourceGAEQueryTypes)conditionType andCondition:(id)condition {
-	[super queryGAEwithConditonType:conditionType andCondition:condition];
-}
-
 #pragma mark -
 #pragma mark Lifecycle
 
@@ -125,7 +121,15 @@
 	caseSourceDidLoaded = NO;
 	if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] length]) {
 		// Since App Engine will be slow at first start up and then time out, we send twice here.
-		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"]];
+		// Dummy one
+		QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
+		qGAE.resultTarget = nil;
+		qGAE.indicatorTargetView = nil;
+		qGAE.resultRange = NSRangeFromString(@"0,1");
+		qGAE.conditionType = DataSourceGAEQueryByEmail;
+		qGAE.queryCondition = @"abc@example.com";
+		[qGAE startQuery];
+		// Real one
 		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"]];
 	} else caseSourceDidLoaded = YES;
 	
@@ -208,13 +212,9 @@
 	}
 	caseSourceDidLoaded = YES;
 	
-	[self refreshViews];
-	
 	if ([self myCaseDataAvailability]) informationBar.hidden = NO;
 	else informationBar.hidden = YES;
 	
-	self.topViewController.navigationItem.leftBarButtonItem.enabled = YES;
-	self.topViewController.navigationItem.rightBarButtonItem.enabled = YES;
 	for (NSUInteger i=0; i<filter.numberOfSegments; i++)
 		if (i!=filter.selectedSegmentIndex)
 			[filter setEnabled:YES forSegmentAtIndex:i];

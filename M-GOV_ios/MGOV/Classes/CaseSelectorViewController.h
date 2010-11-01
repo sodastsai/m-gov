@@ -40,6 +40,8 @@
 	// Current condition
 	id currentCondition;
 	DataSourceGAEQueryTypes currentConditionType;
+	
+	BOOL firstQuery;
 }
 
 @property (nonatomic, retain) NSArray *caseSource;

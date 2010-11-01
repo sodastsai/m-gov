@@ -179,9 +179,6 @@
 		if (rangeEnd!=queryTotalLength) nextButton.enabled = YES;
 		else nextButton.enabled = NO;
 	}
-	self.topViewController.navigationItem.leftBarButtonItem.enabled = YES;
-	self.topViewController.navigationItem.rightBarButtonItem.enabled = YES;
-	[self refreshViews];
 	[super recieveQueryResultType:type withResult:result];
 }
 
