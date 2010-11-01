@@ -148,7 +148,7 @@
 				android:layout_width="fill_parent"
 		    	android:clickable="false"
 		    	android:apiKey="@string/google_mapview_api_key"
-		    	android:layout_height="140dip">
+		    	android:layout_height="200dip">
 			</com.google.android.maps.MapView>
 		</FrameLayout>
 		<TextView android:id="@+id/CaseViewer_Address"
