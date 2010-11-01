@@ -23,6 +23,7 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <MapKit/MapKit.h>
 #import "CaseSelectorViewController.h"
 #import "CaseViewerViewController.h"
 #import "QueryGoogleAppEngine.h"
@@ -37,6 +38,7 @@
 	int queryTotalLength;
 	
 	NSInteger typeID;
+	MKCoordinateRegion currentMapRegion;
 	
 	// Query Condition in Information Bar
 	UILabel *queryTypeLabel;

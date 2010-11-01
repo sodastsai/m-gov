@@ -94,6 +94,8 @@
 	
 	typeID = 0;
 	queryTotalLength = -1;
+	
+	currentMapRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(0, 0), 1, 1);
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -191,16 +193,27 @@
 	// Lock Buttons
 	nextButton.enabled = NO;
 	lastButton.enabled = NO;
-	self.topViewController.navigationItem.leftBarButtonItem.enabled =  NO;
+	self.topViewController.navigationItem.leftBarButtonItem.enabled = NO;
 	self.topViewController.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
 - (void)mapView:(MKMapView *)MapView regionDidChangeAnimated:(BOOL)animated {
-	if (queryTotalLength != -1) {
+	BOOL centerChanged = (fabs(MapView.region.center.latitude - currentMapRegion.center.latitude) > MapView.region.span.latitudeDelta/3)||
+						(fabs(MapView.region.center.longitude - currentMapRegion.center.longitude) > MapView.region.span.longitudeDelta/3);
+	BOOL spanChanged = (fabs(MapView.region.span.latitudeDelta - currentMapRegion.span.latitudeDelta) > 0.001)||
+						(fabs(MapView.region.span.longitudeDelta - currentMapRegion.span.longitudeDelta) > 0.001);
+	
+	if ((queryTotalLength != -1)&&(centerChanged||spanChanged)) {
 		// Initial
 		queryRange = NSRangeFromString([NSString stringWithFormat:@"0,%d", kDataSectorSize]);
 		// Start Query
+		currentMapRegion = MapView.region;
 		[self queryAfterSetRangeAndType];
+	} else {
+		nextButton.enabled = YES;
+		lastButton.enabled = YES;
+		self.topViewController.navigationItem.leftBarButtonItem.enabled = YES;
+		self.topViewController.navigationItem.rightBarButtonItem.enabled = YES;
 	}
 }
 

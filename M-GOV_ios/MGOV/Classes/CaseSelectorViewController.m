@@ -283,6 +283,12 @@
 	listViewController.tableView.dataSource = self;
 }
 
+- (void)didReceiveMemoryWarning {
+	[super didReceiveMemoryWarning];
+	self.listViewController.tableView.delegate = self;
+	self.listViewController.tableView.dataSource = self;
+}
+
 - (void)dealloc {
 	[super dealloc];
 	[childViewController release];
