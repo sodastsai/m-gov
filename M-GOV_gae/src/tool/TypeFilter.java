@@ -159,7 +159,7 @@ public class TypeFilter {
 		for(int i=0;i<typeid.length;i++)
 			if(typeid[i].equals(type)==true)
 				return unitid[i];
-		return null;
+		return unitid[0];
 	}
 	
 	// final static int

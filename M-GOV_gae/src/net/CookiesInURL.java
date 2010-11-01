@@ -1,7 +1,7 @@
 //http://www.rgagnon.com/javadetails/java-0092.html
 
 package net;
-import gae.GAENode;
+
 import gae.GAENodeCookie;
 import gae.PMF;
 
@@ -13,15 +13,15 @@ import javax.jdo.PersistenceManager;
 
 public class CookiesInURL {
 
-	Hashtable theCookies = new Hashtable();
+	Hashtable<String, String> theCookies = new Hashtable<String, String>();
 	public URLConnection connection;
 	// test
-	public static String CFID = "316970";
-	public static String CFTOKEN = "23019116";
+	public static String CFID = "1122207";
+	public static String CFTOKEN = "35573909";
 
 	public static void main(String args[]) throws IOException, Exception {
 		try {
-			String stringUrl = "http://www.czone.tcg.gov.tw/tp88-1/sys/query_memo_a.cfm?h_id=09907-010270";
+			String stringUrl = "http://www.czone2.tcg.gov.tw/tp88-1/sys/query_memo_a.cfm?h_id=09907-010270";
 			URL url = new URL(stringUrl);
 
 			CookiesInURL cookurl = new CookiesInURL(url.openConnection());
@@ -81,7 +81,7 @@ public class CookiesInURL {
 
 	public URLConnection writeCookies(boolean printCookies) {
 		String cookieString = "";
-		Enumeration keys = theCookies.keys();
+		Enumeration<String> keys = theCookies.keys();
 		while (keys.hasMoreElements()) {
 			String key = (String) keys.nextElement();
 			cookieString += key + "=" + theCookies.get(key);
@@ -150,7 +150,7 @@ public class CookiesInURL {
 	 */
 	public void viewAllCookies() {
 		System.out.println("All Cookies are:");
-		Enumeration keys = theCookies.keys();
+		Enumeration<String> keys = theCookies.keys();
 		String key;
 		while (keys.hasMoreElements()) {
 			key = (String) keys.nextElement();

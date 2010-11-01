@@ -34,14 +34,6 @@ public class CaseMain {
 		return CaseList.go();
 	}	
 
-	@Path("send")
-	@GET
-	@Produces(MediaType.TEXT_PLAIN)
-	public static String doSend() {
-		ReadUrlByPOST.main(null);
-		return "done";
-	}	
-
 	
 	@Path("delete")
 	@GET
@@ -82,7 +74,6 @@ public class CaseMain {
 		    @FormParam("coordy") String coordy,
 		    @FormParam("address") String address,
 		    @FormParam("send") String send) {
-
 		
 		GAENodeCase node = null;
 		try{
@@ -101,25 +92,24 @@ public class CaseMain {
 			while ((n = photo_inputstream.read(b)) != -1) {
 				photo.write(b, 0, n);
 			}
-		} catch (IOException e1) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e.printStackTrace();
 		}
 
+		
 		if(photo.size()!=0)
 			node.setPhoto(photo.toByteArray());
-		GAEDataBase.store(node);
-			
+		
 		if("send".equals(send))
 		{
-			ReadUrlByPOST.doSend(node);
-			ParseID.go(node.getKey(), node.email);
-		}
-		else
-		{
+			System.out.println("send to czone");
+			String key = ReadUrlByPOST.doSend(node);
+			ParseID.go(key, node.email);
+			node.setKey(key);
 		}
 		
-	
+		GAEDataBase.store(node);
 		return node.toJson().toString();
 	}
 }

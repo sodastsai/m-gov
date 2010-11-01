@@ -24,8 +24,7 @@ public class ParseID {
 	
 	public static String go(String cmd) {
 		try {
-			
-			strurl=String.format("http://www.czone.tcg.gov.tw/tp88-1/sys/query_memo_a.cfm?h_id=%s",cmd);
+			strurl=String.format("http://www.czone2.tcg.gov.tw/tp88-1/sys/query_memo_a.cfm?h_id=%s",cmd);
 			CookiesInURL urlcon = new CookiesInURL (strurl); 
 
 			String res="",res2;

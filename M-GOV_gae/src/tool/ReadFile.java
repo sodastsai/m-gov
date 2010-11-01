@@ -1,6 +1,8 @@
 package tool;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,6 +18,18 @@ public class ReadFile {
 						"big5"));
 	}
 
+	public static byte[] fileToBytes(File f) throws Exception {
+		FileInputStream in = new FileInputStream(f);
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		byte[] b = new byte[1024];
+		int n;
+		while ((n = in.read(b)) != -1) {
+			out.write(b, 0, n);
+		}
+		in.close();
+		return out.toByteArray();
+	}
+	
 	public static String read(String path, String encode) throws IOException {
 		InputStreamReader fis = new InputStreamReader(
 				new FileInputStream(path), "big5");

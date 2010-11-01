@@ -1,11 +1,11 @@
 package tool;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+
 import java.util.HashMap;
 
 import net.HtmlFilter;
-import net.ReadUrlByPOST;
+import net.SendPost;
 
 public class LocalQuery {
 
@@ -26,8 +26,8 @@ public class LocalQuery {
 	public static String query_admin(String region) {
 		System.out.println(region);
 		
-		String url = "http://www.czone.tcg.gov.tw/tp88-1/sys/guest_query_open.cfm";
-		HashMap<String, String> forms = new HashMap();
+		String url = "http://www.czone2.tcg.gov.tw/tp88-1/sys/guest_query_open.cfm";
+		HashMap<String, String> forms = new HashMap<String, String>();
 
 		region = "'" + region +"'";
 		forms.put("sql_str", "1=1 and cfcma_admit=" + region);
@@ -37,7 +37,9 @@ public class LocalQuery {
 
 		try {
 			String res;
-			res = ReadUrlByPOST.doSubmit(url, forms);
+			SendPost sendpost = new SendPost(url);
+			sendpost.setTextPatams(forms);
+			res = new String(sendpost.send());
 			res = HtmlFilter.parseQueryResult(res);
 			return res;
 		} catch (Exception e) {

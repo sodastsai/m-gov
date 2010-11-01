@@ -3,7 +3,6 @@ package net;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.SocketTimeoutException;
@@ -14,7 +13,11 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import tool.ReadFile;
+
 public class SendPost {
+	static String CFTOKEN="35573909",CFID="1122207"; 
+	
 	URL url;
 	HttpURLConnection conn;
 	String boundary = "--------httppost123";
@@ -26,7 +29,7 @@ public class SendPost {
 
 	public static void main(String[] args) throws Exception {
 		SendPost u = new SendPost("http://ggm-test.appspot.com/photo?method=upload");
-		u.addByteParameter("photo", getBytes(new File("/Users/wildmind5/Desktop/DSC01474.JPG")) );
+		u.addByteParameter("photo", ReadFile.fileToBytes(new File("/Users/wildmind5/Desktop/DSC01474.JPG")) );
 		u.addTextParameter("description", "測試");
 
 		byte[] b = u.send();
@@ -42,6 +45,9 @@ public class SendPost {
 	public void setUrl(String url) throws Exception {
 		this.url = new URL(url);
 	}
+	public void setTextPatams(Map<String, String> textParams){
+		this.textParams = textParams;
+	}
 
 	public void addTextParameter(String name, String value) {
 		textParams.put(name, value);
@@ -55,13 +61,13 @@ public class SendPost {
 		textParams.clear();
 		byteParams.clear();
 	}
-    // 发送数据到服务器，返回一个字节包含服务器的返回结果的数组
+    // 傳送，並返回結果
 	public byte[] send() throws Exception {
 		initConnection();
 		try {
 			conn.connect();
 		} catch (SocketTimeoutException e) {
-			// something
+			// TODO
 			throw new RuntimeException();
 		}
 		ds = new DataOutputStream(conn.getOutputStream());
@@ -86,6 +92,8 @@ public class SendPost {
 		conn.setRequestMethod("POST");
 		conn.setRequestProperty("Content-Type",
 				"multipart/form-data; boundary=" + boundary);
+
+		conn.setRequestProperty("Cookie","CFTOKEN="+CFTOKEN+";CFID="+CFID);
 	}
     //傳text
 	private void writeTextsParams() throws Exception {
@@ -116,17 +124,7 @@ public class SendPost {
 		}
 	}
 
-	private static byte[] getBytes(File f) throws Exception {
-		FileInputStream in = new FileInputStream(f);
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		byte[] b = new byte[1024];
-		int n;
-		while ((n = in.read(b)) != -1) {
-			out.write(b, 0, n);
-		}
-		in.close();
-		return out.toByteArray();
-	}
+
 	//添加结尾数据
 	private void paramsEnd() throws Exception {
 		ds.writeBytes("--" + boundary + "--" + "\r\n");
