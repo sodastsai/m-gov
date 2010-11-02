@@ -44,6 +44,8 @@
 		2AEBFCD9124B22FF0047B3E6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEBFCD2124B22FF0047B3E6 /* Reachability.m */; };
 		2AEBFD00124B25270047B3E6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEBFCFF124B25270047B3E6 /* MobileCoreServices.framework */; };
 		2AEBFD03124B25410047B3E6 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEBFD02124B25410047B3E6 /* libz.1.2.3.dylib */; };
+		FE070CE61280045F00809E0D /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FE070CE41280045F00809E0D /* Default.png */; };
+		FE070CE71280045F00809E0D /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE070CE51280045F00809E0D /* Default@2x.png */; };
 		FE174735122D276400641599 /* PhotoPickerTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE174734122D276400641599 /* PhotoPickerTableCell.m */; };
 		FE1747A9122D2D6B00641599 /* LocationSelectorTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1747A8122D2D6B00641599 /* LocationSelectorTableCell.m */; };
 		FE1747DD122D303500641599 /* NameFieldTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE1747DC122D303500641599 /* NameFieldTableCell.m */; };
@@ -87,8 +89,6 @@
 		FE4EE77A1223F6D100737028 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7751223F6D100737028 /* DetailViewController.m */; };
 		FE4EE77B1223F6D100737028 /* SecondDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7771223F6D100737028 /* SecondDetailViewController.m */; };
 		FE4EE77C1223F6D100737028 /* TypesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7791223F6D100737028 /* TypesViewController.m */; };
-		FE71ADEF1274809F0022D733 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = FE71ADED1274809F0022D733 /* Default.png */; };
-		FE71ADF01274809F0022D733 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FE71ADEE1274809F0022D733 /* Default@2x.png */; };
 		FE74CC551258ADED00267C80 /* EditibleTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */; };
 		FE7D048312352AA5007FA0A1 /* QidToType.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE7D048212352AA5007FA0A1 /* QidToType.plist */; };
 		FE8BF5191250D6FC009498CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8BF5181250D6FC009498CA /* CFNetwork.framework */; };
@@ -173,6 +173,8 @@
 		2AEBFD02124B25410047B3E6 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* MGOV_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOV_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* MGOV-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MGOV-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		FE070CE41280045F00809E0D /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		FE070CE51280045F00809E0D /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		FE174733122D276400641599 /* PhotoPickerTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoPickerTableCell.h; sourceTree = "<group>"; };
 		FE174734122D276400641599 /* PhotoPickerTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoPickerTableCell.m; sourceTree = "<group>"; };
 		FE1747A7122D2D6B00641599 /* LocationSelectorTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSelectorTableCell.h; sourceTree = "<group>"; };
@@ -226,8 +228,6 @@
 		FE4EE7771223F6D100737028 /* SecondDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondDetailViewController.m; sourceTree = "<group>"; };
 		FE4EE7781223F6D100737028 /* TypesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypesViewController.h; sourceTree = "<group>"; };
 		FE4EE7791223F6D100737028 /* TypesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypesViewController.m; sourceTree = "<group>"; };
-		FE71ADED1274809F0022D733 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		FE71ADEE1274809F0022D733 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		FE71EEB01250C082008AF579 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		FE74CC531258ADED00267C80 /* EditibleTextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditibleTextFieldCell.h; sourceTree = "<group>"; };
 		FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditibleTextFieldCell.m; sourceTree = "<group>"; };
@@ -333,8 +333,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				FE71ADED1274809F0022D733 /* Default.png */,
-				FE71ADEE1274809F0022D733 /* Default@2x.png */,
+				FE070CE41280045F00809E0D /* Default.png */,
+				FE070CE51280045F00809E0D /* Default@2x.png */,
 				FE4D13BF1264BA1200B3E415 /* iTunesArtwork */,
 				FE4D13B31264BA0900B3E415 /* Icon-72.png */,
 				FE4D13B41264BA0900B3E415 /* Icon-Small-50.png */,
@@ -704,8 +704,8 @@
 				FEC679CE126EEB37000AF355 /* DetailViewController.xib in Resources */,
 				FEC679CF126EEB37000AF355 /* SecondDetailViewController.xib in Resources */,
 				FEC679D0126EEB37000AF355 /* TypesViewController.xib in Resources */,
-				FE71ADEF1274809F0022D733 /* Default.png in Resources */,
-				FE71ADF01274809F0022D733 /* Default@2x.png in Resources */,
+				FE070CE61280045F00809E0D /* Default.png in Resources */,
+				FE070CE71280045F00809E0D /* Default@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
