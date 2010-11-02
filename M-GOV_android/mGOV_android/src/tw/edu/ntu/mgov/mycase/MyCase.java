@@ -17,6 +17,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import tw.edu.ntu.mgov.CaseSelector;
 import tw.edu.ntu.mgov.R;
 import tw.edu.ntu.mgov.addcase.AddCase;
+import tw.edu.ntu.mgov.gae.GAEQuery;
 import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryCondtionType;
 import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryDatabase;
 import tw.edu.ntu.mgov.option.Option;
@@ -74,6 +75,18 @@ public class MyCase extends CaseSelector {
 		filterState.setLayoutParams(param2);
 		infoBar.addView(filterState);
 		param2=null;
+		
+		// Empty Query for GAE speed
+		Thread dummyQuery = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				GAEQuery qGAEtmp = new GAEQuery();
+				qGAEtmp.addQuery(GAEQueryCondtionType.GAEQueryByEmail, "a@b.c");
+				qGAEtmp.doQuery(GAEQueryDatabase.GAEQueryDatabaseCase, 0, 1);
+				qGAEtmp = null;
+			}
+		});
+		dummyQuery.start();
 	}
 	@Override
 	protected void onResume() {

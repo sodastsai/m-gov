@@ -93,6 +93,7 @@ public abstract class CaseSelector extends MapActivity {
 	protected int rangeStart = 0;
 	protected int rangeEnd = 9;
 	protected int sourceLength;
+	protected boolean firstQuery = true;
 	// Map Overlay
 	protected PopoutItemizedOverlay okOverlay;
 	protected PopoutItemizedOverlay unknownOverlay;
@@ -306,7 +307,7 @@ public abstract class CaseSelector extends MapActivity {
 			public void run() {
 				// A sputid way to solve the delay of map span
 				try {
-					Thread.sleep(1500);
+					Thread.sleep(800);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -325,6 +326,15 @@ public abstract class CaseSelector extends MapActivity {
 	}
 	
 	protected void qGAEReturned() {
+		// Dummy check for slow app engine
+		if ((caseSource == null || sourceLength==0)&&firstQuery) {
+			firstQuery = false;
+			startFetchDataSource();
+			return;
+		} else {
+			firstQuery=true;
+		}
+		
 		// Clear Overlay
 		okOverlay.clearOverLayList();
 		unknownOverlay.clearOverLayList();
@@ -368,7 +378,6 @@ public abstract class CaseSelector extends MapActivity {
 			
 			qGAEReturnData();
 	    }
-		//overlayList = null;
 	}
 	protected abstract boolean setQGAECondition();
 	protected abstract void qGAEReturnNull();

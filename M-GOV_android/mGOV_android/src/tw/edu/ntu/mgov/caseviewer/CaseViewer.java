@@ -1,8 +1,8 @@
 /*
  * 
- * mgov.java
- * 2010/10/04
- * sodas
+ * CaseViewer.java
+ * 2010/10/13
+ * shou
  * 
  * Base class of application. Main Activity.
  *
@@ -51,11 +51,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-/**
- * @author shou
- * 2010/10/13
- * @company NTU CSIE Mobile HCI Lab
- */
 public class CaseViewer extends MapActivity implements Runnable {
 
 	// Views 
