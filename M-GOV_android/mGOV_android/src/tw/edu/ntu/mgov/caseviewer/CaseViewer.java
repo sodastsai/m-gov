@@ -94,7 +94,7 @@ public class CaseViewer extends MapActivity implements Runnable {
 			e.printStackTrace();
 		}
 		String [] imageURL = queryResult.getImage();
-		if (imageURL.length!=0)
+		if (imageURL!=null && imageURL.length!=0)
 			image = LoadImageFromWebOperations(imageURL[0].replace("GET_SHOW_PHOTO.CFM?photo_filename=", "photo/"));
 		handler.sendEmptyMessage(0);
 	}
