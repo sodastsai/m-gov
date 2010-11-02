@@ -26,6 +26,7 @@ public class GAESubmit {
 		try {
 
 			String path[] = czone.getImage();
+			SendImage u = new SendImage(defualtURL);
 			byte[] image_bytes = null;
 			if(path!=null){
 				String uri=path[0];
@@ -34,12 +35,10 @@ public class GAESubmit {
 				long size = context.getContentResolver().openFileDescriptor(Uri.parse(uri), "r").getStatSize();
 				image_bytes = new byte[(int) size];
 				is.read(image_bytes, 0, (int) size);
+				u.addByteParameter("photo",image_bytes);
 			}
-
 			
-			SendImage u = new SendImage(defualtURL);
 			u.setTextPatams(czone);
-			u.addByteParameter("photo",image_bytes);
 			
 			byte[] b = u.send();
 			String result = new String(b);

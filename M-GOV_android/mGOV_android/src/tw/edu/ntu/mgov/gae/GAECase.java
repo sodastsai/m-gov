@@ -78,6 +78,7 @@ public class GAECase extends HashMap<String, String>{
 	}	
 
 	public String[] getImage(){
+		if(image.size()==0) return null;
 		String[] res = new String[image.size()];
 		for(int i=0;i<image.size();i++)
 			res[i]=image.get(i);
