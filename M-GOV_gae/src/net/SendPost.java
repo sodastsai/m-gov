@@ -105,7 +105,8 @@ public class SendPost {
 			ds.writeBytes("Content-Disposition: form-data; name=\"" + name
 					+ "\"\r\n");
 			ds.writeBytes("\r\n");
-			ds.writeBytes(encode(value) + "\r\n");
+			ds.write(value.getBytes());
+			ds.writeBytes("\r\n");
 		}
 	}
     //傳bytes

@@ -41,10 +41,10 @@ public class ReadUrlByPOST {
 
 		forms.put("sno","09908-521171");
 //		forms.put("unit" ,"區民政課");
-//		forms.put("h_item1" ,TypeFilter.Id2Type1(node.typeid));
-//		forms.put("h_item2" ,TypeFilter.Id2Type2(node.typeid));
-		forms.put("h_item1" ,"m1");
-		forms.put("h_item2" ,"e2");
+		forms.put("h_item1" ,TypeFilter.Id2Type1(node.typeid));
+		forms.put("h_item2" ,TypeFilter.Id2Type2(node.typeid));
+//		forms.put("h_item1" ,"m1");
+//		forms.put("h_item2" ,"e2");
 		forms.put("h_roadname" ,"");
 		forms.put("h_parkname" ,"");
 		forms.put("h_unitname" ,"");
