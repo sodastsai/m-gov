@@ -27,18 +27,22 @@ import tw.edu.ntu.mgov.R;
 import tw.edu.ntu.mgov.mgov;
 import tw.edu.ntu.mgov.addcase.AddCase;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceClickListener;
 
 public class Option extends PreferenceActivity {
 
 	public static final String PREFERENCE_NAME = "Option-Preferences";
 	public static final String KEY_USER_EMAIL = "User Email";
 	public static final String KEY_USER_NAME = "User Name";
+	
+	public final Context selfContext = this;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -126,14 +130,28 @@ public class Option extends PreferenceActivity {
 		});
         prefCategory[0].addPreference(userRealName);
 		
-        String versionInfo = getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version);
+        String versionInfo = getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version)+" Wantoto Inc.";
         if (mgov.DEBUG_MODE)
-        	versionInfo += " Debug Mode.";
+        	versionInfo += "\nDebug Mode";
         
-		Preference appInformation = new Preference(this);
+        Preference appInformation = new Preference(this);
+        appInformation.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        	@Override
+			public boolean onPreferenceClick(Preference arg0) {
+        		String infoMsg = getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version)+" Wantoto Inc.";
+            	infoMsg += "\n\n路見不平為開放原始碼軟體\n採用Apache License 2.0授權\nhttp://www.apache.org/licenses/\n\n原始碼可由Google Code取得\nhttp://code.google.com/\np/m-gov/";
+        		
+        		AlertDialog.Builder infoDialog = new AlertDialog.Builder(selfContext);
+				infoDialog.setTitle(getResources().getString(R.string.option_info_title));
+				infoDialog.setMessage(infoMsg);
+				infoDialog.setPositiveButton("確定", null);
+				infoDialog.show();
+				infoDialog = null;
+				return true;
+			}
+		});
 		appInformation.setTitle(getResources().getString(R.string.app_name));
 		appInformation.setSummary(versionInfo);
-		appInformation.setSelectable(false);
 		prefCategory[1].addPreference(appInformation);
 		
         return root;

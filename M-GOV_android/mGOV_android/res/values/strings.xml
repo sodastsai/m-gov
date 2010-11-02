@@ -22,13 +22,13 @@
 
 <string name="option_ActivityName">偏好設定</string>
 <string name="option_personalInformation">個人資訊</string>
-<string name="option_applicationInformation">應用程式資訊</string>
+<string name="option_applicationInformation">版本資訊</string>
 <string name="option_personalInfo_Email">E-Mail</string>
 <string name="option_appInfo_version">版本</string>
 <string name="option_personalInfo_Email_prompt">請輸入您的E-Mail帳號</string>
 <string name="option_personalInfo_Name">使用者姓名</string>
 <string name="option_personalInfo_Name_prompt">請輸入您的姓名</string>
-<string name="option_clearEmail_msg">如果要查詢以前報過的案件，請再次輸入您的E-Mail帳號即可。</string><string name="option_clearEmail_title">已清除您的E-Mail帳號</string><string name="option_errorEmail_title">E-Mail格式錯誤</string><string name="option_errorEmail_msg">請輸入正確的E-Mail！</string><string name="loading_message">正在載入...</string>
+<string name="option_clearEmail_msg">如果要查詢以前報過的案件，請再次輸入您的E-Mail帳號即可。</string><string name="option_clearEmail_title">已清除您的E-Mail帳號</string><string name="option_errorEmail_title">E-Mail格式錯誤</string><string name="option_errorEmail_msg">請輸入正確的E-Mail！</string><string name="option_info_title">版本資訊</string><string name="loading_message">正在載入...</string>
 <string name="query_currentConditionLabel_alltype">所有案件種類</string>
 <string name="query_currentRangeLabel_emptyCase">找不到此區域符合條件的案件</string>
 <string name="mapOverlay_currentLocation">現在位置</string>
@@ -39,6 +39,7 @@
 <string name="mycase_filter_rejected">退回</string>
 <string name="mycase_filter_selectFilter">選擇案件狀態</string>
 <string name="mycase_emptycase">沒有案件記錄</string>
+
 
 
 

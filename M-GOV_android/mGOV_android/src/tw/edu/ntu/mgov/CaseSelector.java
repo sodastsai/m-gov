@@ -86,6 +86,8 @@ public abstract class CaseSelector extends MapActivity {
 	protected ListView listMode;
 	protected MapView mapMode;
 	protected GeoPoint currentLocationPoint;
+	protected int currentLatSpan;
+	protected int currentLonSpan;
 	// Query Google App Engine
 	protected GAEQuery qGAE;
 	protected GAECase caseSource[];
@@ -129,11 +131,16 @@ public abstract class CaseSelector extends MapActivity {
 			@Override
 			public boolean onTouchEvent(MotionEvent ev) {
 				if (ev.getAction()==MotionEvent.ACTION_UP) {
-					if ((Math.abs(mapMode.getMapCenter().getLatitudeE6()-currentLocationPoint.getLatitudeE6()) > mapMode.getLatitudeSpan()/3)||
-						(Math.abs(mapMode.getMapCenter().getLongitudeE6()-currentLocationPoint.getLongitudeE6()) > mapMode.getLongitudeSpan()/3)) {
+					boolean centerChanged = (Math.abs(mapMode.getMapCenter().getLatitudeE6()-currentLocationPoint.getLatitudeE6()) > mapMode.getLatitudeSpan()/3)||
+											(Math.abs(mapMode.getMapCenter().getLongitudeE6()-currentLocationPoint.getLongitudeE6()) > mapMode.getLongitudeSpan()/3);
+					boolean spanChanged = (Math.abs(mapMode.getLatitudeSpan()-currentLatSpan)>200)||(Math.abs(mapMode.getLongitudeSpan()-currentLonSpan)>200);
+					
+					if (centerChanged||spanChanged) {
 						// Don't disturb user, so don't always not reload. Only reload while change is too big
 						mapChangeRegionOrZoom();
 						currentLocationPoint=mapMode.getMapCenter();
+						currentLatSpan = mapMode.getLatitudeSpan();
+						currentLonSpan = mapMode.getLongitudeSpan();
 					}
 				}
 				try {
@@ -142,6 +149,7 @@ public abstract class CaseSelector extends MapActivity {
 					return true;
 				}
 			}
+			
 		};
 		LayoutParams param1 = new RelativeLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
 		param1.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.ALIGN_PARENT_TOP);
