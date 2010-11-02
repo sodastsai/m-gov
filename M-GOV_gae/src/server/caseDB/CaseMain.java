@@ -84,22 +84,23 @@ public class CaseMain {
 			System.out.println(e);
 			return e.toString();
 		}		
-
-		ByteArrayOutputStream photo = new ByteArrayOutputStream();
-		byte[] b = new byte[1024];
-		int n;
-		try {
-			while ((n = photo_inputstream.read(b)) != -1) {
-				photo.write(b, 0, n);
+		if(photo_inputstream!=null)
+		{
+			ByteArrayOutputStream photo = new ByteArrayOutputStream();
+			byte[] b = new byte[1024];
+			int n;
+			try {
+				while ((n = photo_inputstream.read(b)) != -1) {
+					photo.write(b, 0, n);
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			if(photo.size()!=0)
+				node.setPhoto(photo.toByteArray());
 		}
-
-		
-		if(photo.size()!=0)
-			node.setPhoto(photo.toByteArray());
+			
 		
 		if("send".equals(send))
 		{
