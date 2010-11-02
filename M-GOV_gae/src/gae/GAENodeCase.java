@@ -11,6 +11,8 @@ import javax.jdo.annotations.PrimaryKey;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import tool.StaticValue;
+
 import com.google.appengine.api.datastore.Blob;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
@@ -52,7 +54,7 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 	private void defualtInit(){
 		sno = String.valueOf(Math.random());
 		date = new Date();
-		status = "nodata";
+		status = StaticValue.status[Math.abs(date.hashCode())%StaticValue.status.length];
 		key = String.valueOf(Math.abs(date.hashCode())%100000);
 //		photo = new Blob[3];
 	}
