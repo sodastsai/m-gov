@@ -101,15 +101,22 @@
 
 - (void)refreshDataSource {
 	if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] length]) {
-		self.currentConditionType = DataSourceGAEQueryByEmail;
-		self.currentCondition = [[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"];
-		[filter setSelectedSegmentIndex:0];
+		self.currentConditionType = DataSourceGAEQueryByMultiConditons;
+		self.currentCondition = [self setConditionWithEmailAndFilter:filter];
+
 		[super refreshDataSource];
 	} else {
 		caseSourceDidLoaded = YES;
 		[self.listViewController.tableView reloadData];
 		informationBar.hidden = YES;
 	}
+}
+
+- (void)queryGAEwithConditonType:(DataSourceGAEQueryTypes)conditionType andCondition:(id)condition {
+	for (NSUInteger i=0; i<filter.numberOfSegments; i++)
+		if (i!=filter.selectedSegmentIndex)
+			[filter setEnabled:NO forSegmentAtIndex:i];
+	[super queryGAEwithConditonType:conditionType andCondition:condition];
 }
 
 #pragma mark -
@@ -127,14 +134,15 @@
 		qGAE.indicatorTargetView = nil;
 		qGAE.resultRange = NSRangeFromString(@"0,1");
 		qGAE.conditionType = DataSourceGAEQueryByEmail;
-		qGAE.queryCondition = @"abc@example.com";
+		qGAE.queryCondition = @"a@b.c";
 		[qGAE startQuery];
 		// Real one
 		[self queryGAEwithConditonType:DataSourceGAEQueryByEmail andCondition:[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"]];
 	} else caseSourceDidLoaded = YES;
 	
 	// Add Filter
-	filter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"所有案件", @"完工", @"處理中", @"退回", nil]];
+	if (filter==nil)
+		filter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"所有案件", @"完工", @"處理中", @"退回", nil]];
 	filter.segmentedControlStyle = UISegmentedControlStyleBar;
 	// Use int for clear view
 	int filterX = (320 - filter.frame.size.width)/2;
@@ -145,7 +153,6 @@
 	[filter addTarget:self action:@selector(setCaseFilter:) forControlEvents:UIControlEventValueChanged];
 		
 	[informationBar addSubview:filter];
-	[filter release];
 	
 	if ([self myCaseDataAvailability]) {
 		informationBar.hidden = NO;
@@ -170,34 +177,40 @@
 	informationBar.hidden = YES;
 	
 	[self pushViewController:caseAdder animated:YES];
-	[caseAdder release];
 }
 
 - (void)setCaseFilter:(UISegmentedControl *)segmentedControl {
 	if (segmentedControl.selectedSegmentIndex != currentSegmentIndex) {
-		// Defined a new case query condition
-		NSArray *keyArray = [[NSArray alloc] initWithObjects:@"DataSourceGAEQueryByEmail", @"DataSourceGAEQueryByStatus", nil];
-		// Set status by selected segment
-		NSString *statusCondition = @"";
-		if (segmentedControl.selectedSegmentIndex==0) {
-			[keyArray release];
-			keyArray = [[NSArray alloc] initWithObjects:@"DataSourceGAEQueryByEmail", nil];
-			statusCondition = nil;
-		} else if (segmentedControl.selectedSegmentIndex==1) {
-			statusCondition = [NSString stringWithFormat:@"%d", 1];
-		} else if (segmentedControl.selectedSegmentIndex==2) {
-			statusCondition = [NSString stringWithFormat:@"%d", 0];
-		} else if (segmentedControl.selectedSegmentIndex==3) {
-			statusCondition = [NSString stringWithFormat:@"%d", 2];
-		}
+		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[self setConditionWithEmailAndFilter:segmentedControl]];
 		currentSegmentIndex = segmentedControl.selectedSegmentIndex;
-		NSArray *valueArray = [[NSArray alloc] initWithObjects:[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"], statusCondition, nil];
-		NSDictionary *conditionDictionary = [[NSDictionary alloc] initWithObjects:valueArray forKeys:keyArray];
-		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:conditionDictionary];
-		[conditionDictionary release];
-		[keyArray release];
-		[valueArray release];
 	}
+}
+
+- (NSDictionary *)setConditionWithEmailAndFilter:(UISegmentedControl *)statusFilter {
+	// Defined a new case query condition
+	NSArray *keyArray = [[NSArray alloc] initWithObjects:@"DataSourceGAEQueryByEmail", @"DataSourceGAEQueryByStatus", nil];
+	
+	// Set status by selected segment
+	NSString *statusCondition = @"";
+	if (statusFilter.selectedSegmentIndex==0) {
+		[keyArray release];
+		keyArray = [[NSArray alloc] initWithObjects:@"DataSourceGAEQueryByEmail", nil];
+		statusCondition = nil;
+	} else if (statusFilter.selectedSegmentIndex==1) {
+		statusCondition = [NSString stringWithFormat:@"%d", 1];
+	} else if (statusFilter.selectedSegmentIndex==2) {
+		statusCondition = [NSString stringWithFormat:@"%d", 0];
+	} else if (statusFilter.selectedSegmentIndex==3) {
+		statusCondition = [NSString stringWithFormat:@"%d", 2];
+	}
+	
+	NSArray *valueArray = [[NSArray alloc] initWithObjects:[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"], statusCondition, nil];
+	NSDictionary *conditionDictionary = [[[NSDictionary alloc] initWithObjects:valueArray forKeys:keyArray] autorelease];
+	
+	[keyArray release];
+	[valueArray release];
+	
+	return conditionDictionary;
 }
 
 #pragma mark -
@@ -218,6 +231,7 @@
 	for (NSUInteger i=0; i<filter.numberOfSegments; i++)
 		if (i!=filter.selectedSegmentIndex)
 			[filter setEnabled:YES forSegmentAtIndex:i];
+	
 	[super recieveQueryResultType:type withResult:result];
 }
 
@@ -225,6 +239,8 @@
 #pragma mark Memory Management
 
 - (void)dealloc {
+	[filter release];
+	[caseAdder release];
 	[super dealloc];
 }
 

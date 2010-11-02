@@ -103,8 +103,8 @@
 
 - (void)queryGAEwithConditonType:(DataSourceGAEQueryTypes)conditionType andCondition:(id)condition {
 	// Lock UI
-	self.navigationController.topViewController.navigationItem.leftBarButtonItem.enabled =  NO;
-	self.navigationController.topViewController.navigationItem.rightBarButtonItem.enabled = NO;
+	self.topViewController.navigationItem.leftBarButtonItem.enabled = NO;
+	self.topViewController.navigationItem.rightBarButtonItem.enabled = NO;
 	self.navigationItem.leftBarButtonItem.enabled = NO;
 	self.navigationItem.rightBarButtonItem.enabled = NO;
 	mapView.scrollEnabled = NO;
@@ -139,16 +139,18 @@
 	// Prevent App Engine First Time Delay
 	if ([[result valueForKey:@"length"] intValue]==0 && firstQuery) {
 		[self refreshDataSource];
+		firstQuery = NO;
+	} else {
+		firstQuery = YES;
 	}
-	if (firstQuery) firstQuery=NO;
-	else firstQuery=YES;
 	
 	self.navigationItem.leftBarButtonItem.enabled = YES;
 	self.navigationItem.rightBarButtonItem.enabled = YES;
-	self.navigationController.topViewController.navigationItem.leftBarButtonItem.enabled = YES;
-	self.navigationController.topViewController.navigationItem.rightBarButtonItem.enabled = YES;
+	self.topViewController.navigationItem.leftBarButtonItem.enabled = YES;
+	self.topViewController.navigationItem.rightBarButtonItem.enabled = YES;
 	mapView.scrollEnabled = YES;
 	mapView.zoomEnabled = YES;
+	
 	[self refreshViews];
 }
 

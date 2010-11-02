@@ -40,5 +40,6 @@
 - (BOOL)myCaseDataAvailability;
 - (void)addCase;
 - (void)setCaseFilter:(UISegmentedControl *)segmentedControl;
+- (NSDictionary *)setConditionWithEmailAndFilter:(UISegmentedControl *)statusFilter;
 
 @end
