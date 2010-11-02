@@ -28,10 +28,18 @@ public class SendPost {
 	DataOutputStream ds;
 
 	public static void main(String[] args) throws Exception {
-		SendPost u = new SendPost("http://ggm-test.appspot.com/photo?method=upload");
-		u.addByteParameter("photo", ReadFile.fileToBytes(new File("/Users/wildmind5/Desktop/DSC01474.JPG")) );
-		u.addTextParameter("description", "測試");
-
+		SendPost u = new SendPost("http://ntu-ecoliving.appspot.com/case/add");
+		u.addByteParameter("photo", ReadFile.fileToBytes(new File("/Users/ggm/Desktop/GET_CZONE_PHOTO.JPG")) );
+		u.addTextParameter("h_admit_name", "大安區");
+		u.addTextParameter("h_admiv_name", "民輝里");
+		u.addTextParameter("email", "aa@bb.cc");
+		u.addTextParameter("name", "測試人");
+		u.addTextParameter("address", "高雄市");
+		u.addTextParameter("typeid", "1110");
+		u.addTextParameter("coordx", "123.2");
+		u.addTextParameter("coordy", "12.2");
+		u.addTextParameter("send", "測試");
+		
 		byte[] b = u.send();
 		String result = new String(b);
 		System.out.println(result);

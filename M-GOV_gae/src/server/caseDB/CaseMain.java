@@ -50,8 +50,8 @@ public class CaseMain {
 			@PathParam("c3") int st, @PathParam("c4") int ed) {
 
 		if ("query".equals(chk))
-			return CzoneMain.doQuery(chk, method, arg, st, ed);
-//			return CaseQueryAll.go(method, arg, st, ed);
+//			return CzoneMain.doQuery(chk, method, arg, st, ed);
+			return CaseQueryAll.go(method, arg, st, ed);
 		else
 			return "{\"error\":\"method error\"}";
 		

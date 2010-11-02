@@ -95,7 +95,11 @@ public class GAENodeSimple implements Comparable<GAENodeSimple>{
 	@Override
 	public int compareTo(GAENodeSimple o) {
 		// TODO Auto-generated method stub
-		return this.key.compareTo(o.getKey());
+		String[] c1 = o.date.split("年|月|日");
+		String[] c2 = this.date.split("年|月|日");
+		for(int i=0;i<c1.length && i<c2.length;i++)
+			if(Integer.parseInt(c1[i])!=Integer.parseInt(c2[i]))
+				return Integer.parseInt(c1[i])-Integer.parseInt(c2[i]);
+		return 0;
 	}
-
 }
