@@ -10,7 +10,7 @@ import tw.edu.ntu.mgov.net.SendImage;
 public class GAESubmit {
 
 	private GAECase czone;
-	private String defualtURL = "http://ntu-ecoliving.appspot.com/case?method=upload";
+	private String defualtURL = "http://ntu-ecoliving.appspot.com/case/add";
 	private Context context;
 	
 	public GAESubmit(GAECase czone, Context context){
@@ -38,7 +38,7 @@ public class GAESubmit {
 
 			
 			SendImage u = new SendImage(defualtURL);
-			u.setTextMap(czone);
+			u.setTextPatams(czone);
 			u.addByteParameter("photo",image_bytes);
 			
 			byte[] b = u.send();
