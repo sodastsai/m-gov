@@ -1,5 +1,25 @@
-/**
+/*
  * 
+ * MyCase.java
+ * 2010/10/04
+ * sodas
+ * 
+ * Show user's case and call case adder
+ *
+ * Copyright 2010 NTU CSIE Mobile & HCI Lab
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
  */
 package tw.edu.ntu.mgov.mycase;
 
@@ -22,11 +42,6 @@ import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryCondtionType;
 import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryDatabase;
 import tw.edu.ntu.mgov.option.Option;
 
-/**
- * @author sodas
- * 2010/10/4
- * @company NTU CSIE Mobile HCI Lab
- */
 public class MyCase extends CaseSelector {
 	protected static final int FILTER_TITLE = 10240;
 	// Menu
@@ -45,6 +60,18 @@ public class MyCase extends CaseSelector {
 	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		// Empty Query for GAE speed
+		Thread dummyQuery = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				GAEQuery qGAEtmp = new GAEQuery();
+				qGAEtmp.addQuery(GAEQueryCondtionType.GAEQueryByEmail, "a@b.c");
+				qGAEtmp.doQuery(GAEQueryDatabase.GAEQueryDatabaseCase, 0, 1);
+				qGAEtmp = null;
+			}
+		});
+		dummyQuery.start();
+		
 		super.onCreate(savedInstanceState);
 		db=GAEQueryDatabase.GAEQueryDatabaseCase;
 		// Fetch Preference
@@ -75,18 +102,6 @@ public class MyCase extends CaseSelector {
 		filterState.setLayoutParams(param2);
 		infoBar.addView(filterState);
 		param2=null;
-		
-		// Empty Query for GAE speed
-		Thread dummyQuery = new Thread(new Runnable() {
-			@Override
-			public void run() {
-				GAEQuery qGAEtmp = new GAEQuery();
-				qGAEtmp.addQuery(GAEQueryCondtionType.GAEQueryByEmail, "a@b.c");
-				qGAEtmp.doQuery(GAEQueryDatabase.GAEQueryDatabaseCase, 0, 1);
-				qGAEtmp = null;
-			}
-		});
-		dummyQuery.start();
 	}
 	@Override
 	protected void onResume() {
@@ -161,8 +176,10 @@ public class MyCase extends CaseSelector {
 	 * @category Datasource Method
 	 */
 	protected boolean setQGAECondition() {
+		// Update Pref
+		userPreferences = getSharedPreferences(Option.PREFERENCE_NAME, MODE_WORLD_READABLE);
 		String userEmail = userPreferences.getString(Option.KEY_USER_EMAIL, "");
-		if (userEmail!="") {
+		if (userEmail!="" || userEmail!=null) {
 			qGAE.addQuery(GAEQueryCondtionType.GAEQueryByEmail, userEmail);
 			if (statusId!=-1)
 				qGAE.addQuery(GAEQueryCondtionType.GAEQueryByStatus, Integer.toString(statusId));

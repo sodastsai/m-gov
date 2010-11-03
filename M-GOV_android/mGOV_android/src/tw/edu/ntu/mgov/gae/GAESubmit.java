@@ -1,9 +1,33 @@
+/*
+ * 
+ * GAESubmit.java
+ * ggm
+ * 
+ * Submit case to Google App Engine
+ *
+ * Copyright 2010 NTU CSIE Mobile & HCI Lab
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 package tw.edu.ntu.mgov.gae;
 
 import java.io.InputStream;
 
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
+import tw.edu.ntu.mgov.mgov;
 import tw.edu.ntu.mgov.net.ReadUrlByPOST;
 import tw.edu.ntu.mgov.net.SendImage;
 
@@ -43,9 +67,10 @@ public class GAESubmit {
 			byte[] b = u.send();
 			String result = new String(b);
 			System.out.println(result);
-		
+			if (mgov.DEBUG_MODE)
+				Log.d("GAEQuery", result);
+			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	
@@ -59,7 +84,6 @@ public class GAESubmit {
 			System.out.println(res);
 		
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	

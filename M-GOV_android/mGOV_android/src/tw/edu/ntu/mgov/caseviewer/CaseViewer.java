@@ -4,7 +4,7 @@
  * 2010/10/13
  * shou
  * 
- * Base class of application. Main Activity.
+ * Case Viewer
  *
  * Copyright 2010 NTU CSIE Mobile & HCI Lab
  * 
