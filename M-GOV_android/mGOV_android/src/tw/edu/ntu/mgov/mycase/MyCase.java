@@ -102,6 +102,8 @@ public class MyCase extends CaseSelector {
 		filterState.setLayoutParams(param2);
 		infoBar.addView(filterState);
 		param2=null;
+		
+		rangeEnd = 1000;
 	}
 	@Override
 	protected void onResume() {

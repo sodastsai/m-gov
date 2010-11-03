@@ -589,7 +589,10 @@ public class AddCase extends MapActivity {
 		newcase.addform("typeid", ""+typeId);
 		newcase.addform("coordx", "" + ( ((double)locationGeoPoint.getLongitudeE6()) /1e6));
 		newcase.addform("coordy", "" + ( ((double)locationGeoPoint.getLatitudeE6()) /1e6));
-		newcase.addform("h_summary", descriptionEditText.getText().toString() );
+		
+		if (descriptionEditText.getText().toString()=="") newcase.addform("h_summary", " ");
+		else newcase.addform("h_summary", descriptionEditText.getText().toString() );
+		
 		if (!mgov.DEBUG_MODE)
 			newcase.addform("send", "send");
 		
