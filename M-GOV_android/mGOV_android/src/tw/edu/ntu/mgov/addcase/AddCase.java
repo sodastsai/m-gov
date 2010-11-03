@@ -25,6 +25,7 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
 import tw.edu.ntu.mgov.R;
+import tw.edu.ntu.mgov.mgov;
 import tw.edu.ntu.mgov.gae.GAECase;
 import tw.edu.ntu.mgov.gae.GAESubmit;
 import tw.edu.ntu.mgov.option.Option;
@@ -561,6 +562,8 @@ public class AddCase extends MapActivity {
 		newcase.addform("coordx", "" + ( ((double)locationGeoPoint.getLongitudeE6()) /1e6));
 		newcase.addform("coordy", "" + ( ((double)locationGeoPoint.getLatitudeE6()) /1e6));
 		newcase.addform("h_summary", descriptionEditText.getText().toString() );
+		if (!mgov.DEBUG_MODE)
+			newcase.addform("send", "send");
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("即將送出案件")
