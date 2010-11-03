@@ -336,18 +336,22 @@
 			indicatorView.loading.text = @"正在送出...";
 			[indicatorView startedLoad];
 			
-
 			// Convert Byte Data to Photo From Plist
 			NSString *filename = [NSString stringWithFormat:@"%@-%d.png", [[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"], [[NSDate date] timeIntervalSince1970]];
 			
+			// Process Description
+			NSString *descriptionString;
+			if ([descriptionCell.descriptionField.text isEqualToString:@"請輸入描述及建議"]) descriptionString = @" ";
+			else descriptionString = descriptionCell.descriptionField.text;
+			
 			// Post the submt data to App Engine
-			ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case/add?method=upload"]];
+			ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case/add"]];
 			request.delegate = self;
 			[request setFile:[self.columnSaving objectForKey:@"Photo"] withFileName:filename andContentType:@"image/png" forKey:@"photo"];
 			[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:0] forKey:@"h_admit_name"];
 			[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:1] forKey:@"h_admiv_name"];
 			[request setPostValue:[NSString stringWithFormat:@"%d", qid] forKey:@"typeid"];
-			[request setPostValue:descriptionCell.descriptionField.text forKey:@"h_summary"];
+			[request setPostValue:descriptionString forKey:@"h_summary"];
 			[request setPostValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] forKey:@"email"];
 			[request setPostValue:nameFieldCell.nameField.text forKey:@"name"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];
@@ -361,12 +365,11 @@
 			qGAE.conditionType = DataSourceGAEQueryByID;
 			qGAE.queryCondition = @"000";
 			qGAE.resultTarget = nil;
+			qGAE.indicatorTargetView = nil;
 			[qGAE startQuery];
 			
 			[request setTimeOutSeconds:90];
 			[request startAsynchronous];
-			
-			
 		}
 	}
 	
@@ -414,10 +417,12 @@
 #pragma mark Submit Result (ASIHTTPRequest Delegate)
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
+	if ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"] boolValue])
+		NSLog(@"%@", [request responseString]);
+	
 	[indicatorView finishedLoad];
 	[indicatorView removeFromSuperview];
 	[indicatorView release];
-	[myCase refreshDataSource];
 	
 	[[NSUserDefaults standardUserDefaults] setObject:nameFieldCell.nameField.text forKey:@"Name"];
 	
@@ -436,6 +441,7 @@
 	[locationCell updatingCoordinate:selectedCoord];
 	
 	[self.navigationController popViewControllerAnimated:YES];
+	[myCase refreshDataSource];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request {

@@ -22,5 +22,5 @@
 	NSMainNibFile = MainWindow;
 	"Release Info" = "Wantoto Inc.";
 	UILaunchImageFile = "Default.png";
-	"Develop Mode" = NO;
+	"Develop Mode" = YES;
 }
