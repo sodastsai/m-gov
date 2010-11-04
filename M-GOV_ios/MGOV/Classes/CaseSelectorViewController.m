@@ -37,6 +37,7 @@
 - (void)pushToChildViewControllerInMap {
 	informationBar.hidden = YES;
 	[super pushToChildViewControllerInMap];
+	[childViewController startToQueryCase];
 }
 
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated {
@@ -292,11 +293,6 @@
 	[self.view addSubview:informationBar];
 	currentCondition = nil;
 	[informationBar release];
-	
-	// New Case Viewer for reuse
-	if (childViewController==nil)
-		childViewController = [[CaseViewerViewController alloc] initWithStyle:UITableViewStyleGrouped];
-	[childViewController startToQueryCase];
 	
 	firstQuery = YES;
 }

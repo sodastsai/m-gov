@@ -28,8 +28,9 @@
 #import "QueryViewController.h"
 #import "PrefViewController.h"
 #import "NetworkChecking.h"
+#import "CaseViewerViewController.h"
 
-@interface MGOVAppDelegate : NSObject <UIApplicationDelegate> {
+@interface MGOVAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
 	UITabBarController *tabBarController;
 }

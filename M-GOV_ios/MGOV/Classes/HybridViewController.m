@@ -245,7 +245,6 @@
 
 - (void) pushToChildViewControllerInMap {
 	[self pushViewController:selectorDelegate.childViewController animated:YES];
-	[selectorDelegate.childViewController startToQueryCase];
 }
 
 #pragma mark -

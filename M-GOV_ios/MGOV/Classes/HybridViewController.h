@@ -42,7 +42,7 @@ typedef enum {
 - (void)didSelectRowAtIndexPathInList:(NSIndexPath *)indexPath;
 - (void)didSelectAnnotationViewInMap:(MKAnnotationView *)annotationView;
 // Child in Navigation Hierachy
-@property (nonatomic, retain) CaseViewerViewController *childViewController;
+@property (nonatomic, retain) UIViewController *childViewController;
 
 @end
 

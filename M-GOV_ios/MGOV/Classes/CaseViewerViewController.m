@@ -88,6 +88,10 @@
 	self.title = @"案件資料";
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+	[self cleanTableView];
+}
+
 #pragma mark -
 #pragma mark Table view data source
 

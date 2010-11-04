@@ -57,16 +57,22 @@
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaultDict];
 	[defaultDict release];
 	
+	// Case Viewer
+	CaseViewerViewController *caseViewer = [[CaseViewerViewController alloc] initWithStyle:UITableViewStyleGrouped];
+	[caseViewer startToQueryCase];
+	
 	// My Case
 	MyCaseViewController *myCase = [[MyCaseViewController alloc] initWithMode:HybridViewListMode andTitle:@"我的案件"];
 	myCase.dataSource = myCase;
 	myCase.selectorDelegate = myCase;
+	myCase.childViewController = caseViewer;
 	myCase.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"我的案件" image:[UIImage imageNamed:@"myCase.png"] tag:0] autorelease];
 		
 	// Query
 	QueryViewController *queryCase = [[QueryViewController alloc] initWithMode:HybridViewMapMode andTitle:@"查詢案件"];
 	queryCase.dataSource = queryCase;
 	queryCase.selectorDelegate = queryCase;
+	queryCase.childViewController = caseViewer;
 	queryCase.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"查詢案件" image:[UIImage imageNamed:@"query.png"] tag:0] autorelease];
 	
 	// Preference
@@ -77,6 +83,7 @@
 	
 	// Add tabs and view
 	tabBarController = [[UITabBarController alloc] init];
+	tabBarController.delegate = self;
 	tabBarController.viewControllers = [NSArray arrayWithObjects:myCase, queryCase, prefTab, nil];
 	
 	// Set window property and show
@@ -89,6 +96,7 @@
 	[queryCase release];
 	[preference release];
 	[prefTab release];
+	[caseViewer release];
 	
 	return YES;
 }
@@ -130,6 +138,19 @@
 	[tabBarController release];
     [window release];
     [super dealloc];
+}
+
+#pragma mark -
+#pragma mark TabBarController Delegate
+
+- (void)tabBarController:(UITabBarController *)aTabBarController didSelectViewController:(UIViewController *)viewController {
+	// Pop Case Viewer out if going to back
+	NSEnumerator *enumerator =  [aTabBarController.viewControllers objectEnumerator];
+	id eachViewController;
+	while (eachViewController = [enumerator nextObject])
+		if ( [eachViewController isKindOfClass:[CaseSelectorViewController class]] && ![eachViewController isEqual:viewController] )
+			if ([[eachViewController topViewController] isKindOfClass:[CaseViewerViewController class]])
+				[eachViewController popViewControllerAnimated:NO];
 }
 
 @end
