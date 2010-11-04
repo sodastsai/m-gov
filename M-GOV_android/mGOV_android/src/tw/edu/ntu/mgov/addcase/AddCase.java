@@ -602,9 +602,15 @@ public class AddCase extends MapActivity {
 			.setPositiveButton("確定", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					new GAESubmit(newcase, AddCase.this).doSubmit();
-					Toast.makeText(AddCase.this, "案件已送出。", Toast.LENGTH_LONG).show();
-					resetContent();
+					Thread submitThread = new Thread(new Runnable() {
+						@Override
+						public void run() {
+							new GAESubmit(newcase, AddCase.this).doSubmit();
+							Toast.makeText(AddCase.this, "案件已送出。", Toast.LENGTH_LONG).show();
+							resetContent();
+						}
+					});
+					submitThread.run();
 					finish();					
 				}
 			})

@@ -18,7 +18,7 @@
 <activity android:name=".addcase.SelectLocationMap" android:label="選擇案件地點" android:screenOrientation="portrait"></activity>
 <activity android:name=".caseviewer.CaseViewer" android:label="案件資料" android:screenOrientation="portrait"></activity>
 </application>
-    <uses-sdk android:minSdkVersion="4" android:targetSdkVersion="7"/>
+    <uses-sdk android:targetSdkVersion="7" android:minSdkVersion="4"/>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>

@@ -130,15 +130,16 @@ public class Option extends PreferenceActivity {
 		});
         prefCategory[0].addPreference(userRealName);
 		
-        String versionInfo = getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version)+" Wantoto Inc.";
+        String versionInfo = getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version);
         if (mgov.DEBUG_MODE)
-        	versionInfo += "\nDebug Mode";
+        	versionInfo += ", Debug Mode";
+        versionInfo += "\nNTU CSIE Mobile HCI Lab";
         
         Preference appInformation = new Preference(this);
         appInformation.setOnPreferenceClickListener(new OnPreferenceClickListener() {
         	@Override
 			public boolean onPreferenceClick(Preference arg0) {
-        		String infoMsg = getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version)+" Wantoto Inc.";
+        		String infoMsg = getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version)+"\nNTU CSIE Mobile HCI Lab";
             	infoMsg += "\n\n路見不平為開放原始碼軟體\n採用Apache License 2.0授權\nhttp://www.apache.org/licenses/\n\n原始碼可由Google Code取得\nhttp://code.google.com/\np/m-gov/";
         		
         		AlertDialog.Builder infoDialog = new AlertDialog.Builder(selfContext);
