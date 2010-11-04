@@ -20,7 +20,7 @@
 	CFBundleVersion = "1.0";
 	LSRequiresIPhoneOS = YES;
 	NSMainNibFile = MainWindow;
-	"Release Info" = "Wantoto Inc.";
+	"Release Info" = "NTU CSIE Mobile HCI Lab";
 	UILaunchImageFile = "Default.png";
 	"Develop Mode" = YES;
 }
