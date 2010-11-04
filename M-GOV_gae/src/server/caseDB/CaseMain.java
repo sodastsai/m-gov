@@ -2,6 +2,7 @@ package server.caseDB;
 
 import gae.GAEDataBase;
 import gae.GAENodeCase;
+import gae.GAENodeDebug;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -101,12 +102,14 @@ public class CaseMain {
 				node.setPhoto(photo.toByteArray());
 		}
 			
+		GAEDataBase.store(new GAENodeDebug("send="+send,node.toJson().toString()));
 		
 		if("send".equals(send))
 		{
 			System.out.println("send to czone");
 			String key = ReadUrlByPOST.doSend(node);
 			System.out.println("key:" +key);
+			
 			if(key!=null && key.length()>1)
 			{
 				ParseID.go(key, node.email);

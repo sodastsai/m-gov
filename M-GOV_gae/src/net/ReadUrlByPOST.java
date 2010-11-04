@@ -1,6 +1,8 @@
 package net;
 
+import gae.GAEDataBase;
 import gae.GAENodeCase;
+import gae.GAENodeDebug;
 
 import java.util.HashMap;
 import java.util.regex.Matcher;
@@ -18,19 +20,29 @@ public class ReadUrlByPOST {
 	public static String doSend(GAENodeCase node) {
 
 		HashMap<String, String> forms = createForm(node);
+		GAEDataBase.store(new GAENodeDebug("res","ReadUrlByPost"+"--"+"doSend"));
 		
 		try {
 			System.out.println("forms: \n"+forms.toString());
 			SendPost sendpost = new SendPost(add_caseURL);
 			sendpost.setTextPatams(forms);
-			sendpost.addByteParameter("map",node.getImage(0));
+			byte img[] = node.getImage(0);
+			if(img!=null)
+				sendpost.addByteParameter("map",img);
 			
 			String res = new String(sendpost.send());
 			String sno = getSno(res); 
+
+			res = HtmlFilter.parseHTMLStr(res);
+			res = HtmlFilter.delSpace(res);
+
+			GAEDataBase.store(new GAENodeDebug("res",res.substring(0,10)));
+			
 			System.out.println("sno: "+sno+"czone result:"+res);
 			return sno;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
 		return null;

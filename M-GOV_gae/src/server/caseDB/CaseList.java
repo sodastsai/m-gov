@@ -16,10 +16,10 @@ public class CaseList {
 	public static String go() {
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 
-		Extent extent = pm.getExtent(GAENodeCase.class, false);
+		Extent<GAENodeCase> extent = pm.getExtent(GAENodeCase.class, false);
 		
 		int cnt=0;
-		Iterator it = extent.iterator();
+		Iterator<GAENodeCase> it = extent.iterator();
 		
 		JSONArray array = new JSONArray();
 		GAENodeCase e;

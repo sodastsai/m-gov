@@ -126,7 +126,7 @@ public class SendPost {
 			ds.writeBytes("--" + boundary + "\r\n");
 			ds.writeBytes("Content-Disposition: form-data; name=\"" + name
 					+ "\"; filename=\"" + encode(String.valueOf(value.hashCode())) + "\"\r\n");
-			ds.writeBytes("Content-Type: " + "image/png,image/jpg" + "\r\n");
+			ds.writeBytes("Content-Type: " + "image/png" + "\r\n");
 			ds.writeBytes("\r\n");
 			ds.write(value);
 			ds.writeBytes("\r\n");
