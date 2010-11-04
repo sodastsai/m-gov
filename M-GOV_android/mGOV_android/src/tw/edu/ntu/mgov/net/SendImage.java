@@ -126,7 +126,7 @@ public class SendImage {
 			ds.writeBytes("--" + boundary + "\r\n");
 			ds.writeBytes("Content-Disposition: form-data; name=\"" + name
 					+ "\"; filename=\"" + encode(String.valueOf(value.hashCode())) + "\"\r\n");
-			ds.writeBytes("Content-Type: " + "image/jpg" + "\r\n");
+			ds.writeBytes("Content-Type: " + "image/png" + "\r\n");
 			ds.writeBytes("\r\n");
 			ds.write(value);
 			ds.writeBytes("\r\n");
@@ -134,12 +134,12 @@ public class SendImage {
 	}
 
 
-	//添加结尾数据
+	// form結尾
 	private void paramsEnd() throws Exception {
 		ds.writeBytes("--" + boundary + "--" + "\r\n");
 		ds.writeBytes("\r\n");
 	}
-	// 对包含中文的字符串进行转码，此为UTF-8。服务器那边要进行一次解码
+	// encode
     private String encode(String value) throws Exception{
     	return URLEncoder.encode(value, "UTF-8");
     }
