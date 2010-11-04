@@ -472,7 +472,7 @@ public class AddCase extends MapActivity {
 		FileOutputStream fos = new FileOutputStream(picture);
 		
 		// compress bmp into file 
-		bmp.compress(Bitmap.CompressFormat.JPEG, 85, fos);
+		bmp.compress(Bitmap.CompressFormat.PNG, 85, fos);
 		
 		// close 
 		is.close();
