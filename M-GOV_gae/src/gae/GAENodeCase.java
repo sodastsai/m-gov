@@ -130,10 +130,12 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 	}
 	
 	public byte[] getImage(int i){
+		if(photo==null)
+			return null;
 		if(0<=i && i<photo.length)
 			return photo[i].getBytes();
 		else
-			return "null".getBytes();
+			return null;
 	}
 
 	public void setKey(String key){

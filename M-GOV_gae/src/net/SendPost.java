@@ -96,7 +96,7 @@ public class SendPost {
 		conn = (HttpURLConnection) this.url.openConnection();
 		conn.setDoOutput(true);
 		conn.setUseCaches(false);
-		conn.setConnectTimeout(10000); //连接超时为10秒
+		conn.setConnectTimeout(20000); //20s
 		conn.setRequestMethod("POST");
 		conn.setRequestProperty("Content-Type",
 				"multipart/form-data; boundary=" + boundary);
@@ -113,7 +113,7 @@ public class SendPost {
 			ds.writeBytes("Content-Disposition: form-data; name=\"" + name
 					+ "\"\r\n");
 			ds.writeBytes("\r\n");
-			ds.write(value.getBytes());
+			ds.write(value.getBytes("UTF-8"));
 			ds.writeBytes("\r\n");
 		}
 	}
@@ -133,15 +133,12 @@ public class SendPost {
 		}
 	}
 
-
-	//添加结尾数据
 	private void paramsEnd() throws Exception {
 		ds.writeBytes("--" + boundary + "--" + "\r\n");
 		ds.writeBytes("\r\n");
 	}
-	// 对包含中文的字符串进行转码，此为UTF-8。服务器那边要进行一次解码
     private String encode(String value) throws Exception{
-    	return URLEncoder.encode(value, "UTF-8");
+    	return URLEncoder.encode(value, "big5");
     }
 
 

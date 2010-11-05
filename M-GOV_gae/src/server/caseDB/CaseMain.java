@@ -106,6 +106,8 @@ public class CaseMain {
 		
 		if("send".equals(send))
 		{
+//	  		return ReadUrlByPOST.doSend(node);
+
 			System.out.println("send to czone");
 			String key = ReadUrlByPOST.doSend(node);
 			System.out.println("key:" +key);
@@ -115,6 +117,7 @@ public class CaseMain {
 				ParseID.go(key, node.email);
 				node.setKey(key);
 			}
+
 		}
 		
 		GAEDataBase.store(node);

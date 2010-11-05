@@ -16,6 +16,13 @@ public class ReadUrlByPOST {
 	static String preview_caseURL = "http://www.czone2.tcg.gov.tw/tp95-4/sys/preview_case.cfm";
 	static String imagePath = "/Users/ggm/Desktop/case_pic.JPG";
 	
+	public static void main(String args[])
+	{
+		String r="查報序號:09911-704980 查報日期:99年11月6日大類:m1 細類:區2 鄰近路段: ";
+		System.out.println(getSno(r));
+		
+	}
+	
 	//return key
 	public static String doSend(GAENodeCase node) {
 
@@ -26,26 +33,34 @@ public class ReadUrlByPOST {
 			System.out.println("forms: \n"+forms.toString());
 			SendPost sendpost = new SendPost(add_caseURL);
 			sendpost.setTextPatams(forms);
+			
+			GAEDataBase.store(new GAENodeDebug("forms",forms.toString()));
+
+//			return "done";
+
 			byte img[] = node.getImage(0);
 			if(img!=null)
 				sendpost.addByteParameter("map",img);
 			
-			String res = new String(sendpost.send());
+			byte[] res_bytes = sendpost.send();
+			String res = new String(res_bytes,"UTF-8");
 			String sno = getSno(res); 
 
 			res = HtmlFilter.parseHTMLStr(res);
 			res = HtmlFilter.delSpace(res);
 
-			GAEDataBase.store(new GAENodeDebug("res",res.substring(0,10)));
+			GAEDataBase.store(new GAENodeDebug("res",res.substring(0,50)));
+			GAEDataBase.store(new GAENodeDebug("res-sno",sno));
 			
 			System.out.println("sno: "+sno+"czone result:"+res);
 			return sno;
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 
 			e.printStackTrace();
+			return e.toString()+"\n\n deSend ";
 		}
-		return null;
 	}
 
 	private static HashMap<String, String> createForm(GAENodeCase node) {
@@ -56,7 +71,7 @@ public class ReadUrlByPOST {
 		forms.put("h_item1" ,TypeFilter.Id2Type1(node.typeid));
 		forms.put("h_item2" ,TypeFilter.Id2Type2(node.typeid));
 //		forms.put("h_item1" ,"m1");
-//		forms.put("h_item2" ,"e2");
+//		forms.put("h_item2" ,"區2");
 		forms.put("h_roadname" ,"");
 		forms.put("h_parkname" ,"");
 		forms.put("h_unitname" ,"");
@@ -104,14 +119,9 @@ public class ReadUrlByPOST {
 
     public static String getSno(String htmlcontext){
         try {
-                String res = "";
-                
                 Matcher matcher;
-                matcher = Pattern.compile("<tr>.*查報序號:.*?</tr>", Pattern.MULTILINE).matcher(htmlcontext);
-                while (matcher.find())
-                        res = matcher.group();
-                matcher = Pattern.compile("[0-9]{5}-[0-9]{6}", Pattern.MULTILINE).matcher(res);
-                res = "";
+                matcher = Pattern.compile("[0-9]{5}-[0-9]{6}", Pattern.MULTILINE).matcher(htmlcontext);
+                String res = "";
 
                 for(res = "";matcher.find();)
                         res = matcher.group();

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <cronentries>
   <cron>
-    <url>/ecoliving/parse</url>
+    <url>/get_cookie</url>
     <description>ping server every 1 minutes</description>
-    <schedule>every 48 hours</schedule>
+    <schedule>every 1 minutes</schedule>
   </cron>
 </cronentries>
 
