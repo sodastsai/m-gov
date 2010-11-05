@@ -445,6 +445,11 @@
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request {
+	if ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"] boolValue]) {
+		NSLog(@"%@", [request responseString]);
+		NSLog(@"ASIHttpRequest Error Code: %d", [[request error] code]);
+	}
+	
 	[indicatorView finishedLoad];
 	[indicatorView removeFromSuperview];
 	[indicatorView release];

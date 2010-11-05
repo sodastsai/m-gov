@@ -53,6 +53,7 @@
 								 @"", @"User Email",
 								 @"", @"Name",
 								 [NSNumber numberWithBool:NO], @"NetworkIsAlerted",
+								 [NSDate date], @"TimeEnterBackground",
 								 nil];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaultDict];
 	[defaultDict release];
@@ -115,17 +116,21 @@
 	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
 	// Reset network alert status
 	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NetworkIsAlerted"];
+	// Record Time Stamp
+	[[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"TimeEnterBackground"];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
 	[NetworkChecking checkNetwork];
 	// Refesh views after coming back
-	NSEnumerator *enumerator = [tabBarController.viewControllers objectEnumerator];
-	id eachViewController;
-	while (eachViewController = [enumerator nextObject])
-		if([eachViewController isKindOfClass:[HybridViewController class]])
-			if (![[eachViewController topViewController] isKindOfClass:[CaseAddViewController class]] && ![[eachViewController topViewController] isKindOfClass:[CaseViewerViewController class]])
-				[eachViewController refreshDataSource];
+	if (([[[NSUserDefaults standardUserDefaults] objectForKey:@"TimeEnterBackground"] timeIntervalSince1970]-[[NSDate date] timeIntervalSince1970])>10*60) {
+		NSEnumerator *enumerator = [tabBarController.viewControllers objectEnumerator];
+		id eachViewController;
+		while (eachViewController = [enumerator nextObject])
+			if([eachViewController isKindOfClass:[HybridViewController class]])
+				if (![[eachViewController topViewController] isKindOfClass:[CaseAddViewController class]] && ![[eachViewController topViewController] isKindOfClass:[CaseViewerViewController class]])
+					[eachViewController refreshDataSource];
+	}
 }
 
 #pragma mark -
