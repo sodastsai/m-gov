@@ -32,6 +32,10 @@
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions { 
+	// Setup Google Analytics
+	[[GANTracker sharedTracker] startTrackerWithAccountID:@"UA-19512059-3" dispatchPeriod:10 delegate:nil];
+	// Record Event
+	[GoogleAnalytics trackAction:GNAActionAppDidFinishLaunch];
 	
 	// Set the locationManager be a global variable, and init
 	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
@@ -118,6 +122,8 @@
 	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NetworkIsAlerted"];
 	// Record Time Stamp
 	[[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"TimeEnterBackground"];
+	// Record Event
+	[GoogleAnalytics trackAction:GNAActionAppDidEnterBackground];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -131,15 +137,20 @@
 				if (![[eachViewController topViewController] isKindOfClass:[CaseAddViewController class]] && ![[eachViewController topViewController] isKindOfClass:[CaseViewerViewController class]])
 					[eachViewController refreshDataSource];
 	}
+	// Record Event
+	[GoogleAnalytics trackAction:GNAActionAppDidEnterForeground];
+}
+	 
+- (void)applicationWillTerminate:(UIApplication *)application {
+	// RecordEvent
+	[GoogleAnalytics trackAction:GNAActionAppWillTerminate];
 }
 
 #pragma mark -
 #pragma mark Memory management
 
-- (void)applicationDidReceiveMemoryWarning:(UIApplication *)application {
-}
-
 - (void)dealloc {
+	[[GANTracker sharedTracker] stopTracker];
 	[tabBarController release];
     [window release];
     [super dealloc];

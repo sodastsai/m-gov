@@ -92,6 +92,8 @@
 		FE74CC551258ADED00267C80 /* EditibleTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */; };
 		FE7D048312352AA5007FA0A1 /* QidToType.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE7D048212352AA5007FA0A1 /* QidToType.plist */; };
 		FE88284212839C7A0057F224 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE88284112839C7A0057F224 /* libGoogleAnalytics.a */; };
+		FE88284812839EA40057F224 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE88284712839EA40057F224 /* libsqlite3.0.dylib */; };
+		FE8828751283FB4A0057F224 /* GoogleAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8828741283FB4A0057F224 /* GoogleAnalytics.m */; };
 		FE8BF5191250D6FC009498CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8BF5181250D6FC009498CA /* CFNetwork.framework */; };
 		FEB39A5C1237EF70007359AB /* QueryGoogleAppEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */; };
 		FEB39BD212388842007359AB /* MyCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39BD112388842007359AB /* MyCaseViewController.m */; };
@@ -236,6 +238,9 @@
 		FE7D048212352AA5007FA0A1 /* QidToType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QidToType.plist; sourceTree = "<group>"; };
 		FE88283D12839C670057F224 /* GANTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GANTracker.h; sourceTree = "<group>"; };
 		FE88284112839C7A0057F224 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
+		FE88284712839EA40057F224 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
+		FE8828731283FB4A0057F224 /* GoogleAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleAnalytics.h; sourceTree = "<group>"; };
+		FE8828741283FB4A0057F224 /* GoogleAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleAnalytics.m; sourceTree = "<group>"; };
 		FE8BF5181250D6FC009498CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FEB39A5A1237EF70007359AB /* QueryGoogleAppEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryGoogleAppEngine.h; sourceTree = "<group>"; };
 		FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryGoogleAppEngine.m; sourceTree = "<group>"; };
@@ -277,6 +282,7 @@
 				2AEBFD03124B25410047B3E6 /* libz.1.2.3.dylib in Frameworks */,
 				FE8BF5191250D6FC009498CA /* CFNetwork.framework in Frameworks */,
 				FE88284212839C7A0057F224 /* libGoogleAnalytics.a in Frameworks */,
+				FE88284812839EA40057F224 /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +377,7 @@
 				2AEBFCFF124B25270047B3E6 /* MobileCoreServices.framework */,
 				2AEBFD02124B25410047B3E6 /* libz.1.2.3.dylib */,
 				FE8BF5181250D6FC009498CA /* CFNetwork.framework */,
+				FE88284712839EA40057F224 /* libsqlite3.0.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -588,6 +595,8 @@
 				FE88283D12839C670057F224 /* GANTracker.h */,
 				2A7934BE1265AEC900440BF0 /* TouchJSON */,
 				2AEBFCBF124B22C30047B3E6 /* ASIHTTP */,
+				FE8828731283FB4A0057F224 /* GoogleAnalytics.h */,
+				FE8828741283FB4A0057F224 /* GoogleAnalytics.m */,
 			);
 			name = "External API";
 			sourceTree = "<group>";
@@ -764,6 +773,7 @@
 				2A1EBDCF1265B65A00553FEA /* CJSONScanner.m in Sources */,
 				2A1EBDD01265B65A00553FEA /* CJSONSerializer.m in Sources */,
 				2A1EBDD11265B65A00553FEA /* CSerializedJSONData.m in Sources */,
+				FE8828751283FB4A0057F224 /* GoogleAnalytics.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

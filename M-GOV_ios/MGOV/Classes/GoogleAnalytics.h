@@ -1,10 +1,10 @@
 /*
  * 
- * MGOVAppDelegate.h
- * 2010/8/24
- * shou
- * 
- * Application Delegate
+ * GoogleAnalytics.h
+ * 2010/11/05
+ * sodas
+ *
+ * Provide information for Google Analytics
  *
  * Copyright 2010 NTU CSIE Mobile & HCI Lab
  * 
@@ -22,22 +22,21 @@
  *
  */
 
-#import <UIKit/UIKit.h>
-#import "HybridViewController.h"
-#import "MyCaseViewController.h"
-#import "QueryViewController.h"
-#import "PrefViewController.h"
-#import "NetworkChecking.h"
-#import "CaseViewerViewController.h"
+#import <Foundation/Foundation.h>
 #import "GANTracker.h"
 
-@interface MGOVAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
-    UIWindow *window;
-	UITabBarController *tabBarController;
+#define kAppLifecycle @"AppLifecycle"
+
+typedef enum {
+	GNAActionAppDidFinishLaunch,
+	GNAActionAppDidEnterBackground,
+	GNAActionAppDidEnterForeground,
+	GNAActionAppWillTerminate,
+} GANAction;
+
+@interface GoogleAnalytics : NSObject {
 }
 
-@property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) UITabBarController *tabBarController;
++ (void)trackAction:(GANAction)action;
 
 @end
-
