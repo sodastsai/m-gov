@@ -42,6 +42,33 @@
 		nameField.returnKeyType = UIReturnKeyDone;
 		nameField.autocapitalizationType = UITextAutocapitalizationTypeWords;
 		
+		// Set keyboard bar
+		// Prepare Keyboard
+		UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -44, 320, 44)];
+		keyboardToolbar.barStyle = UIBarStyleBlack;
+		keyboardToolbar.translucent = YES;
+		
+		// Prepare Buttons
+		UIBarButtonItem *doneEditing = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nameField action:@selector(resignFirstResponder)];
+		UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+		
+		// Prepare Labels
+		UILabel *optionalHint = [[UILabel alloc] initWithFrame:CGRectMake(10, 14, 250, 16)];
+		optionalHint.text = @"本欄為選項性欄位，可不填";
+		optionalHint.backgroundColor = [UIColor clearColor];
+		optionalHint.textColor = [UIColor whiteColor];
+		optionalHint.font = [UIFont boldSystemFontOfSize:16.0];
+		[keyboardToolbar addSubview:optionalHint];
+		
+		// Add buttons to keyboard
+		[keyboardToolbar setItems:[NSArray arrayWithObjects:flexibleItem, doneEditing, nil] animated:YES];
+		[doneEditing release];
+		[flexibleItem release];
+		[optionalHint release];
+		
+		nameField.inputAccessoryView = keyboardToolbar;
+		[keyboardToolbar release];
+		
 		[self.contentView addSubview:nameField];
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
     }

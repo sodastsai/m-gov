@@ -55,7 +55,6 @@
 	NameFieldTableCell *nameFieldCell;
 	DescriptionTableCell *descriptionCell;
 	
-	UIView *keyboard;
 	LoadingOverlayView *indicatorView;
 	NSMutableDictionary *columnSaving;
 	
@@ -71,7 +70,7 @@
 @property (nonatomic, retain) NSMutableDictionary *columnSaving;
 
 - (void)submitCase;
-- (void)keyboardWillShow:(NSNotification *)note;
-- (void)endEditingText;
+- (void)cleanAllField;
+- (void)sendGoogleAnalyticInfoWithSubmitStatus:(BOOL)status;
 
 @end

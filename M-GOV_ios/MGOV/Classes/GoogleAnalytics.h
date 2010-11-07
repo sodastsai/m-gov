@@ -29,17 +29,23 @@
 #define kCaseAdder @"CaseAdderEvent"
 
 typedef enum {
+	// App Lifecycle
 	GANActionAppDidFinishLaunch,
 	GANActionAppDidEnterBackground,
 	GANActionAppDidEnterForeground,
 	GANActionAppWillTerminate,
+	// Case Adder event
 	GANActionAddCaseSuccess,
 	GANActionAddCaseFailed,
+	GANActionAddCaseWithName,
+	GANActionAddCaseWithPhoto,
+	GANActionAddCaseWithoutPhoto,
 } GANAction;
 
 @interface GoogleAnalytics : NSObject {
 }
 
 + (void)trackAction:(GANAction)action;
++ (void)trackAction:(GANAction)action withLabel:(NSString *)label;
 
 @end

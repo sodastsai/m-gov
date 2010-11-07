@@ -27,6 +27,10 @@
 @implementation GoogleAnalytics
 
 + (void)trackAction:(GANAction)action {
+	[[self class] trackAction:action withLabel:nil];
+}
+
++ (void)trackAction:(GANAction)action withLabel:(NSString *)label {
 	NSString *eventString = nil;
 	NSString *actionString = nil;
 	
@@ -48,6 +52,9 @@
 	} else if (action==GANActionAddCaseFailed) {
 		eventString = kCaseAdder;
 		actionString = @"AddCaseFailed";
+	} else if (action==GANActionAddCaseWithName) {
+		eventString = kCaseAdder;
+		actionString = @"AddCaseWithName";
 	}
 	
 	if (eventString==nil || actionString==nil)
@@ -59,6 +66,9 @@
 	[dateFormatter release];
 	
 	NSString *labelString = [NSString stringWithFormat:@"[iOS][%@][%@]", [[UIDevice currentDevice] systemVersion], timeStamp];
+	
+	if (label!=nil)
+		labelString = [labelString stringByAppendingFormat:@" %@", label];
 	
 	[[GANTracker sharedTracker] trackEvent:eventString action:actionString label:labelString value:-1 withError:nil];
 }

@@ -73,8 +73,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-	// Modify Keyboard
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardDidShowNotification object:nil];
 	
 	// Fetch the data user key in last time
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
@@ -109,8 +107,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
 	[super viewWillDisappear:animated];
-	// Stop monitor keyboard
-	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	
 	// Temporary store the name & description info. to CaseAddTempInformation.plist
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
@@ -118,6 +114,32 @@
 	[self.columnSaving writeToFile:tempPlistPathInAppDocuments atomically:YES];
 	
 	userName = nameFieldCell.nameField.text;
+}
+
+#pragma mark -
+#pragma mark Google Analytics
+
+- (void)sendGoogleAnalyticInfoWithSubmitStatus:(BOOL)status {
+	NSString *statusLabel;
+	
+	if (status) {
+		[GoogleAnalytics trackAction:GANActionAddCaseSuccess];
+		statusLabel = @"Success Submit";
+	} else {
+		[GoogleAnalytics trackAction:GANActionAddCaseFailed];
+		statusLabel = @"Failed Submit";
+	}
+	
+	// Will User take a photo? And will take photo cause a fail submit?
+	if ([[self.columnSaving objectForKey:@"Photo"] isEqual:[NSData data]] || [self.columnSaving objectForKey:@"Photo"]==nil)
+		[GoogleAnalytics trackAction:GANActionAddCaseWithoutPhoto withLabel:statusLabel];
+	else 
+		[GoogleAnalytics trackAction:GANActionAddCaseWithPhoto withLabel:statusLabel];
+	
+	// Will User enter their name? (Success Submit)
+	if (nameFieldCell.nameField.text!=@"" && status)
+		[GoogleAnalytics trackAction:GANActionAddCaseWithName withLabel:statusLabel];
+	
 }
 
 #pragma mark -
@@ -253,16 +275,25 @@
 	}
 }
 
-- (void)endEditingText {
-	// Remove Toolbar From Keyboard
-	[[[keyboard subviews] lastObject] removeFromSuperview];
-	// Hide the keyboard
-	[nameFieldCell.nameField resignFirstResponder];
-	[descriptionCell.descriptionField resignFirstResponder];
-}
-
 #pragma mark -
-#pragma mark Check content for submit
+#pragma mark Content for submit
+
+- (void)cleanAllField {
+	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
+	[self.columnSaving setObject:[NSData data] forKey:@"Photo"];
+	[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
+	[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
+	[self.columnSaving setValue:@"" forKey:@"Description"];
+	descriptionCell.descriptionField.text = @"";
+	nameFieldCell.nameField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
+	[self.columnSaving setValue:@"" forKey:@"TypeTitle"];
+	[self.columnSaving setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
+	[self.columnSaving writeToFile:tempPlistPathInAppDocuments atomically:YES];
+	
+	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+	selectedCoord = shared.locationManager.location.coordinate;
+	[locationCell updatingCoordinate:selectedCoord];
+}
 
 - (void)submitCase {
 	// If this is the First time to Submit, We should ask user's email.
@@ -306,21 +337,7 @@
 	// Reset all field
 	if (alertView.tag==1000) {
 		if (buttonIndex) {
-			NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-			[self.columnSaving setObject:[NSData data] forKey:@"Photo"];
-			[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
-			[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
-			[self.columnSaving setValue:@"" forKey:@"Description"];
-			descriptionCell.descriptionField.text = @"";
-			nameFieldCell.nameField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
-			[self.columnSaving setValue:@"" forKey:@"TypeTitle"];
-			[self.columnSaving setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
-			[self.columnSaving writeToFile:tempPlistPathInAppDocuments atomically:YES];
-			
-			MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
-			selectedCoord = shared.locationManager.location.coordinate;
-			[locationCell updatingCoordinate:selectedCoord];
-			
+			[self cleanAllField];
 			[self viewWillAppear:YES];
 		} else {
 			[self.tableView reloadData];
@@ -417,7 +434,7 @@
 #pragma mark Submit Result (ASIHTTPRequest Delegate)
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
-	[GoogleAnalytics trackAction:GANActionAddCaseSuccess];
+	[self sendGoogleAnalyticInfoWithSubmitStatus:YES];
 	
 	if ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"] boolValue])
 		NSLog(@"%@", [request responseString]);
@@ -428,26 +445,14 @@
 	
 	[[NSUserDefaults standardUserDefaults] setObject:nameFieldCell.nameField.text forKey:@"Name"];
 	
-	// After submit case, clean the temp infomation
-	[self.columnSaving setObject:[NSData data] forKey:@"Photo"];
-	[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Latitude"];
-	[self.columnSaving setObject:[NSNumber numberWithDouble:0.0] forKey:@"Longitude"];
-	[self.columnSaving setValue:@"" forKey:@"Description"];
-	descriptionCell.descriptionField.text = @"";
-	nameFieldCell.nameField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
-	[self.columnSaving setValue:@"" forKey:@"TypeTitle"];
-	[self.columnSaving setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
-	
-	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
-	selectedCoord = shared.locationManager.location.coordinate;
-	[locationCell updatingCoordinate:selectedCoord];
+	[self cleanAllField];
 	
 	[self.navigationController popViewControllerAnimated:YES];
 	[myCase refreshDataSource];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request {
-	[GoogleAnalytics trackAction:GANActionAddCaseFailed];
+	[self sendGoogleAnalyticInfoWithSubmitStatus:NO];
 	
 	if ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"] boolValue]) {
 		NSLog(@"%@", [request responseString]);
@@ -597,7 +602,7 @@
 }
 
 #pragma mark -
-#pragma mark Name Field
+#pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
 	// End editing
@@ -610,42 +615,6 @@
 		return NO;
 	}
 	return YES;
-}
-
-#pragma mark -
-#pragma mark Description View (Keyboard Toolbar)
-
-- (void)keyboardWillShow:(NSNotification *)note {
-	// Add keyboard toolbar
-	if ([nameFieldCell.nameField isFirstResponder] || [descriptionCell.descriptionField isFirstResponder]) {
-		// Set keyboard bar
-		// Prepare Keyboard
-		UIToolbar *keyboardToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, -44, 320, 44)];
-		keyboardToolbar.barStyle = UIBarStyleBlack;
-		keyboardToolbar.translucent = YES;
-		
-		// Prepare Buttons
-		UIBarButtonItem *doneEditing = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(endEditingText)];
-		UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-		
-		// Prepare Labels
-		UILabel *optionalHint = [[UILabel alloc] initWithFrame:CGRectMake(10, 14, 250, 16)];
-		optionalHint.text = @"本欄為選項性欄位，可不填";
-		optionalHint.backgroundColor = [UIColor clearColor];
-		optionalHint.textColor = [UIColor whiteColor];
-		optionalHint.font = [UIFont boldSystemFontOfSize:16.0];
-		[keyboardToolbar addSubview:optionalHint];
-		
-		// Add buttons to keyboard
-		[keyboardToolbar setItems:[NSArray arrayWithObjects:flexibleItem, doneEditing, nil] animated:YES];
-		[doneEditing release];
-		[flexibleItem release];
-		[optionalHint release];
-		
-		keyboard = [[[[[UIApplication sharedApplication] windows] objectAtIndex:1] subviews] objectAtIndex:0];
-		[keyboard addSubview:keyboardToolbar];
-		[keyboardToolbar release];
-	}
 }
 
 @end
