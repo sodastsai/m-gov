@@ -54,14 +54,15 @@
 #pragma mark QueryGAEReciever
 
 - (void)recieveQueryResultType:(DataSourceGAEReturnTypes)type withResult:(id)result {
-	if (type == DataSourceGAEReturnByNSDictionary) {
+	if (type == DataSourceGAEReturnByNSDictionary)
 		self.caseData = result;
-	}
 	
 	CLLocationCoordinate2D coordinate;
 	coordinate.longitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 	coordinate.latitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
-	locationCell = [[LocationSelectorTableCell alloc] initWithHeight:200 andCoordinate:coordinate actionTarget:nil setAction:nil];
+	if (locationCell==nil) locationCell = [[LocationSelectorTableCell alloc] initWithHeight:200 andCoordinate:coordinate actionTarget:nil setAction:nil];
+	else [locationCell updatingCoordinate:coordinate];
+	
 	if ([[caseData objectForKey:@"image"] count]) {
 		NSString *str = [[caseData objectForKey:@"image"] objectAtIndex:0];
 		str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];

@@ -36,6 +36,7 @@
 #import "LoadingOverlayView.h"
 #import "CaseSelectorViewController.h"
 #import "NetworkChecking.h"
+#import "GoogleAnalytics.h"
 
 #define kPhotoScale 640
 

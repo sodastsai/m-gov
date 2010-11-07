@@ -35,7 +35,7 @@
 	// Setup Google Analytics
 	[[GANTracker sharedTracker] startTrackerWithAccountID:@"UA-19512059-3" dispatchPeriod:10 delegate:nil];
 	// Record Event
-	[GoogleAnalytics trackAction:GNAActionAppDidFinishLaunch];
+	[GoogleAnalytics trackAction:GANActionAppDidFinishLaunch];
 	
 	// Set the locationManager be a global variable, and init
 	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
@@ -123,7 +123,7 @@
 	// Record Time Stamp
 	[[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"TimeEnterBackground"];
 	// Record Event
-	[GoogleAnalytics trackAction:GNAActionAppDidEnterBackground];
+	[GoogleAnalytics trackAction:GANActionAppDidEnterBackground];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -138,12 +138,12 @@
 					[eachViewController refreshDataSource];
 	}
 	// Record Event
-	[GoogleAnalytics trackAction:GNAActionAppDidEnterForeground];
+	[GoogleAnalytics trackAction:GANActionAppDidEnterForeground];
 }
 	 
 - (void)applicationWillTerminate:(UIApplication *)application {
 	// RecordEvent
-	[GoogleAnalytics trackAction:GNAActionAppWillTerminate];
+	[GoogleAnalytics trackAction:GANActionAppWillTerminate];
 }
 
 #pragma mark -

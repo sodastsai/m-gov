@@ -163,10 +163,12 @@
 
 - (void)viewDidUnload {
     [super viewDidUnload];
+	mapView.delegate=nil;
+	self.mapView=nil;
 }
 
 - (void)dealloc {
-	// MapView could not release
+	mapView.delegate=nil;
 	[bottomBar release];
     [super dealloc];
 }

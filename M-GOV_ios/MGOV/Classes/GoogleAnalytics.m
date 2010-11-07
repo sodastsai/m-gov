@@ -30,18 +30,24 @@
 	NSString *eventString = nil;
 	NSString *actionString = nil;
 	
-	if (action==GNAActionAppDidEnterBackground) {
+	if (action==GANActionAppDidEnterBackground) {
 		eventString = kAppLifecycle;
 		actionString = @"AppEnterBackground";
-	} else if (action==GNAActionAppDidEnterForeground) {
+	} else if (action==GANActionAppDidEnterForeground) {
 		eventString = kAppLifecycle;
 		actionString = @"AppEnterForeground";
-	} else if (action==GNAActionAppWillTerminate) {
+	} else if (action==GANActionAppWillTerminate) {
 		eventString = kAppLifecycle;
 		actionString = @"AppWillTerminate";
-	} else if (action==GNAActionAppDidFinishLaunch) {
+	} else if (action==GANActionAppDidFinishLaunch) {
 		eventString = kAppLifecycle;
 		actionString = @"AppDidStartup";
+	} else if (action==GANActionAddCaseSuccess) {
+		eventString = kCaseAdder;
+		actionString = @"AddCaseScuess";
+	} else if (action==GANActionAddCaseFailed) {
+		eventString = kCaseAdder;
+		actionString = @"AddCaseFailed";
 	}
 	
 	if (eventString==nil || actionString==nil)

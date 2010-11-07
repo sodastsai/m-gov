@@ -287,6 +287,7 @@
 - (void)dealloc {
     [super dealloc];
 	[listViewController release];
+	mapView.delegate=nil;
 	[mapViewController release];
 	[(id)dataSource release];
 	[(id)selectorDelegate release];

@@ -417,6 +417,8 @@
 #pragma mark Submit Result (ASIHTTPRequest Delegate)
 
 - (void)requestFinished:(ASIHTTPRequest *)request {
+	[GoogleAnalytics trackAction:GANActionAddCaseSuccess];
+	
 	if ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"] boolValue])
 		NSLog(@"%@", [request responseString]);
 	
@@ -445,6 +447,8 @@
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request {
+	[GoogleAnalytics trackAction:GANActionAddCaseFailed];
+	
 	if ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"] boolValue]) {
 		NSLog(@"%@", [request responseString]);
 		NSLog(@"ASIHttpRequest Error Code: %d", [[request error] code]);

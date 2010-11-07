@@ -26,12 +26,15 @@
 #import "GANTracker.h"
 
 #define kAppLifecycle @"AppLifecycle"
+#define kCaseAdder @"CaseAdderEvent"
 
 typedef enum {
-	GNAActionAppDidFinishLaunch,
-	GNAActionAppDidEnterBackground,
-	GNAActionAppDidEnterForeground,
-	GNAActionAppWillTerminate,
+	GANActionAppDidFinishLaunch,
+	GANActionAppDidEnterBackground,
+	GANActionAppDidEnterForeground,
+	GANActionAppWillTerminate,
+	GANActionAddCaseSuccess,
+	GANActionAddCaseFailed,
 } GANAction;
 
 @interface GoogleAnalytics : NSObject {
