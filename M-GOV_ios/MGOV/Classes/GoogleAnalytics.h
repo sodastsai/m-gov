@@ -38,14 +38,19 @@ typedef enum {
 	GANActionAddCaseSuccess,
 	GANActionAddCaseFailed,
 	GANActionAddCaseWithName,
+	GANActionAddCaseWithDescription,
 	GANActionAddCaseWithPhoto,
 	GANActionAddCaseWithoutPhoto,
+	GANActionAddCaswWithType,
+	GANActionAddCaseLocationSelectorChanged,
 } GANAction;
 
 @interface GoogleAnalytics : NSObject {
 }
 
 + (void)trackAction:(GANAction)action;
++ (void)trackAction:(GANAction)action withTimeStamp:(BOOL)ts;
 + (void)trackAction:(GANAction)action withLabel:(NSString *)label;
++ (void)trackAction:(GANAction)action withLabel:(NSString *)label andTimeStamp:(BOOL)ts;
 
 @end

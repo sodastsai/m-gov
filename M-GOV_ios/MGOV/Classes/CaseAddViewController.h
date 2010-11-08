@@ -58,10 +58,20 @@
 	LoadingOverlayView *indicatorView;
 	NSMutableDictionary *columnSaving;
 	
+	// Update Information
+	BOOL ableToUpdateLocationCell;
+	
+	// Save for goolge analytics
+	CLLocationCoordinate2D originalLocation;
+	float latDelta;
+	float lonDelta;
+	BOOL locationSelectorDidChangeLocation;
+	
 	// Parent
 	CaseSelectorViewController *myCase;
 }
 
+@property (nonatomic) BOOL ableToUpdateLocationCell;
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
 @property (retain, nonatomic) UIImage *selectedImage;

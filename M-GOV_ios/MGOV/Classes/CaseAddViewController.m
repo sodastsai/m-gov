@@ -32,15 +32,27 @@
 @synthesize selectedImage;
 @synthesize myCase;
 @synthesize columnSaving;
+@synthesize ableToUpdateLocationCell;
 
 #pragma mark -
 #pragma mark View lifecycle
 
+- (id)initWithStyle:(UITableViewStyle)style {
+	if (self = [super initWithStyle:style]) {
+		ableToUpdateLocationCell = YES;
+		// Set the title
+		self.title = @"報案";
+		
+		selectedTypeTitle = @"";
+		selectedImage = nil;
+		self.userName = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
+		locationSelectorDidChangeLocation = NO;
+	}
+	return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
-	// Set the title
-	self.title = @"報案";
 	
 	// Add submit button
 	UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithTitle:@"送出案件" style:UIBarButtonItemStylePlain target:self action:@selector(submitCase)];
@@ -56,6 +68,8 @@
 	if (locationCell==nil)
 		locationCell = [[LocationSelectorTableCell alloc] initWithHeight:100 andCoordinate:shared.locationManager.location.coordinate actionTarget:self setAction:@selector(openLocationSelector)];
 	locationCell.delegate = self;
+	originalLocation = shared.locationManager.location.coordinate;
+	selectedCoord = shared.locationManager.location.coordinate;
 	
 	if (nameFieldCell==nil)
 		nameFieldCell = [[NameFieldTableCell alloc] init];
@@ -63,12 +77,6 @@
 	
 	if (descriptionCell==nil)
 		descriptionCell = [[DescriptionTableCell alloc] init];
-	
-	selectedTypeTitle = @"";
-	selectedImage = nil;
-	
-	selectedCoord = shared.locationManager.location.coordinate;
-	self.userName = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -90,6 +98,11 @@
 		selectedCoord.latitude = [[self.columnSaving objectForKey:@"Latitude"] doubleValue];
 		selectedCoord.longitude = [[self.columnSaving objectForKey:@"Longitude"] doubleValue];
 		[locationCell updatingCoordinate:selectedCoord];
+	} else {
+		if (ableToUpdateLocationCell) {
+			MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
+			[locationCell updatingCoordinate:shared.locationManager.location.coordinate];
+		}
 	}
 	
 	// Type Cell
@@ -136,10 +149,21 @@
 	else 
 		[GoogleAnalytics trackAction:GANActionAddCaseWithPhoto withLabel:statusLabel];
 	
-	// Will User enter their name? (Success Submit)
-	if (nameFieldCell.nameField.text!=@"" && status)
-		[GoogleAnalytics trackAction:GANActionAddCaseWithName withLabel:statusLabel];
+	// Will User change their location? Or, will GPS always give user correct location?
+	if (locationSelectorDidChangeLocation && status)
+		[GoogleAnalytics trackAction:GANActionAddCaseLocationSelectorChanged withLabel:[NSString stringWithFormat:@"Delta=(lat:%f,lon:%f)", latDelta, lonDelta]];
 	
+	// Find which type is most populate
+	if (status)
+		[GoogleAnalytics trackAction:GANActionAddCaswWithType withLabel:[NSString stringWithFormat:@"%d", qid]];
+	
+	// Will User enter their name? (Success Submit)
+	if (![nameFieldCell.nameField.text isEqualToString:@""] && status)
+		[GoogleAnalytics trackAction:GANActionAddCaseWithName];
+	
+	// Will User enter description? (Success Submit)
+	if (![descriptionCell.descriptionField.text isEqualToString:@" "] && ![descriptionCell.descriptionField.text isEqualToString:@"請輸入描述及建議"] && status)
+		[GoogleAnalytics trackAction:GANActionAddCaseWithDescription];
 }
 
 #pragma mark -
@@ -293,6 +317,7 @@
 	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 	selectedCoord = shared.locationManager.location.coordinate;
 	[locationCell updatingCoordinate:selectedCoord];
+	ableToUpdateLocationCell = YES;
 }
 
 - (void)submitCase {
@@ -575,6 +600,13 @@
 	selectedCoord = coordinate;
 	[self.tableView reloadData];
 	[self dismissModalViewControllerAnimated:YES];
+	
+	if (coordinate.latitude!=originalLocation.latitude || coordinate.longitude!=originalLocation.longitude) {
+		locationSelectorDidChangeLocation = YES;
+		latDelta = coordinate.latitude - originalLocation.latitude;
+		lonDelta = coordinate.longitude - originalLocation.longitude;
+		ableToUpdateLocationCell = NO;
+	}
 }
 
 #pragma mark -
