@@ -102,6 +102,7 @@
 		if (ableToUpdateLocationCell) {
 			MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 			[locationCell updatingCoordinate:shared.locationManager.location.coordinate];
+			selectedCoord = shared.locationManager.location.coordinate;
 		}
 	}
 	
