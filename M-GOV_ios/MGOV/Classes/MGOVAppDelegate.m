@@ -166,6 +166,20 @@
 #pragma mark -
 #pragma mark TabBarController Delegate
 
+- (BOOL)tabBarController:(UITabBarController *)aTabBarController shouldSelectViewController:(UIViewController *)viewController {
+	if (![aTabBarController.selectedViewController isEqual:viewController]) {
+		// Record View Controller
+		if ([viewController isKindOfClass:[MyCaseViewController class]])
+			[GoogleAnalytics trackAction:GANActionAppTabIsMyCase withLabel:nil andTimeStamp:NO andUDID:NO];
+		else if ([viewController isKindOfClass:[QueryViewController class]])
+			[GoogleAnalytics trackAction:GANActionAppTabIsQueryCase withLabel:nil andTimeStamp:NO andUDID:NO];
+		else if ([viewController isKindOfClass:[UINavigationController class]])
+			if ([[(UINavigationController *)viewController topViewController] isKindOfClass:[PrefViewController class]])
+				[GoogleAnalytics trackAction:GANActionAppTabIsPreference withLabel:nil andTimeStamp:NO andUDID:NO];
+	}
+	return YES;
+}
+
 - (void)tabBarController:(UITabBarController *)aTabBarController didSelectViewController:(UIViewController *)viewController {
 	// Pop Case Viewer out if going to back
 	NSEnumerator *enumerator =  [aTabBarController.viewControllers objectEnumerator];
@@ -174,14 +188,6 @@
 		if ( [eachViewController isKindOfClass:[CaseSelectorViewController class]] && ![eachViewController isEqual:viewController] )
 			if ([[eachViewController topViewController] isKindOfClass:[CaseViewerViewController class]])
 				[eachViewController popViewControllerAnimated:NO];
-	// Record View Controller
-	if ([viewController isKindOfClass:[MyCaseViewController class]])
-		[GoogleAnalytics trackAction:GANActionAppTabIsMyCase withLabel:nil andTimeStamp:NO andUDID:NO];
-	else if ([viewController isKindOfClass:[QueryViewController class]])
-		[GoogleAnalytics trackAction:GANActionAppTabIsQueryCase withLabel:nil andTimeStamp:NO andUDID:NO];
-	else if ([viewController isKindOfClass:[UINavigationController class]])
-		if ([[(UINavigationController *)viewController topViewController] isKindOfClass:[PrefViewController class]])
-			[GoogleAnalytics trackAction:GANActionAppTabIsPreference withLabel:nil andTimeStamp:NO andUDID:NO];
 }
 
 @end
