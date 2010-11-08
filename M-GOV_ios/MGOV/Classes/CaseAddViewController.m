@@ -137,34 +137,34 @@
 	NSString *statusLabel;
 	
 	if (status) {
-		[GoogleAnalytics trackAction:GANActionAddCaseSuccess];
+		[GoogleAnalytics trackAction:GANActionAddCaseSuccess withLabel:nil andTimeStamp:NO andUDID:NO];
 		statusLabel = @"Success Submit";
 	} else {
-		[GoogleAnalytics trackAction:GANActionAddCaseFailed];
+		[GoogleAnalytics trackAction:GANActionAddCaseFailed withLabel:nil andTimeStamp:NO andUDID:NO];
 		statusLabel = @"Failed Submit";
 	}
 	
 	// Will User take a photo? And will take photo cause a fail submit?
 	if ([[self.columnSaving objectForKey:@"Photo"] isEqual:[NSData data]] || [self.columnSaving objectForKey:@"Photo"]==nil)
-		[GoogleAnalytics trackAction:GANActionAddCaseWithoutPhoto withLabel:statusLabel];
+		[GoogleAnalytics trackAction:GANActionAddCaseWithoutPhoto withLabel:statusLabel andTimeStamp:NO andUDID:NO];
 	else 
-		[GoogleAnalytics trackAction:GANActionAddCaseWithPhoto withLabel:statusLabel];
+		[GoogleAnalytics trackAction:GANActionAddCaseWithPhoto withLabel:statusLabel andTimeStamp:NO andUDID:NO];
 	
 	// Will User change their location? Or, will GPS always give user correct location?
 	if (locationSelectorDidChangeLocation && status)
-		[GoogleAnalytics trackAction:GANActionAddCaseLocationSelectorChanged withLabel:[NSString stringWithFormat:@"Delta=(lat:%f,lon:%f)", latDelta, lonDelta]];
+		[GoogleAnalytics trackAction:GANActionAddCaseLocationSelectorChanged withLabel:[NSString stringWithFormat:@"Delta=(lat:%f,lon:%f)", latDelta, lonDelta] andTimeStamp:NO andUDID:NO];
 	
 	// Find which type is most populate
 	if (status)
-		[GoogleAnalytics trackAction:GANActionAddCaswWithType withLabel:[NSString stringWithFormat:@"%d", qid]];
+		[GoogleAnalytics trackAction:GANActionAddCaswWithType withLabel:[NSString stringWithFormat:@"%d", qid] andTimeStamp:NO andUDID:NO];
 	
 	// Will User enter their name? (Success Submit)
 	if (![nameFieldCell.nameField.text isEqualToString:@""] && status)
-		[GoogleAnalytics trackAction:GANActionAddCaseWithName];
+		[GoogleAnalytics trackAction:GANActionAddCaseWithName withLabel:nil andTimeStamp:NO andUDID:NO];
 	
 	// Will User enter description? (Success Submit)
 	if (![descriptionCell.descriptionField.text isEqualToString:@" "] && ![descriptionCell.descriptionField.text isEqualToString:@"請輸入描述及建議"] && status)
-		[GoogleAnalytics trackAction:GANActionAddCaseWithDescription];
+		[GoogleAnalytics trackAction:GANActionAddCaseWithDescription withLabel:nil andTimeStamp:NO andUDID:NO];
 }
 
 #pragma mark -

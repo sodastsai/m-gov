@@ -57,6 +57,14 @@
 	return [super popViewControllerAnimated:animated];
 }
 
+- (void)changeToAnotherMode {
+	[super changeToAnotherMode];
+	if (menuMode == HybridViewMapMode)
+		[GoogleAnalytics trackAction:GANActionQueryCaseMapMode withLabel:nil andTimeStamp:NO andUDID:NO];
+	else
+		[GoogleAnalytics trackAction:GANActionQueryCaseListMode withLabel:nil andTimeStamp:NO andUDID:NO];
+}
+
 #pragma mark -
 #pragma mark Lifecycle
 
@@ -111,8 +119,13 @@
 #pragma mark Method
 
 - (void)queryAfterSetRangeAndType {
+	// Set for google analytics
+	NSString *labelString = [NSString stringWithFormat:@"center=(lat:%f,lon:%f) span=(lat:%f,lon:%f)",
+							 mapView.region.center.latitude, mapView.region.center.longitude, mapView.region.span.latitudeDelta, mapView.region.span.longitudeDelta];	
+	
 	if (!typeID) {
 		// Query without type
+		[GoogleAnalytics trackAction:GANActionQueryCaseAllType withLabel:labelString andTimeStamp:NO andUDID:NO];
 		[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region]];
 	} else {
 		// Query with type
@@ -123,6 +136,8 @@
 		[contentDictionary release];
 		[keyArray release];
 		[valueArray release];
+		labelString = [labelString stringByAppendingFormat:@" type=%d", typeID];
+		[GoogleAnalytics trackAction:GANActionQueryCaseWithType withLabel:labelString andTimeStamp:NO andUDID:NO];
 	}
 }
 
@@ -232,7 +247,7 @@
 		// All type
 		queryTypeLabel.text = @"所有案件種類";
 		typeID = 0;
-		[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region]];
+		[self queryAfterSetRangeAndType];
 	} else if (buttonIndex==2) {
 		// Do nothing but cancel
 	}
@@ -246,7 +261,6 @@
 	typeID = q;
 	queryTypeLabel.text = t;
 	[self dismissModalViewControllerAnimated:YES];
-	
 	// Start Query
 	[self queryAfterSetRangeAndType];
 }

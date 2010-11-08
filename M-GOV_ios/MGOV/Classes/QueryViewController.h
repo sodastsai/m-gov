@@ -31,6 +31,7 @@
 #import "MGOVGeocoder.h"
 #import "TypesViewController.h"
 #import "ASIHTTPRequest.h"
+#import "GoogleAnalytics.h"
 
 #define kDataSectorSize 10
 

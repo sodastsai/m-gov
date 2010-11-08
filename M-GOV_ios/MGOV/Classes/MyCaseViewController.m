@@ -119,6 +119,14 @@
 	[super queryGAEwithConditonType:conditionType andCondition:condition];
 }
 
+- (void)changeToAnotherMode {
+	[super changeToAnotherMode];
+	if (menuMode == HybridViewMapMode)
+		[GoogleAnalytics trackAction:GANActionMyCaseMapMode withLabel:nil andTimeStamp:NO andUDID:NO];
+	else
+		[GoogleAnalytics trackAction:GANActionMyCaseListMode withLabel:nil andTimeStamp:NO andUDID:NO];
+}
+
 #pragma mark -
 #pragma mark Lifecycle
 
@@ -183,6 +191,15 @@
 	if (segmentedControl.selectedSegmentIndex != currentSegmentIndex) {
 		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:[self setConditionWithEmailAndFilter:segmentedControl]];
 		currentSegmentIndex = segmentedControl.selectedSegmentIndex;
+		
+		if (segmentedControl.selectedSegmentIndex==0)
+			[GoogleAnalytics trackAction:GANActionMyCaseFilterAll withLabel:nil andTimeStamp:NO andUDID:NO];
+		else if (segmentedControl.selectedSegmentIndex==1)
+			[GoogleAnalytics trackAction:GANActionMyCaseFilterOK withLabel:nil andTimeStamp:NO andUDID:NO];
+		else if (segmentedControl.selectedSegmentIndex==2)
+			[GoogleAnalytics trackAction:GANActionMyCaseFilterUnknown withLabel:nil andTimeStamp:NO andUDID:NO];
+		else if (segmentedControl.selectedSegmentIndex==3)
+			[GoogleAnalytics trackAction:GANActionMyCaseFilterFailed withLabel:nil andTimeStamp:NO andUDID:NO];
 	}
 }
 

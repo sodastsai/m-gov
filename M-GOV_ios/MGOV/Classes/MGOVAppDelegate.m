@@ -35,7 +35,7 @@
 	// Setup Google Analytics
 	[[GANTracker sharedTracker] startTrackerWithAccountID:@"UA-19512059-3" dispatchPeriod:10 delegate:nil];
 	// Record Event
-	[GoogleAnalytics trackAction:GANActionAppDidFinishLaunch];
+	[GoogleAnalytics trackAction:GANActionAppDidFinishLaunch withLabel:nil andTimeStamp:NO andUDID:NO];
 	
 	// Set the locationManager be a global variable, and init
 	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
@@ -96,6 +96,10 @@
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
 	
+	// Set/Reset for time interval
+	myCaseTimeInterval = [[NSDate date] timeIntervalSince1970];
+	queryCaseTimeInterval = [[NSDate date] timeIntervalSince1970];
+	
 	// Release
 	[myCase release];
 	[queryCase release];
@@ -123,7 +127,7 @@
 	// Record Time Stamp
 	[[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"TimeEnterBackground"];
 	// Record Event
-	[GoogleAnalytics trackAction:GANActionAppDidEnterBackground];
+	[GoogleAnalytics trackAction:GANActionAppDidEnterBackground withLabel:nil andTimeStamp:NO andUDID:NO];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -138,12 +142,15 @@
 					[eachViewController refreshDataSource];
 	}
 	// Record Event
-	[GoogleAnalytics trackAction:GANActionAppDidEnterForeground];
+	[GoogleAnalytics trackAction:GANActionAppDidEnterForeground withLabel:nil andTimeStamp:NO andUDID:NO];
+	// Set/Reset for time interval
+	myCaseTimeInterval = [[NSDate date] timeIntervalSince1970];
+	queryCaseTimeInterval = [[NSDate date] timeIntervalSince1970];
 }
 	 
 - (void)applicationWillTerminate:(UIApplication *)application {
 	// RecordEvent
-	[GoogleAnalytics trackAction:GANActionAppWillTerminate];
+	[GoogleAnalytics trackAction:GANActionAppWillTerminate withLabel:nil andTimeStamp:NO andUDID:NO];
 }
 
 #pragma mark -
@@ -167,6 +174,14 @@
 		if ( [eachViewController isKindOfClass:[CaseSelectorViewController class]] && ![eachViewController isEqual:viewController] )
 			if ([[eachViewController topViewController] isKindOfClass:[CaseViewerViewController class]])
 				[eachViewController popViewControllerAnimated:NO];
+	// Record View Controller
+	if ([viewController isKindOfClass:[MyCaseViewController class]])
+		[GoogleAnalytics trackAction:GANActionAppTabIsMyCase withLabel:nil andTimeStamp:NO andUDID:NO];
+	else if ([viewController isKindOfClass:[QueryViewController class]])
+		[GoogleAnalytics trackAction:GANActionAppTabIsQueryCase withLabel:nil andTimeStamp:NO andUDID:NO];
+	else if ([viewController isKindOfClass:[UINavigationController class]])
+		if ([[(UINavigationController *)viewController topViewController] isKindOfClass:[PrefViewController class]])
+			[GoogleAnalytics trackAction:GANActionAppTabIsPreference withLabel:nil andTimeStamp:NO andUDID:NO];
 }
 
 @end

@@ -83,6 +83,15 @@
 				if([eachViewController isKindOfClass:[MyCaseViewController class]])
 					[eachViewController refreshDataSource];
 		}
+		if ([[[NSUserDefaults standardUserDefaults] stringForKey:key] isEqualToString:@""])
+			[GoogleAnalytics trackAction:GANActionPrefUserChangeEmail withLabel:@"Cleared" andTimeStamp:NO andUDID:YES];
+		else
+			[GoogleAnalytics trackAction:GANActionPrefUserChangeEmail withLabel:nil andTimeStamp:NO andUDID:YES];
+	} else if ([key isEqualToString:@"Name"]) {
+		if ([[[NSUserDefaults standardUserDefaults] stringForKey:key] isEqualToString:@""])
+			[GoogleAnalytics trackAction:GANActionPrefUserChangeName withLabel:@"Cleared" andTimeStamp:NO andUDID:YES];
+		else 
+			[GoogleAnalytics trackAction:GANActionPrefUserChangeName withLabel:nil andTimeStamp:NO andUDID:YES];
 	}
 }
 

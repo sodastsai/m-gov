@@ -26,58 +26,91 @@
 
 @implementation GoogleAnalytics
 
-+ (void)trackAction:(GANAction)action {
-	[[self class] trackAction:action withLabel:nil andTimeStamp:NO];
-}
-
-+ (void)trackAction:(GANAction)action withTimeStamp:(BOOL)ts {
-	[[self class] trackAction:action withLabel:nil andTimeStamp:ts];
-}
-
-+ (void)trackAction:(GANAction)action withLabel:(NSString *)label {
-	[[self class] trackAction:action withLabel:label andTimeStamp:NO];
-}
-
-+ (void)trackAction:(GANAction)action withLabel:(NSString *)label andTimeStamp:(BOOL)ts {
++ (void)trackAction:(GANAction)action withLabel:(NSString *)label andTimeStamp:(BOOL)ts andUDID:(BOOL)udid {
 	NSString *eventString = nil;
 	NSString *actionString = nil;
 	
 	if (action==GANActionAppDidEnterBackground) {
-		eventString = kAppLifecycle;
+		eventString = kGANEventAppLifecycle;
 		actionString = @"AppEnterBackground";
 	} else if (action==GANActionAppDidEnterForeground) {
-		eventString = kAppLifecycle;
+		eventString = kGANEventAppLifecycle;
 		actionString = @"AppEnterForeground";
 	} else if (action==GANActionAppWillTerminate) {
-		eventString = kAppLifecycle;
+		eventString = kGANEventAppLifecycle;
 		actionString = @"AppWillTerminate";
 	} else if (action==GANActionAppDidFinishLaunch) {
-		eventString = kAppLifecycle;
+		eventString = kGANEventAppLifecycle;
 		actionString = @"AppDidStartup";
 	} else if (action==GANActionAddCaseSuccess) {
-		eventString = kCaseAdder;
+		eventString = kGANEventCaseAdder;
 		actionString = @"AddCaseScuess";
 	} else if (action==GANActionAddCaseFailed) {
-		eventString = kCaseAdder;
+		eventString = kGANEventCaseAdder;
 		actionString = @"AddCaseFailed";
 	} else if (action==GANActionAddCaseWithPhoto) {
-		eventString = kCaseAdder;
+		eventString = kGANEventCaseAdder;
 		actionString= @"AddCaseWithPhoto";
 	} else if (action==GANActionAddCaseWithoutPhoto) {
-		eventString = kCaseAdder;
+		eventString = kGANEventCaseAdder;
 		actionString= @"AddCaseWithoutPhoto";
 	} else if (action==GANActionAddCaseWithName) {
-		eventString = kCaseAdder;
+		eventString = kGANEventCaseAdder;
 		actionString = @"AddCaseWithName";
 	} else if (action==GANActionAddCaseWithDescription) {
-		eventString = kCaseAdder;
+		eventString = kGANEventCaseAdder;
 		actionString = @"AddCaseWithDescription";
 	} else if (action==GANActionAddCaswWithType) {
-		eventString = kCaseAdder;
+		eventString = kGANEventCaseAdder;
 		actionString = @"AddCaseWithType";
 	} else if (action==GANActionAddCaseLocationSelectorChanged) {
-		eventString = kCaseAdder;
+		eventString = kGANEventCaseAdder;
 		actionString = @"AddCaseWithLocationSelectorChanged";
+	} else if (action==GANActionMyCaseFilterAll) {
+		eventString = kGANEventMyCase;
+		actionString = @"MyCaseWithAllFilter";
+	} else if (action==GANActionMyCaseFilterOK) {
+		eventString = kGANEventMyCase;
+		actionString = @"MyCaseWithOKFilter";
+	} else if (action==GANActionMyCaseFilterUnknown) {
+		eventString = kGANEventMyCase;
+		actionString = @"MyCaseWithUnknownFilter";
+	} else if (action==GANActionMyCaseFilterFailed) {
+		eventString = kGANEventMyCase;
+		actionString = @"MyCaseWithFailedFilter";
+	} else if (action==GANActionMyCaseListMode) {
+		eventString = kGANEventMyCase;
+		actionString = @"MyCaseWithListMode";
+	} else if (action==GANActionMyCaseMapMode) {
+		eventString = kGANEventMyCase;
+		actionString = @"MyCaseWithMapMode";
+	} else if (action==GANActionQueryCaseMapMode) {
+		eventString = kGANEventQueryCase;
+		actionString = @"QueryCaseWithMapMode";
+	} else if (action==GANActionQueryCaseListMode) {
+		eventString = kGANEventQueryCase;
+		actionString = @"QueryCaseWithListMode";
+	} else if (action==GANActionQueryCaseAllType) {
+		eventString = kGANEventQueryCase;
+		actionString = @"QueryCaseWithAllType";
+	} else if (action==GANActionQueryCaseWithType) {
+		eventString = kGANEventQueryCase;
+		actionString = @"QueryCaseWithType";
+	} else if (action==GANActionPrefUserChangeEmail) {
+		eventString = kGANEventPrefernce;
+		actionString = @"UserChangeEmail";
+	} else if (action==GANActionPrefUserChangeName) {
+		eventString = kGANEventPrefernce;
+		actionString = @"UserChangeName";
+	} else if (action==GANActionAppTabIsMyCase) {
+		eventString = kGANEventAppTab;
+		actionString = @"TabMyCase";
+	} else if (action==GANActionAppTabIsQueryCase) {
+		eventString = kGANEventAppTab;
+		actionString = @"TabQueryCase";
+	} else if (action==GANActionAppTabIsPreference) {
+		eventString = kGANEventAppTab;
+		actionString = @"TabOption";
 	}
 	
 	if (eventString==nil || actionString==nil)
@@ -95,6 +128,9 @@
 		[dateFormatter release];
 		labelString = [labelString stringByAppendingFormat:@"[%@]", timeStamp];
 	}
+	
+	if (udid)
+		labelString = [labelString stringByAppendingFormat:@"[%@]", [[UIDevice currentDevice] uniqueIdentifier]];
 	
 	if (label!=nil)
 		labelString = [labelString stringByAppendingFormat:@" %@", label];

@@ -22,11 +22,11 @@
  *
  */
 
-
 #import <UIKit/UIKit.h>
 #import "EditibleTextFieldCell.h"
 #import "WritePrefDelegate.h"
 #import "MyCaseViewController.h"
+#import "GoogleAnalytics.h"
 
 @interface PrefViewController : UITableViewController <WritePrefDelegate> {
 	NSString *originalEmail;

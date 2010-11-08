@@ -25,8 +25,12 @@
 #import <Foundation/Foundation.h>
 #import "GANTracker.h"
 
-#define kAppLifecycle @"AppLifecycle"
-#define kCaseAdder @"CaseAdderEvent"
+#define kGANEventAppLifecycle @"AppLifecycle"
+#define kGANEventCaseAdder @"CaseAdderEvent"
+#define kGANEventMyCase @"MyCaseEvent"
+#define kGANEventQueryCase @"QueryCaseEvent"
+#define kGANEventPrefernce @"OptionEvent"
+#define kGANEventAppTab @"AppTabEvent"
 
 typedef enum {
 	// App Lifecycle
@@ -34,6 +38,10 @@ typedef enum {
 	GANActionAppDidEnterBackground,
 	GANActionAppDidEnterForeground,
 	GANActionAppWillTerminate,
+	// App Tab Event
+	GANActionAppTabIsMyCase,
+	GANActionAppTabIsQueryCase,
+	GANActionAppTabIsPreference,
 	// Case Adder event
 	GANActionAddCaseSuccess,
 	GANActionAddCaseFailed,
@@ -43,14 +51,26 @@ typedef enum {
 	GANActionAddCaseWithoutPhoto,
 	GANActionAddCaswWithType,
 	GANActionAddCaseLocationSelectorChanged,
+	// My Case Event
+	GANActionMyCaseFilterAll,
+	GANActionMyCaseFilterOK,
+	GANActionMyCaseFilterUnknown,
+	GANActionMyCaseFilterFailed,
+	GANActionMyCaseMapMode,
+	GANActionMyCaseListMode,
+	// Query Case Event
+	GANActionQueryCaseMapMode,
+	GANActionQueryCaseListMode,
+	GANActionQueryCaseAllType,
+	GANActionQueryCaseWithType,
+	// Preference Event
+	GANActionPrefUserChangeEmail,
+	GANActionPrefUserChangeName,
 } GANAction;
 
 @interface GoogleAnalytics : NSObject {
 }
 
-+ (void)trackAction:(GANAction)action;
-+ (void)trackAction:(GANAction)action withTimeStamp:(BOOL)ts;
-+ (void)trackAction:(GANAction)action withLabel:(NSString *)label;
-+ (void)trackAction:(GANAction)action withLabel:(NSString *)label andTimeStamp:(BOOL)ts;
++ (void)trackAction:(GANAction)action withLabel:(NSString *)label andTimeStamp:(BOOL)ts andUDID:(BOOL)udid;
 
 @end
