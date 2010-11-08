@@ -33,7 +33,7 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if ((self = [super initWithStyle:style reuseIdentifier:reuseIdentifier])) {
-        nameField = [[UITextField alloc] initWithFrame:CGRectMake(8.0, 8.0, 284, kNameFieldCellHeight-14)];
+        nameField = [[UITextField alloc] initWithFrame:CGRectMake(8.0, 10.0, 284, kNameFieldCellHeight-14)];
 		nameField.tag = 100;
 		nameField.placeholder = @"請輸入您的姓名";
 		nameField.autocorrectionType = UITextAutocorrectionTypeNo;
@@ -88,9 +88,7 @@
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	if (textField.tag==100)
-		[textField resignFirstResponder];
-	
+	[textField resignFirstResponder];
 	return YES;
 }
 

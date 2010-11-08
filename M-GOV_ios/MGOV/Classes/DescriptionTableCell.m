@@ -108,7 +108,7 @@
 		descriptionField.textColor = [UIColor lightGrayColor];
 		textViewPlaceholder = YES;
 	} else {
-		descriptionField.contentInset = UIEdgeInsetsMake(0,-7,-7,-7);
+		descriptionField.contentInset = UIEdgeInsetsMake(-7,-7,-7,-7);
 		[textView scrollRangeToVisible:NSMakeRange(0, 1)];
 	}
 	return YES;

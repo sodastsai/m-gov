@@ -24,7 +24,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define kNameFieldCellHeight 40
+#define kNameFieldCellHeight 44
 
 @interface NameFieldTableCell : UITableViewCell <UITextFieldDelegate> {
 	UITextField *nameField;

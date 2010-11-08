@@ -23,7 +23,7 @@
  */
 
 #import <UIKit/UIKit.h>
-#define kDescriptionFieldCellHeight 160
+#define kDescriptionFieldCellHeight 110
 
 @interface DescriptionTableCell : UITableViewCell <UITextViewDelegate> {
 	UITextView *descriptionField;
