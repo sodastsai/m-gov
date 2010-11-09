@@ -94,6 +94,7 @@
 		FE88284212839C7A0057F224 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE88284112839C7A0057F224 /* libGoogleAnalytics.a */; };
 		FE88284812839EA40057F224 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE88284712839EA40057F224 /* libsqlite3.0.dylib */; };
 		FE8828751283FB4A0057F224 /* GoogleAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8828741283FB4A0057F224 /* GoogleAnalytics.m */; };
+		FE882C9E128906DF0057F224 /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE882C9D128906DF0057F224 /* ListViewController.m */; };
 		FE8BF5191250D6FC009498CA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FE8BF5181250D6FC009498CA /* CFNetwork.framework */; };
 		FEB39A5C1237EF70007359AB /* QueryGoogleAppEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */; };
 		FEB39BD212388842007359AB /* MyCaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39BD112388842007359AB /* MyCaseViewController.m */; };
@@ -241,6 +242,8 @@
 		FE88284712839EA40057F224 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		FE8828731283FB4A0057F224 /* GoogleAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoogleAnalytics.h; sourceTree = "<group>"; };
 		FE8828741283FB4A0057F224 /* GoogleAnalytics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoogleAnalytics.m; sourceTree = "<group>"; };
+		FE882C9C128906DF0057F224 /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
+		FE882C9D128906DF0057F224 /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		FE8BF5181250D6FC009498CA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		FEB39A5A1237EF70007359AB /* QueryGoogleAppEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QueryGoogleAppEngine.h; sourceTree = "<group>"; };
 		FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryGoogleAppEngine.m; sourceTree = "<group>"; };
@@ -546,6 +549,8 @@
 			children = (
 				FEB39CA212389597007359AB /* HybridViewController.h */,
 				FEB39CA312389597007359AB /* HybridViewController.m */,
+				FE882C9C128906DF0057F224 /* ListViewController.h */,
+				FE882C9D128906DF0057F224 /* ListViewController.m */,
 			);
 			name = "Hybrid List and Map View";
 			sourceTree = "<group>";
@@ -774,6 +779,7 @@
 				2A1EBDD01265B65A00553FEA /* CJSONSerializer.m in Sources */,
 				2A1EBDD11265B65A00553FEA /* CSerializedJSONData.m in Sources */,
 				FE8828751283FB4A0057F224 /* GoogleAnalytics.m in Sources */,
+				FE882C9E128906DF0057F224 /* ListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

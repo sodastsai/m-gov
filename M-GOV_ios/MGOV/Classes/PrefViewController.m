@@ -35,7 +35,6 @@
 	if (![self preScriptBeforeSaveKey:key andObject:value]) {
 		if ([key isEqualToString:@"User Email"])
 			[self alertWhileFailToWriteWithTitle:@"E-Mail格式錯誤" andContent:@"請輸入正確的E-Mail！"];
-		
 		[self.tableView reloadData];
 	} else {
 		[[NSUserDefaults standardUserDefaults] setObject:value forKey:key];

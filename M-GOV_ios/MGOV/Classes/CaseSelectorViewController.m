@@ -196,13 +196,13 @@
 	return @"";
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	static NSString *CellIdentifier = @"caseCell";
 	static NSString *CellIdentifier2 = @"informationBarCell";
 	// First Cell which is covered by InformationBar
 	if (indexPath.section == 0) {
 		// Waste some memory since this cell could not be shared to other Case.
-		CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
+		CaseSelectorCell *cell = (CaseSelectorCell *)[listViewController.tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
 		if (cell == nil) 
 			cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier2] autorelease];
 		cell.accessoryType = UITableViewCellAccessoryNone;
@@ -210,11 +210,11 @@
 	}
 	
 	// Normal Section Cell
-	CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+	CaseSelectorCell *cell = (CaseSelectorCell *)[listViewController.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 	if (cell == nil)
 		cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 	
-	tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+	listViewController.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 	// Case ID
 	cell.caseKey.text = [[caseSource objectAtIndex:indexPath.row] objectForKey:@"key"];
 	// Case Type
@@ -297,16 +297,8 @@
 	firstQuery = YES;
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-	[super viewDidAppear:animated];
-	listViewController.tableView.delegate = self;
-	listViewController.tableView.dataSource = self;
-}
-
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
-	self.listViewController.tableView.delegate = self;
-	self.listViewController.tableView.dataSource = self;
 }
 
 - (void)dealloc {

@@ -44,7 +44,7 @@
 		[self.mapView setCenterCoordinate:self.mapView.region.center animated:YES];
 	}
 	// Table View
-	if (listViewController != nil) [listViewController.tableView reloadData];
+	if (listViewController != nil) [(UITableView *)listViewController.view reloadData];
 }
 
 #pragma mark -
@@ -88,12 +88,14 @@
 	return mapViewController;
 }
 
-- (UITableViewController *)initialListViewController {
+- (ListViewController *)initialListViewController {
 	if (listViewController == nil) {
 		// View Controller
-		listViewController = [[UITableViewController alloc] initWithStyle:UITableViewStylePlain];
+		listViewController = [[ListViewController alloc] initWithStyle:UITableViewStylePlain];
 		listViewController.tableView.delegate = self;
 		listViewController.tableView.dataSource = self;
+		listViewController.aDelegate = self;
+		listViewController.aDataSource = self;
 		// Set Bar
 		UIBarButtonItem *changeMode = [[UIBarButtonItem alloc] initWithTitle:@"地圖模式" style:UIBarButtonItemStyleBordered target:self action:@selector(changeToAnotherMode)];
 		listViewController.navigationItem.leftBarButtonItem = changeMode;
@@ -267,7 +269,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	return [dataSource tableView:tableView cellForRowAtIndexPath:indexPath];
+	return [dataSource cellForRowAtIndexPath:indexPath];
 }
 
 #pragma mark -

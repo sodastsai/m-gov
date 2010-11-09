@@ -28,6 +28,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "AppMKAnnotation.h"
 #import "CaseViewerViewController.h"
+#import "ListViewController.h"
 
 // Hybrid View Mode
 typedef enum {
@@ -53,7 +54,7 @@ typedef enum {
 - (NSInteger)numberOfRowsInListSection:(NSInteger)section;
 - (CGFloat)heightForRowAtIndexPathInList:(NSIndexPath *)indexPath;
 - (NSString *)titleForHeaderInSectionInList:(NSInteger)section;
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 - (NSArray *)setupAnnotationArrayForMapView;
 
 @end
@@ -61,7 +62,7 @@ typedef enum {
 @interface HybridViewController : UINavigationController <UITableViewDelegate, UITableViewDataSource, MKMapViewDelegate> {
 	// Basic View
 	UIViewController *emptyRootViewController;
-	UITableViewController *listViewController;
+	ListViewController *listViewController;
 	UIViewController *mapViewController;
 	UIBarButtonItem *rightButtonItem;
 
@@ -74,7 +75,7 @@ typedef enum {
 	id<HybridViewDataSource> dataSource;
 }
 
-@property (retain, nonatomic) UITableViewController *listViewController;
+@property (retain, nonatomic) ListViewController *listViewController;
 @property (retain, nonatomic) UIViewController *mapViewController;
 @property (retain, nonatomic) id<HybridViewDelegate> selectorDelegate;
 @property (retain, nonatomic) id<HybridViewDataSource> dataSource;
@@ -86,7 +87,7 @@ typedef enum {
 - (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)aTitle;
 - (id)initWithMode:(HybridViewMenuMode)mode andTitle:(NSString *)aTitle withRightBarButtonItem:(UIBarButtonItem *)rightButton;
 
-- (UITableViewController *)initialListViewController;
+- (ListViewController *)initialListViewController;
 - (UIViewController *)initialMapViewController;
 - (void)changeToAnotherMode;
 - (void)setRootViewController:(UIViewController *)rootViewController;

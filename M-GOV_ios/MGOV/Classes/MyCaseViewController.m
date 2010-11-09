@@ -71,10 +71,10 @@
 	else return [super heightForRowAtIndexPathInList:indexPath];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (![self myCaseDataAvailability]) {
 		static NSString *CellIdentifier = @"NoMyCaseCell";
-		CaseSelectorCell *cell = (CaseSelectorCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+		CaseSelectorCell *cell = (CaseSelectorCell *)[listViewController.tableView dequeueReusableCellWithIdentifier:CellIdentifier];
 		if (cell==nil) {
 			cell = [[[CaseSelectorCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
 		}
@@ -91,12 +91,12 @@
 			[cellGray release];
 		} 
 		
-		tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+		listViewController.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		return cell;
 		
-	} else return [super tableView:tableView cellForRowAtIndexPath:indexPath];
+	} else return [super cellForRowAtIndexPath:indexPath];
 }
 
 - (void)refreshDataSource {
@@ -107,7 +107,7 @@
 		[super refreshDataSource];
 	} else {
 		caseSourceDidLoaded = YES;
-		[self.listViewController.tableView reloadData];
+		[(UITableView *)self.listViewController.view reloadData];
 		informationBar.hidden = YES;
 	}
 }
