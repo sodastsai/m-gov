@@ -543,6 +543,7 @@
 	[picker dismissModalViewControllerAnimated:YES];
 	[self.tableView reloadData];
 	[NSTimer scheduledTimerWithTimeInterval:0.75 target:self selector:@selector(openLocationSelector) userInfo:nil repeats:NO];
+	selectedImage = nil;
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {

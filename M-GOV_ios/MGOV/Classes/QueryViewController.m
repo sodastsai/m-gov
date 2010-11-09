@@ -222,8 +222,13 @@
 		currentMapRegion = MapView.region;
 		[self queryAfterSetRangeAndType];
 	} else {
-		nextButton.enabled = YES;
-		lastButton.enabled = YES;
+		int rangeStart = queryRange.location +1;
+		int rangeEnd = queryRange.location+[caseSource count];
+		// Lock or Unlock Button
+		if (rangeStart!=1) lastButton.enabled = YES;
+		else lastButton.enabled = NO;
+		if (rangeEnd!=queryTotalLength) nextButton.enabled = YES;
+		else nextButton.enabled = NO;
 		self.topViewController.navigationItem.leftBarButtonItem.enabled = YES;
 		self.topViewController.navigationItem.rightBarButtonItem.enabled = YES;
 	}
