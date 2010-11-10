@@ -29,7 +29,6 @@
 
 @synthesize selectedTypeTitle;
 @synthesize qid, userName;
-@synthesize selectedImage;
 @synthesize myCase;
 @synthesize columnSaving;
 @synthesize ableToUpdateLocationCell;
@@ -44,7 +43,6 @@
 		self.title = @"報案";
 		
 		selectedTypeTitle = @"";
-		selectedImage = nil;
 		self.userName = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
 		locationSelectorDidChangeLocation = NO;
 	}
@@ -53,7 +51,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
 	// Add submit button
 	UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithTitle:@"送出案件" style:UIBarButtonItemStylePlain target:self action:@selector(submitCase)];
 	self.navigationItem.rightBarButtonItem = submitButton;
@@ -171,8 +168,6 @@
 #pragma mark Memory management
 
 - (void)didReceiveMemoryWarning {
-    self.tableView.delegate = self;
-	self.tableView.dataSource = self;
 }
 
 - (void)dealloc {
@@ -390,9 +385,10 @@
 			// Post the submt data to App Engine
 			ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case/add"]];
 			request.delegate = self;
+			NSArray *regionArray = [MGOVGeocoder returnRegion:selectedCoord];
 			[request setFile:[self.columnSaving objectForKey:@"Photo"] withFileName:filename andContentType:@"image/png" forKey:@"photo"];
-			[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:0] forKey:@"h_admit_name"];
-			[request setPostValue:[[MGOVGeocoder returnRegion:selectedCoord]objectAtIndex:1] forKey:@"h_admiv_name"];
+			[request setPostValue:[regionArray objectAtIndex:0] forKey:@"h_admit_name"];
+			[request setPostValue:[regionArray objectAtIndex:1] forKey:@"h_admiv_name"];
 			[request setPostValue:[NSString stringWithFormat:@"%d", qid] forKey:@"typeid"];
 			[request setPostValue:descriptionString forKey:@"h_summary"];
 			[request setPostValue:[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] forKey:@"email"];
@@ -517,8 +513,7 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
 	// Get New photo
-	// Use property for retain
-	self.selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
+	UIImage *selectedImage = [info objectForKey:UIImagePickerControllerOriginalImage];
 	// Scale
 	if (selectedImage.size.width >= selectedImage.size.height) {
 		selectedImage = [selectedImage scaleProportionlyToWidth:kPhotoScale];
@@ -537,13 +532,11 @@
 	NSData *data = UIImagePNGRepresentation(selectedImage);
 	[self.columnSaving setObject:data forKey:@"Photo"];
 	[self.columnSaving writeToFile:tempPlistPathInAppDocuments atomically:YES];
-	data = nil;
 	
 	// Close Picker,Reload Data, and Call Location Selector
 	[picker dismissModalViewControllerAnimated:YES];
 	[self.tableView reloadData];
 	[NSTimer scheduledTimerWithTimeInterval:0.75 target:self selector:@selector(openLocationSelector) userInfo:nil repeats:NO];
-	selectedImage = nil;
 }
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {

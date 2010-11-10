@@ -46,7 +46,6 @@
 	UITextField *alertEmailInputField;
 	UIAlertView *alertEmailPopupBox;
 	CLLocationCoordinate2D selectedCoord;
-	UIImage *selectedImage;
 	NSString *userName;
 	
 	// Component Cells
@@ -74,7 +73,6 @@
 @property (nonatomic) BOOL ableToUpdateLocationCell;
 @property (retain, nonatomic) NSString *selectedTypeTitle;
 @property (nonatomic) NSInteger qid;
-@property (retain, nonatomic) UIImage *selectedImage;
 @property (retain, nonatomic) CaseSelectorViewController *myCase;
 @property (nonatomic, retain) NSString *userName;
 @property (nonatomic, retain) NSMutableDictionary *columnSaving;
