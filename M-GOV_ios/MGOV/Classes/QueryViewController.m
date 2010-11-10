@@ -121,16 +121,16 @@
 - (void)queryAfterSetRangeAndType {
 	// Set for google analytics
 	NSString *labelString = [NSString stringWithFormat:@"center=(lat:%f,lon:%f) span=(lat:%f,lon:%f)",
-							 mapView.region.center.latitude, mapView.region.center.longitude, mapView.region.span.latitudeDelta, mapView.region.span.longitudeDelta];	
+							 currentMapRegion.center.latitude, currentMapRegion.center.longitude, currentMapRegion.span.latitudeDelta, currentMapRegion.span.longitudeDelta];	
 	
 	if (!typeID) {
 		// Query without type
 		[GoogleAnalytics trackAction:GANActionQueryCaseAllType withLabel:labelString andTimeStamp:NO andUDID:NO];
-		[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region]];
+		[self queryGAEwithConditonType:DataSourceGAEQueryByCoordinate andCondition:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:currentMapRegion]];
 	} else {
 		// Query with type
 		NSArray *keyArray = [[NSArray alloc] initWithObjects:@"DataSourceGAEQueryByCoordinate", @"DataSourceGAEQueryByType", nil];
-		NSArray *valueArray = [[NSArray alloc] initWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:self.mapView.region], [NSString stringWithFormat:@"%d", typeID], nil];
+		NSArray *valueArray = [[NSArray alloc] initWithObjects:[QueryGoogleAppEngine generateMapQueryConditionFromRegion:currentMapRegion], [NSString stringWithFormat:@"%d", typeID], nil];
 		NSDictionary *contentDictionary = [[NSDictionary alloc] initWithObjects:valueArray forKeys:keyArray];
 		[self queryGAEwithConditonType:DataSourceGAEQueryByMultiConditons andCondition:contentDictionary];
 		[contentDictionary release];
