@@ -120,8 +120,9 @@
 
 - (void)queryAfterSetRangeAndType {
 	// Set for google analytics
-	NSString *labelString = [NSString stringWithFormat:@"center=(lat:%f,lon:%f) span=(lat:%f,lon:%f)",
-							 currentMapRegion.center.latitude, currentMapRegion.center.longitude, currentMapRegion.span.latitudeDelta, currentMapRegion.span.longitudeDelta];	
+	NSString *labelString = [NSString stringWithFormat:@"center=(lat:%f,lon:%f) span=(lat:%f,lon:%f) range=(%d,%d)",
+							 currentMapRegion.center.latitude, currentMapRegion.center.longitude, currentMapRegion.span.latitudeDelta, currentMapRegion.span.longitudeDelta,
+							 queryRange.location+1, queryRange.location+queryRange.length];	
 	
 	if (!typeID) {
 		// Query without type

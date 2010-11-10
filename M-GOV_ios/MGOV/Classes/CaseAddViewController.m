@@ -338,7 +338,7 @@
 	} else if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] length] && qid != 0) {
 		[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NetworkIsAlerted"];
 		if ([NetworkChecking checkNetwork]) {
-			UIAlertView *submitConfirm = [[UIAlertView alloc] initWithTitle:@"送出案件" message:@"確定要送出此案件至1999?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
+			UIAlertView *submitConfirm = [[UIAlertView alloc] initWithTitle:@"確定要送出案件？" message:@"本案件將送至台北市1999市容查報\n並於市政府網站留下案件記錄" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
 			submitConfirm.tag = 2000;
 			[submitConfirm show];
 			[submitConfirm release];
