@@ -26,6 +26,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "LocationSelectorTableCell.h"
 #import "QueryGoogleAppEngine.h"
+#import "ASIHTTPRequest.h"
 
 @interface CaseViewerViewController : UITableViewController <QueryGAEReciever> {
 	NSString *query_caseID;

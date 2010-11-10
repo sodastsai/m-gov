@@ -67,14 +67,20 @@
 		NSString *str = [[caseData objectForKey:@"image"] objectAtIndex:0];
 		str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
 		// Could not fetch the photo
-		if (![NSData dataWithContentsOfURL:[NSURL URLWithString:str]]) photoView = nil;
+		NSData *imageData = nil;
+		ASIHTTPRequest *imgRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:str]];
+		[imgRequest startSynchronous];
+		if (![imgRequest error])
+			imageData = [imgRequest responseData];
+		
+		if (!imageData)
+			photoView = nil;
 		else {
-			photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:str]]] fitToSize:CGSizeMake(300, 200)]];
+			photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:imageData] fitToSize:CGSizeMake(300, 200)]];
 			photoView.layer.cornerRadius = 10.0;
 			photoView.layer.masksToBounds = YES;	
 		}
-	}
-	else {
+	} else {
 		photoView = nil;
 	}
 	
