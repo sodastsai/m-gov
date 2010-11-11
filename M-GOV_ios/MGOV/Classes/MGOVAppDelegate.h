@@ -34,10 +34,6 @@
 @interface MGOVAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
     UIWindow *window;
 	UITabBarController *tabBarController;
-	
-	// Log time interval in MyCase and QueryCase
-	NSTimeInterval myCaseTimeInterval;
-	NSTimeInterval queryCaseTimeInterval;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;

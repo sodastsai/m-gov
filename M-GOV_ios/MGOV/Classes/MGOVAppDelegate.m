@@ -96,10 +96,6 @@
 	[window addSubview:tabBarController.view];
 	[window makeKeyAndVisible];
 	
-	// Set/Reset for time interval
-	myCaseTimeInterval = [[NSDate date] timeIntervalSince1970];
-	queryCaseTimeInterval = [[NSDate date] timeIntervalSince1970];
-	
 	// Release
 	[myCase release];
 	[queryCase release];
@@ -133,7 +129,7 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application {
 	[NetworkChecking checkNetwork];
 	// Refesh views after coming back
-	if (([[[NSUserDefaults standardUserDefaults] objectForKey:@"TimeEnterBackground"] timeIntervalSince1970]-[[NSDate date] timeIntervalSince1970])>10*60) {
+	if (([[NSDate date] timeIntervalSince1970]-[[[NSUserDefaults standardUserDefaults] objectForKey:@"TimeEnterBackground"] timeIntervalSince1970])>10*60) {
 		NSEnumerator *enumerator = [tabBarController.viewControllers objectEnumerator];
 		id eachViewController;
 		while (eachViewController = [enumerator nextObject])
@@ -143,9 +139,6 @@
 	}
 	// Record Event
 	[GoogleAnalytics trackAction:GANActionAppDidEnterForeground withLabel:nil andTimeStamp:NO andUDID:NO];
-	// Set/Reset for time interval
-	myCaseTimeInterval = [[NSDate date] timeIntervalSince1970];
-	queryCaseTimeInterval = [[NSDate date] timeIntervalSince1970];
 }
 	 
 - (void)applicationWillTerminate:(UIApplication *)application {
