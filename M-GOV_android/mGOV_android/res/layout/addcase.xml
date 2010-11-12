@@ -2,8 +2,6 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_height="fill_parent"
 	android:layout_width="fill_parent"
-	android:scrollbarFadeDuration="500"
-	android:scrollbarDefaultDelayBeforeFade="2000"
 	android:scrollbarStyle="outsideInset">
 	<LinearLayout
 		android:orientation="vertical"

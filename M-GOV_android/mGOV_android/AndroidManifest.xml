@@ -2,27 +2,26 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="tw.edu.ntu.mgov" android:versionCode="1" android:versionName="@string/app_version">
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:name="@string/app_name">
-        <uses-library android:name="com.google.android.maps" />
         <activity android:label="@string/app_name" android:name=".mgov" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<activity android:name=".mycase.MyCase" android:label="我的案件" android:process=":MyCaseProcess" android:screenOrientation="portrait"></activity>
-<activity android:name=".option.Option" android:label="設定" android:screenOrientation="portrait"></activity>
-<activity android:name=".query.Query"  android:label="案件查詢" android:process=":QueryProcess" android:screenOrientation="portrait"></activity>
-<activity android:name=".typeselector.TypeSelector" android:label="選擇案件種類" android:screenOrientation="portrait"></activity>
-<activity android:name=".typeselector.DetailSelector" android:label="選擇案件種類" android:screenOrientation="portrait"></activity>
-<activity android:name=".addcase.AddCase" android:label="報案" android:process=":AddCaseProcess" android:screenOrientation="portrait"></activity>
-<activity android:name=".addcase.SelectLocationMap" android:label="選擇案件地點" android:screenOrientation="portrait"></activity>
-<activity android:name=".caseviewer.CaseViewer" android:label="案件資料" android:screenOrientation="portrait"></activity>
-</application>
-    <uses-sdk android:targetSdkVersion="7" android:minSdkVersion="4"/>
+  		<uses-library android:name="com.google.android.maps" android:required="true"></uses-library>
+		<activity android:name=".mycase.MyCase" android:label="我的案件" android:process=":MyCaseProcess" android:screenOrientation="portrait"></activity>
+		<activity android:name=".option.Option" android:label="設定" android:screenOrientation="portrait"></activity>
+		<activity android:name=".query.Query"  android:label="案件查詢" android:process=":QueryProcess" android:screenOrientation="portrait"></activity>
+		<activity android:name=".typeselector.TypeSelector" android:label="選擇案件種類" android:screenOrientation="portrait"></activity>
+		<activity android:name=".typeselector.DetailSelector" android:label="選擇案件種類" android:screenOrientation="portrait"></activity>
+		<activity android:name=".addcase.AddCase" android:label="報案" android:process=":AddCaseProcess" android:screenOrientation="portrait"></activity>
+		<activity android:name=".addcase.SelectLocationMap" android:label="選擇案件地點" android:screenOrientation="portrait"></activity>
+		<activity android:name=".caseviewer.CaseViewer" android:label="案件資料" android:screenOrientation="portrait"></activity>
+	</application>
+    <uses-sdk android:targetSdkVersion="4" android:minSdkVersion="4"/>
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-    <uses-permission android:name="android.permission.VIBRATE"></uses-permission>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 </manifest> 

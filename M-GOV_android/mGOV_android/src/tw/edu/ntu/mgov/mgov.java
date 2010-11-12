@@ -23,24 +23,34 @@
  */
 package tw.edu.ntu.mgov;
 
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
+
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.widget.TabHost;
 
+import tw.edu.ntu.mgov.GoogleAnalytics.GANAction;
 import tw.edu.ntu.mgov.mycase.MyCase;
 import tw.edu.ntu.mgov.query.Query;
 
 public class mgov extends TabActivity {
-    /** Called when the activity is first created. */
-	// Global Constant
+    // Global Constant
 	public static final boolean DEBUG_MODE = true;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+        
+        // Setup Google Analytics
+        GoogleAnalyticsTracker.getInstance().start("UA-19512059-3", 10, this);
+        TelephonyManager phone = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+        GoogleAnalytics.startTrack(GANAction.GANActionAppOnCreate, "XD", true, phone.getDeviceId());
+        phone = null;
 
         Resources res = getResources(); // Resource object to get Drawables
         TabHost tabHost = getTabHost();  // The activity TabHost
@@ -51,7 +61,6 @@ public class mgov extends TabActivity {
         intent = new Intent().setClass(this, MyCase.class);
         spec = tabHost.newTabSpec("myCaseTab").setIndicator(res.getString(R.string.tabName_myCase), res.getDrawable(R.drawable.ic_tab_mycase)).setContent(intent);
         tabHost.addTab(spec);
-        intent = null;
 
         // Add QueryCase Tab
         intent = new Intent().setClass(this, Query.class);
@@ -61,4 +70,10 @@ public class mgov extends TabActivity {
         
         tabHost.setCurrentTab(0);
     }
+
+	@Override
+	protected void onDestroy() {
+		GoogleAnalyticsTracker.getInstance().stop();
+		super.onDestroy();
+	}
 }
