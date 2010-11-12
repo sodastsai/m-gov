@@ -157,7 +157,7 @@ public class CaseViewer extends MapActivity implements Runnable {
 		mapOverlay.addOverlayItem(overlayItem);
 		mapView.getOverlays().add(mapOverlay);
 		mapView.getController().animateTo(queryResult.getGeoPoint());
-		mapView.getController().setZoom(16);
+		mapView.getController().setZoom(17);
 	}
 	
 	private Drawable LoadImageFromWebOperations(String url)	{
