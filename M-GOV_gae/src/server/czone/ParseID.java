@@ -24,12 +24,14 @@ public class ParseID {
 	
 	public static String go(String cmd) {
 		try {
-			strurl=String.format("http://www.czone2.tcg.gov.tw/tp88-1/sys/query_memo_a.cfm?h_id=%s",cmd);
+			strurl=String.format("http://www.czone2.tcg.gov.tw/GMaps/desc.cfm?sn=%s",cmd);
 			CookiesInURL urlcon = new CookiesInURL (strurl); 
 
-			String res="",res2;
-			res = net.ReadUrl.process(urlcon.connection,"big5");
+			String res,res2;
+			res = net.ReadUrl.process(urlcon.connection,"utf-8");
 			System.out.println(res);
+
+			res2= net.HtmlFilter.praseCoordinates(res);
 			res = HtmlFilter.parseHTMLStr(res);
 			res = HtmlFilter.delSpace(res);
 			
@@ -38,9 +40,8 @@ public class ParseID {
 			if(res.contains("資料已刪除"))
 				return "資料已刪除";			
 			if(res.contains("查報案件")==false)
-				return "未知錯誤";
+				return "未知錯誤" + res;
 			
-			res2=getCoordinates();
 			storeResult(res,res2);
 			return res + "\n" + res2;
 
@@ -51,18 +52,6 @@ public class ParseID {
 		}
 	}
 
-	private static String getCoordinates() throws IOException
-	{
-		String str = strurl.replace("query_memo_a.cfm","show_map.cfm");
-		CookiesInURL cookurl = new CookiesInURL(str);
-
-		String r = "";
-		r = net.ReadUrl.process(cookurl.connection,"big5");
-		r = net.HtmlFilter.praseCoordinates(r);
-			
-		return r;
-	}
-	
 	private static void storeResult(String res,String res2) {
 		String line[] = res.split("\n");
 		String images[] =null;

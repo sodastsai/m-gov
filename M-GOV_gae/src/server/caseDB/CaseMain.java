@@ -74,7 +74,8 @@ public class CaseMain {
 		    @FormParam("coordx") String coordx,
 		    @FormParam("coordy") String coordy,
 		    @FormParam("address") String address,
-		    @FormParam("send") String send) {
+		    @FormParam("send") String send,
+		    @FormParam("debug") String debug) {
 		
 		GAENodeCase node = null;
 		try{
@@ -106,10 +107,11 @@ public class CaseMain {
 		
 		if("send".equals(send))
 		{
-//	  		return ReadUrlByPOST.doSend(node);
-
 			System.out.println("send to czone");
-			String key = ReadUrlByPOST.doSend(node);
+			if("debug".equals(debug))
+				return ReadUrlByPOST.doSend(node,"debug");	
+
+			String key = ReadUrlByPOST.doSend(node,"");
 			System.out.println("key:" +key);
 			
 			if(key!=null && key.length()>1)
@@ -117,7 +119,6 @@ public class CaseMain {
 				ParseID.go(key, node.email);
 				node.setKey(key);
 			}
-
 		}
 		
 		GAEDataBase.store(node);

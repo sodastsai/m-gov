@@ -59,7 +59,7 @@ public class HtmlFilter {
 		if (matcher.find())
 			res = matcher.group();
 
-		matcher = Pattern.compile("http://.*?((JPG)|(jpg))", Pattern.DOTALL).matcher(res);
+		matcher = Pattern.compile("http://.*?((\\.JPG)|(\\.jpg)|(\\.1))", Pattern.DOTALL).matcher(res);
 		res = "案情補述相關照片：\n";
 
 		while (matcher.find())

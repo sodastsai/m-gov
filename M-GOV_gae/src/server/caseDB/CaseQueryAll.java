@@ -15,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import server.czone.GetID;
+
 public class CaseQueryAll {
 	
 	@SuppressWarnings("unchecked")
@@ -80,7 +82,14 @@ public class CaseQueryAll {
 		int index=0;
 		for (GAENodeCase ob : list){ 
 			if(index>=st && index<=ed)
-				array.put(ob.toJson());
+			{
+				try {
+					array.put(new JSONObject(GetID.query(ob.getKey())));
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 			index++;
 		}
 		

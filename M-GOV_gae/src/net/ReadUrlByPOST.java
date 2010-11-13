@@ -24,7 +24,7 @@ public class ReadUrlByPOST {
 	}
 	
 	//return key
-	public static String doSend(GAENodeCase node) {
+	public static String doSend(GAENodeCase node,String tag) {
 
 		HashMap<String, String> forms = createForm(node);
 		GAEDataBase.store(new GAENodeDebug("res","ReadUrlByPost"+"--"+"doSend"));
@@ -35,8 +35,6 @@ public class ReadUrlByPOST {
 			sendpost.setTextPatams(forms);
 			
 			GAEDataBase.store(new GAENodeDebug("forms",forms.toString()));
-
-//			return "done";
 
 			byte img[] = node.getImage(0);
 			if(img!=null)
@@ -51,6 +49,10 @@ public class ReadUrlByPOST {
 
 			GAEDataBase.store(new GAENodeDebug("res",res.substring(0,50)));
 			GAEDataBase.store(new GAENodeDebug("res-sno",sno));
+
+			if("debug".equals(tag)){
+				return forms+"\n\n"+res;
+			}
 			
 			System.out.println("sno: "+sno+"czone result:"+res);
 			return sno;
@@ -66,7 +68,7 @@ public class ReadUrlByPOST {
 	private static HashMap<String, String> createForm(GAENodeCase node) {
 		HashMap<String, String> forms = new HashMap<String, String>();
 
-		forms.put("sno","09908-521171");
+//		forms.put("sno","09908-521171");
 //		forms.put("unit" ,"區民政課");
 		forms.put("h_item1" ,TypeFilter.Id2Type1(node.typeid));
 		forms.put("h_item2" ,TypeFilter.Id2Type2(node.typeid));
@@ -103,7 +105,7 @@ public class ReadUrlByPOST {
 		if(node.photo!=null && node.photo.length!=0)
 		{
 			forms.put("pic_check" ,"1");
-			forms.put("h_pic" ,"1");
+			forms.put("h_pic" ,"png");
 		}
 		else
 		{
