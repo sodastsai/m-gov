@@ -475,6 +475,7 @@ public abstract class CaseSelector extends MapActivity {
 				else if (timeInterval < 2*86400*1000) cellContent.caseDate.setText("昨天");
 				else if (timeInterval < 3*86400*1000) cellContent.caseDate.setText("兩天前");
 				else cellContent.caseDate.setText(tmp[0]+"/"+tmp[1]+"/"+tmp[2]);
+				
 				cellContent.caseAddress.setText(caseSource[position].getform("address"));
 			}
 			return convertView;

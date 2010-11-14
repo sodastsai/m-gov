@@ -66,8 +66,6 @@ import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -147,7 +145,6 @@ public class AddCase extends MapActivity {
 		saveContentToPreferences();
 		super.onStop();
 	}
-	
 	
 	@Override
 	protected void onStart() {
@@ -428,7 +425,7 @@ public class AddCase extends MapActivity {
 	/**
 	 * When user select a picture, the picture could be deleted before posting this case.<br>
 	 * Thus, making a copy in m-GOV's private cache just as user selects picture.<br>
-	 * Calling this method will copies the image in originalUri and store it as "addcase_picture.jpg"
+	 * Calling this method will copies the image in originalUri and store it as "addcase_picture.png"
 	 * in cache. Returns the Uri representing the copy.
 	 * 
 	 * @param originalUri Uri of original picture 
@@ -439,22 +436,22 @@ public class AddCase extends MapActivity {
 	private Bitmap makeDuplicatePicture(Uri originalUri) throws IOException, URISyntaxException {
 		
 		File cacheDir = getCacheDir();	// get cache dir
-		File picture = new File(cacheDir.getAbsolutePath() + File.separator + "addcase_picture.jpg"); 	// new file 
+		File picture = new File(cacheDir.getAbsolutePath() + File.separator + "addcase_picture.png"); 	// new file 
 		
 		// check if the new-taking Image is too large 
-		ParcelFileDescriptor pdf = getContentResolver().openFileDescriptor(originalUri, "r");
-		if (pdf != null) {
-			Log.d(LOGTAG, "  originalUri file size = " + (pdf.getStatSize() / 1024)  + " KBs");
+		ParcelFileDescriptor pfd = getContentResolver().openFileDescriptor(originalUri, "r");
+		if (pfd != null) {
+			Log.d(LOGTAG, "  originalUri file size = " + (pfd.getStatSize() / 1024)  + " KBs");
 		}
 		
 		BitmapFactory.Options options = new BitmapFactory.Options();
-		if (pdf.getStatSize() < 500*1024) {
+		if (pfd.getStatSize() < 500*1024) {
 			// do nothing change with options
-		} else if (pdf.getStatSize() < 1*1024*1024) {
+		} else if (pfd.getStatSize() < 1*1024*1024) {
 			options.inSampleSize = 2;
-		} else if (pdf.getStatSize() < 4*1024*1024) {
+		} else if (pfd.getStatSize() < 4*1024*1024) {
 			options.inSampleSize = 4;
-		} else if (pdf.getStatSize() < 16*1024*1024) {
+		} else if (pfd.getStatSize() < 16*1024*1024) {
 			options.inSampleSize = 8;
 		} else {
 			options.inSampleSize = 16;	// not a good solution, to be fixed!!
@@ -561,10 +558,8 @@ public class AddCase extends MapActivity {
 		
 		submitFlag = true;
 		
-		if (!checkNetworkStatus(this)) {
-			showNoNetworkAlertDialog(this);
+		if (!mgov.checkNetworkStatus(this, true))
 			return;
-		}
 		
 		if (!checkType()) return;
 		if (!checkEmail()) return;
@@ -597,8 +592,8 @@ public class AddCase extends MapActivity {
 			newcase.addform("send", "send");
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("即將送出案件")
-			.setMessage("您確定要送出此案件到1999嗎？")
+		builder.setTitle("確定要送出案件?")
+			.setMessage("案件將送至台北市1999市容查報\n並於市政府網站留下案件記錄")
 			.setPositiveButton("確定", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -619,38 +614,6 @@ public class AddCase extends MapActivity {
 				public void onClick(DialogInterface dialog, int which) { dialog.dismiss(); }
 			})
 			.create().show();
-	}
-	
-	void showNoNetworkAlertDialog(Context context) {
-
-		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-		builder.setTitle("沒有網路連線")
-				.setMessage("此功能需要雲端服務，請開啟網路服務以使用此功能。")
-				.setCancelable(false)
-				.setPositiveButton("設定網路",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								Intent intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
-								startActivity(intent);
-							}
-						})
-				.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.cancel();
-					}
-				}).create().show();
-
-	}
-	
-
-	private boolean checkNetworkStatus(Context context) {
-		ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = manager.getActiveNetworkInfo();
-		if (networkInfo == null || !networkInfo.isAvailable()) {
-			return false;
-		}
-		return true;
 	}
 	
 	private boolean checkEmail() {

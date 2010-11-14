@@ -25,10 +25,14 @@ package tw.edu.ntu.mgov;
 
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 
+import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.widget.TabHost;
@@ -72,8 +76,43 @@ public class mgov extends TabActivity {
     }
 
 	@Override
+	protected void onResume() {
+		super.onResume();
+		checkNetworkStatus(this, true);
+	}
+
+	@Override
 	protected void onDestroy() {
 		GoogleAnalyticsTracker.getInstance().stop();
 		super.onDestroy();
+	}
+	
+	static public boolean checkNetworkStatus(final Context context, boolean alertDialog) {
+		ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+		if (networkInfo == null || !networkInfo.isAvailable()) {
+			if (alertDialog) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				builder.setTitle("沒有網路連線")
+						.setMessage("此功能需要雲端服務，請開啟網路服務以使用此功能。")
+						.setCancelable(false)
+						.setPositiveButton("設定網路",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog, int id) {
+										Intent intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
+										context.startActivity(intent);
+									}
+								})
+						.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.cancel();
+							}
+						}).create().show();
+			}
+			return false;
+		}
+		
+		return true;
 	}
 }
