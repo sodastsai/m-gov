@@ -5,5 +5,12 @@
     <description>ping server every 1 minutes</description>
     <schedule>every 1 minutes</schedule>
   </cron>
+
+  <cron>
+    <url>/update_status</url>
+    <description>ping server every 1 minutes</description>
+    <schedule>every 12 hours</schedule>
+  </cron>
+
 </cronentries>
 
