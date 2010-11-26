@@ -34,7 +34,6 @@ import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.widget.TabHost;
 
 import tw.edu.ntu.mgov.GoogleAnalytics.GANAction;
@@ -52,10 +51,8 @@ public class mgov extends TabActivity {
         
         // Setup Google Analytics
         GoogleAnalyticsTracker.getInstance().start("UA-19512059-3", 10, this);
-        TelephonyManager phone = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-        GoogleAnalytics.startTrack(GANAction.GANActionAppOnCreate, "XD", true, phone.getDeviceId());
-        phone = null;
-
+        GoogleAnalytics.startTrack(GANAction.GANActionAppOnCreate, null, false, null);
+        
         Resources res = getResources(); // Resource object to get Drawables
         TabHost tabHost = getTabHost();  // The activity TabHost
         TabHost.TabSpec spec;  // Reusable TabSpec for each tab
@@ -78,11 +75,25 @@ public class mgov extends TabActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		checkNetworkStatus(this, true);
+		if(!mgov.DEBUG_MODE)
+			checkNetworkStatus(this, true);
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+		GoogleAnalytics.startTrack(GANAction.GANActionAppOnStop, null, false, null);
+	}
+
+	@Override
+	protected void onStart() {
+		GoogleAnalytics.startTrack(GANAction.GANActionAppOnStart, null, false, null);
+		super.onStart();
 	}
 
 	@Override
 	protected void onDestroy() {
+		GoogleAnalytics.startTrack(GANAction.GANActionAppOnDestroy, null, false, null);
 		GoogleAnalyticsTracker.getInstance().stop();
 		super.onDestroy();
 	}

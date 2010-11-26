@@ -25,6 +25,7 @@
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,7 +35,9 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import tw.edu.ntu.mgov.CaseSelector;
+import tw.edu.ntu.mgov.GoogleAnalytics;
 import tw.edu.ntu.mgov.R;
+import tw.edu.ntu.mgov.GoogleAnalytics.GANAction;
 import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryCondtionType;
 import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryDatabase;
 import tw.edu.ntu.mgov.typeselector.QidToDescription;
@@ -137,6 +140,13 @@ public class Query extends CaseSelector {
 		nextButton=null;
 		prevButton=null;
 	}
+	
+	@Override
+	protected void onResume() {
+		currentLocationPoint = mapMode.getMapCenter();
+		super.onResume();
+	}
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == REQUEST_CODE_typeSelector) {
@@ -158,14 +168,17 @@ public class Query extends CaseSelector {
 	 * @category Datasource Method
 	 */
 	protected boolean setQGAECondition() {
-		qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, mapMode.getMapCenter(), mapMode.getLatitudeSpan(), mapMode.getLongitudeSpan());
+		qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, currentLocationPoint, currentLatSpan, currentLonSpan);
 		if (typeId!=0)
 			qGAE.addQuery(GAEQueryCondtionType.GAEQueryByType, Integer.toString(typeId));
 		return true;
 	}
+	
 	protected void qGAEReturnNull() {
 		currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
+		sendQueryGAN();
 	}
+	
 	protected void qGAEReturnData() {
 		// Set Label
 		int rangeEndToShow;
@@ -173,7 +186,10 @@ public class Query extends CaseSelector {
 		else rangeEndToShow = rangeEnd+1;
 		if (sourceLength==0) currentRangeLabel.setText(getResources().getString(R.string.query_currentRangeLabel_emptyCase));
 		else currentRangeLabel.setText(Integer.toString(rangeStart+1)+"-"+Integer.toString(rangeEndToShow)+" 筆，共 "+Integer.toString(sourceLength)+" 筆");
+		
+		sendQueryGAN();
 	}
+	
 	/**
 	 * @category Menu
 	 */
@@ -203,14 +219,38 @@ public class Query extends CaseSelector {
 			rangeStart = 0;
 			startFetchDataSource();
 			currentConditionLabel.setText(getResources().getString(R.string.query_currentConditionLabel_alltype));
-			
 		}
 	}
+	
+	@Override
+	protected void changCaseSelectorMode(CaseSelectorMode targetMode) {
+		super.changCaseSelectorMode(targetMode);
+		if (currentMode == CaseSelectorMode.CaseSelectorMapMode)
+			GoogleAnalytics.startTrack(GANAction.GANActionQueryCaseMapMode, null, false, null);
+		else
+			GoogleAnalytics.startTrack(GANAction.GANActionQueryCaseListMode, null, false, null);
+	}
+	
+	private void sendQueryGAN() {
+		String labelString = "center=(lat:"+Float.toString(((float)mapMode.getMapCenter().getLatitudeE6()/(float)(10^6)))+
+							",lon:"+Float.toString(((float)mapMode.getMapCenter().getLongitudeE6()/(float)(10^6)))+
+							") span=(lat:"+Float.toString((float)mapMode.getLatitudeSpan()/(float)(10^6))+
+							",lon:"+Float.toString((float)mapMode.getLatitudeSpan()/(float)(10^6))+
+							") range=("+rangeStart+","+rangeEnd+")";
+		Log.d("misc", Integer.toString(typeId));
+		if (typeId==0) {
+			// All
+		} else {
+			// Type filtered
+		}
+	}
+			
 	/**
 	 * @category Map setting
 	 */
 	@Override
 	protected void mapChangeRegionOrZoom() {
+		super.mapChangeRegionOrZoom();
 		// Should Reset Data range
 		rangeEnd = 9;
 		rangeStart = 0;

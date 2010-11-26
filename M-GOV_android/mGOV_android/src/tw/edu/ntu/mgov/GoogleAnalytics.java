@@ -35,12 +35,46 @@ import android.util.Log;
 public class GoogleAnalytics {
 	
 	private static final String AppLifecycle = "AppLifecycle";
+	private static final String CaseAdder = "CaseAdderEvent";
+	private static final String MyCase = "MyCaseEvent";
+	private static final String QueryCase = "QueryCaseEvent";
+	private static final String Option = "OptionEvent";
+	private static final String AppTab = "AppTabEvent";
 	
 	public static enum GANAction {
+		// App Lifecycle
 		GANActionAppOnCreate,
 		GANActionAppOnStop,
 		GANActionAppOnStart,
-		GANActionAppOnDestroy
+		GANActionAppOnDestroy,
+		// App Tab Event
+		GANActionAppTabIsMyCase,
+		GANActionAppTabIsQueryCase,
+		GANActionAppTabIsOption,
+		// Case Adder event
+		GANActionAddCaseSuccess,
+		GANActionAddCaseFailed,
+		GANActionAddCaseWithName,
+		GANActionAddCaseWithDescription,
+		GANActionAddCaseWithPhoto,
+		GANActionAddCaseWithoutPhoto,
+		GANActionAddCaswWithType,
+		GANActionAddCaseLocationSelectorChanged,
+		// My Case Event
+		GANActionMyCaseFilterAll,
+		GANActionMyCaseFilterOK,
+		GANActionMyCaseFilterUnknown,
+		GANActionMyCaseFilterFailed,
+		GANActionMyCaseMapMode,
+		GANActionMyCaseListMode,
+		// Query Case Event
+		GANActionQueryCaseMapMode,
+		GANActionQueryCaseListMode,
+		GANActionQueryCaseAllType,
+		GANActionQueryCaseWithType,
+		// Option Event
+		GANActionOptionUserChangeEmail,
+		GANActionOptionUserChangeName
 	}
 	
 	static public void startTrack(GANAction action, String label, boolean timeStamp, String udid) {
@@ -59,7 +93,77 @@ public class GoogleAnalytics {
 		} else if (action==GANAction.GANActionAppOnCreate) {
 			eventString = AppLifecycle;
 			actionString = "AppDidStartup";
+		} else if (action==GANAction.GANActionAddCaseSuccess) {
+			eventString = CaseAdder;
+			actionString = "AddCaseScuess";
+		} else if (action==GANAction.GANActionAddCaseFailed) {
+			eventString = CaseAdder;
+			actionString = "AddCaseFailed";
+		} else if (action==GANAction.GANActionAddCaseWithPhoto) {
+			eventString = CaseAdder;
+			actionString= "AddCaseWithPhoto";
+		} else if (action==GANAction.GANActionAddCaseWithoutPhoto) {
+			eventString = CaseAdder;
+			actionString= "AddCaseWithoutPhoto";
+		} else if (action==GANAction.GANActionAddCaseWithName) {
+			eventString = CaseAdder;
+			actionString = "AddCaseWithName";
+		} else if (action==GANAction.GANActionAddCaseWithDescription) {
+			eventString = CaseAdder;
+			actionString = "AddCaseWithDescription";
+		} else if (action==GANAction.GANActionAddCaswWithType) {
+			eventString = CaseAdder;
+			actionString = "AddCaseWithType";
+		} else if (action==GANAction.GANActionAddCaseLocationSelectorChanged) {
+			eventString = CaseAdder;
+			actionString = "AddCaseWithLocationSelectorChanged";
+		} else if (action==GANAction.GANActionMyCaseFilterAll) {
+			eventString = MyCase;
+			actionString = "MyCaseWithAllFilter";
+		} else if (action==GANAction.GANActionMyCaseFilterOK) {
+			eventString = MyCase;
+			actionString = "MyCaseWithOKFilter";
+		} else if (action==GANAction.GANActionMyCaseFilterUnknown) {
+			eventString = MyCase;
+			actionString = "MyCaseWithUnknownFilter";
+		} else if (action==GANAction.GANActionMyCaseFilterFailed) {
+			eventString = MyCase;
+			actionString = "MyCaseWithFailedFilter";
+		} else if (action==GANAction.GANActionMyCaseListMode) {
+			eventString = MyCase;
+			actionString = "MyCaseWithListMode";
+		} else if (action==GANAction.GANActionMyCaseMapMode) {
+			eventString = MyCase;
+			actionString = "MyCaseWithMapMode";
+		} else if (action==GANAction.GANActionQueryCaseMapMode) {
+			eventString = QueryCase;
+			actionString = "QueryCaseWithMapMode";
+		} else if (action==GANAction.GANActionQueryCaseListMode) {
+			eventString = QueryCase;
+			actionString = "QueryCaseWithListMode";
+		} else if (action==GANAction.GANActionQueryCaseAllType) {
+			eventString = QueryCase;
+			actionString = "QueryCaseWithAllType";
+		} else if (action==GANAction.GANActionQueryCaseWithType) {
+			eventString = QueryCase;
+			actionString = "QueryCaseWithType";
+		} else if (action==GANAction.GANActionOptionUserChangeEmail) {
+			eventString = Option;
+			actionString = "UserChangeEmail";
+		} else if (action==GANAction.GANActionOptionUserChangeName) {
+			eventString = Option;
+			actionString = "UserChangeName";
+		} else if (action==GANAction.GANActionAppTabIsMyCase) {
+			eventString = AppTab;
+			actionString = "TabMyCase";
+		} else if (action==GANAction.GANActionAppTabIsQueryCase) {
+			eventString = AppTab;
+			actionString = "TabQueryCase";
+		} else if (action==GANAction.GANActionAppTabIsOption) {
+			eventString = AppTab;
+			actionString = "TabOption";
 		}
+		
 		
 		if (eventString=="" || actionString=="")
 			return;

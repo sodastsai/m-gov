@@ -169,12 +169,6 @@ public class MyCase extends CaseSelector {
 		}
 	}
 	/**
-	 * @category Map
-	 */
-	@Override
-	protected void mapChangeRegionOrZoom() {
-	}
-	/**
 	 * @category Datasource Method
 	 */
 	protected boolean setQGAECondition() {

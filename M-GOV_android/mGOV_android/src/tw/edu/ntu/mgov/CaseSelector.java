@@ -85,6 +85,7 @@ public abstract class CaseSelector extends MapActivity {
 	protected RelativeLayout infoBar;
 	protected ListView listMode;
 	protected MapView mapMode;
+	// Map Query
 	protected GeoPoint currentLocationPoint;
 	protected int currentLatSpan;
 	protected int currentLonSpan;
@@ -138,9 +139,6 @@ public abstract class CaseSelector extends MapActivity {
 					if (centerChanged||spanChanged) {
 						// Don't disturb user, so don't always not reload. Only reload while change is too big
 						mapChangeRegionOrZoom();
-						currentLocationPoint=mapMode.getMapCenter();
-						currentLatSpan = mapMode.getLatitudeSpan();
-						currentLonSpan = mapMode.getLongitudeSpan();
 					}
 				}
 				try {
@@ -177,7 +175,6 @@ public abstract class CaseSelector extends MapActivity {
             	mapChangeRegionOrZoom();
             }
 		});
-		currentLocationPoint = mapMode.getMapCenter();
 		
 		// Get Current User Location
 		LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
@@ -204,6 +201,9 @@ public abstract class CaseSelector extends MapActivity {
 		}
 		locationManager.removeUpdates(locationListener);
 		locationListener = null;
+		currentLocationPoint = mapMode.getMapCenter();
+		currentLatSpan = 5873;
+		currentLonSpan = 6436;
 		
 		// Set Overlay
 		okOverlay = new PopoutItemizedOverlay(getResources().getDrawable(R.drawable.okspot), mapMode);
@@ -486,7 +486,13 @@ public abstract class CaseSelector extends MapActivity {
 	 * @category MapActivity and Overlay
 	 * 
 	 */
-	protected abstract void mapChangeRegionOrZoom();
+	protected void mapChangeRegionOrZoom() {
+		currentLocationPoint = mapMode.getMapCenter();
+		if (mapMode.getLatitudeSpan()!=0)
+			currentLatSpan = mapMode.getLatitudeSpan();
+		if (mapMode.getLongitudeSpan()!=0)
+			currentLonSpan = mapMode.getLongitudeSpan();
+	}
 	@Override
 	protected boolean isRouteDisplayed() {
 		// We do not use route service, so return false.

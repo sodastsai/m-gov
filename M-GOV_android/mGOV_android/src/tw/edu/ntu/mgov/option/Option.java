@@ -23,8 +23,10 @@
  */
 package tw.edu.ntu.mgov.option;
 
+import tw.edu.ntu.mgov.GoogleAnalytics;
 import tw.edu.ntu.mgov.R;
 import tw.edu.ntu.mgov.mgov;
+import tw.edu.ntu.mgov.GoogleAnalytics.GANAction;
 import tw.edu.ntu.mgov.addcase.AddCase;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -35,6 +37,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.telephony.TelephonyManager;
 
 public class Option extends PreferenceActivity {
 
@@ -82,6 +85,12 @@ public class Option extends PreferenceActivity {
 					// "Cancel" pressed
 				} else {
 					// "OK" pressed
+					// Get udid
+					TelephonyManager phoneInfo = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+					String udid = phoneInfo.getDeviceId();
+					if (udid==null)
+						udid = "Android Emulator?";
+					
 					if (this.getEditText().getEditableText().length()==0) {
 						// Save Result
 						this.setSummary(this.getEditText().getEditableText());
@@ -90,12 +99,14 @@ public class Option extends PreferenceActivity {
 						AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
 						builder.setTitle(getResources().getString(R.string.option_clearEmail_title)).setMessage(getResources().getString(R.string.option_clearEmail_msg)).setPositiveButton("好", null).show();
 						builder = null;
+						GoogleAnalytics.startTrack(GANAction.GANActionOptionUserChangeEmail, "Cleared", false, udid);
 					} else {
 						// Check Email Format
 						if (AddCase.checkEmailFormat(this.getEditText().getEditableText().toString())) {
 							// Save Result
 							this.setSummary(this.getEditText().getEditableText());
 							this.setText(this.getEditText().getEditableText().toString());
+							GoogleAnalytics.startTrack(GANAction.GANActionOptionUserChangeEmail, null, false, udid);
 						} else {
 							// Error Format
 							AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
@@ -124,6 +135,16 @@ public class Option extends PreferenceActivity {
         userRealName.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
 			@Override
 			public boolean onPreferenceChange(Preference preference, Object newValue) {
+				// Get udid
+				TelephonyManager phoneInfo = (TelephonyManager)getSystemService(TELEPHONY_SERVICE);
+				String udid = phoneInfo.getDeviceId();
+				if (udid==null)
+					udid = "Android Emulator?";
+				
+				if (newValue.equals(""))	
+					GoogleAnalytics.startTrack(GANAction.GANActionOptionUserChangeName, "Cleared", false, udid);
+				else
+					GoogleAnalytics.startTrack(GANAction.GANActionOptionUserChangeName, null, false, udid);
 				preference.setSummary((String)newValue);
 				return true;
 			}

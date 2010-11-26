@@ -672,7 +672,7 @@ public class AddCase extends MapActivity {
 		if (typeId < 0) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			builder.setTitle("尚未選擇案件種類")
-				.setMessage("案件種類為必填項目，麻煩請選擇案件種類。")
+				.setMessage("案件種類為必填項目，請選擇案件種類後再送出。")
 				.setPositiveButton("好", new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
