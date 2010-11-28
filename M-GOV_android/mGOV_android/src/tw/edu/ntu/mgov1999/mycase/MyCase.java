@@ -198,6 +198,7 @@ public class MyCase extends CaseSelector {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode==REQUEST_CODE_OPTION) {
 			GoogleAnalytics.startTrack(GANAction.GANActionAppTabIsMyCase, null, false, null);
+			startFetchDataSource();
 		}
 		if (requestCode==REQUEST_CODE_ADDCASE && resultCode==AddCase.RESULT_CODE_SUMBITTED) {
 			startFetchDataSource();
