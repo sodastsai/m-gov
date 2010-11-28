@@ -35,7 +35,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.RelativeLayout.LayoutParams;
 import tw.edu.ntu.mgov.CaseSelector;
+import tw.edu.ntu.mgov.GoogleAnalytics;
 import tw.edu.ntu.mgov.R;
+import tw.edu.ntu.mgov.mgov;
+import tw.edu.ntu.mgov.GoogleAnalytics.GANAction;
 import tw.edu.ntu.mgov.addcase.AddCase;
 import tw.edu.ntu.mgov.gae.GAEQuery;
 import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryCondtionType;
@@ -44,6 +47,7 @@ import tw.edu.ntu.mgov.option.Option;
 
 public class MyCase extends CaseSelector {
 	protected static final int FILTER_TITLE = 10240;
+	protected static final int REQUEST_CODE_ADDCASE = 10246;
 	// Menu
 	protected static final int MENU_AddCase = Menu.FIRST+3;
 	protected static final int MENU_SetFilter = Menu.FIRST+4;
@@ -55,6 +59,8 @@ public class MyCase extends CaseSelector {
 	// UI
 	TextView filterState;
 	TextView filterTitle;
+	// Time Difference
+	long onPauseTime;
 	/**
 	 * @category Life cycle
 	 */
@@ -109,7 +115,22 @@ public class MyCase extends CaseSelector {
 	protected void onResume() {
 		statusId=-1;
 		filterTitle.setText(userPreferences.getString(Option.KEY_USER_EMAIL, ""));
+		if (mgov.firstTimeMyCase) {
+			// First Startup
+			startFetchDataSource();
+			mgov.firstTimeMyCase = false;
+		} else {
+			// Reload between 10 mins.
+			if ((System.currentTimeMillis()-onPauseTime) > 10*60*1000)
+				startFetchDataSource();
+		}
 		super.onResume();
+	}
+	
+	@Override
+	protected void onPause() {
+		onPauseTime = System.currentTimeMillis();
+		super.onPause();
 	}
 	/**
 	 * @category Menu
@@ -130,7 +151,7 @@ public class MyCase extends CaseSelector {
 	public void menuActionToTake(MenuItem item) {
 		if	(item.getItemId()==MENU_AddCase) {
 			Intent caseAdderIntent = new Intent().setClass(this, AddCase.class);
-			startActivity(caseAdderIntent);
+			startActivityForResult(caseAdderIntent, REQUEST_CODE_ADDCASE);
 		} else if (item.getItemId()==MENU_SetFilter) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(selfContext);
 			
@@ -145,21 +166,25 @@ public class MyCase extends CaseSelector {
 						case 0:
 							statusId = -1;
 							filterState.setText(filterType[0]);
+							GoogleAnalytics.startTrack(GANAction.GANActionMyCaseFilterAll, null, false, null);
 							startFetchDataSource();
 							break;
 						case 1:
 							statusId = 1;
 							filterState.setText(filterType[1]);
+							GoogleAnalytics.startTrack(GANAction.GANActionMyCaseFilterOK, null, false, null);
 							startFetchDataSource();
 							break;
 						case 2:
 							statusId = 0;
 							filterState.setText(filterType[2]);
+							GoogleAnalytics.startTrack(GANAction.GANActionMyCaseFilterUnknown, null, false, null);
 							startFetchDataSource();
 							break;
 						case 3:
 							statusId = 2;
 							filterState.setText(filterType[3]);
+							GoogleAnalytics.startTrack(GANAction.GANActionMyCaseFilterFailed, null, false, null);
 							startFetchDataSource();
 							break;
 					}
@@ -168,6 +193,27 @@ public class MyCase extends CaseSelector {
 			builder.create().show();
 		}
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode==REQUEST_CODE_OPTION) {
+			GoogleAnalytics.startTrack(GANAction.GANActionAppTabIsMyCase, null, false, null);
+		}
+		if (requestCode==REQUEST_CODE_ADDCASE && resultCode==AddCase.RESULT_CODE_SUMBITTED) {
+			startFetchDataSource();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+	
+	@Override
+	protected void changCaseSelectorMode(CaseSelectorMode targetMode) {
+		super.changCaseSelectorMode(targetMode);
+		if (currentMode == CaseSelectorMode.CaseSelectorMapMode)
+			GoogleAnalytics.startTrack(GANAction.GANActionMyCaseMapMode, null, false, null);
+		else
+			GoogleAnalytics.startTrack(GANAction.GANActionMyCaseListMode, null, false, null);
+	}
+	
 	/**
 	 * @category Datasource Method
 	 */

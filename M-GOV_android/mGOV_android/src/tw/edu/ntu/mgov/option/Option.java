@@ -54,6 +54,12 @@ public class Option extends PreferenceActivity {
 		setPreferenceScreen(createPreferenceHierarchy());
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		GoogleAnalytics.startTrack(GANAction.GANActionAppTabIsOption, null, false, null);
+	}
+	
 	/**
 	 * create the content View of this Activity.
 	 * 
@@ -178,5 +184,4 @@ public class Option extends PreferenceActivity {
 		
         return root;
 	}
-	
 }

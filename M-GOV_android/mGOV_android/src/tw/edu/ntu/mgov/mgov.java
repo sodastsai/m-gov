@@ -35,23 +35,32 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.widget.TabHost;
+import android.widget.TabHost.OnTabChangeListener;
 
 import tw.edu.ntu.mgov.GoogleAnalytics.GANAction;
 import tw.edu.ntu.mgov.mycase.MyCase;
 import tw.edu.ntu.mgov.query.Query;
 
 public class mgov extends TabActivity {
+	private static final String myCaseTabID = "myCaseTab";
+	private static final String queryCaseTabID = "queryCaseTab";
     // Global Constant
 	public static final boolean DEBUG_MODE = true;
+	public static boolean firstTimeMyCase;
+	public static boolean firstTimeQueryCase;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         
+        // Initialize global variable
+        firstTimeMyCase = true;
+    	firstTimeQueryCase = true;
+        
         // Setup Google Analytics
-        GoogleAnalyticsTracker.getInstance().start("UA-19512059-3", 10, this);
-        GoogleAnalytics.startTrack(GANAction.GANActionAppOnCreate, null, false, null);
+    	GoogleAnalyticsTracker.getInstance().start("UA-19512059-3", 10, this);
+    	GoogleAnalytics.startTrack(GANAction.GANActionAppOnCreate, null, false, null);
         
         Resources res = getResources(); // Resource object to get Drawables
         TabHost tabHost = getTabHost();  // The activity TabHost
@@ -60,14 +69,26 @@ public class mgov extends TabActivity {
 
         // Add MyCase Tab
         intent = new Intent().setClass(this, MyCase.class);
-        spec = tabHost.newTabSpec("myCaseTab").setIndicator(res.getString(R.string.tabName_myCase), res.getDrawable(R.drawable.ic_tab_mycase)).setContent(intent);
+        spec = tabHost.newTabSpec(myCaseTabID).setIndicator(res.getString(R.string.tabName_myCase), res.getDrawable(R.drawable.ic_tab_mycase)).setContent(intent);
         tabHost.addTab(spec);
 
         // Add QueryCase Tab
         intent = new Intent().setClass(this, Query.class);
-        spec = tabHost.newTabSpec("queryCaseTab").setIndicator(res.getString(R.string.tabName_query), res.getDrawable(R.drawable.ic_tab_query)).setContent(intent);
+        spec = tabHost.newTabSpec(queryCaseTabID).setIndicator(res.getString(R.string.tabName_query), res.getDrawable(R.drawable.ic_tab_query)).setContent(intent);
         tabHost.addTab(spec);
         intent = null;
+        
+        // Add Tab Change Listener
+        tabHost.setOnTabChangedListener(new OnTabChangeListener() {
+			@Override
+			public void onTabChanged(String tabID) {
+				if (tabID.equals(myCaseTabID)) {
+					GoogleAnalytics.startTrack(GANAction.GANActionAppTabIsMyCase, null, false, null);
+				} else if (tabID.equals(queryCaseTabID)) {
+					GoogleAnalytics.startTrack(GANAction.GANActionAppTabIsQueryCase, null, false, null);
+				}
+			}
+		});
         
         tabHost.setCurrentTab(0);
     }
@@ -77,18 +98,6 @@ public class mgov extends TabActivity {
 		super.onResume();
 		if(!mgov.DEBUG_MODE)
 			checkNetworkStatus(this, true);
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
-		GoogleAnalytics.startTrack(GANAction.GANActionAppOnStop, null, false, null);
-	}
-
-	@Override
-	protected void onStart() {
-		GoogleAnalytics.startTrack(GANAction.GANActionAppOnStart, null, false, null);
-		super.onStart();
 	}
 
 	@Override

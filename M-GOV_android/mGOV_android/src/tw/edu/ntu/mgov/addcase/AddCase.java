@@ -38,14 +38,17 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
 import com.google.android.maps.OverlayItem;
 
+import tw.edu.ntu.mgov.GoogleAnalytics;
 import tw.edu.ntu.mgov.R;
 import tw.edu.ntu.mgov.mgov;
+import tw.edu.ntu.mgov.GoogleAnalytics.GANAction;
 import tw.edu.ntu.mgov.gae.GAECase;
 import tw.edu.ntu.mgov.gae.GAEQuery;
 import tw.edu.ntu.mgov.gae.GAESubmit;
@@ -89,12 +92,16 @@ public class AddCase extends MapActivity {
 	private static final int REQUEST_CODE_TAKE_PICTURE = 376124;
 	private static final int REQUEST_CODE_SELECT_PICTURE = 376125;
 	private static final int REQUEST_CODE_SELECT_LOCATION = 376126;
+	public static final int RESULT_CODE_SUMBITTED = 10247;
 	
 	// vars for Case Attributes
 	private int typeId = -1;
 	private GeoPoint locationGeoPoint;
 	private String address;
 	private Uri pictureUri;
+	private boolean chagnedLocationPoint = false;
+	private int changedLocationLATE6Delta;
+	private int changedLocationLONE6Delta;
 	
 	// Views 
 	private ImageView pictureImageView;
@@ -159,9 +166,8 @@ public class AddCase extends MapActivity {
 		SharedPreferences.Editor editor = preferences.edit();
 		
 		editor.putBoolean(SP_HAVE_UNFINISHED_EDIT, true);
-		if (pictureUri != null) {
+		if (pictureUri != null)
 			editor.putString(SP_PICTURE_URI, pictureUri.toString());
-		}
 		editor.putInt(SP_LOCATION_LONE6, locationGeoPoint.getLongitudeE6());
 		editor.putInt(SP_LOCATION_LATE6, locationGeoPoint.getLatitudeE6());
 		editor.putString(SP_LOCATION_ADDRESS, address);
@@ -404,6 +410,11 @@ public class AddCase extends MapActivity {
 	 */
 	private void resetContent() {
 		
+		// Clear LocatiobSelector
+		chagnedLocationPoint = false;
+		changedLocationLATE6Delta = 0;
+		changedLocationLONE6Delta = 0;
+		
 		// handle sharedPreference
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.clear();
@@ -602,10 +613,13 @@ public class AddCase extends MapActivity {
 						public void run() {
 							new GAESubmit(newcase, AddCase.this).doSubmit();
 							Toast.makeText(AddCase.this, "案件已送出。", Toast.LENGTH_LONG).show();
+							sendGoogleAnaylticsInformation(true);
 							resetContent();
 						}
 					});
 					submitThread.run();
+					// Go back to mycase
+					setResult(RESULT_CODE_SUMBITTED);
 					finish();					
 				}
 			})
@@ -767,11 +781,15 @@ public class AddCase extends MapActivity {
 		case REQUEST_CODE_SELECT_LOCATION:
 			if (resultCode == Activity.RESULT_OK) {
 				Bundle bundle = data.getExtras();
+				
+				chagnedLocationPoint = bundle.getBoolean(SelectLocationMap.BUNDLE_STATUS, false);
+				changedLocationLATE6Delta = bundle.getInt(SelectLocationMap.BUNDLE_LATE6_DELTA, 0);
+				changedLocationLONE6Delta = bundle.getInt(SelectLocationMap.BUNDLE_LONE6_DELTA, 0);
+				
 				int latitudeE6  = bundle.getInt(SelectLocationMap.BUNDLE_LATE6, -1);
 				int longitudeE6 = bundle.getInt(SelectLocationMap.BUNDLE_LONE6, -1);
 				
 				if (latitudeE6 != -1 && longitudeE6 != -1) {
-
 					// save the result onto sharePreferences, to be display in onStart() 
 					SharedPreferences.Editor editor = preferences.edit();
 					editor.putInt(SP_LOCATION_LATE6, latitudeE6);
@@ -786,6 +804,44 @@ public class AddCase extends MapActivity {
 		default:
 			super.onActivityResult(requestCode, resultCode, data);
 		}
+	}
+	
+	private void sendGoogleAnaylticsInformation(boolean submitResult) {
+		GoogleAnalyticsTracker.getInstance().start("UA-19512059-3", 10, this);
+        
+		String statusLabel;
+		
+		if (submitResult) {
+			GoogleAnalytics.startTrack(GANAction.GANActionAddCaseSuccess, null, false, null);
+			statusLabel = "Success Submit";
+		} else {
+			GoogleAnalytics.startTrack(GANAction.GANActionAddCaseFailed, null, false, null);
+			statusLabel = "Failed Submit";
+		}
+		
+		// Will User take a photo? And will take photo cause a fail submit?
+		if (pictureUri!=null)
+			GoogleAnalytics.startTrack(GANAction.GANActionAddCaseWithPhoto, statusLabel, false, null);
+		else 
+			GoogleAnalytics.startTrack(GANAction.GANActionAddCaseWithoutPhoto, statusLabel, false, null);
+		
+		// Will User change their location? Or, will GPS always give user correct location?
+		if (chagnedLocationPoint && submitResult) {
+			String labelString = "Delta=(lat:"+Float.toString((float)changedLocationLATE6Delta/(float)Math.pow(10, 6))+",lon:"+Float.toString((float)changedLocationLONE6Delta/(float)Math.pow(10, 6))+")";
+			GoogleAnalytics.startTrack(GANAction.GANActionAddCaseLocationSelectorChanged, labelString, false, null);
+		}
+		
+		// Find which type is most populate
+		if (submitResult)
+			GoogleAnalytics.startTrack(GANAction.GANActionAddCaseWithType, Integer.toString(typeId), false, null);
+		
+		// Will User enter their name? (Success Submit)
+		if (!nameEditText.getText().toString().equals("") && submitResult)
+			GoogleAnalytics.startTrack(GANAction.GANActionAddCaseWithName, null, false, null);
+		
+		// Will User enter description? (Success Submit)
+		if (!descriptionEditText.getText().toString().equals("") && submitResult)
+			GoogleAnalytics.startTrack(GANAction.GANActionAddCaseWithDescription, null, false, null);
 	}
 
 	@Override

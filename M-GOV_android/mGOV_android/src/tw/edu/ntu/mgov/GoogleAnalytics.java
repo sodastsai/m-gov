@@ -58,7 +58,7 @@ public class GoogleAnalytics {
 		GANActionAddCaseWithDescription,
 		GANActionAddCaseWithPhoto,
 		GANActionAddCaseWithoutPhoto,
-		GANActionAddCaswWithType,
+		GANActionAddCaseWithType,
 		GANActionAddCaseLocationSelectorChanged,
 		// My Case Event
 		GANActionMyCaseFilterAll,
@@ -89,13 +89,17 @@ public class GoogleAnalytics {
 			actionString = "AppEnterForeground";
 		} else if (action==GANAction.GANActionAppOnDestroy) {
 			eventString = AppLifecycle;
-			actionString = "AppWillTerminate";
+			// Android Event is so strange
+			//actionString = "AppWillTerminate";
+			actionString = "AppEnterBackground";
 		} else if (action==GANAction.GANActionAppOnCreate) {
 			eventString = AppLifecycle;
-			actionString = "AppDidStartup";
+			// Android Event is so strange
+			//actionString = "AppDidStartup";
+			actionString = "AppEnterForeground";
 		} else if (action==GANAction.GANActionAddCaseSuccess) {
 			eventString = CaseAdder;
-			actionString = "AddCaseScuess";
+			actionString = "AddCaseSuccess";
 		} else if (action==GANAction.GANActionAddCaseFailed) {
 			eventString = CaseAdder;
 			actionString = "AddCaseFailed";
@@ -111,7 +115,7 @@ public class GoogleAnalytics {
 		} else if (action==GANAction.GANActionAddCaseWithDescription) {
 			eventString = CaseAdder;
 			actionString = "AddCaseWithDescription";
-		} else if (action==GANAction.GANActionAddCaswWithType) {
+		} else if (action==GANAction.GANActionAddCaseWithType) {
 			eventString = CaseAdder;
 			actionString = "AddCaseWithType";
 		} else if (action==GANAction.GANActionAddCaseLocationSelectorChanged) {

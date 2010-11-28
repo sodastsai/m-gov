@@ -68,6 +68,7 @@ import android.widget.RelativeLayout.LayoutParams;
 
 public abstract class CaseSelector extends MapActivity {
 	protected Context selfContext = this;
+	protected static final int REQUEST_CODE_OPTION = 10245;
 	// Constant Identifier for Menu
 	protected static final int MENU_Option = Menu.FIRST;
 	protected static final int MENU_ListMode = Menu.FIRST+1;
@@ -132,8 +133,8 @@ public abstract class CaseSelector extends MapActivity {
 			@Override
 			public boolean onTouchEvent(MotionEvent ev) {
 				if (ev.getAction()==MotionEvent.ACTION_UP) {
-					boolean centerChanged = (Math.abs(mapMode.getMapCenter().getLatitudeE6()-currentLocationPoint.getLatitudeE6()) > mapMode.getLatitudeSpan()/3)||
-											(Math.abs(mapMode.getMapCenter().getLongitudeE6()-currentLocationPoint.getLongitudeE6()) > mapMode.getLongitudeSpan()/3);
+					boolean centerChanged = (Math.abs(mapMode.getMapCenter().getLatitudeE6()-currentLocationPoint.getLatitudeE6()) > mapMode.getLatitudeSpan()/3.5)||
+											(Math.abs(mapMode.getMapCenter().getLongitudeE6()-currentLocationPoint.getLongitudeE6()) > mapMode.getLongitudeSpan()/3.5);
 					boolean spanChanged = (Math.abs(mapMode.getLatitudeSpan()-currentLatSpan)>200)||(Math.abs(mapMode.getLongitudeSpan()-currentLonSpan)>200);
 					
 					if (centerChanged||spanChanged) {
@@ -202,8 +203,10 @@ public abstract class CaseSelector extends MapActivity {
 		locationManager.removeUpdates(locationListener);
 		locationListener = null;
 		currentLocationPoint = mapMode.getMapCenter();
-		currentLatSpan = 5873;
-		currentLonSpan = 6436;
+		currentLatSpan = mapMode.getLatitudeSpan();
+		currentLonSpan = mapMode.getLongitudeSpan();
+		//currentLatSpan = 5873;
+		//currentLonSpan = 6436;
 		
 		// Set Overlay
 		okOverlay = new PopoutItemizedOverlay(getResources().getDrawable(R.drawable.okspot), mapMode);
@@ -220,12 +223,6 @@ public abstract class CaseSelector extends MapActivity {
 			findViewById(R.id.listModeFrame).setVisibility(View.GONE);
 			findViewById(R.id.mapModeFrame).setVisibility(View.VISIBLE);
 		}
-	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		startFetchDataSource();
 	}
 
 	protected void changCaseSelectorMode(CaseSelectorMode targetMode) {
@@ -266,7 +263,7 @@ public abstract class CaseSelector extends MapActivity {
 				// Go to Option Activity
 				Intent intent = new Intent();
 				intent.setClass(this, Option.class);
-				startActivity(intent);
+				startActivityForResult(intent, REQUEST_CODE_OPTION);
 				break;
 		}
 		return super.onOptionsItemSelected(item);

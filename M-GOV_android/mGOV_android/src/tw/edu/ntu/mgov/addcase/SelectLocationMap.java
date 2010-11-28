@@ -74,6 +74,9 @@ public class SelectLocationMap extends MapActivity {
 	public static final String BUNDLE_LONE6 = "bundle_lone6";
 	public static final String BUNDLE_LATE6 = "bundle_late6";
 	public static final String BUNDLE_ADDRESS = "bundle-address"; 
+	public static final String BUNDLE_STATUS = "bundle_status";
+	public static final String BUNDLE_LONE6_DELTA = "bundle_lone6_delta";
+	public static final String BUNDLE_LATE6_DELTA = "bundle_late6_delta";
 	
 	private static final String LOGTAG = "mGOV-SelectLocationMap";
 	
@@ -133,7 +136,7 @@ public class SelectLocationMap extends MapActivity {
 				} else if (ev.getAction()==MotionEvent.ACTION_UP) {
 					// Android is too sensitive
 					if (motionEventCount<=3) {
-						// Fetch Location
+						// Fetch Location Point
 						selectedGeoPoint = mapView.getProjection().fromPixels((int)ev.getX(), (int)ev.getY());
 						// Convert to Address
 						if (checkNetworkStatus(SelectLocationMap.this)) address = getAddress(selectedGeoPoint, getApplicationContext());
@@ -224,9 +227,13 @@ public class SelectLocationMap extends MapActivity {
 					setResult(Activity.RESULT_CANCELED);
 					finish();
 				} else {
+					// User did changed the location
 					Bundle bundle = new Bundle();
 					bundle.putInt(BUNDLE_LATE6, selectedGeoPoint.getLatitudeE6());
 					bundle.putInt(BUNDLE_LONE6, selectedGeoPoint.getLongitudeE6());
+					bundle.putInt(BUNDLE_LATE6_DELTA, selectedGeoPoint.getLatitudeE6()-previousGeoPoint.getLatitudeE6());
+					bundle.putInt(BUNDLE_LONE6_DELTA, selectedGeoPoint.getLongitudeE6()-previousGeoPoint.getLongitudeE6());
+					bundle.putBoolean(BUNDLE_STATUS, true);
 					bundle.putString(BUNDLE_ADDRESS, address);
 					bundle.putInt("zoomLevel", mapView.getZoomLevel());
 					

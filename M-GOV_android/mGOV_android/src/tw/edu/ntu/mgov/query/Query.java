@@ -25,7 +25,6 @@
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +36,7 @@ import android.widget.TextView;
 import tw.edu.ntu.mgov.CaseSelector;
 import tw.edu.ntu.mgov.GoogleAnalytics;
 import tw.edu.ntu.mgov.R;
+import tw.edu.ntu.mgov.mgov;
 import tw.edu.ntu.mgov.GoogleAnalytics.GANAction;
 import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryCondtionType;
 import tw.edu.ntu.mgov.gae.GAEQuery.GAEQueryDatabase;
@@ -56,6 +56,8 @@ public class Query extends CaseSelector {
 	private TextView currentRangeLabel;
 	// Datasource
 	private int typeId = 0;
+	// Time Difference
+	long onPauseTime;
 	
 	// Lifecycle
 	@Override
@@ -144,7 +146,20 @@ public class Query extends CaseSelector {
 	@Override
 	protected void onResume() {
 		currentLocationPoint = mapMode.getMapCenter();
+		if (mgov.firstTimeQueryCase)
+			startFetchDataSource();
+		else {
+			// Reload between 10 mins.
+			if ((System.currentTimeMillis() - onPauseTime) > 10*60*1000 )
+				startFetchDataSource();
+		}
 		super.onResume();
+	}
+	
+	@Override
+	protected void onPause() {
+		onPauseTime = System.currentTimeMillis();
+		super.onPause();
 	}
 	
 	@Override
@@ -157,10 +172,14 @@ public class Query extends CaseSelector {
 				// Should Reset Data range
 				rangeEnd = 9;
 				rangeStart = 0;
-				startFetchDataSource();
 				currentConditionLabel.setText(typeName);
+				
+				startFetchDataSource();
 			} else if (resultCode == RESULT_CANCELED) {
 			}
+		}
+		if (requestCode == REQUEST_CODE_OPTION) {
+			GoogleAnalytics.startTrack(GANAction.GANActionAppTabIsQueryCase, null, false, null);
 		}
 		super.onActivityResult(requestCode, resultCode, data);
 	}
@@ -168,7 +187,17 @@ public class Query extends CaseSelector {
 	 * @category Datasource Method
 	 */
 	protected boolean setQGAECondition() {
-		qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, currentLocationPoint, currentLatSpan, currentLonSpan);
+		// Strange Map Bug @@
+		if (mgov.firstTimeQueryCase) {
+			qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, mapMode.getMapCenter(), mapMode.getLatitudeSpan(), mapMode.getLongitudeSpan());
+			currentLocationPoint = mapMode.getMapCenter();
+			currentLatSpan = mapMode.getLatitudeSpan();
+			currentLonSpan = mapMode.getLongitudeSpan();
+			mgov.firstTimeQueryCase = false;
+		} else {
+			qGAE.addQuery(GAEQueryCondtionType.GAEQueryByCoordinate, currentLocationPoint, currentLatSpan, currentLonSpan);
+		}
+		
 		if (typeId!=0)
 			qGAE.addQuery(GAEQueryCondtionType.GAEQueryByType, Integer.toString(typeId));
 		return true;
@@ -232,16 +261,19 @@ public class Query extends CaseSelector {
 	}
 	
 	private void sendQueryGAN() {
-		String labelString = "center=(lat:"+Float.toString(((float)mapMode.getMapCenter().getLatitudeE6()/(float)(10^6)))+
-							",lon:"+Float.toString(((float)mapMode.getMapCenter().getLongitudeE6()/(float)(10^6)))+
-							") span=(lat:"+Float.toString((float)mapMode.getLatitudeSpan()/(float)(10^6))+
-							",lon:"+Float.toString((float)mapMode.getLatitudeSpan()/(float)(10^6))+
-							") range=("+rangeStart+","+rangeEnd+")";
-		Log.d("misc", Integer.toString(typeId));
+		String labelString = "center=(lat:"+Float.toString(((float)mapMode.getMapCenter().getLatitudeE6()/(float)(Math.pow(10,6))))+
+							",lon:"+Float.toString(((float)mapMode.getMapCenter().getLongitudeE6()/(float)(Math.pow(10,6))))+
+							") span=(lat:"+Float.toString((float)mapMode.getLatitudeSpan()/(float)(Math.pow(10,6)))+
+							",lon:"+Float.toString((float)mapMode.getLatitudeSpan()/(float)(Math.pow(10,6)))+
+							") range=("+Integer.toString(rangeStart+1)+","+Integer.toString(rangeEnd+1)+")";
+		
 		if (typeId==0) {
 			// All
+			GoogleAnalytics.startTrack(GANAction.GANActionQueryCaseAllType, labelString, false, null);
 		} else {
 			// Type filtered
+			labelString += " type="+Integer.toString(typeId);
+			GoogleAnalytics.startTrack(GANAction.GANActionQueryCaseWithType, labelString, false, null);
 		}
 	}
 			
