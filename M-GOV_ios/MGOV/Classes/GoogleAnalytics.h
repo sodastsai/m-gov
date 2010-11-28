@@ -49,7 +49,7 @@ typedef enum {
 	GANActionAddCaseWithDescription,
 	GANActionAddCaseWithPhoto,
 	GANActionAddCaseWithoutPhoto,
-	GANActionAddCaswWithType,
+	GANActionAddCaseWithType,
 	GANActionAddCaseLocationSelectorChanged,
 	// My Case Event
 	GANActionMyCaseFilterAll,

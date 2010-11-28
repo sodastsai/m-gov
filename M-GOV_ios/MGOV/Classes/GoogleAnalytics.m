@@ -60,7 +60,7 @@
 	} else if (action==GANActionAddCaseWithDescription) {
 		eventString = kGANEventCaseAdder;
 		actionString = @"AddCaseWithDescription";
-	} else if (action==GANActionAddCaswWithType) {
+	} else if (action==GANActionAddCaseWithType) {
 		eventString = kGANEventCaseAdder;
 		actionString = @"AddCaseWithType";
 	} else if (action==GANActionAddCaseLocationSelectorChanged) {

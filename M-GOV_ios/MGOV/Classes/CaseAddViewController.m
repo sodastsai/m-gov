@@ -153,7 +153,7 @@
 	
 	// Find which type is most populate
 	if (status)
-		[GoogleAnalytics trackAction:GANActionAddCaswWithType withLabel:[NSString stringWithFormat:@"%d", qid] andTimeStamp:NO andUDID:NO];
+		[GoogleAnalytics trackAction:GANActionAddCaseWithType withLabel:[NSString stringWithFormat:@"%d", qid] andTimeStamp:NO andUDID:NO];
 	
 	// Will User enter their name? (Success Submit)
 	if (![nameFieldCell.nameField.text isEqualToString:@""] && status)
