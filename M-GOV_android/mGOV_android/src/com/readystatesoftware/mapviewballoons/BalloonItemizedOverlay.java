@@ -16,7 +16,7 @@
 
 package com.readystatesoftware.mapviewballoons;
 
-import tw.edu.ntu.mgov.R;
+import tw.edu.ntu.mgov1999.R;
 
 import java.lang.reflect.Method;
 import java.util.List;
