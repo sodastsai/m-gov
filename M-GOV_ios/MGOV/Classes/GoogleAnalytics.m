@@ -44,7 +44,7 @@
 		actionString = @"AppDidStartup";
 	} else if (action==GANActionAddCaseSuccess) {
 		eventString = kGANEventCaseAdder;
-		actionString = @"AddCaseScuess";
+		actionString = @"AddCaseSuccess";
 	} else if (action==GANActionAddCaseFailed) {
 		eventString = kGANEventCaseAdder;
 		actionString = @"AddCaseFailed";
