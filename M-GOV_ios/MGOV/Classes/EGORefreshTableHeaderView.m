@@ -198,7 +198,8 @@
 		[self setState:EGOOPullRefreshLoading];
 		[UIView beginAnimations:nil context:NULL];
 		[UIView setAnimationDuration:0.2];
-		[(UITableView *)self.superview setContentInset:UIEdgeInsetsMake(60.0f, 0.0f, 0.0f, 0.0f)];
+		if ([self.superview isKindOfClass:[UIScrollView class]])
+			[(UIScrollView *)self.superview setContentInset:UIEdgeInsetsMake(60.0f, 0.0f, 0.0f, 0.0f)];
 		[UIView commitAnimations];
 	}
 }
@@ -209,7 +210,8 @@
 	
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDuration:.3];
-	[(UITableView *)self.superview setContentInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
+	if ([self.superview isKindOfClass:[UIScrollView class]])
+		[(UIScrollView *)self.superview setContentInset:UIEdgeInsetsMake(0.0f, 0.0f, 0.0f, 0.0f)];
 	[UIView commitAnimations];
 	
 	[self setState:EGOOPullRefreshNormal];
