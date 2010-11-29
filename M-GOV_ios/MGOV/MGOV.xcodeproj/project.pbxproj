@@ -1194,7 +1194,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MGOV_Prefix.pch;
-				INFOPLIST_FILE = "MGOV-Info copy.plist";
+				INFOPLIST_FILE = "MGOV-debug-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1217,7 +1217,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MGOV_Prefix.pch;
-				INFOPLIST_FILE = "MGOV-Info copy.plist";
+				INFOPLIST_FILE = "MGOV-debug-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -1241,7 +1241,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = MGOV_Prefix.pch;
-				INFOPLIST_FILE = "MGOV-Info copy.plist";
+				INFOPLIST_FILE = "MGOV-debug-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
