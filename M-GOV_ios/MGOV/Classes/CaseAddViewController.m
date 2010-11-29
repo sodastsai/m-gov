@@ -337,6 +337,7 @@
 		[alertEmailPopupBox release];
 	} else if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] length] && qid != 0) {
 		[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NetworkIsAlerted"];
+		[[NSUserDefaults standardUserDefaults] synchronize];
 		if ([NetworkChecking checkNetwork]) {
 			UIAlertView *submitConfirm = [[UIAlertView alloc] initWithTitle:@"確定要送出案件？" message:@"本案件將送至台北市1999市容查報\n並於市政府網站留下案件記錄" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
 			submitConfirm.tag = 2000;
@@ -422,6 +423,7 @@
 				if (r.location != NSNotFound) {
 					// Write email to plist
 					[[NSUserDefaults standardUserDefaults] setObject:alertEmailInputField.text forKey:@"User Email"];
+					[[NSUserDefaults standardUserDefaults] synchronize];
 					[self submitCase];
 				} else {
 					UIAlertView *errorEmail = [[UIAlertView alloc] initWithTitle:@"E-Mail格式錯誤" message:@"請輸入正確的E-Mail！" delegate:nil cancelButtonTitle:@"好" otherButtonTitles:nil];
@@ -466,6 +468,7 @@
 	[indicatorView release];
 	
 	[[NSUserDefaults standardUserDefaults] setObject:nameFieldCell.nameField.text forKey:@"Name"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 	
 	[self cleanAllField];
 	

@@ -44,13 +44,16 @@
 				[netowrkAlert show];
 				[netowrkAlert release];
 				[[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"NetworkIsAlerted"];
+				[[NSUserDefaults standardUserDefaults] synchronize];
 			}
 			break;
 		case ReachableViaWiFi:
 		case ReachableViaWWAN:
 			networkCheck = YES;
-			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NetworkIsAlerted"])
+			if ([[NSUserDefaults standardUserDefaults] boolForKey:@"NetworkIsAlerted"]) {
 				[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NetworkIsAlerted"];
+				[[NSUserDefaults standardUserDefaults] synchronize];
+			}
 			break;
 	}
 	return networkCheck;

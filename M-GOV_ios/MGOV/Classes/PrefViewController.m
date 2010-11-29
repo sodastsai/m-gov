@@ -38,6 +38,7 @@
 		[self.tableView reloadData];
 	} else {
 		[[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+		[[NSUserDefaults standardUserDefaults] synchronize];
 		[self.tableView reloadData];
 		// Run post action
 		[self postScriptAfterSaveKey:key andObject:value];

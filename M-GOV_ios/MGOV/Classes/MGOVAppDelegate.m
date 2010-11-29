@@ -122,6 +122,7 @@
 	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NetworkIsAlerted"];
 	// Record Time Stamp
 	[[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"TimeEnterBackground"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 	// Record Event
 	[GoogleAnalytics trackAction:GANActionAppDidEnterBackground withLabel:nil andTimeStamp:NO andUDID:NO];
 }
