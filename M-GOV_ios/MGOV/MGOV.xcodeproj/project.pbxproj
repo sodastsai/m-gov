@@ -1197,7 +1197,7 @@
 				INFOPLIST_FILE = "MGOV-Info copy.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)\\\"",
+					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = MGOV;
 				PROVISIONING_PROFILE = "";
@@ -1220,7 +1220,7 @@
 				INFOPLIST_FILE = "MGOV-Info copy.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)\\\"",
+					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = MGOV;
 				PROVISIONING_PROFILE = "";
@@ -1244,7 +1244,7 @@
 				INFOPLIST_FILE = "MGOV-Info copy.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\\\"$(SRCROOT)\\\"",
+					"\"$(SRCROOT)\"",
 				);
 				PRODUCT_NAME = MGOV;
 				PROVISIONING_PROFILE = "";
