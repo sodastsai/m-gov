@@ -49,7 +49,7 @@
 		keyboardToolbar.translucent = YES;
 		
 		// Prepare Buttons
-		UIBarButtonItem *doneEditing = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:nameField action:@selector(resignFirstResponder)];
+		UIBarButtonItem *doneEditing = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(finishEditing)];
 		UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
 		
 		// Prepare Labels
@@ -70,6 +70,7 @@
 		[keyboardToolbar release];
 		
 		[self.contentView addSubview:nameField];
+		[nameField release];
 		self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
@@ -80,7 +81,6 @@
 }
 
 - (void)dealloc {
-	[nameField release];
 	[super dealloc];
 }
 
@@ -88,8 +88,14 @@
 #pragma mark UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-	[textField resignFirstResponder];
+	[self finishEditing];
 	return YES;
+}
+
+- (void)finishEditing {
+	[[NSUserDefaults standardUserDefaults] setObject:nameField.text forKey:@"Name"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	[nameField resignFirstResponder];
 }
 
 @end

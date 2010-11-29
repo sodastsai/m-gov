@@ -42,5 +42,6 @@
 - (void)addCase;
 - (void)setCaseFilter:(UISegmentedControl *)segmentedControl;
 - (NSDictionary *)setConditionWithEmailAndFilter:(UISegmentedControl *)statusFilter;
+- (void)showInformationBar;
 
 @end

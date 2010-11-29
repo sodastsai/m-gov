@@ -107,7 +107,7 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-	// Clean Tmp save
+	// Clean Tmp save	
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 	NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithContentsOfFile:tempPlistPathInAppDocuments];
 	[dict setObject:[NSData data] forKey:@"Photo"];
@@ -118,6 +118,9 @@
 	[dict setValue:@"" forKey:@"TypeTitle"];
 	[dict setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
 	[dict writeToFile:tempPlistPathInAppDocuments atomically:YES];
+	// Reset Query Status cache
+	[[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"QueryTypeLabel"];
+	[[NSUserDefaults standardUserDefaults] setObject:nil forKey:@"NumberDisplayLabel"];
 	// Reset network alert status
 	[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"NetworkIsAlerted"];
 	// Record Time Stamp

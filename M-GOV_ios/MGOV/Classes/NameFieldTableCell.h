@@ -33,5 +33,6 @@
 @property (nonatomic, retain) UITextField *nameField;
 
 + (CGFloat)cellHeight;
+- (void)finishEditing;
 
 @end

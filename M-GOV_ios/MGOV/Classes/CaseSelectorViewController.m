@@ -288,13 +288,19 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	// Show Information Bar
-	informationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 44)];
-	informationBar.backgroundColor = [UIColor colorWithRed:0.44 green:0.53 blue:0.64 alpha:0.9];
-	[self.view addSubview:informationBar];
+	if (informationBar==nil) {
+		informationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 44)];
+		informationBar.backgroundColor = [UIColor colorWithRed:0.44 green:0.53 blue:0.64 alpha:0.9];
+		[self.view addSubview:informationBar];
+		[informationBar release];
+	}
 	currentCondition = nil;
-	[informationBar release];
-	
 	firstQuery = YES;
+}
+
+- (void)viewDidUnload {
+	[super viewDidUnload];
+	informationBar = nil;
 }
 
 - (void)didReceiveMemoryWarning {

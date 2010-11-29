@@ -132,6 +132,7 @@
 
 - (void)viewDidLoad {
 	[super viewDidLoad];
+	
 	// Update Datasource
 	caseSourceDidLoaded = NO;
 	if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] length]) {
@@ -149,29 +150,40 @@
 	} else caseSourceDidLoaded = YES;
 	
 	// Add Filter
-	if (filter==nil)
+	if (filter==nil) {
 		filter = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"所有案件", @"完工", @"處理中", @"退回", nil]];
-	filter.segmentedControlStyle = UISegmentedControlStyleBar;
-	// Use int for clear view
-	int filterX = (320 - filter.frame.size.width)/2;
-	int filterY = (44 - filter.frame.size.height)/2;
-	filter.frame = CGRectMake(filterX, filterY, filter.frame.size.width, filter.frame.size.height);
-	filter.selectedSegmentIndex = 0;
-	currentSegmentIndex = 0;
-	[filter addTarget:self action:@selector(setCaseFilter:) forControlEvents:UIControlEventValueChanged];
+		filter.segmentedControlStyle = UISegmentedControlStyleBar;
+		// Use int for clear view
+		int filterX = (320 - filter.frame.size.width)/2;
+		int filterY = (44 - filter.frame.size.height)/2;
+		filter.frame = CGRectMake(filterX, filterY, filter.frame.size.width, filter.frame.size.height);
+		filter.selectedSegmentIndex = 0;
+		currentSegmentIndex = 0;
+		[filter addTarget:self action:@selector(setCaseFilter:) forControlEvents:UIControlEventValueChanged];
 		
-	[informationBar addSubview:filter];
+		[informationBar addSubview:filter];
+		[filter release];
+	}
 	
-	if ([self myCaseDataAvailability]) {
+	[self showInformationBar];
+}
+
+- (void)viewDidUnload {
+	[super viewDidUnload];
+	filter = nil;
+}
+
+#pragma mark -
+#pragma mark Method
+
+- (void)showInformationBar {
+	if ([self myCaseDataAvailability] && ![self.topViewController isKindOfClass:[CaseViewerViewController class]] && ![self.topViewController isKindOfClass:[CaseAddViewController class]]) {
 		informationBar.hidden = NO;
 	} else {
 		// Hide Filter/InformationBar
 		informationBar.hidden = YES;
 	}
 }
-
-#pragma mark -
-#pragma mark Method
 
 - (BOOL)myCaseDataAvailability {
 	return (([[[NSUserDefaults standardUserDefaults] stringForKey:@"User Email"] length]!=0 && [caseSource count]!=0)||filter.selectedSegmentIndex!=0);
@@ -242,8 +254,7 @@
 	}
 	caseSourceDidLoaded = YES;
 	
-	if ([self myCaseDataAvailability]) informationBar.hidden = NO;
-	else informationBar.hidden = YES;
+	[self showInformationBar];
 	
 	for (NSUInteger i=0; i<filter.numberOfSegments; i++)
 		if (i!=filter.selectedSegmentIndex)
@@ -256,7 +267,6 @@
 #pragma mark Memory Management
 
 - (void)dealloc {
-	[filter release];
 	[caseAdder release];
 	[super dealloc];
 }

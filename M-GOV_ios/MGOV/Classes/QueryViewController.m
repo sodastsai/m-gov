@@ -71,39 +71,61 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	nextButton = [[UIButton alloc] initWithFrame:CGRectMake(274, 7, 30, 30)];
-	[nextButton setImage:[UIImage imageNamed:@"next.png"] forState:UIControlStateNormal];
-	[nextButton addTarget:self action:@selector(nextCase) forControlEvents:UIControlEventTouchUpInside];
-	[informationBar addSubview:nextButton];
-	[nextButton release];
+	if (nextButton==nil) {
+		nextButton = [[UIButton alloc] initWithFrame:CGRectMake(274, 7, 30, 30)];
+		[nextButton setImage:[UIImage imageNamed:@"next.png"] forState:UIControlStateNormal];
+		[nextButton addTarget:self action:@selector(nextCase) forControlEvents:UIControlEventTouchUpInside];
+		[informationBar addSubview:nextButton];
+		[nextButton release];		
+	}
 	
-	lastButton = [[UIButton alloc] initWithFrame:CGRectMake(17, 7, 30, 30)];
-	[lastButton setImage:[UIImage imageNamed:@"previous.png"] forState:UIControlStateNormal];
-	[lastButton addTarget:self action:@selector(lastCase) forControlEvents:UIControlEventTouchUpInside];
-	[informationBar addSubview:lastButton];
-	[lastButton release];
+	if (lastButton==nil) {
+		lastButton = [[UIButton alloc] initWithFrame:CGRectMake(17, 7, 30, 30)];
+		[lastButton setImage:[UIImage imageNamed:@"previous.png"] forState:UIControlStateNormal];
+		[lastButton addTarget:self action:@selector(lastCase) forControlEvents:UIControlEventTouchUpInside];
+		[informationBar addSubview:lastButton];
+		[lastButton release];		
+	}
 	
-	queryTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(51, 2, 218, 21)];
-	queryTypeLabel.backgroundColor = [UIColor clearColor];
-	queryTypeLabel.textColor = [UIColor whiteColor];
-	queryTypeLabel.textAlignment = UITextAlignmentCenter;
-	queryTypeLabel.font = [UIFont boldSystemFontOfSize:14];
-	queryTypeLabel.text = @"所有案件種類";
-	[informationBar addSubview:queryTypeLabel];
-	[queryTypeLabel release];
+	if (queryTypeLabel==nil) {
+		queryTypeLabel = [[UILabel alloc] initWithFrame:CGRectMake(51, 2, 218, 21)];
+		queryTypeLabel.backgroundColor = [UIColor clearColor];
+		queryTypeLabel.textColor = [UIColor whiteColor];
+		queryTypeLabel.textAlignment = UITextAlignmentCenter;
+		queryTypeLabel.font = [UIFont boldSystemFontOfSize:14];
+		if ([[NSUserDefaults standardUserDefaults] valueForKey:@"QueryTypeLabel"]!=nil)
+			queryTypeLabel.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"QueryTypeLabel"];
+		else 
+			queryTypeLabel.text = @"所有案件種類";
+		[informationBar addSubview:queryTypeLabel];
+		[queryTypeLabel release];
+	}
 	
-	numberDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(51, 20, 218, 21)];
-	numberDisplayLabel.backgroundColor = [UIColor clearColor];
-	numberDisplayLabel.textColor = [UIColor whiteColor];
-	numberDisplayLabel.textAlignment = UITextAlignmentCenter;
-	numberDisplayLabel.font = [UIFont systemFontOfSize:14];
-	[informationBar addSubview:numberDisplayLabel];
-	[numberDisplayLabel release];
+	if (numberDisplayLabel==nil) {
+		numberDisplayLabel = [[UILabel alloc] initWithFrame:CGRectMake(51, 20, 218, 21)];
+		numberDisplayLabel.backgroundColor = [UIColor clearColor];
+		numberDisplayLabel.textColor = [UIColor whiteColor];
+		numberDisplayLabel.textAlignment = UITextAlignmentCenter;
+		numberDisplayLabel.font = [UIFont systemFontOfSize:14];
+		if ([[NSUserDefaults standardUserDefaults] valueForKey:@"NumberDisplayLabel"]!=nil)
+			numberDisplayLabel.text = [[NSUserDefaults standardUserDefaults] valueForKey:@"NumberDisplayLabel"];
+		[informationBar addSubview:numberDisplayLabel];
+		[numberDisplayLabel release];
+	}
 	
 	typeID = 0;
 	queryTotalLength = -1;
 	
 	currentMapRegion = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(0, 0), 1, 1);
+}
+
+- (void)viewDidUnload {
+	[super viewDidUnload];
+	
+	nextButton = nil;
+	lastButton = nil;
+	queryTypeLabel = nil;
+	numberDisplayLabel = nil;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -195,6 +217,9 @@
 		if (rangeEnd!=queryTotalLength) nextButton.enabled = YES;
 		else nextButton.enabled = NO;
 	}
+	[[NSUserDefaults standardUserDefaults] setObject:numberDisplayLabel.text forKey:@"NumberDisplayLabel"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	
 	[super recieveQueryResultType:type withResult:result];
 }
 
@@ -252,6 +277,8 @@
 	} else if (buttonIndex==0) {
 		// All type
 		queryTypeLabel.text = @"所有案件種類";
+		[[NSUserDefaults standardUserDefaults] setObject:queryTypeLabel.text forKey:@"QueryTypeLabel"];
+		[[NSUserDefaults standardUserDefaults] synchronize];
 		typeID = 0;
 		[self queryAfterSetRangeAndType];
 	} else if (buttonIndex==2) {
@@ -266,6 +293,9 @@
 	// Update Selector
 	typeID = q;
 	queryTypeLabel.text = t;
+	[[NSUserDefaults standardUserDefaults] setObject:queryTypeLabel.text forKey:@"QueryTypeLabel"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
+	
 	[self dismissModalViewControllerAnimated:YES];
 	// Start Query
 	[self queryAfterSetRangeAndType];
@@ -277,6 +307,10 @@
 
 #pragma mark -
 #pragma mark Memory Management
+
+- (void)didReceiveMemoryWarning {
+	[super didReceiveMemoryWarning];
+}
 
 - (void)dealloc {
     [super dealloc];

@@ -28,7 +28,7 @@
 @implementation CaseAddViewController
 
 @synthesize selectedTypeTitle;
-@synthesize qid, userName;
+@synthesize qid;
 @synthesize myCase;
 @synthesize columnSaving;
 @synthesize ableToUpdateLocationCell;
@@ -43,7 +43,6 @@
 		self.title = @"報案";
 		
 		selectedTypeTitle = @"";
-		self.userName = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
 		locationSelectorDidChangeLocation = NO;
 	}
 	return self;
@@ -57,23 +56,40 @@
 	[submitButton release];
 	
 	// Add Component
-	if (photoCell==nil)
+	if (photoCell==nil) {
 		photoCell = [[PhotoPickerTableCell alloc] init];
-	photoCell.delegate = self;
+		photoCell.delegate = self;
+	}
 	
 	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
-	if (locationCell==nil)
+	if (locationCell==nil) {
 		locationCell = [[LocationSelectorTableCell alloc] initWithHeight:100 andCoordinate:shared.locationManager.location.coordinate actionTarget:self setAction:@selector(openLocationSelector)];
-	locationCell.delegate = self;
-	originalLocation = shared.locationManager.location.coordinate;
-	selectedCoord = shared.locationManager.location.coordinate;
+		locationCell.delegate = self;
+		originalLocation = shared.locationManager.location.coordinate;
+		selectedCoord = shared.locationManager.location.coordinate;
+	}
 	
-	if (nameFieldCell==nil)
+	if (nameFieldCell==nil) {
 		nameFieldCell = [[NameFieldTableCell alloc] init];
-	nameFieldCell.nameField.delegate = self;
+		nameFieldCell.nameField.delegate = self;
+	}
 	
-	if (descriptionCell==nil)
+	if (descriptionCell==nil) {
 		descriptionCell = [[DescriptionTableCell alloc] init];
+	}
+}
+
+- (void)viewDidUnload {
+	[super viewDidUnload];
+	[photoCell release];
+	[locationCell release];
+	[nameFieldCell release];
+	[descriptionCell release];
+	
+	photoCell = nil;
+	locationCell = nil;
+	nameFieldCell = nil;
+	descriptionCell = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -108,7 +124,7 @@
 	self.selectedTypeTitle = [self.columnSaving valueForKey:@"TypeTitle"];
 	
 	// Name Cell
-	nameFieldCell.nameField.text = userName;
+	nameFieldCell.nameField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
 	
 	// Description Cell
 	[descriptionCell setPlaceholder:[self.columnSaving valueForKey:@"Description"]];
@@ -123,8 +139,6 @@
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
 	if (![descriptionCell.descriptionField.text isEqualToString:@"請輸入描述及建議"]) [self.columnSaving setValue:descriptionCell.descriptionField.text forKey:@"Description"];
 	[self.columnSaving writeToFile:tempPlistPathInAppDocuments atomically:YES];
-	
-	userName = nameFieldCell.nameField.text;
 }
 
 #pragma mark -
@@ -171,13 +185,9 @@
 }
 
 - (void)dealloc {
-	[selectedTypeTitle release];
+    [selectedTypeTitle release];
 	[alertEmailInputField release];
-	[photoCell release];
-	[locationCell release];
-	[nameFieldCell release];
-	[descriptionCell release];
-    [super dealloc];
+	[super dealloc];
 }
 
 #pragma mark -

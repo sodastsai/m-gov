@@ -63,7 +63,6 @@
 - (void)reloadTableViewDataSource;
 @end
 
-
 typedef enum{
 	EGOOPullRefreshPulling = 0,
 	EGOOPullRefreshNormal,

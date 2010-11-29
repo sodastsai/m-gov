@@ -80,8 +80,7 @@
 
 - (void)dealloc {
 	[casePlace release];
-	[mapView release];
-    [super dealloc];
+	[super dealloc];
 }
 
 @end
