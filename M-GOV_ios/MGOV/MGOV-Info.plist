@@ -1,26 +1,47 @@
-{
-	"CFBundleDevelopmentRegion" = "zh_TW";
-	CFBundleDisplayName = "\U8def\U898b\U4e0d\U5e73";
-	"CFBundleDocumentTypes" = ();
-	CFBundleExecutable = "${EXECUTABLE_NAME}";
-	CFBundleIconFile = "";
-	CFBundleIconFiles = (
-		"Icon.png",
-		"Icon@2x.png",
-		"Icon-72.png",
-		"Icon-Small-50.png",
-		"Icon-Small.png",
-		"Icon-Small@2x.png",
-	);
-	CFBundleIdentifier = "tw.edu.ntu.taipei1999";
-	"CFBundleInfoDictionaryVersion" = "6.0";
-	CFBundleName = "${PRODUCT_NAME}";
-	CFBundlePackageType = APPL;
-	CFBundleSignature = "????";
-	CFBundleVersion = "1.1";
-	LSRequiresIPhoneOS = YES;
-	NSMainNibFile = MainWindow;
-	"Release Info" = "NTU CSIE Mobile HCI Lab";
-	UILaunchImageFile = "Default.png";
-	"Develop Mode" = YES;
-}
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>zh_TW</string>
+	<key>CFBundleDisplayName</key>
+	<string>路見不平</string>
+	<key>CFBundleDocumentTypes</key>
+	<array/>
+	<key>CFBundleExecutable</key>
+	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIconFile</key>
+	<string></string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>Icon.png</string>
+		<string>Icon@2x.png</string>
+		<string>Icon-72.png</string>
+		<string>Icon-Small-50.png</string>
+		<string>Icon-Small.png</string>
+		<string>Icon-Small@2x.png</string>
+	</array>
+	<key>CFBundleIdentifier</key>
+	<string>tw.edu.ntu.taipei1999</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>${PRODUCT_NAME}</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1.1</string>
+	<key>Develop Mode</key>
+	<string>YES</string>
+	<key>LSRequiresIPhoneOS</key>
+	<string>YES</string>
+	<key>NSMainNibFile</key>
+	<string>MainWindow</string>
+	<key>Release Info</key>
+	<string>NTU CSIE Mobile HCI Lab</string>
+	<key>UILaunchImageFile</key>
+	<string>Default.png</string>
+</dict>
+</plist>
