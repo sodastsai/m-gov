@@ -31,7 +31,6 @@
 		2A7934D61265AF3A00440BF0 /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7934C11265AF3A00440BF0 /* CDataScanner.m */; };
 		2A79AC231223FB7C00F140A2 /* CaseAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */; };
 		2A79AC241223FB7C00F140A2 /* CaseAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */; };
-		2A9CEBD5125994A300735370 /* NetWorkChecking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9CEBD4125994A300735370 /* NetWorkChecking.m */; };
 		2AE35A181226B02F00B37A4B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AE35A171226B02F00B37A4B /* MapKit.framework */; };
 		2AE48A871240AE37005547F3 /* CaseAddTempInformation.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2AE48A861240AE37005547F3 /* CaseAddTempInformation.plist */; };
 		2AEBA5EA1225FE95000A4D21 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEBA5E91225FE95000A4D21 /* CoreLocation.framework */; };
@@ -91,6 +90,8 @@
 		FE4EE77C1223F6D100737028 /* TypesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4EE7791223F6D100737028 /* TypesViewController.m */; };
 		FE74CC551258ADED00267C80 /* EditibleTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */; };
 		FE7D048312352AA5007FA0A1 /* QidToType.plist in Resources */ = {isa = PBXBuildFile; fileRef = FE7D048212352AA5007FA0A1 /* QidToType.plist */; };
+		FE8473FA12A60FB80040086D /* NetworkChecking.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8473F912A60FB80040086D /* NetworkChecking.m */; };
+		FE8473FB12A60FB80040086D /* NetworkChecking.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8473F912A60FB80040086D /* NetworkChecking.m */; };
 		FE88284212839C7A0057F224 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE88284112839C7A0057F224 /* libGoogleAnalytics.a */; };
 		FE88284812839EA40057F224 /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FE88284712839EA40057F224 /* libsqlite3.0.dylib */; };
 		FE8828751283FB4A0057F224 /* GoogleAnalytics.m in Sources */ = {isa = PBXBuildFile; fileRef = FE8828741283FB4A0057F224 /* GoogleAnalytics.m */; };
@@ -176,7 +177,6 @@
 		FEA0821E12A40AC800536C9B /* CaseSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB7C7FE12557EBD00436BB2 /* CaseSelectorViewController.m */; };
 		FEA0821F12A40AC800536C9B /* PrefViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FE4628A01257664200936914 /* PrefViewController.m */; };
 		FEA0822012A40AC800536C9B /* EditibleTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */; };
-		FEA0822112A40AC800536C9B /* NetWorkChecking.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A9CEBD4125994A300735370 /* NetWorkChecking.m */; };
 		FEA0822212A40AC800536C9B /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A7934C11265AF3A00440BF0 /* CDataScanner.m */; };
 		FEA0822312A40AC800536C9B /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1EBDB41265B61900553FEA /* CDataScanner_Extensions.m */; };
 		FEA0822412A40AC800536C9B /* NSCharacterSet_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A1EBDB61265B61900553FEA /* NSCharacterSet_Extensions.m */; };
@@ -257,8 +257,6 @@
 		2A79AC1D1223FB7C00F140A2 /* CaseAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseAddViewController.m; sourceTree = "<group>"; };
 		2A79AC1E1223FB7C00F140A2 /* CaseAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseAddViewController.h; sourceTree = "<group>"; };
 		2A79AC1F1223FB7C00F140A2 /* CaseAddViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CaseAddViewController.xib; path = Classes/CaseAddViewController.xib; sourceTree = "<group>"; };
-		2A9CEBD3125994A300735370 /* NetWorkChecking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetWorkChecking.h; sourceTree = "<group>"; };
-		2A9CEBD4125994A300735370 /* NetWorkChecking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetWorkChecking.m; sourceTree = "<group>"; };
 		2AE35A171226B02F00B37A4B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		2AE48A861240AE37005547F3 /* CaseAddTempInformation.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CaseAddTempInformation.plist; sourceTree = "<group>"; };
 		2AEBA5E91225FE95000A4D21 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -344,6 +342,8 @@
 		FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditibleTextFieldCell.m; sourceTree = "<group>"; };
 		FE74CCCF1258C0AE00267C80 /* WritePrefDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WritePrefDelegate.h; sourceTree = "<group>"; };
 		FE7D048212352AA5007FA0A1 /* QidToType.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = QidToType.plist; sourceTree = "<group>"; };
+		FE8473F812A60FB80040086D /* NetworkChecking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkChecking.h; sourceTree = "<group>"; };
+		FE8473F912A60FB80040086D /* NetworkChecking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkChecking.m; sourceTree = "<group>"; };
 		FE88283D12839C670057F224 /* GANTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GANTracker.h; sourceTree = "<group>"; };
 		FE88284112839C7A0057F224 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		FE88284712839EA40057F224 /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
@@ -767,12 +767,12 @@
 		FEC3B7D21251E16D00AB8D77 /* Query GAE */ = {
 			isa = PBXGroup;
 			children = (
+				FE8473F812A60FB80040086D /* NetworkChecking.h */,
+				FE8473F912A60FB80040086D /* NetworkChecking.m */,
 				FEB39A5A1237EF70007359AB /* QueryGoogleAppEngine.h */,
 				FEB39A5B1237EF70007359AB /* QueryGoogleAppEngine.m */,
 				FEE907DC1251C95400A1CBAF /* LoadingOverlayView.h */,
 				FEE907DD1251C95400A1CBAF /* LoadingOverlayView.m */,
-				2A9CEBD3125994A300735370 /* NetWorkChecking.h */,
-				2A9CEBD4125994A300735370 /* NetWorkChecking.m */,
 			);
 			name = "Query GAE";
 			sourceTree = "<group>";
@@ -987,7 +987,6 @@
 				FEB7C7FF12557EBD00436BB2 /* CaseSelectorViewController.m in Sources */,
 				FE4628A21257664200936914 /* PrefViewController.m in Sources */,
 				FE74CC551258ADED00267C80 /* EditibleTextFieldCell.m in Sources */,
-				2A9CEBD5125994A300735370 /* NetWorkChecking.m in Sources */,
 				2A7934D61265AF3A00440BF0 /* CDataScanner.m in Sources */,
 				2A1EBDBB1265B61900553FEA /* CDataScanner_Extensions.m in Sources */,
 				2A1EBDBC1265B61900553FEA /* NSCharacterSet_Extensions.m in Sources */,
@@ -1001,6 +1000,7 @@
 				FE8828751283FB4A0057F224 /* GoogleAnalytics.m in Sources */,
 				FE882C9E128906DF0057F224 /* ListViewController.m in Sources */,
 				FEA07F9812A3E8BF00536C9B /* EGORefreshTableHeaderView.m in Sources */,
+				FE8473FA12A60FB80040086D /* NetworkChecking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1039,7 +1039,6 @@
 				FEA0821E12A40AC800536C9B /* CaseSelectorViewController.m in Sources */,
 				FEA0821F12A40AC800536C9B /* PrefViewController.m in Sources */,
 				FEA0822012A40AC800536C9B /* EditibleTextFieldCell.m in Sources */,
-				FEA0822112A40AC800536C9B /* NetWorkChecking.m in Sources */,
 				FEA0822212A40AC800536C9B /* CDataScanner.m in Sources */,
 				FEA0822312A40AC800536C9B /* CDataScanner_Extensions.m in Sources */,
 				FEA0822412A40AC800536C9B /* NSCharacterSet_Extensions.m in Sources */,
@@ -1053,6 +1052,7 @@
 				FEA0822C12A40AC800536C9B /* GoogleAnalytics.m in Sources */,
 				FEA0822D12A40AC800536C9B /* ListViewController.m in Sources */,
 				FEA0822E12A40AC800536C9B /* EGORefreshTableHeaderView.m in Sources */,
+				FE8473FB12A60FB80040086D /* NetworkChecking.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

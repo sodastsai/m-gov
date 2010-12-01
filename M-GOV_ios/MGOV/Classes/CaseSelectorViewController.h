@@ -28,6 +28,7 @@
 #import "QueryGoogleAppEngine.h"
 #import "HybridViewController.h"
 #import "CaseSelectorCell.h"
+#import "EGORefreshTableHeaderView.h"
 
 @interface CaseSelectorViewController : HybridViewController <QueryGAEReciever, HybridViewDelegate, HybridViewDataSource> {
 	NSMutableArray *caseSource;
@@ -40,6 +41,8 @@
 	// Current condition
 	id currentCondition;
 	DataSourceGAEQueryTypes currentConditionType;
+	// Reload Bar
+	EGORefreshTableHeaderView *refreshHeader;
 	
 	BOOL firstQuery;
 }

@@ -290,10 +290,17 @@
 	// Show Information Bar
 	if (informationBar==nil) {
 		informationBar = [[UIView alloc] initWithFrame:CGRectMake(0, 64, 320, 44)];
-		informationBar.backgroundColor = [UIColor colorWithRed:0.44 green:0.53 blue:0.64 alpha:0.9];
+		informationBar.backgroundColor = [UIColor colorWithRed:0.44 green:0.53 blue:0.64 alpha:0.8];
 		[self.view addSubview:informationBar];
 		[informationBar release];
 	}
+	// RefreshHeader
+	if (refreshHeader==nil) {
+		refreshHeader = [[EGORefreshTableHeaderView alloc] init];
+		[self.listViewController.tableView addSubview:refreshHeader];
+		[refreshHeader release];
+	}
+	
 	currentCondition = nil;
 	firstQuery = YES;
 }
@@ -301,6 +308,7 @@
 - (void)viewDidUnload {
 	[super viewDidUnload];
 	informationBar = nil;
+	refreshHeader = nil;
 }
 
 - (void)didReceiveMemoryWarning {
