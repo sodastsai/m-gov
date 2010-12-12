@@ -52,20 +52,21 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 
 
 	private void defualtInit(){
-		sno = String.valueOf(Math.random());
+		sno = "defualt";
 		date = new Date();
 		status = StaticValue.status[Math.abs(date.hashCode())%StaticValue.status.length];
 		key = String.valueOf(Math.abs(date.hashCode())%100000);
 //		photo = new Blob[3];
 	}
 	
-	public GAENodeCase(String email,String name,String typeid,
+	public GAENodeCase(String sno,String email,String name,String typeid,
 			String h_admit_name,
 			String h_admiv_name, 
 			String h_summary,
 			double coordx,double coordy,
 			String address){
 		
+		this.sno = sno;
 		this.email = email;
 		this.name = name;
 		this.typeid = typeid;
@@ -77,6 +78,11 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 		this.address = address;
 		
 		defualtInit();
+	}
+	
+	public GAENodeCase clone()
+	{
+		return new GAENodeCase(this.sno,this.email,this.name,this.typeid,this.h_admit_name,this.h_admiv_name,this.h_summary,this.coordx,this.coordy,this.address); 
 	}
 	
 	public GAENodeCase(){
@@ -103,7 +109,7 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 
 		String dateStr = (date.getYear()-11)+"年"+(date.getMonth()+1)+"月"+date.getDate()+"日";
 		
-		GAENodeSimple r = new GAENodeSimple(key,typeid,dateStr,coordinates,status,address,email);
+		GAENodeSimple r = new GAENodeSimple(sno,typeid,dateStr,coordinates,status,address,email);
 		JSONObject job = r.toJson();
 
 		try {
@@ -140,6 +146,7 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 
 	public void setKey(String key){
 		this.key = key;
+		this.sno = key;
 	}
 
 	public String getKey(){

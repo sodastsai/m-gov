@@ -32,7 +32,7 @@ public class Test {
 	{
 
 		GAENodeCase node = null;
-		node = new GAENodeCase("","","1110","admit","admiv","summaty",121.53614,28.02919,"106台灣台北市大安區建國南路二段153號");
+		node = new GAENodeCase("-1","","","1110","admit","admiv","summaty",121.53614,28.02919,"106台灣台北市大安區建國南路二段153號");
 		
 		String key = Test.doSend(node,"");
 		System.out.println("key:" +key);
