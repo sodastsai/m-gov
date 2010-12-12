@@ -13,11 +13,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
+import server.GetDBCookie;
 import tool.ReadFile;
 
 public class SendPost {
-	static String CFTOKEN="75450683";
-	static String CFID="1147149"; 
 	
 	URL url;
 	HttpURLConnection conn;
@@ -102,7 +101,7 @@ public class SendPost {
 		conn.setRequestProperty("Content-Type",
 				"multipart/form-data; boundary=" + boundary);
 
-		conn.setRequestProperty("Cookie",GetCzoneCookie.go());
+		conn.setRequestProperty("Cookie",GetDBCookie.go());
 	}
     //傳text
 	private void writeTextsParams() throws Exception {

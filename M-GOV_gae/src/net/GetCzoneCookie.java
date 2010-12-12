@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import server.GetDBCookie;
+
 public class GetCzoneCookie {
 
 	static String strurl = "http://www.czone2.tcg.gov.tw/Gmaps/b_frameset.cfm";
@@ -25,7 +27,6 @@ public class GetCzoneCookie {
 		conn.setDoOutput(true);
 		conn.setDoInput(true);
 		conn.setInstanceFollowRedirects(true);
-		conn.setFollowRedirects(true);
 
 		String r = "", field;
 		for (int i = 0; conn.getHeaderField(i) != null; i++) {

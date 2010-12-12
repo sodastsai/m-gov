@@ -21,7 +21,7 @@ public class LocalGenData {
 
 	public static String go()
 	{
-		SetCookie.go(CFID, CFTOKEN);
+		SetDBCookie.go(CFID, CFTOKEN);
 		ParseID.go("09909-501655");
 		ParseID.go("09909-500718");
 		ParseID.go("09909-500714");

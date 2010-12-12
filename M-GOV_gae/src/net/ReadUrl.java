@@ -15,7 +15,7 @@ public class ReadUrl {
 		String strurl = "http://www.czone2.tcg.gov.tw/Gmaps/b_frameset.cfm";
 		URL siteUrl = new URL(strurl);
 		HttpURLConnection conn = (HttpURLConnection) siteUrl.openConnection();
-//		conn.setRequestProperty("Cookie","CFID=316970;CFTOKEN=23019116");
+		conn.setRequestProperty("Cookie","CFID=1147249;CFTOKEN=46250381");
 		String res = process(strurl,"utf-8");
 		res = HtmlFilter.delSpace(res);
 		System.out.println("context: " + res);
@@ -23,7 +23,6 @@ public class ReadUrl {
 		for (int i = 0; i < 15; i++)
 			System.out.println(conn.getHeaderFieldKey(i) + " : "
 					+ conn.getHeaderField(i));
-
 	}
 
 	public static String process(String strUrl,String encode)

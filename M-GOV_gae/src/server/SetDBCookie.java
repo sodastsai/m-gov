@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/set_cookie")
 
-public class SetCookie {
+public class SetDBCookie {
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
@@ -25,6 +25,6 @@ public class SetCookie {
 		GAEDataBase.store(node1);
 		GAEDataBase.store(node2);
 		
-		return GetCookie.go();
+		return GetDBCookie.go();
 	}
 }
