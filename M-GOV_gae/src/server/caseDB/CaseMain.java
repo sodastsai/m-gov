@@ -7,6 +7,7 @@ import gae.GAENodeDebug;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Date;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
@@ -21,6 +22,7 @@ import com.sun.jersey.core.header.FormDataContentDisposition;
 
 import server.czone.CzoneMain;
 import server.czone.ParseID;
+import server.email.SendEmail;
 
 import net.ReadUrlByPOST;
 
@@ -118,6 +120,10 @@ public class CaseMain {
 			{
 				ParseID.go(key, node.email);
 				node.setKey(key);
+			}
+			else
+			{
+				SendEmail.go("eco-living_m-gov@googlegroups.com","[路見不平]+[ERROR]"+new Date(),ReadUrlByPOST.doSend(node,"debug"));
 			}
 		}
 		

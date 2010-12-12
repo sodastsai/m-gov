@@ -1,13 +1,9 @@
 package server.czone;
 
-import java.io.IOException;
-
-
 import gae.GAEDataBase;
 import gae.GAENode;
 import gae.GAENodeSimple;
 
-import net.CookiesInURL;
 import net.HtmlFilter;
 
 import tool.TypeFilter;
@@ -25,10 +21,9 @@ public class ParseID {
 	public static String go(String cmd) {
 		try {
 			strurl=String.format("http://www.czone2.tcg.gov.tw/GMaps/desc.cfm?sn=%s",cmd);
-			CookiesInURL urlcon = new CookiesInURL (strurl); 
 
 			String res,res2;
-			res = net.ReadUrl.process(urlcon.connection,"utf-8");
+			res = net.ReadUrl.process(strurl,"utf-8");
 			System.out.println(res);
 
 			res2= net.HtmlFilter.praseCoordinates(res);

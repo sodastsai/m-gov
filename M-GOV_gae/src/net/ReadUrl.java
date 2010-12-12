@@ -12,18 +12,12 @@ public class ReadUrl {
 
 	public static void main(String[] args) throws UnsupportedEncodingException,
 			IOException {
-		String strurl = "http://www.nownews.com.tw/2009/12/15/334-2546270.htm";
+		String strurl = "http://www.czone2.tcg.gov.tw/Gmaps/b_frameset.cfm";
 		URL siteUrl = new URL(strurl);
 		HttpURLConnection conn = (HttpURLConnection) siteUrl.openConnection();
 //		conn.setRequestProperty("Cookie","CFID=316970;CFTOKEN=23019116");
-		BufferedReader in = new BufferedReader(new InputStreamReader(conn
-				.getInputStream(), "big5"));
-		String line, res = "";
-		while ((line = in.readLine()) != null) {
-			res += line + "\n";
-			// System.out.println(line);
-		}
-		in.close();
+		String res = process(strurl,"utf-8");
+		res = HtmlFilter.delSpace(res);
 		System.out.println("context: " + res);
 
 		for (int i = 0; i < 15; i++)
@@ -51,8 +45,9 @@ public class ReadUrl {
 		while ((line = reader.readLine()) != null) {
 			builder.append(line + "\n");
 		}
-
 		String response = builder.toString();
+
+		reader.close();
 		return response;
 	}
 

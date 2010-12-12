@@ -1,4 +1,4 @@
-package net;
+package server;
 
 import gae.GAEDataBase;
 import gae.GAENodeCase;
@@ -8,23 +8,35 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import net.HtmlFilter;
+import net.SendPost;
+
 import tool.TypeFilter;
 
-public class ReadUrlByPOST {
+@Path("/__test")
+public class Test {
+
 
 	static String add_caseURL = "http://www.czone2.tcg.gov.tw/Gmaps/add_case.cfm";
 	static String preview_caseURL = "http://www.czone2.tcg.gov.tw/tp95-4/sys/preview_case.cfm";
 	static String imagePath = "/Users/ggm/Desktop/case_pic.JPG";
-	
-	public static void main(String args[])
+
+	@GET
+	@Produces(MediaType.TEXT_PLAIN)
+	public static String test()
 	{
 
 		GAENodeCase node = null;
 		node = new GAENodeCase("","","1110","admit","admiv","summaty",121.53614,28.02919,"106台灣台北市大安區建國南路二段153號");
 		
-		String key = ReadUrlByPOST.doSend(node,"");
+		String key = Test.doSend(node,"");
 		System.out.println("key:" +key);
-		
+		return key;
 	}
 	
 	//return key

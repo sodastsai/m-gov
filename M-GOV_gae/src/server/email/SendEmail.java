@@ -1,5 +1,8 @@
 package server.email;
 
+import gae.GAEDataBase;
+import gae.GAENodeDebug;
+
 import java.util.Properties;
 
 import javax.mail.Message;
@@ -20,31 +23,32 @@ public class SendEmail {
 
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	@Path("{c1}/{c2}")		
-	public static String go(@PathParam("c1") String user,@PathParam("c2") String sno)
+	@Path("{c1}/{c2}/{c3}")		
+	public static String go(@PathParam("c1") String user,@PathParam("c2") String subject,@PathParam("c3") String context)
 	{
         Properties props = new Properties();
         Session session = Session.getDefaultInstance(props, null);
 
-        String msgBody = "案件編號："+sno+"...";
         System.setProperty("mail.mime.charset", "UTF-8"); 
         try {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress("mgov.ntu@gmail.com"));
             msg.addRecipient(Message.RecipientType.TO,
-                             new InternetAddress(user+"@gmail.com"));
+                             new InternetAddress(user));
             msg.setHeader("Content-Type","text/plain; charset=\"utf-8\"");
             msg.setHeader("Content-Transfer-Encoding", "quoted-printable");
 
-            msg.setSubject("[路見不平]");
-            msg.setText(msgBody);
+            msg.setSubject(subject);
+            msg.setText(context);
             Transport.send(msg);
 
         } catch (AddressException e) {
             // ...
+        	GAEDataBase.store(new GAENodeDebug("email_exception",e.toString()));
         	e.printStackTrace();
         } catch (MessagingException e) {
             // ...
+        	GAEDataBase.store(new GAENodeDebug("email_exception",e.toString()));
         	e.printStackTrace();
         }
         return "done";

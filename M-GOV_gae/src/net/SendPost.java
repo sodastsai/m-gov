@@ -16,7 +16,8 @@ import java.util.Set;
 import tool.ReadFile;
 
 public class SendPost {
-	static String CFTOKEN="35573909",CFID="1122207"; 
+	static String CFTOKEN="75450683";
+	static String CFID="1147149"; 
 	
 	URL url;
 	HttpURLConnection conn;
@@ -101,7 +102,7 @@ public class SendPost {
 		conn.setRequestProperty("Content-Type",
 				"multipart/form-data; boundary=" + boundary);
 
-		conn.setRequestProperty("Cookie","CFTOKEN="+CFTOKEN+";CFID="+CFID);
+		conn.setRequestProperty("Cookie",GetCzoneCookie.go());
 	}
     //傳text
 	private void writeTextsParams() throws Exception {
