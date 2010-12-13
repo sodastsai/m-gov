@@ -52,10 +52,10 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 
 
 	private void defualtInit(){
-		sno = "defualt";
 		date = new Date();
-		status = StaticValue.status[Math.abs(date.hashCode())%StaticValue.status.length];
+		status = "查報";
 		key = String.valueOf(Math.abs(date.hashCode())%100000);
+		sno = key;
 //		photo = new Blob[3];
 	}
 	
@@ -82,7 +82,9 @@ public class GAENodeCase implements Comparable<GAENodeCase>{
 	
 	public GAENodeCase clone()
 	{
-		return new GAENodeCase(this.sno,this.email,this.name,this.typeid,this.h_admit_name,this.h_admiv_name,this.h_summary,this.coordx,this.coordy,this.address); 
+		GAENodeCase node = new GAENodeCase(this.sno,this.email,this.name,this.typeid,this.h_admit_name,this.h_admiv_name,this.h_summary,this.coordx,this.coordy,this.address); 
+		node.photo = this.photo;
+		return node; 
 	}
 	
 	public GAENodeCase(){

@@ -128,7 +128,7 @@ public class CaseMain {
 			String key = ReadUrlByPOST.doSend(node,"");
 			System.out.println("key:" +key);
 			
-			if(key!=null && key.length()>1)
+			if(key!=null && key.length()==12)
 			{
 				ParseID.go(key, node.email);
 				node.setKey(key);
