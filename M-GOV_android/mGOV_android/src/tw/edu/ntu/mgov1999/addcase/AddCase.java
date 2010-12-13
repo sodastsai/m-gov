@@ -604,7 +604,7 @@ public class AddCase extends MapActivity {
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("確定要送出案件?")
-			.setMessage("案件將送至台北市1999市容查報\n並於市政府網站留下案件記錄")
+			.setMessage("將送至台北市1999市容查報\n並於市政府網站留下案件記錄")
 			.setPositiveButton("確定", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {

@@ -46,7 +46,7 @@ public class mgov extends TabActivity {
 	private static final String myCaseTabID = "myCaseTab";
 	private static final String queryCaseTabID = "queryCaseTab";
     // Global Constant
-	public static final boolean DEBUG_MODE = false;
+	public static final boolean DEBUG_MODE = true;
 	public static boolean firstTimeMyCase;
 	public static boolean firstTimeQueryCase;
 	

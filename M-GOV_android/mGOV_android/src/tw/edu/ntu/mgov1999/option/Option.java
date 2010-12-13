@@ -160,13 +160,13 @@ public class Option extends PreferenceActivity {
         String versionInfo = getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version);
         if (mgov.DEBUG_MODE)
         	versionInfo += ", Debug Mode";
-        versionInfo += "\nNTU CSIE Mobile HCI Lab";
+        versionInfo += "\nNTU CSIE Mobile & HCI Research Lab";
         
         Preference appInformation = new Preference(this);
         appInformation.setOnPreferenceClickListener(new OnPreferenceClickListener() {
         	@Override
 			public boolean onPreferenceClick(Preference arg0) {
-        		String infoMsg = getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version)+"\nNTU CSIE Mobile HCI Lab";
+        		String infoMsg = getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version)+"\nNTU CSIE Mobile & HCI Research Lab";
             	infoMsg += "\n\n路見不平為開放原始碼軟體\n採用Apache License 2.0授權\nhttp://www.apache.org/licenses/\n\n原始碼可由Google Code取得\nhttp://code.google.com/\np/m-gov/";
         		
         		AlertDialog.Builder infoDialog = new AlertDialog.Builder(selfContext);
