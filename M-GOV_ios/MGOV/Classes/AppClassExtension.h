@@ -32,7 +32,6 @@
 - (UIImage *)cropToRect:(CGRect)newRect;
 - (UIImage *)fitToSize:(CGSize)newSize;
 - (UIImage *)fixImageSize;
-- (UIImage *)cropToRect:(CGRect)newRect;
 
 @end
 

@@ -46,7 +46,7 @@
 
 - (id)init {
 	// Directly Define Appearance
-	CGRect frame = CGRectMake(0.0f, -460.0f, 320.0f, 460.0f);
+	CGRect frame = CGRectMake(0.0f, -460.0f+44.0f, 320.0f, 460.0f);
 	if (self = [super initWithFrame:frame]) {
 		
 		self.autoresizingMask = UIViewAutoresizingFlexibleWidth;

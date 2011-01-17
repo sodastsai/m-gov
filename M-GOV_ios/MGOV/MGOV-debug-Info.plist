@@ -40,7 +40,7 @@
 	<key>NSMainNibFile</key>
 	<string>MainWindow</string>
 	<key>Release Info</key>
-	<string>NTU CSIE Mobile HCI Lab</string>
+	<string>NTU CSIE Mobile &amp; HCI Research Lab</string>
 	<key>UILaunchImageFile</key>
 	<string>Default.png</string>
 </dict>
