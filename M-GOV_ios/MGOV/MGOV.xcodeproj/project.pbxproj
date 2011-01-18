@@ -208,6 +208,8 @@
 		FEB39CA412389597007359AB /* HybridViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39CA312389597007359AB /* HybridViewController.m */; };
 		FEB39FE71238CF32007359AB /* QueryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB39FE61238CF32007359AB /* QueryViewController.m */; };
 		FEB7C7FF12557EBD00436BB2 /* CaseSelectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FEB7C7FE12557EBD00436BB2 /* CaseSelectorViewController.m */; };
+		FEBF3E9A12E562B500C65852 /* IconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF3E9912E562B500C65852 /* IconCell.m */; };
+		FEBF3E9B12E562B500C65852 /* IconCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FEBF3E9912E562B500C65852 /* IconCell.m */; };
 		FEC679CE126EEB37000AF355 /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEC679CB126EEB37000AF355 /* DetailViewController.xib */; };
 		FEC679CF126EEB37000AF355 /* SecondDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEC679CC126EEB37000AF355 /* SecondDetailViewController.xib */; };
 		FEC679D0126EEB37000AF355 /* TypesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FEC679CD126EEB37000AF355 /* TypesViewController.xib */; };
@@ -368,6 +370,8 @@
 		FEB39FE61238CF32007359AB /* QueryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QueryViewController.m; sourceTree = "<group>"; };
 		FEB7C7FD12557EBD00436BB2 /* CaseSelectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaseSelectorViewController.h; sourceTree = "<group>"; };
 		FEB7C7FE12557EBD00436BB2 /* CaseSelectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaseSelectorViewController.m; sourceTree = "<group>"; };
+		FEBF3E9812E562B500C65852 /* IconCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IconCell.h; sourceTree = "<group>"; };
+		FEBF3E9912E562B500C65852 /* IconCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IconCell.m; sourceTree = "<group>"; };
 		FEC679CB126EEB37000AF355 /* DetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailViewController.xib; sourceTree = "<group>"; };
 		FEC679CC126EEB37000AF355 /* SecondDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SecondDetailViewController.xib; sourceTree = "<group>"; };
 		FEC679CD126EEB37000AF355 /* TypesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TypesViewController.xib; sourceTree = "<group>"; };
@@ -700,6 +704,8 @@
 				FE74CC531258ADED00267C80 /* EditibleTextFieldCell.h */,
 				FE74CC541258ADED00267C80 /* EditibleTextFieldCell.m */,
 				FE74CCCF1258C0AE00267C80 /* WritePrefDelegate.h */,
+				FEBF3E9812E562B500C65852 /* IconCell.h */,
+				FEBF3E9912E562B500C65852 /* IconCell.m */,
 			);
 			name = Preferences;
 			sourceTree = "<group>";
@@ -1001,6 +1007,7 @@
 				FE882C9E128906DF0057F224 /* ListViewController.m in Sources */,
 				FEA07F9812A3E8BF00536C9B /* EGORefreshTableHeaderView.m in Sources */,
 				FE8473FA12A60FB80040086D /* NetworkChecking.m in Sources */,
+				FEBF3E9B12E562B500C65852 /* IconCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1053,6 +1060,7 @@
 				FEA0822D12A40AC800536C9B /* ListViewController.m in Sources */,
 				FEA0822E12A40AC800536C9B /* EGORefreshTableHeaderView.m in Sources */,
 				FE8473FB12A60FB80040086D /* NetworkChecking.m in Sources */,
+				FEBF3E9A12E562B500C65852 /* IconCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

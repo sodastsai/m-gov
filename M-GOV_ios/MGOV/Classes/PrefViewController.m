@@ -99,16 +99,18 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section==0) return 2;
+	else if (section==1) return 1;
 	else return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section==0) return @"個人資訊";
+	else if (section==1) return @"系統狀態";
 	else if (section == [self numberOfSectionsInTableView:tableView]-1) return @"版本資訊";
 	else return nil;
 }
@@ -134,6 +136,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier1 = @"DefaultCell";
 	static NSString *CellIdentifier2 = @"EditibleTextFieldCell";
+	static NSString *CellIdentifier3 = @"IconCell";
 	
 	if (indexPath.section==0) {
 		EditibleTextFieldCell *editibleCell = (EditibleTextFieldCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
@@ -162,6 +165,16 @@
 		editibleCell.selectionStyle = UITableViewCellSeparatorStyleNone;
 		return (UITableViewCell *)editibleCell;
 		
+	} else if (indexPath.section==1) {
+		IconCell *cell = (IconCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier3];
+		if (cell==nil) {
+			cell = [[[IconCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier3] autorelease];
+		}
+		
+		cell.imageIconView.image = [UIImage imageNamed:@"ok.png"];
+		cell.textField.text = @"XD";
+		
+		return (UITableViewCell *)cell;
 	} else {
 		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
 		if (cell == nil)
