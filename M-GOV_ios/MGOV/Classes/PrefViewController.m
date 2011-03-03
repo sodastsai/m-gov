@@ -79,7 +79,7 @@
 			UITabBarController *mainBar = (UITabBarController *)self.parentViewController.parentViewController;
 			NSEnumerator *enumerator = [mainBar.viewControllers objectEnumerator];
 			id eachViewController;
-			while (eachViewController = [enumerator nextObject])
+			while ((eachViewController = [enumerator nextObject]))
 				if([eachViewController isKindOfClass:[MyCaseViewController class]])
 					[eachViewController refreshDataSource];
 		}

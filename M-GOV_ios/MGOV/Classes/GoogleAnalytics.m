@@ -27,6 +27,7 @@
 @implementation GoogleAnalytics
 
 + (void)trackAction:(GANAction)action withLabel:(NSString *)label andTimeStamp:(BOOL)ts andUDID:(BOOL)udid {
+#ifndef DEBUG
 	NSString *eventString = nil;
 	NSString *actionString = nil;
 	
@@ -134,11 +135,12 @@
 	
 	if (label!=nil)
 		labelString = [labelString stringByAppendingFormat:@" %@", label];
-	
+    
 	[[GANTracker sharedTracker] trackEvent:eventString action:actionString label:labelString value:-1 withError:nil];
 	
 	if ([[[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"] boolValue])
 		NSLog(@"Google Analytics: %@ - %@", actionString, labelString);
+#endif
 }
 
 @end

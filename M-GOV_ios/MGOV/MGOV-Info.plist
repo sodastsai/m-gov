@@ -31,8 +31,10 @@
 	<string>APPL</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array/>
 	<key>CFBundleVersion</key>
-	<string>1.1.2</string>
+	<string>1.9.0</string>
 	<key>Develop Mode</key>
 	<string>YES</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -43,5 +45,13 @@
 	<string>NTU CSIE Mobile &amp; HCI Research Lab</string>
 	<key>UILaunchImageFile</key>
 	<string>Default.png</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UTExportedTypeDeclarations</key>
+	<array/>
+	<key>UTImportedTypeDeclarations</key>
+	<array/>
 </dict>
 </plist>

@@ -37,7 +37,7 @@
 #pragma mark View lifecycle
 
 - (id)initWithStyle:(UITableViewStyle)style {
-	if (self = [super initWithStyle:style]) {
+	if ((self = [super initWithStyle:style])) {
 		ableToUpdateLocationCell = YES;
 		// Set the title
 		self.title = @"報案";

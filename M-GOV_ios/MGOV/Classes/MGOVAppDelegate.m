@@ -136,7 +136,7 @@
 	if (([[NSDate date] timeIntervalSince1970]-[[[NSUserDefaults standardUserDefaults] objectForKey:@"TimeEnterBackground"] timeIntervalSince1970])>10*60) {
 		NSEnumerator *enumerator = [tabBarController.viewControllers objectEnumerator];
 		id eachViewController;
-		while (eachViewController = [enumerator nextObject])
+		while ((eachViewController = [enumerator nextObject]))
 			if([eachViewController isKindOfClass:[HybridViewController class]])
 				if (![[eachViewController topViewController] isKindOfClass:[CaseAddViewController class]] && ![[eachViewController topViewController] isKindOfClass:[CaseViewerViewController class]])
 					[eachViewController refreshDataSource];
@@ -181,7 +181,7 @@
 	// Pop Case Viewer out if going to back
 	NSEnumerator *enumerator =  [aTabBarController.viewControllers objectEnumerator];
 	id eachViewController;
-	while (eachViewController = [enumerator nextObject])
+	while ((eachViewController = [enumerator nextObject]))
 		if ( [eachViewController isKindOfClass:[CaseSelectorViewController class]] && ![eachViewController isEqual:viewController] )
 			if ([[eachViewController topViewController] isKindOfClass:[CaseViewerViewController class]])
 				[eachViewController popViewControllerAnimated:NO];

@@ -59,7 +59,7 @@
 		MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];	
 		[mapView setCenterCoordinate:shared.locationManager.location.coordinate animated:YES];
 		MKCoordinateRegion region;
-		region.center = shared.locationManager.location.coordinate;
+		region.center = mapView.region.center;
 		MKCoordinateSpan span;
 		span.latitudeDelta = 0.004;
 		span.longitudeDelta = 0.004;
@@ -157,7 +157,7 @@
 	emptyRootViewController = [[UIViewController alloc] init];
 	emptyRootViewController.view.backgroundColor = [UIColor viewFlipsideBackgroundColor];
 	
-	if (self = [super initWithRootViewController:emptyRootViewController]) {
+	if ((self = [super initWithRootViewController:emptyRootViewController])) {
 		
 		self.title = aTitle;
 		self.navigationItem.title = aTitle;
