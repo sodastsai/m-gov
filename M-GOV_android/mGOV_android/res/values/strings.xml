@@ -3,7 +3,7 @@
     
 <string name="google_mapview_api_key">0auBQTXpm_WCfH4KZ0N8zMxU3a0f1nDMN2Uqt0w</string>
     
-<string name="app_name">路見不平</string><string name="app_version">1.0</string>
+<string name="app_name">路見不平</string><string name="app_version">1.9.0</string>
 
 <string name="tabName_myCase">我的案件</string> 
 <string name="tabName_query">查詢案件</string>
