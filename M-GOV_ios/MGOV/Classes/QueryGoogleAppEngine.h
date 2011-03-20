@@ -27,7 +27,7 @@
 #import "ASIHTTPRequest.h"
 #import "LoadingOverlayView.h"
 #import "NetworkChecking.h"
-#import "CJSONDeserializer.h"
+#import "JSONKit.h"
 
 typedef enum {
 	DataSourceGAEQueryByID,

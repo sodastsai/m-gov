@@ -46,7 +46,7 @@ static MGOVGeocoder *sharedVariable = nil;
 	// Use Google API to transform Latitude & Longitude to the corresponding address
 	NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?latlng=%f,%f&sensor=true&language=zh-TW", coordinate.latitude, coordinate.longitude]];
 	NSData *data = [[NSData alloc] initWithContentsOfURL:url];
-	NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:data error:nil];
+	NSDictionary *dict = [data objectFromJSONData];
 	[url release];
 	[data release];
 	if (![[dict objectForKey:@"status"] isEqual:@"OK"]) return nil;
@@ -56,7 +56,7 @@ static MGOVGeocoder *sharedVariable = nil;
 	// Use Google API to transform Latitude & Longitude to the corresponding address  
 	NSURL *url = [[NSURL alloc] initWithString:[NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?latlng=%f,%f&sensor=true&language=zh-TW", coordinate.latitude, coordinate.longitude]];
 	NSData *data = [[NSData alloc] initWithContentsOfURL:url];
-	NSDictionary *dict = [[CJSONDeserializer deserializer] deserialize:data error:nil];	
+	NSDictionary *dict = [data objectFromJSONData];	
 	[url release];
 	[data release];
 	if (![[dict objectForKey:@"status"] isEqual:@"OK"]) return nil;
