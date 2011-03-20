@@ -31,6 +31,7 @@ import tw.edu.ntu.mgov1999.addcase.AddCase;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -44,6 +45,7 @@ public class Option extends PreferenceActivity {
 	public static final String PREFERENCE_NAME = "Option-Preferences";
 	public static final String KEY_USER_EMAIL = "User Email";
 	public static final String KEY_USER_NAME = "User Name";
+	public static final String KEY_USER_FB_POST = "Facebook AutoPost";
 	
 	public final Context selfContext = this;
 	
@@ -156,6 +158,11 @@ public class Option extends PreferenceActivity {
 			}
 		});
         prefCategory[0].addPreference(userRealName);
+        
+        CheckBoxPreference fb_PostCheck = new CheckBoxPreference(this);
+        fb_PostCheck.setKey(KEY_USER_FB_POST);
+        fb_PostCheck.setTitle("Facebook");
+        prefCategory[0].addPreference(fb_PostCheck);
 		
         String versionInfo = getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version);
         if (mgov.DEBUG_MODE)

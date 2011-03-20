@@ -77,6 +77,9 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -112,6 +115,9 @@ public class AddCase extends MapActivity {
 	private EditText descriptionEditText;
 	private Button resetButton;
 	private Button submitButton;
+	private CheckBox fb_PostCheck;
+	private TextView fbMsgTitleText;
+	private EditText fbMsgEditText;
 	
 	// shared preference to save some information 
 	private static String SHARED_PREFERENCES_NAME = LOGTAG; 
@@ -255,6 +261,30 @@ public class AddCase extends MapActivity {
 		else
 			nameEditText.setText(userPreferences.getString(Option.KEY_USER_NAME, ""));
 		
+		// Facebook post check box
+		fb_PostCheck.setChecked(userPreferences.getBoolean(Option.KEY_USER_FB_POST, false));
+		if (userPreferences.getBoolean(Option.KEY_USER_FB_POST, false) == true) {
+			fbMsgEditText.setVisibility(EditText.VISIBLE);
+			fbMsgTitleText.setVisibility(EditText.VISIBLE);
+		}
+		else {
+			fbMsgEditText.setVisibility(EditText.GONE);
+			fbMsgTitleText.setVisibility(EditText.GONE);
+		}
+		fb_PostCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
+				if (arg1 == true) {
+					fbMsgEditText.setVisibility(EditText.VISIBLE);
+					fbMsgTitleText.setVisibility(EditText.VISIBLE);
+				}
+				else {
+					fbMsgEditText.setVisibility(EditText.GONE);
+					fbMsgTitleText.setVisibility(EditText.GONE);
+				}
+			}
+		});
+		
 		// descriptionEditText 
 		if (preferences.contains(SP_DESCRIPTION)) {
 			descriptionEditText.setText(preferences.getString(SP_DESCRIPTION, ""));
@@ -271,6 +301,9 @@ public class AddCase extends MapActivity {
 		descriptionEditText = (EditText) findViewById(R.id.AddCase_EditText_Detail);
 		resetButton = (Button) findViewById(R.id.AddCase_Btn_Reset);
 		submitButton = (Button) findViewById(R.id.AddCase_Btn_Submit);
+		fb_PostCheck = (CheckBox) findViewById(R.id.AddCase_FBPost);
+		fbMsgEditText = (EditText) findViewById(R.id.AddCase_fb_msg);
+		fbMsgTitleText = (TextView) findViewById(R.id.AddCase_fb_MsgTitle);
 		// set up overlay 
 		mapOverlay = new MyOverlay(this.getResources().getDrawable(R.drawable.okspot));
 		mapView.getOverlays().add(mapOverlay);

@@ -85,6 +85,29 @@
 			android:gravity="top|left"
 			android:hint="@string/addcase_hint_description">
 		</EditText>
+		<CheckBox
+			android:id="@+id/AddCase_FBPost"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="  Post在facebook塗鴉牆上"
+			android:textSize="18dip"
+			android:layout_marginBottom="10dip">
+		</CheckBox>
+		<TextView
+			android:id="@+id/AddCase_fb_MsgTitle"
+			android:text="@string/addcase_title_fb_msg"
+			style="@style/AddCase_TitleStyle">
+		</TextView>
+		<EditText
+			android:id="@+id/AddCase_fb_msg"
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:minLines="6"
+			android:inputType="textMultiLine|textImeMultiLine"
+			android:gravity="top|left"
+			android:layout_marginBottom="14dip"
+			android:hint="@string/addcase_hint_fb_msg">	
+		</EditText>
 		<LinearLayout
 			android:layout_width="fill_parent"
 			android:layout_height="wrap_content">
