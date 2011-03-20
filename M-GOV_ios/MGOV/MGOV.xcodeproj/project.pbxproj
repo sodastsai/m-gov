@@ -33,7 +33,7 @@
 		2AEBFCD9124B22FF0047B3E6 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 2AEBFCD2124B22FF0047B3E6 /* Reachability.m */; };
 		2AEBFD00124B25270047B3E6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEBFCFF124B25270047B3E6 /* MobileCoreServices.framework */; };
 		2AEBFD03124B25410047B3E6 /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEBFD02124B25410047B3E6 /* libz.1.2.3.dylib */; };
-		603027CB1336069600EC9FEE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 603027CA1336069600EC9FEE /* JSONKit.m */; };
+		6030281513361D7800EC9FEE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6030281413361D7800EC9FEE /* JSONKit.m */; };
 		7E7FE9711334F24100078EB0 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7FE96D1334F24100078EB0 /* Facebook.m */; };
 		7E7FE9721334F24100078EB0 /* FBDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7FE96E1334F24100078EB0 /* FBDialog.m */; };
 		7E7FE9731334F24100078EB0 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 7E7FE96F1334F24100078EB0 /* FBLoginDialog.m */; };
@@ -153,8 +153,8 @@
 		2AEBFCFF124B25270047B3E6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2AEBFD02124B25410047B3E6 /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* MGOV_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGOV_Prefix.pch; sourceTree = "<group>"; };
-		603027C91336069600EC9FEE /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONKit.h; path = ../../../JSONKit/JSONKit.h; sourceTree = SOURCE_ROOT; };
-		603027CA1336069600EC9FEE /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JSONKit.m; path = ../../../JSONKit/JSONKit.m; sourceTree = SOURCE_ROOT; };
+		6030281313361D7800EC9FEE /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		6030281413361D7800EC9FEE /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		7E7FE9671334F24100078EB0 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
 		7E7FE9681334F24100078EB0 /* FBConnect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBConnect.h; sourceTree = "<group>"; };
 		7E7FE9691334F24100078EB0 /* FBDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBDialog.h; sourceTree = "<group>"; };
@@ -468,8 +468,6 @@
 		603027C81336067500EC9FEE /* JSONKit */ = {
 			isa = PBXGroup;
 			children = (
-				603027C91336069600EC9FEE /* JSONKit.h */,
-				603027CA1336069600EC9FEE /* JSONKit.m */,
 			);
 			name = JSONKit;
 			sourceTree = "<group>";
@@ -598,6 +596,8 @@
 			isa = PBXGroup;
 			children = (
 				603027C81336067500EC9FEE /* JSONKit */,
+				6030281313361D7800EC9FEE /* JSONKit.h */,
+				6030281413361D7800EC9FEE /* JSONKit.m */,
 				7E7FE9651334F21F00078EB0 /* Facebook */,
 				FEA07F9912A3E8D100536C9B /* RefreshTableHeaderView */,
 				FE88283D12839C670057F224 /* GANTracker.h */,
@@ -789,7 +789,7 @@
 				7E7FE9721334F24100078EB0 /* FBDialog.m in Sources */,
 				7E7FE9731334F24100078EB0 /* FBLoginDialog.m in Sources */,
 				7E7FE9741334F24100078EB0 /* FBRequest.m in Sources */,
-				603027CB1336069600EC9FEE /* JSONKit.m in Sources */,
+				6030281513361D7800EC9FEE /* JSONKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
