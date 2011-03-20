@@ -15,7 +15,11 @@ handlers:
 # Script
 - url: /(|example/)
   script: Root.py
-  
+ 
+# queue
+- url: /queue/fetchcase.*
+  script: FetchCase.py
+ 
 # Not Found Page
 - url: /.*
   script: NotFound.py
