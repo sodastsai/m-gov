@@ -16,6 +16,11 @@ handlers:
 - url: /(|example/)
   script: Root.py
   
+# Tool
+# Memcache
+- url: /tool/memcache/
+  script: tool/ToolPage.py
+  
 # Not Found Page
 - url: /.*
   script: NotFound.py
