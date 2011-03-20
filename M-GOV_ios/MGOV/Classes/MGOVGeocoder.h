@@ -24,7 +24,7 @@
 
 #import <Foundation/Foundation.h>
 #import <SystemConfiguration/SystemConfiguration.h>
-#import "CJSONDeserializer.h"
+#import "JSONKit.h"
 
 @interface MGOVGeocoder : NSObject {
 	CLLocationManager *locationManager;
