@@ -12,6 +12,10 @@ handlers:
 # js
 - url: /js
   static_dir: document/js
-
+# Script
 - url: /(|example/)
   script: Root.py
+  
+# Not Found Page
+- url: /.*
+  script: NotFound.py
