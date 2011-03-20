@@ -23,10 +23,16 @@
  */
 
 #import "PrefViewController.h"
+#import "FBConnect.h"
+
+static NSString* kAppId = @"106524439416118";
+#define ACCESS_TOKEN_KEY @"fb_access_token"
+#define EXPIRATION_DATE_KEY @"fb_expiration_date"
 
 @implementation PrefViewController
 
 @synthesize originalEmail;
+@synthesize facebook;
 
 #pragma mark -
 #pragma mark WritePrefDelegate
@@ -95,6 +101,9 @@
 	}
 }
 
+#pragma mark -
+#pragma mark Facebook
+
 - (void)facebookSwitchAction:(id)sender{
     UISwitch *s = (UISwitch*)sender;
     NSString *isOn = [NSString stringWithString:@""];
@@ -102,7 +111,39 @@
     else    isOn = @"NO";
     NSLog(@"%@",isOn);
     [[NSUserDefaults standardUserDefaults] setObject:isOn forKey:@"fbSwitchInSetting"];
+    [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"switchInSettingDidChange"];
     [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    if ([s isOn]==NO)
+        return;
+    
+    //Facebook Login
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    facebook.accessToken = [prefs objectForKey:ACCESS_TOKEN_KEY];
+    facebook.expirationDate = [prefs objectForKey:EXPIRATION_DATE_KEY];
+    NSLog(@"acestkn: %@, expDate: %@", facebook.accessToken, facebook.expirationDate);
+    NSArray *permissions =  [NSArray arrayWithObjects:
+                             @"read_stream", @"publish_stream", @"offline_access",nil];
+    if (![facebook isSessionValid]){
+        [facebook authorize:permissions delegate:self];
+    }
+    //[facebook release];
+}
+
+- (void)fbDidLogin {
+    NSLog(@"Did Log in");
+    NSLog(@"AccessToken: %@", facebook.accessToken);
+    NSLog(@"ExpirDate: %@", facebook.expirationDate);
+    
+    //Store the login session info
+    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+    [prefs setObject:facebook.accessToken forKey:ACCESS_TOKEN_KEY];
+    [prefs setObject:facebook.expirationDate forKey:EXPIRATION_DATE_KEY];
+    [prefs synchronize];
+}
+
+- (void)fbDidNotLogin:(BOOL)cancelled{
+    NSLog(@"Fail to login");
 }
 
 #pragma mark -
@@ -225,9 +266,20 @@
 #pragma mark -
 #pragma mark Lifecycle
 
+- (void)viewDidLoad{
+    facebook = [[Facebook alloc] initWithAppId:kAppId];
+    facebook.sessionDelegate = self;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
 	[self.tableView reloadData];
+}
+
+- (void)viewDidUnload{
+    [facebook release];
+    
+    //facebook = nil;
 }
 
 #pragma mark -
