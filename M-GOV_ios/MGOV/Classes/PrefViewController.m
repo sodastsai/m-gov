@@ -95,22 +95,33 @@
 	}
 }
 
+- (void)facebookSwitchAction:(id)sender{
+    UISwitch *s = (UISwitch*)sender;
+    NSString *isOn = [NSString stringWithString:@""];
+    if ([s isOn]==YES)  isOn = @"YES";
+    else    isOn = @"NO";
+    NSLog(@"%@",isOn);
+    [[NSUserDefaults standardUserDefaults] setObject:isOn forKey:@"fbSwitchInSetting"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma mark -
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section==0) return 2;
-	else if (section==1) return 1;
+	else if (section==1 || section==2) return 1;
 	else return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section==0) return @"個人資訊";
-	else if (section==1) return @"系統狀態";
+	else if (section==1) return @"發佈設定";
+    else if (section==2) return @"系統狀態";
 	else if (section == [self numberOfSectionsInTableView:tableView]-1) return @"版本資訊";
 	else return nil;
 }
@@ -165,7 +176,29 @@
 		editibleCell.selectionStyle = UITableViewCellSeparatorStyleNone;
 		return (UITableViewCell *)editibleCell;
 		
-	} else if (indexPath.section==1) {
+	} else if (indexPath.section==1) { 
+        UITableViewCell *toggleCell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier1];
+        if (toggleCell == nil){
+            toggleCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier1] autorelease];
+        }
+        toggleCell.selectionStyle = UITableViewCellEditingStyleNone;
+            
+        toggleCell.imageView.image = [UIImage imageNamed:@"fail.png"];
+        toggleCell.textLabel.text = @"Facebook";
+        UISwitch *facebookSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0.0, 0.0, 60.0, 26.0)];
+        [facebookSwitch addTarget:self action:@selector(facebookSwitchAction:) forControlEvents:UIControlEventValueChanged];
+        [facebookSwitch setBackgroundColor:[UIColor clearColor]];
+        if ( [[[NSUserDefaults standardUserDefaults] objectForKey:@"fbSwitchInSetting"] isEqualToString:@"YES"]){
+            facebookSwitch.on = YES;
+        }
+        else{
+            facebookSwitch.on = NO;
+        }
+        toggleCell.accessoryView = facebookSwitch;
+        [facebookSwitch release];
+        return toggleCell;
+        
+    } else if (indexPath.section==2) {
 		IconCell *cell = (IconCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier3];
 		if (cell==nil) {
 			cell = [[[IconCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier3] autorelease];

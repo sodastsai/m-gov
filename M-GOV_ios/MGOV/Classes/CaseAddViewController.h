@@ -37,11 +37,13 @@
 #import "CaseSelectorViewController.h"
 #import "NetworkChecking.h"
 #import "GoogleAnalytics.h"
+#import "FBConnect.h"
 
 #define kPhotoScale 640
 
-@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, PhotoPickerTableCellDelegate, LocationSelectorTableCellDelegate, LocationSelectorViewControllerDelegate, ASIHTTPRequestDelegate>  {
-	NSString *selectedTypeTitle;
+@interface CaseAddViewController : UITableViewController <TypeSelectorDelegateProtocol, UITextFieldDelegate, UIActionSheetDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, UIAlertViewDelegate, PhotoPickerTableCellDelegate, LocationSelectorTableCellDelegate, LocationSelectorViewControllerDelegate, ASIHTTPRequestDelegate, FBSessionDelegate, FBRequestDelegate>  {
+	
+    NSString *selectedTypeTitle;
 	NSInteger qid;
 	UITextField *alertEmailInputField;
 	UIAlertView *alertEmailPopupBox;
@@ -67,6 +69,13 @@
 	
 	// Parent
 	CaseSelectorViewController *myCase;
+    
+    // Facebook component
+    Facebook *facebook;
+    NSString *postItemId;
+    NSString *likeCount;
+    NSString *commentCount;
+    NSInteger isFirstTimeSet;
 }
 
 @property (nonatomic) BOOL ableToUpdateLocationCell;
@@ -74,6 +83,13 @@
 @property (nonatomic) NSInteger qid;
 @property (retain, nonatomic) CaseSelectorViewController *myCase;
 @property (nonatomic, retain) NSMutableDictionary *columnSaving;
+
+//Facebook
+@property (readonly) Facebook *facebook;
+@property (nonatomic, retain) NSString *postItemId;
+@property (nonatomic, retain) NSString *likeCount;
+@property (nonatomic, retain) NSString *commentCount;
+@property (nonatomic) NSInteger isFirstTimeSet;
 
 - (void)submitCase;
 - (void)cleanAllField;
