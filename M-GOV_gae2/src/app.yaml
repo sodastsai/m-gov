@@ -5,8 +5,17 @@ api_version: 1
 
 handlers:
 
-- url: /fetch
-  script: fetch/fetch.py
-
+# Document
+# css
+- url: /css
+  static_dir: document/css
+# js
+- url: /js
+  static_dir: document/js
+# Script
+- url: /(|example/)
+  script: Root.py
+  
+# Not Found Page
 - url: /.*
-  script: main.py
+  script: NotFound.py

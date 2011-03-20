@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block htmlTitle %}mgov1999 Doc{% endblock %}
+
+{% block pageTitle %}mgov1999 docs{% endblock %}
+
+{% block content %}
+<div class="sectionTitle">Request Path</div>
+<table class="section">
+	<tr><td style="width: 25%; height: 0;"></td><td style="width: 35%;"></td><td style="width: 40%;"></td></tr>
+	<tr class="tableHead"><td>Path</td><td>Result</td><td>Example</td></tr>
+	<tr class="tableSeperation"><td colspan="3">Following are JSON REST APIs.</td></tr>
+	<tr class="tableContent tableSection">
+		<td>/json/.../</td>
+		<td>...</td>
+		<td><a href="/example/?category=...">Show example ...</a></td>
+	</tr>
+</table>
+<div class="sectionTitle">Error Code Index</div>
+<table class="section">
+	<tr><td style="width: 15%; height: 0;"></td><td style="width: 85%;"></td></tr>
+	<tr class="tableHead"><td>Error Code</td><td>Main Reason</td></tr>
+		{% for item in errorDict|dictsort:"code" %}
+		<tr class="tableContent {% if item.code|divisibleby:"10" %} tableSection {% endif %}">
+			<td>{{ item.code }}</td><td>{{ item.msg }}</td>
+		</tr>
+	{% endfor %}
+</table>
+{% endblock %}
