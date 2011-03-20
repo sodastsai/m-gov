@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% comment %}
+   Copyright 2011 NTU CSIE Mobile & HCI Research Lab
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+{% endcomment %}
+
+{% block htmlTitle %}NTU-TAIWAN-WEATHER Doc example{% endblock %}
+{% block customHead %}
+<link href="/css/example.css" rel='stylesheet' type='text/css'>
+<script src="/js/example.js" type="text/javascript"></script>
+{% endblock %}
+
+{% block pageTitle %}<a href="/">ntu-taiwan-weather</a>{% endblock %}
+{% block content %}
+<button>Back to home</button>
+<pre class="json">
+{% if category == "" %}
+{% else %}
+The value of argument is not corrent. No example for this key.
+{% endif %}
+</pre>
+{% endblock %}

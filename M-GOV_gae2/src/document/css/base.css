@@ -1,0 +1,107 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* RESET and CLEAR
+ *
+ * From http://www.apple.com/
+ */
+html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,p,blockquote,fieldset,input { margin: 0; padding: 0; }
+h1,h2,h3,h4,h5,h6,pre,code,address,caption,cite,code,em,strong,th { font-size: 1em; font-weight: normal; font-style: normal; }
+ul,ol { list-style: none; }
+fieldset,img { border: none; }
+caption,th { text-align: left; }
+table { border-collapse: collapse; border-spacing: 0; table-layout:fixed; word-wrap:break-word; width: 100%; }
+
+.clear { clear: both; }
+.clearer { clear: both; display: block; margin: 0; padding: 0; height: 0; line-height: 1px; font-size: 1px; }
+
+/* MAIN */
+body {
+	width: 75%;
+	margin: 0 auto;
+	font-family: Cabin, serif;
+	font-size: 1em;
+	color: #333;
+}
+
+a:link { text-decoration: underline; color: #333; }
+a:visited { text-decoration: underline; color: #666; }
+
+header {
+	height: 60px;
+	line-height: 60px;
+	background: #87be39;
+	color: #FFF;
+	padding: 0 15px;
+	margin-bottom: 15px;
+}
+#pageTitle {
+	float: left;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+#pageTitle a { color: #FFF; text-decoration: none; }
+#version {
+	float: right;
+	font-style: italic;
+}
+
+footer {
+	font-size: .9em;
+	color: #999;
+	text-align: center;
+	border-top: 1px solid #999;
+	margin-top: 40px;
+	padding-top: 5px;
+	margin-bottom: 20px;
+}
+
+.sectionTitle {
+	font-size: 1.2em;
+	font-weight: 900;
+	margin-top: 30px;
+}
+table.section {
+	margin-bottom: 50px;
+}
+.tableHead td {
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 3px solid #333;
+	font-weight: 700;
+}
+.tableSeperation td {
+	height: 40px;
+	line-height: 40px;
+	border-bottom: 3px solid #333;
+	border-top: 2px solid #333;
+	background: #DFDFE7;
+	color: #333;
+	font-weight: 400;
+	font-style: italic;
+	padding-left: 10px;
+}
+.tableContent td {
+	height: 30px;
+	line-height: 30px;
+	border-bottom: 1px solid #CCC;
+	padding: 2px 5px;
+}
+.tableContent.odd td { background: #EEE; }
+.tableContent.tableSection td { border-top: 2px solid #999; }
+
+.alert {
+	color: #900;
+	font-style: italic;
+}
+
+button {
+	padding: 5px 15px;
+	border: 0;
+	border-radius: 10px;
+	background: #87be39;
+	color: #FFF;
+	font-size: .8em;
+	cursor: pointer;
+}
+button.hover { background: #F90; }
