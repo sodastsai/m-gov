@@ -6,6 +6,12 @@ api_version: 1
 handlers:
 
 # HTML
+# css
+- url: /html/css
+  static_dir: html/css
+# js
+- url: /html/js
+  static_dir: html/js
 # statistical
 - url: /html/statistical/
   script: html/Statistical.py
