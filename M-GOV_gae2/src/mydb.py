@@ -17,7 +17,7 @@ class Case(db.Model):
     name = db.StringProperty()
     email = db.EmailProperty()
     
-    receive = db.StringProperty()
+    receive = db.StringListProperty()
     date = db.StringProperty()
     photo = db.StringListProperty()
     
