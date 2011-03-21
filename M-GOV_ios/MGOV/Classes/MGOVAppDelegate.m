@@ -146,6 +146,7 @@
 }
 	 
 - (void)applicationWillTerminate:(UIApplication *)application {
+    [[MGOVGeocoder sharedVariable] release];
 	// RecordEvent
 	[GoogleAnalytics trackAction:GANActionAppWillTerminate withLabel:nil andTimeStamp:NO andUDID:NO];
 }
