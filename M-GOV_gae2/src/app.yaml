@@ -18,7 +18,7 @@ handlers:
  
 # queue
 - url: /queue/fetchcase.*
-  script: FetchCase.py
+  script: /queue/FetchCase.py
  
 # Not Found Page
 - url: /.*
