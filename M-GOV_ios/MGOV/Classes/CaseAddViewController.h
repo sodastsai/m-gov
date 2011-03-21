@@ -31,6 +31,7 @@
 #import "LocationSelectorTableCell.h"
 #import "NameFieldTableCell.h"
 #import "DescriptionTableCell.h"
+#import "FacebookTableCell.h"
 #import "LocationSelectorViewController.h"
 #import "ASIFormDataRequest.h"
 #import "LoadingOverlayView.h"
@@ -54,6 +55,7 @@
 	LocationSelectorTableCell *locationCell;
 	NameFieldTableCell *nameFieldCell;
 	DescriptionTableCell *descriptionCell;
+    FacebookTableCell *facebookTextCell;
 	
 	LoadingOverlayView *indicatorView;
 	NSMutableDictionary *columnSaving;
@@ -75,7 +77,8 @@
     NSString *postItemId;
     NSString *likeCount;
     NSString *commentCount;
-    NSInteger isFirstTimeSet;
+    NSInteger switchIsSet;
+    UISwitch *facebookSwitch;
 }
 
 @property (nonatomic) BOOL ableToUpdateLocationCell;
@@ -89,7 +92,7 @@
 @property (nonatomic, retain) NSString *postItemId;
 @property (nonatomic, retain) NSString *likeCount;
 @property (nonatomic, retain) NSString *commentCount;
-@property (nonatomic) NSInteger isFirstTimeSet;
+@property (nonatomic) NSInteger switchIsSet;
 
 - (void)submitCase;
 - (void)cleanAllField;
