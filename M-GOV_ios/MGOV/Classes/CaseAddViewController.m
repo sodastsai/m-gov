@@ -26,7 +26,7 @@
 #import "AppMKAnnotation.h"
 #import "FBConnect.h"
 
-static NSString* kAppId = @"106524439416118";
+static NSString* kAppId = @"106524439416118"; //taipei1999
 #define ACCESS_TOKEN_KEY @"fb_access_token"
 #define EXPIRATION_DATE_KEY @"fb_expiration_date"
 
@@ -764,7 +764,6 @@ static NSString* kAppId = @"106524439416118";
         NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
         facebook.accessToken = [prefs objectForKey:ACCESS_TOKEN_KEY];
         facebook.expirationDate = [prefs objectForKey:EXPIRATION_DATE_KEY];
-        NSLog(@"acestkn: %@, expDate: %@", facebook.accessToken, facebook.expirationDate);
         NSArray *permissions =  [NSArray arrayWithObjects:
                                  @"read_stream", @"publish_stream", @"offline_access",nil];
         if (![facebook isSessionValid]){
@@ -792,49 +791,6 @@ static NSString* kAppId = @"106524439416118";
 - (void)fbDidNotLogin:(BOOL)cancelled{
     NSLog(@"Fail to login");
 }
-
-#pragma mark -
-#pragma mark FBRequest Delegate
-
-- (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response {
-    NSLog(@"received response");
-}
-
-- (void)request:(FBRequest *)request didLoad:(id)result {
-    
-    NSLog(@"request.url: %@", request.url);
-    NSLog(@"result: %@", result);
-    
-    if ([result isKindOfClass:[NSArray class]]) {
-        result = [result objectAtIndex:0];
-        NSLog(@"parsing: %@", result);
-    }
-    
-    if ([result isKindOfClass:[NSDictionary class]]){
-        //if posting on a wall
-        if ([request.url isEqualToString:@"https://graph.facebook.com/me/feed"]){
-            self.postItemId = [result objectForKey:@"id"];
-            NSLog(@"id is: %@", self.postItemId);
-        }
-        
-        //if getting info from a post
-        if ([request.url isEqualToString:[NSString stringWithFormat:@"https://graph.facebook.com/%@",self.postItemId]]){
-            self.likeCount = [result objectForKey:@"likes"];
-            self.commentCount = [[result objectForKey:@"comments"] objectForKey:@"count"];
-            NSLog(@"It has %@ likes and %@ comments", self.likeCount, self.commentCount);
-        }
-    }
-    
-    if ([result isKindOfClass:[NSData class]]){
-        NSLog(@"data: %@", result);
-    }    
-    
-};
-
-- (void)request:(FBRequest *)request didFailWithError:(NSError *)error {
-    NSLog(@"Error: %@", [error localizedDescription]);
-};
-
 
 #pragma mark -
 #pragma mark UITextFieldDelegate
