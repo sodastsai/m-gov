@@ -31,6 +31,7 @@
 	UILabel *caseDate;
 	UILabel *caseAddress;
 	UIImageView *caseStatus;
+    UIImageView *caseFacebook;
 }
 
 @property (nonatomic, retain) UILabel *caseKey;
@@ -38,6 +39,7 @@
 @property (nonatomic, retain) UILabel *caseDate;
 @property (nonatomic, retain) UILabel *caseAddress;
 @property (nonatomic, retain) UIImageView *caseStatus;
+@property (nonatomic, retain) UIImageView *caseFacebook;
 
 + (CGFloat)cellHeight;
 

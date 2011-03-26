@@ -262,6 +262,10 @@
 	else
 		cell.caseStatus.image = [UIImage imageNamed:@"unknown.png"];
 	
+    // Case Facebook
+    // if GAE return facebook id != nil, then
+    cell.caseFacebook.image = [UIImage imageNamed:@"facebook.png"];
+    
 	return cell;
 }
 

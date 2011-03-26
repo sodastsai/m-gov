@@ -35,7 +35,7 @@
 
 - (void)startToQueryCase {
 	if (query_caseID==nil) return;
-	
+	shouldAppear = NO;
 	resetFlag = NO;
 	QueryGoogleAppEngine *qGAE = [QueryGoogleAppEngine requestQuery];
 	qGAE.conditionType = DataSourceGAEQueryByID;
@@ -46,6 +46,7 @@
 }
 
 - (void)cleanTableView {
+
 	resetFlag = YES;
 	[self.tableView reloadData];
 }
@@ -62,20 +63,30 @@
 	coordinate.latitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
 	if (locationCell==nil) locationCell = [[LocationSelectorTableCell alloc] initWithHeight:200 andCoordinate:coordinate actionTarget:nil setAction:nil];
 	else [locationCell updatingCoordinate:coordinate];
+    
+    //if did receive FB response
+    if (fbCommentCell==nil)
+        fbCommentCell = [[FBCommentTableCell alloc] initWithLike:@"4" andComment:@"1"];
+    //
 	
-	if ([[caseData objectForKey:@"image"] count]) {
+	if ([[caseData objectForKey:@"image"] count]>0) {
 		NSString *str = [[caseData objectForKey:@"image"] objectAtIndex:0];
 		str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
+        //NSLog(@"photo string:%@", str);
+
 		// Could not fetch the photo
-		NSData *imageData = nil;
-		ASIHTTPRequest *imgRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:str]];
+        NSData *imageData = nil;
+		
+        ASIHTTPRequest *imgRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:str]];
 		[imgRequest startSynchronous];
-		if (![imgRequest error])
+		if (![imgRequest error]){
 			imageData = [imgRequest responseData];
+        }
 		
 		if (!imageData)
 			photoView = nil;
 		else {
+            //NSLog(@"image size:%u", [imageData length]);
 			photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:imageData] fitToSize:CGSizeMake(300, 200)]];
 			photoView.layer.cornerRadius = 10.0;
 			photoView.layer.masksToBounds = YES;	
@@ -88,11 +99,33 @@
 }
 
 #pragma mark -
+#pragma mark Update the child cell of facebook cell
+
+- (void)updateFBData {
+    if (shouldAppear){
+        shouldAppear = NO;
+    }
+    else {
+        shouldAppear = YES;
+    }
+    //NSArray *toBeAdd = [NSArray arrayWithObjects:@"la", @"bkj2", nil];
+    
+    //[self.tableView beginUpdates];
+    //[self.tableView reloadRowsAtIndexPaths:toBeAdd withRowAnimation:UITableViewRowAnimationFade];
+    //[self.tableView endUpdates];
+    //[self.tableView beginUpdates];
+    //[self.tableView insertRowsAtIndexPaths:toBeAdd withRowAnimation:UITableViewRowAnimationFade];
+    //[self.tableView endUpdates];
+    [self.tableView reloadData];
+}
+
+#pragma mark -
 #pragma mark View lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
 	self.title = @"案件資料";
+    shouldAppear = NO;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -103,22 +136,37 @@
 #pragma mark Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 4;
+	return 5;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
 	if (section == 0) return 3;
 	else if (section == 1) return 2;
-	else if (section == 2 || section == 3) return 1;
+	else if (section == 3 || section == 4) return 1;
+    else if (section == 2) {
+        if (shouldAppear)
+            return 3;
+        else
+            return 1;
+    }
 	return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {	
 	if (indexPath.section == 2) {
+        if (shouldAppear){
+            if (indexPath.row==0)   return 30;
+            else    return 50;
+        }
+        else{
+            return 30;
+        }
+    }
+    if (indexPath.section == 3) {
 		if (photoView) return 200; // Photo
 		return 0;
 	}
-	else if (indexPath.section == 3) return 200; // Location
+	else if (indexPath.section == 4) return 200; // Location
 	
 	return 44;
 }
@@ -126,26 +174,27 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section==0) return @"基本資料";
 	else if (section == 1) return @"案件種類與描述";
-	else if (section == 2) return @"案件照片";
-	else if(section == 3) return @"案件地點";
+    else if (section == 2) return @"塗鴉牆";
+	else if (section == 3) return @"案件照片";
+	else if (section == 4) return @"案件地點";
 	
 	return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-	if (photoView == nil && section == 2) return 200;
-	if (section == 3) return 44;
+	if (photoView == nil && section == 3) return 200;
+	if (section == 4) return 44;
 	return 0;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-	if (section == 3) return [caseData valueForKey:@"address"];
+	if (section == 4) return [caseData valueForKey:@"address"];
 	return nil;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
 	
-	if (photoView == nil && section == 2) {
+	if (photoView == nil && section == 3) {
 		UIView *emptyPhoto = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 200)] autorelease];
 		emptyPhoto.backgroundColor = [UIColor clearColor];
 		// Text Label
@@ -163,20 +212,22 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+	NSLog(@"%d", indexPath.section);
 	
-	if (indexPath.section == 3) return locationCell;
-	
-    static NSString *CellIdentifier = @"Cell";
+    static NSString *CellIdentifier1 = @"EmptyCell";
+    static NSString *CellIdentifier2 = @"NormalCell";
+    static NSString *CellIdentifier3 = @"FBdataCell";
+    
 	if (!caseData) {
-		UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+		UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier1] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		return cell;
 	}
-
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 2) {
+    
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
+    if (indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 3) {
 		if (cell == nil) {
-			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier] autorelease];
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier2] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		}
 		if (indexPath.section==0) {
@@ -208,11 +259,25 @@
 				cell.detailTextLabel.minimumFontSize = 12.0;
 				cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
 			}
-		} else if (indexPath.section==2) {
+		} else if (indexPath.section==3) {
 			if(!resetFlag) cell.backgroundView = photoView;
 			else cell.backgroundView = nil;
 		}
 	}
+    
+    if (indexPath.section == 2) {
+        if(indexPath.row == 0)
+            return fbCommentCell;
+        else {
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier3];
+            if (cell == nil) {
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier3] autorelease];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            return cell;
+        }
+    }
+	if (indexPath.section == 4) return locationCell;
 	
 	return cell;
 }
@@ -221,6 +286,9 @@
 #pragma mark Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section==2 && indexPath.row==0) {
+        [self updateFBData];
+    }
 }
 
 #pragma mark -
@@ -233,6 +301,7 @@
 - (void)dealloc {
 	[photoView release];
 	[locationCell release];
+    [fbCommentCell release];
 	[caseData release];
     [super dealloc];
 }
