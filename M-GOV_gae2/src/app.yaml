@@ -5,6 +5,11 @@ api_version: 1
 
 handlers:
 
+# JSON
+# czone
+- url: /czone/query_id/.*
+  script: czone/QueryId.py
+
 # HTML
 # css
 - url: /html/css
