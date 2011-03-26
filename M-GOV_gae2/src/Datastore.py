@@ -1,4 +1,3 @@
-
 from google.appengine.ext import db
 
 class Case(db.Model):
@@ -22,7 +21,6 @@ class Case(db.Model):
     photo = db.StringListProperty()
     
     orther = db.TextProperty()
-    
     
 class Facebook_Case(db.Model):
     caseid = db.StringProperty()
