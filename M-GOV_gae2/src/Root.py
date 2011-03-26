@@ -10,6 +10,8 @@ import os
 
 from Constants import errorMsg, errorDict
 
+debugMode = True
+
 class RootPage(webapp.RequestHandler):
     def get(self):
         # Convert Error Dict for Django display
