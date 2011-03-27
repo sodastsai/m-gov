@@ -25,6 +25,7 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 #import "LocationSelectorTableCell.h"
+#import "FBCommentTableCell.h"
 #import "QueryGoogleAppEngine.h"
 #import "ASIHTTPRequest.h"
 
@@ -35,6 +36,9 @@
 	BOOL resetFlag;
 	
 	LocationSelectorTableCell *locationCell;
+    FBCommentTableCell *fbCommentCell;
+    BOOL shouldAppear;
+    
 }
 
 @property (nonatomic, retain) NSDictionary *caseData;
@@ -43,5 +47,6 @@
 
 - (void)startToQueryCase;
 - (void)cleanTableView;
+- (void)updateFBData;
 
 @end
