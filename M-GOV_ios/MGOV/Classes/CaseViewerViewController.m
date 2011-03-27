@@ -145,7 +145,7 @@
 	else if (section == 3 || section == 4) return 1;
     else if (section == 2) {
         if (shouldAppear)
-            return 3;
+            return 4;
         else
             return 1;
     }
@@ -156,7 +156,15 @@
 	if (indexPath.section == 2) {
         if (shouldAppear){
             if (indexPath.row==0)   return 30;
-            else    return 50;
+            else{
+                ///////
+                NSString *str = @"ww";
+                CGSize wordSize = {0,0};
+                wordSize = [str sizeWithFont:[UIFont systemFontOfSize:14.0] constrainedToSize:CGSizeMake(206, 4000) lineBreakMode:UILineBreakModeWordWrap];
+                NSLog(@"(w,h): %f, %f",wordSize.width, wordSize.height);
+                return 10 + wordSize.height;
+                ///////
+            }
         }
         else{
             return 30;
@@ -270,9 +278,18 @@
             return fbCommentCell;
         else {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier3];
+            NSMutableArray *commentName = [NSMutableArray arrayWithObjects:@"bkj1", @"bkj2", @"bkj3", nil];
+            NSMutableArray *commentWord = [NSMutableArray arrayWithObjects:@"ww", @"", @"la!", nil];
+            
             if (cell == nil) {
                 cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier3] autorelease];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.textLabel.text = [commentName objectAtIndex:indexPath.row-1];
+                cell.detailTextLabel.text = [commentWord objectAtIndex:indexPath.row-1];
+                cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0];
+                cell.detailTextLabel.lineBreakMode = UILineBreakModeWordWrap;
+                cell.detailTextLabel.numberOfLines = 0;
+                
             }
             return cell;
         }

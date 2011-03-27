@@ -88,6 +88,7 @@ static NSString* kAppId = @"106524439416118"; //taipei1999
         facebookTextCell = [[FacebookTableCell alloc] init];
     }
     
+    
     //Initial facebook app setting
     facebook = [[Facebook alloc] initWithAppId:kAppId];
     facebook.sessionDelegate = self;
@@ -258,12 +259,18 @@ static NSString* kAppId = @"106524439416118"; //taipei1999
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     // Return the number of sections.
-    return 8;
+    return 7;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
 	// The number has been discussed before.
+    if (section==5){
+        if ([facebookSwitch isOn]==YES)
+            return 2;
+        else if ([facebookSwitch isOn]==NO)
+            return 1;
+    }
 	return 1;
 }
 
@@ -298,14 +305,18 @@ static NSString* kAppId = @"106524439416118"; //taipei1999
 	} else if (indexPath.section == 4 ){
 		return [DescriptionTableCell cellHeight];
 	} else if (indexPath.section == 5) {
+        if ([facebookSwitch isOn]==YES){
+            if (indexPath.row==1)   return 110;
+        }
         return 44;
-    } else if (indexPath.section == 6) {
+    } 
+    /*else if (indexPath.section == 6) {
         if ([facebookSwitch isOn]==YES)
             //return [FacebookTableCell cellHeight];
             return 110;
         else if ([facebookSwitch isOn]==NO)
             return 0;
-    } else if (indexPath.section == 7 ){
+    }*/ else if (indexPath.section == 6 ){
 		return 44;
 	}
 	
@@ -327,8 +338,9 @@ static NSString* kAppId = @"106524439416118"; //taipei1999
 	} else if (indexPath.section == 4) {
 		return descriptionCell;
 	} else if (indexPath.section == 5) {
-        // Do nothing since this is a normal cell. (switch)
-    } else if (indexPath.section == 6) {
+        // Do down
+    } 
+    /*else if (indexPath.section == 6) {
         if ([facebookSwitch isOn]==YES){
             facebookTextCell.hidden = NO;
             [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
@@ -337,7 +349,7 @@ static NSString* kAppId = @"106524439416118"; //taipei1999
             facebookTextCell.hidden = YES;
         }
         return facebookTextCell;
-    } else if (indexPath.section == 7) {
+    } */else if (indexPath.section == 6) {
 		// Do nothing since this is a normal cell.
 	}
 	
@@ -359,14 +371,17 @@ static NSString* kAppId = @"106524439416118"; //taipei1999
 	}
     
     if (indexPath.section == 5) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.text = @"分享至塗鴉牆";
-        cell.imageView.image = [UIImage imageNamed:@"next.png"];
-
-
-        cell.accessoryView = facebookSwitch;
+        if (indexPath.row == 0) {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.text = @"分享至塗鴉牆";
+            cell.imageView.image = [UIImage imageNamed:@"facebook.png"];
+            cell.accessoryView = facebookSwitch;
+        }
+        if (indexPath.row == 1) {
+            return facebookTextCell;
+        }
     }
-	if (indexPath.section == 7) {
+	if (indexPath.section == 6) {
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 		cell.textLabel.textAlignment = UITextAlignmentCenter;
 		cell.accessoryType = UITableViewCellAccessoryNone;
@@ -389,7 +404,7 @@ static NSString* kAppId = @"106524439416118"; //taipei1999
 		[typeAndDetailSelector release];
 		[typesView release];
 	}
-	if (indexPath.section==7 && indexPath.row==0) {
+	if (indexPath.section==6 && indexPath.row==0) {
 		UIAlertView *resetAlert = [[UIAlertView alloc] initWithTitle:@"確定要重設所有欄位？" message:@"此動作會清除所有欄位的資料" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"確定", nil];
 		resetAlert.tag = 1000;
 		[resetAlert show];
@@ -771,8 +786,8 @@ static NSString* kAppId = @"106524439416118"; //taipei1999
         }
     }
 
-    [self.tableView beginUpdates];
-    [self.tableView endUpdates];
+    //[self.tableView beginUpdates];
+    //[self.tableView endUpdates];
     [self.tableView reloadData];
 }
 
