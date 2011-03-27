@@ -10,6 +10,8 @@ import os
 
 from Constants import errorMsg, errorDict
 
+debugMode = True
+
 class RootPage(webapp.RequestHandler):
     def get(self):
         # Convert Error Dict for Django display
@@ -31,7 +33,6 @@ class ExamplePage(webapp.RequestHandler):
         htmlPath = os.path.join(os.path.dirname(__file__), "document/example.html")
         self.response.out.write(template.render(htmlPath, templateDict))
 
-        
 application = webapp.WSGIApplication([('/',RootPage), ('/example/', ExamplePage)],debug=True)
 
 def main():

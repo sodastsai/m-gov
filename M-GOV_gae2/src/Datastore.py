@@ -6,8 +6,7 @@ class Case(db.Model):
     h_admiv_name = db.StringProperty()
     h_summary = db.StringProperty()
     
-    coordx = db.FloatProperty()
-    coordy = db.FloatProperty()
+    coord = db.GeoPtProperty()
     
     caseType = db.IntegerProperty()
     caseSource = db.IntegerProperty()

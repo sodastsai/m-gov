@@ -20,6 +20,18 @@ handlers:
 - url: /queue/fetchcase.*
   script: /queue/FetchCase.py
   
+# Add Case
+- url: /case/add(|/)
+  script: case/add.py
+
+# HTML
+# Statistical
+- url: /html/statistical
+  script: html/Statistical.py
+# Case Detail
+- url: /html/casedetail
+  script: html/CaseDetail.py
+  
 # Tool
 # Memcache
 - url: /tool/memcache/
