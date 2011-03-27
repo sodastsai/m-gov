@@ -12,7 +12,7 @@ class AddCaseHandler(webapp.RequestHandler):
     def post(self):
         pass
     
-app = webapp.WSGIApplication([(r'/case/add/', AddCaseHandler)], debug=debugMode)
+app = webapp.WSGIApplication([(r'/case/add/', AddCaseHandler), (r'/case/add', AddCaseHandler)], debug=debugMode)
 
 def main():
     run_wsgi_app(app)
