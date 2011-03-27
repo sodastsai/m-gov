@@ -23,6 +23,8 @@
  */
 
 #import "MGOVAppDelegate.h"
+#import "CaseAddViewController.h"
+#import "PrefViewController.h"
 
 @implementation MGOVAppDelegate
 
@@ -160,6 +162,30 @@
     [window release];
     [super dealloc];
 }
+
+
+#pragma mark -
+#pragma mark Facebook
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+
+    if ([self.tabBarController.selectedViewController isKindOfClass:[MyCaseViewController class]]){
+        NSLog(@"is caseadd");
+        UINavigationController *navVC1 = (UINavigationController*)self.tabBarController.selectedViewController;
+        CaseAddViewController *caseAddVC = (CaseAddViewController*)navVC1.topViewController;
+        return [[caseAddVC facebook] handleOpenURL:url];
+    }
+    
+    if ([self.tabBarController.selectedViewController isKindOfClass:[UINavigationController class]]){
+        NSLog(@"is pref");
+        UINavigationController *navVC2 = (UINavigationController*)self.tabBarController.selectedViewController;
+        PrefViewController *prefVC = (PrefViewController*)navVC2.topViewController;
+        return [[prefVC facebook] handleOpenURL:url];
+    }
+    return YES;
+    
+}
+
 
 #pragma mark -
 #pragma mark TabBarController Delegate

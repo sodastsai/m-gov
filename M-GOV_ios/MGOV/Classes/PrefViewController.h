@@ -32,6 +32,7 @@
 
 @interface PrefViewController : UITableViewController <WritePrefDelegate, FBSessionDelegate, FBRequestDelegate> {
 	NSString *originalEmail;
+    Facebook *facebook;
 }
 
 @property (nonatomic, retain) NSString *originalEmail;

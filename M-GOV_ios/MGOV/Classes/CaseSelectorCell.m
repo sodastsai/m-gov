@@ -26,7 +26,7 @@
 
 @implementation CaseSelectorCell
 
-@synthesize caseKey, caseType, caseDate, caseAddress, caseStatus;
+@synthesize caseKey, caseType, caseDate, caseAddress, caseStatus, caseFacebook;
 
 + (CGFloat)cellHeight {
 	return kCaseSelectorCellHeight;
@@ -52,7 +52,7 @@
 		caseType.adjustsFontSizeToFitWidth = YES;
 		caseType.backgroundColor = [UIColor clearColor];
 		
-		caseDate = [[UILabel alloc] initWithFrame:CGRectMake(190, 12, 100, 16)];
+		caseDate = [[UILabel alloc] initWithFrame:CGRectMake(190, 12, 100, 16)]; //(190, 12, 100, 16)
 		caseDate.font = [UIFont systemFontOfSize:14.0];
 		caseDate.textColor = [UIColor colorWithHue:(203.94/360) saturation:1 brightness:0.73 alpha:1];
 		caseDate.backgroundColor = [UIColor clearColor];
@@ -66,19 +66,24 @@
 		caseAddress.adjustsFontSizeToFitWidth = NO;
 		
 		caseStatus = [[UIImageView alloc] init];
-		caseStatus.frame = CGRectMake(10, 28, 20, 20);
+		caseStatus.frame = CGRectMake(10, 28, 20, 20); //(10,28,20,20)
+        
+        caseFacebook = [[UIImageView alloc] init];
+        caseFacebook.frame = CGRectMake(220, 12, 15, 15);
 		
 		[self.contentView addSubview:caseKey];
 		[self.contentView addSubview:caseDate];
 		[self.contentView addSubview:caseType];
 		[self.contentView addSubview:caseAddress];
 		[self.contentView addSubview:caseStatus];
+        [self.contentView addSubview:caseFacebook];
 		
 		[caseKey release];
 		[caseType release];
 		[caseDate release];
 		[caseAddress release];
 		[caseStatus release];
+        [caseFacebook release];
 		
 		self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }

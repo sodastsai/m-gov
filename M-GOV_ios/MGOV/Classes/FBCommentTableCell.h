@@ -1,10 +1,10 @@
 /*
  * 
  * FacebookTableCell.h
- * 2011/3/20
+ * 2011/3/26
  * kamebkj
  * 
- * Cell which let user type in case description
+ * Cell to display facebook like&comment
  *
  * Copyright 2010,2011 NTU CSIE Mobile & HCI Lab
  * 
@@ -23,16 +23,20 @@
  */
 
 #import <UIKit/UIKit.h>
-#define kDescriptionFieldCellHeight 110
 
-@interface FacebookTableCell : UITableViewCell <UITextViewDelegate> {
-	UITextView *descriptionField;
-	BOOL textViewPlaceholder;
+
+@interface FBCommentTableCell : UITableViewCell {
+    UIImage *likeImage;
+    UIImage *commentImage;
+    NSString *likeNumber;
+    NSString *commentNumber;
 }
 
-@property (nonatomic, retain) UITextView *descriptionField;
+@property (nonatomic, retain) UIImage *likeImage;
+@property (nonatomic, retain) UIImage *commentImage;
+@property (nonatomic, retain) NSString *likeNumber;
+@property (nonatomic, retain) NSString *commentNumber;
 
-+ (CGFloat)cellHeight;
-- (void)setPlaceholder:(NSString *)s;
+- (id)initWithLike:(NSString *)likeCount andComment:(NSString *)commentCount;
 
 @end
