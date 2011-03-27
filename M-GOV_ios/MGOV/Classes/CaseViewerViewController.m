@@ -212,24 +212,32 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSLog(@"%d", indexPath.section);
+	NSLog(@"%@", indexPath);
 	
     static NSString *CellIdentifier1 = @"EmptyCell";
     static NSString *CellIdentifier2 = @"NormalCell";
     static NSString *CellIdentifier3 = @"FBdataCell";
+	static NSString *CellIdentifier4 = @"casePhotoCell";
     
 	if (!caseData) {
 		UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier1] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		return cell;
 	}
-    
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
-    if (indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 3) {
+    if (indexPath.section == 0 || indexPath.section == 1) {//|| indexPath.section == 3) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
 		if (cell == nil) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier2] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		}
+		/*
+		else {
+			//cell.backgroundView = ;
+			cell.textLabel.text = @"";
+			cell.detailTextLabel.text = @"";
+		}
+		 */
+
 		if (indexPath.section==0) {
 			if (indexPath.row == 0) {
 				cell.textLabel.text = @"案件編號";
@@ -259,10 +267,12 @@
 				cell.detailTextLabel.minimumFontSize = 12.0;
 				cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
 			}
-		} else if (indexPath.section==3) {
+		} /*else if (indexPath.section==3) {
 			if(!resetFlag) cell.backgroundView = photoView;
 			else cell.backgroundView = nil;
 		}
+		   */
+		return cell;
 	}
     
     if (indexPath.section == 2) {
@@ -277,9 +287,22 @@
             return cell;
         }
     }
+	if (indexPath.section==3) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier4];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier4] autorelease];
+			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		}
+		
+		if(!resetFlag) cell.backgroundView = photoView;
+		else cell.backgroundView = nil;
+		
+		return cell;
+	}
+	
 	if (indexPath.section == 4) return locationCell;
 	
-	return cell;
+	return nil;
 }
 
 #pragma mark -
