@@ -57,7 +57,6 @@
 - (void)recieveQueryResultType:(DataSourceGAEReturnTypes)type withResult:(id)result {
 	if (type == DataSourceGAEReturnByNSDictionary)
 		self.caseData = result;
-	
 	CLLocationCoordinate2D coordinate;
 	coordinate.longitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 	coordinate.latitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
@@ -71,26 +70,27 @@
 	
 	if ([[caseData objectForKey:@"image"] count]>0) {
 		NSString *str = [[caseData objectForKey:@"image"] objectAtIndex:0];
-		str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
-        //NSLog(@"photo string:%@", str);
+		//str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
+        str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO" withString:@"GET_CZONE_PHOTO"];
 
 		// Could not fetch the photo
         NSData *imageData = nil;
 		
         ASIHTTPRequest *imgRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:str]];
 		[imgRequest startSynchronous];
+		
 		if (![imgRequest error]){
 			imageData = [imgRequest responseData];
         }
-		
-		if (!imageData)
+		if (!imageData) {
 			photoView = nil;
+		}
 		else {
-            //NSLog(@"image size:%u", [imageData length]);
 			photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:imageData] fitToSize:CGSizeMake(300, 200)]];
 			photoView.layer.cornerRadius = 10.0;
-			photoView.layer.masksToBounds = YES;	
+			photoView.layer.masksToBounds = YES;
 		}
+		 
 	} else {
 		photoView = nil;
 	}
@@ -220,7 +220,6 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSLog(@"%@", indexPath);
 	
     static NSString *CellIdentifier1 = @"EmptyCell";
     static NSString *CellIdentifier2 = @"NormalCell";
@@ -238,13 +237,6 @@
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier2] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		}
-		/*
-		else {
-			//cell.backgroundView = ;
-			cell.textLabel.text = @"";
-			cell.detailTextLabel.text = @"";
-		}
-		 */
 
 		if (indexPath.section==0) {
 			if (indexPath.row == 0) {
