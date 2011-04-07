@@ -83,20 +83,20 @@
 	queryCase.childViewController = caseViewer;
 	queryCase.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"查詢案件" image:[UIImage imageNamed:@"query.png"] tag:0] autorelease];
 	
+    // Statistic
+    StatViewController *stat = [[StatViewController alloc] initWithNibName:@"StatViewController" bundle:nil];
+    stat.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"統計數據" image:[UIImage imageNamed:@"stati.png"] tag:0] autorelease];
+    
 	// Preference
 	PrefViewController *preference = [[PrefViewController alloc] initWithStyle:UITableViewStyleGrouped];
 	UINavigationController *prefTab = [[UINavigationController alloc] initWithRootViewController:preference];
 	preference.title = @"設定";
 	prefTab.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"設定" image:[UIImage imageNamed:@"pref.png"] tag:0] autorelease];
-	
-    // Statistic
-    StatViewController *stat = [[StatViewController alloc] initWithNibName:@"StatViewController" bundle:nil];
-    stat.tabBarItem = [[[UITabBarItem alloc] initWithTitle:@"統計數據" image:[UIImage imageNamed:@"query.png"] tag:0] autorelease];
     
 	// Add tabs and view
 	tabBarController = [[UITabBarController alloc] init];
 	tabBarController.delegate = self;
-	tabBarController.viewControllers = [NSArray arrayWithObjects:myCase, queryCase, prefTab, stat, nil];
+	tabBarController.viewControllers = [NSArray arrayWithObjects:myCase, queryCase, stat, prefTab, nil];
 	
 	// Set window property and show
 	window.backgroundColor = [UIColor viewFlipsideBackgroundColor];
