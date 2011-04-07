@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-    <base href="/html/">
+    <meta name="apple-mobile-web-app-capable" content="yes">
     <title>{% block pageTitle %}mgov{% endblock %}</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
-    <script src="js/base.js"></script>
-    <link href="css/base.css" rel="stylesheet" type="text/css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    <script src="/html/js/base.js"></script>
+    <link href="/html/css/base.css" rel="stylesheet" type="text/css">
     {% block customHead %}{% endblock %}
 </head>
 <body>
-{% block pageContent %}{% endblock %}
+{% block pageContent %}
+{% endblock %}
 </body>
 </html>
