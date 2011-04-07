@@ -1,5 +1,5 @@
-application: ntu-ecoliving2
-version: 1
+application: ntu-ecoliving
+version: dev
 runtime: python
 api_version: 1
 
@@ -31,6 +31,15 @@ handlers:
 # Case Detail
 - url: /html/casedetail
   script: html/CaseDetail.py
+# CSS
+- url: /html/css
+  static_dir: html/css
+# JS
+- url: /html/js
+  static_dir: html/js
+# Image
+- url: /html/image
+  static_dir: html/image
   
 # Tool
 # Memcache
