@@ -57,7 +57,6 @@
 - (void)recieveQueryResultType:(DataSourceGAEReturnTypes)type withResult:(id)result {
 	if (type == DataSourceGAEReturnByNSDictionary)
 		self.caseData = result;
-	
 	CLLocationCoordinate2D coordinate;
 	coordinate.longitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:0] doubleValue];
 	coordinate.latitude = [[[caseData objectForKey:@"coordinates"] objectAtIndex:1] doubleValue];
@@ -71,26 +70,27 @@
 	
 	if ([[caseData objectForKey:@"image"] count]>0) {
 		NSString *str = [[caseData objectForKey:@"image"] objectAtIndex:0];
-		str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
-        //NSLog(@"photo string:%@", str);
+		//str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO.CFM?photo_filename=" withString:@"photo/"];
+        str = [str stringByReplacingOccurrencesOfString:@"GET_SHOW_PHOTO" withString:@"GET_CZONE_PHOTO"];
 
 		// Could not fetch the photo
         NSData *imageData = nil;
 		
         ASIHTTPRequest *imgRequest = [ASIHTTPRequest requestWithURL:[NSURL URLWithString:str]];
 		[imgRequest startSynchronous];
+		
 		if (![imgRequest error]){
 			imageData = [imgRequest responseData];
         }
-		
-		if (!imageData)
+		if (!imageData) {
 			photoView = nil;
+		}
 		else {
-            //NSLog(@"image size:%u", [imageData length]);
 			photoView = [[UIImageView alloc] initWithImage:[[UIImage imageWithData:imageData] fitToSize:CGSizeMake(300, 200)]];
 			photoView.layer.cornerRadius = 10.0;
-			photoView.layer.masksToBounds = YES;	
+			photoView.layer.masksToBounds = YES;
 		}
+		 
 	} else {
 		photoView = nil;
 	}
@@ -145,7 +145,7 @@
 	else if (section == 3 || section == 4) return 1;
     else if (section == 2) {
         if (shouldAppear)
-            return 3;
+            return 4;
         else
             return 1;
     }
@@ -156,7 +156,15 @@
 	if (indexPath.section == 2) {
         if (shouldAppear){
             if (indexPath.row==0)   return 30;
-            else    return 50;
+            else{
+                ///////
+                NSString *str = @"ww";
+                CGSize wordSize = {0,0};
+                wordSize = [str sizeWithFont:[UIFont systemFontOfSize:14.0] constrainedToSize:CGSizeMake(206, 4000) lineBreakMode:UILineBreakModeWordWrap];
+                NSLog(@"(w,h): %f, %f",wordSize.width, wordSize.height);
+                return 10 + wordSize.height;
+                ///////
+            }
         }
         else{
             return 30;
@@ -212,24 +220,24 @@
 
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	NSLog(@"%d", indexPath.section);
 	
     static NSString *CellIdentifier1 = @"EmptyCell";
     static NSString *CellIdentifier2 = @"NormalCell";
     static NSString *CellIdentifier3 = @"FBdataCell";
+	static NSString *CellIdentifier4 = @"casePhotoCell";
     
 	if (!caseData) {
 		UITableViewCell *cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier1] autorelease];
 		cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		return cell;
 	}
-    
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
-    if (indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 3) {
+    if (indexPath.section == 0 || indexPath.section == 1) {//|| indexPath.section == 3) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier2];
 		if (cell == nil) {
 			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier2] autorelease];
 			cell.selectionStyle = UITableViewCellSelectionStyleNone;
 		}
+
 		if (indexPath.section==0) {
 			if (indexPath.row == 0) {
 				cell.textLabel.text = @"案件編號";
@@ -259,10 +267,12 @@
 				cell.detailTextLabel.minimumFontSize = 12.0;
 				cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
 			}
-		} else if (indexPath.section==3) {
+		} /*else if (indexPath.section==3) {
 			if(!resetFlag) cell.backgroundView = photoView;
 			else cell.backgroundView = nil;
 		}
+		   */
+		return cell;
 	}
     
     if (indexPath.section == 2) {
@@ -270,16 +280,38 @@
             return fbCommentCell;
         else {
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier3];
+            NSMutableArray *commentName = [NSMutableArray arrayWithObjects:@"bkj1", @"bkj2", @"bkj3", nil];
+            NSMutableArray *commentWord = [NSMutableArray arrayWithObjects:@"ww", @"", @"la!", nil];
+            
             if (cell == nil) {
                 cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier3] autorelease];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.textLabel.text = [commentName objectAtIndex:indexPath.row-1];
+                cell.detailTextLabel.text = [commentWord objectAtIndex:indexPath.row-1];
+                cell.detailTextLabel.font = [UIFont systemFontOfSize:14.0];
+                cell.detailTextLabel.lineBreakMode = UILineBreakModeWordWrap;
+                cell.detailTextLabel.numberOfLines = 0;
+                
             }
             return cell;
         }
     }
+	if (indexPath.section==3) {
+		UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier4];
+		if (cell == nil) {
+			cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:CellIdentifier4] autorelease];
+			cell.selectionStyle = UITableViewCellSelectionStyleNone;
+		}
+		
+		if(!resetFlag) cell.backgroundView = photoView;
+		else cell.backgroundView = nil;
+		
+		return cell;
+	}
+	
 	if (indexPath.section == 4) return locationCell;
 	
-	return cell;
+	return nil;
 }
 
 #pragma mark -

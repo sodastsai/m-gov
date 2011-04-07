@@ -121,6 +121,10 @@ static NSString* kAppId = @"106524439416118"; //taipei1999
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
     facebook.accessToken = [prefs objectForKey:ACCESS_TOKEN_KEY];
     facebook.expirationDate = [prefs objectForKey:EXPIRATION_DATE_KEY];
+    
+    NSLog(@"accessToken: %@", facebook.accessToken);
+    NSLog(@"expDate: %@", facebook.expirationDate);
+    
     NSArray *permissions =  [NSArray arrayWithObjects:
                              @"read_stream", @"publish_stream", @"offline_access",nil];
     if (![facebook isSessionValid]){

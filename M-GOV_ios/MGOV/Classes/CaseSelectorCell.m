@@ -69,7 +69,7 @@
 		caseStatus.frame = CGRectMake(10, 28, 20, 20); //(10,28,20,20)
         
         caseFacebook = [[UIImageView alloc] init];
-        caseFacebook.frame = CGRectMake(220, 12, 15, 15);
+        caseFacebook.frame = CGRectMake(210, 12, 15, 15);
 		
 		[self.contentView addSubview:caseKey];
 		[self.contentView addSubview:caseDate];

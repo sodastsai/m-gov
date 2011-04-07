@@ -13,7 +13,7 @@ class StatisticalPage(webapp.RequestHandler):
         htmlPath = os.path.join(os.path.dirname(__file__), "statistical.html")
         self.response.out.write(template.render(htmlPath, None))
 
-application = webapp.WSGIApplication([('/html/statistical/', StatisticalPage)],debug=True)
+application = webapp.WSGIApplication([('/html/statistical', StatisticalPage)],debug=True)
 
 def main():
     run_wsgi_app(application)

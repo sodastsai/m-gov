@@ -1,5 +1,26 @@
 {% extends "base.html" %}
 
-{% block pageContent %}
+{% block customHead %}
+<script src="/html/js/statistical.js"></script>
+<link href="/html/css/statistical.css" rel="stylesheet" type="text/css">
+{% endblock %}
 
+{% block pageContent %}
+<table class="tableSection">
+    <tr class="tableSectionHeader"><td colspan="1">本月已處理案件</td></tr>
+    <tr class="tableSectionContent"><td>
+        <div id="monthCaseCount">
+            <div id="mainCount">320</div>
+            <div id="mainUnit">筆案件</div>
+        </div>
+    </td></tr>
+    <tr class="tableSectionFooter"><td colspan="1"></td></tr>
+</table>
+<table class="tableSection">
+    <tr class="tableSectionHeader"><td colspan="1">各區案件處理比例</td></tr>
+    <tr class="tableSectionContent"><td>
+        <img id="barChart" src="http://chart.apis.google.com/chart?chxs=0,676767,15,0,l,676767|1,676767,15,0,l,676767&chxt=y,x&chbh=a&chs=260x225&cht=bvs&chco=3366CC&chd=t:59.317,52.455,54.209,46.388,42.888,54.083,55.958,60.211,54.438,52.772,61.019,64.336&chdlp=b&chg=10,10,5,5">
+    </td></tr>
+    <tr class="tableSectionFooter"><td colspan="1"></td></tr>
+</table>
 {% endblock %}
