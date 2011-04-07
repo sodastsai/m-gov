@@ -38,6 +38,11 @@ import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.facebook.android.DialogError;
+import com.facebook.android.Facebook;
+import com.facebook.android.Facebook.DialogListener;
+import com.facebook.android.FacebookError;
+import com.facebook.android.SessionStore;
 import com.google.android.apps.analytics.GoogleAnalyticsTracker;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -132,6 +137,7 @@ public class AddCase extends MapActivity {
 	private static final String SP_NAME = "sp_name";
 	private static final String SP_DESCRIPTION = "sp_description";
 	private static final String SP_MAPZOOM = "sp_mapzoom";
+	private static final String SP_FB_CHECKBOX = "sp_facebook_checkbox";
 	
 	// sharedPreference of user info
 	private SharedPreferences userPreferences;
@@ -139,6 +145,9 @@ public class AddCase extends MapActivity {
 	// others 
 	private int preferedMapViewZoom = 16;
 	private Uri imageUri;
+	
+	// Use for facebook
+	Facebook mFacebook = new Facebook(mgov.APP_ID);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -182,6 +191,7 @@ public class AddCase extends MapActivity {
 		editor.putString(SP_NAME, nameEditText.getText().toString());
 		editor.putString(SP_DESCRIPTION, descriptionEditText.getText().toString());
 		editor.putInt(SP_MAPZOOM, preferedMapViewZoom);
+		editor.putBoolean(SP_FB_CHECKBOX, fb_PostCheck.isChecked());
 		
 		editor.commit();
 	}
@@ -264,17 +274,52 @@ public class AddCase extends MapActivity {
 		// Facebook post check box
 		fb_PostCheck.setChecked(userPreferences.getBoolean(Option.KEY_USER_FB_POST, false));
 		if (userPreferences.getBoolean(Option.KEY_USER_FB_POST, false) == true) {
+			fb_PostCheck.setChecked(true);
 			fbMsgEditText.setVisibility(EditText.VISIBLE);
 			fbMsgTitleText.setVisibility(EditText.VISIBLE);
+			if (preferences.getBoolean(SP_FB_CHECKBOX, false) == false) {
+				fb_PostCheck.setChecked(false);
+				fbMsgEditText.setVisibility(EditText.GONE);
+				fbMsgTitleText.setVisibility(EditText.GONE);
+			}
 		}
 		else {
+			fb_PostCheck.setChecked(false);
 			fbMsgEditText.setVisibility(EditText.GONE);
 			fbMsgTitleText.setVisibility(EditText.GONE);
+			if (preferences.getBoolean(SP_FB_CHECKBOX, false)) {
+				fb_PostCheck.setChecked(true);
+				fbMsgEditText.setVisibility(EditText.VISIBLE);
+				fbMsgTitleText.setVisibility(EditText.VISIBLE);
+			}
 		}
+		
 		fb_PostCheck.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton arg0, boolean arg1) {
 				if (arg1 == true) {
+					SessionStore.restore(mFacebook, getApplicationContext());
+					if (!mFacebook.isSessionValid()) {
+						mFacebook.authorize(AddCase.this,new String[] {"email"}, Facebook.FORCE_DIALOG_AUTH, new DialogListener() {
+	
+							@Override
+							public void onComplete(Bundle values) {
+								SessionStore.save(mFacebook, getApplicationContext());
+							}
+	
+							@Override
+							public void onFacebookError(FacebookError e) {}
+	
+							@Override
+							public void onError(DialogError e) {}
+	
+							@Override
+							public void onCancel() {
+								fb_PostCheck.setChecked(false);
+							}
+							
+						});
+					}
 					fbMsgEditText.setVisibility(EditText.VISIBLE);
 					fbMsgTitleText.setVisibility(EditText.VISIBLE);
 				}
@@ -433,8 +478,9 @@ public class AddCase extends MapActivity {
 		mCriteria.setPowerRequirement(Criteria.POWER_LOW);
 		String strLocationProvider = lm.getBestProvider(mCriteria, true);
 		Location retLocation = lm.getLastKnownLocation(strLocationProvider);
+		if ( retLocation == null ) return new GeoPoint(25046283, 121517533);
 		GeoPoint gpoint = new GeoPoint((int) (retLocation.getLatitude() * 1e6),(int) (retLocation.getLongitude() * 1e6));
-		
+
 		return gpoint;
 	}
 	
@@ -836,6 +882,7 @@ public class AddCase extends MapActivity {
 			
 		default:
 			super.onActivityResult(requestCode, resultCode, data);
+			mFacebook.authorizeCallback(requestCode, resultCode, data);
 		}
 	}
 	

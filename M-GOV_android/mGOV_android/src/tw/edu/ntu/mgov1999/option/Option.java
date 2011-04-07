@@ -23,6 +23,12 @@
  */
 package tw.edu.ntu.mgov1999.option;
 
+import com.facebook.android.DialogError;
+import com.facebook.android.Facebook;
+import com.facebook.android.FacebookError;
+import com.facebook.android.SessionStore;
+import com.facebook.android.Facebook.DialogListener;
+
 import tw.edu.ntu.mgov1999.R;
 import tw.edu.ntu.mgov1999.GoogleAnalytics;
 import tw.edu.ntu.mgov1999.mgov;
@@ -34,11 +40,13 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.telephony.TelephonyManager;
+
 
 public class Option extends PreferenceActivity {
 
@@ -46,14 +54,19 @@ public class Option extends PreferenceActivity {
 	public static final String KEY_USER_EMAIL = "User Email";
 	public static final String KEY_USER_NAME = "User Name";
 	public static final String KEY_USER_FB_POST = "Facebook AutoPost";
+	public static final String KEY_USER_FB_NAME = "Facebook Name";
 	
 	public final Context selfContext = this;
+	
+	Facebook mFacebook = new Facebook(mgov.APP_ID);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.setTitle(getResources().getString(R.string.option_ActivityName));
 		setPreferenceScreen(createPreferenceHierarchy());
+		
+		SessionStore.restore(mFacebook, getApplicationContext());
 	}
 	
 	@Override
@@ -159,9 +172,41 @@ public class Option extends PreferenceActivity {
 		});
         prefCategory[0].addPreference(userRealName);
         
-        CheckBoxPreference fb_PostCheck = new CheckBoxPreference(this);
+        final CheckBoxPreference fb_PostCheck = new CheckBoxPreference(this);
         fb_PostCheck.setKey(KEY_USER_FB_POST);
         fb_PostCheck.setTitle("Facebook");
+        fb_PostCheck.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference arg0, Object arg1) {
+				if ((Boolean) arg1 == true) {
+					//SessionStore.restore(mFacebook, getApplicationContext());
+					if (!mFacebook.isSessionValid()) {
+						mFacebook.authorize(Option.this,new String[] {"email"}, Facebook.FORCE_DIALOG_AUTH, new DialogListener() {
+	
+							@Override
+							public void onComplete(Bundle values) {
+								SessionStore.save(mFacebook, getApplicationContext());
+							}
+	
+							@Override
+							public void onFacebookError(FacebookError e) {}
+	
+							@Override
+							public void onError(DialogError e) {}
+	
+							@Override
+							public void onCancel() {
+								fb_PostCheck.setChecked(false);
+							}
+							
+						});
+					}
+				}
+				else {
+				}
+				return true;
+			}
+		});
         prefCategory[0].addPreference(fb_PostCheck);
 		
         String versionInfo = getResources().getString(R.string.option_appInfo_version)+getResources().getString(R.string.app_version);

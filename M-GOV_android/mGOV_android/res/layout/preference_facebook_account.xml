@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="100px"
+	android:orientation="horizontal">
+	<ImageView
+		android:layout_width="40px"
+		android:layout_height="40px"
+		android:layout_margin="30px"
+		android:src="@drawable/facebook_icon">
+	</ImageView>
+	<TextView
+		android:id="@+id/preference_fb_account"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:maxLines="1"
+		android:gravity="center_vertical">
+	</TextView>
+</LinearLayout>
