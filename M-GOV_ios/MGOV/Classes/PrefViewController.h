@@ -28,12 +28,15 @@
 #import "MyCaseViewController.h"
 #import "IconCell.h"
 #import "GoogleAnalytics.h"
+#import "FBConnect.h"
 
-@interface PrefViewController : UITableViewController <WritePrefDelegate> {
+@interface PrefViewController : UITableViewController <WritePrefDelegate, FBSessionDelegate, FBRequestDelegate> {
 	NSString *originalEmail;
+    Facebook *facebook;
 }
 
 @property (nonatomic, retain) NSString *originalEmail;
+@property (readonly) Facebook *facebook;
 
 - (void)postScriptAfterSaveKey:(NSString *)key andObject:(id)value;
 - (BOOL)preScriptBeforeSaveKey:(NSString *)key andObject:(id)value;

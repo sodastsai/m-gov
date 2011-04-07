@@ -1,0 +1,14 @@
+#barChart {
+    width: 100%;
+}
+
+#monthCaseCount {
+    font-weight: bold;
+    text-align: center;
+}
+#mainCount {
+    font-size: 7.5em;
+}
+#mainUnit {
+    font-size: 1.25em;
+}

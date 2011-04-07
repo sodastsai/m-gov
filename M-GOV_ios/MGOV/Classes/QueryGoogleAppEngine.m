@@ -70,7 +70,7 @@
 		returnType = DataSourceGAEReturnNotFound;
 		queryResult = nil;
 	} else {
-		queryResult = [[CJSONDeserializer deserializer] deserialize:resultData error:nil];
+		queryResult = [resultData objectFromJSONData];
 		// Set type
 		if ([queryResult isKindOfClass:[NSDictionary class]]) {
 			if ([[queryResult valueForKey:@"error"] isEqualToString:@"null"]) {

@@ -30,8 +30,9 @@
 #import "NetworkChecking.h"
 #import "CaseViewerViewController.h"
 #import "GANTracker.h"
+#import "FBConnect.h"
 
-@interface MGOVAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate> {
+@interface MGOVAppDelegate : NSObject <UIApplicationDelegate, UITabBarControllerDelegate, FBRequestDelegate, FBSessionDelegate> {
     UIWindow *window;
 	UITabBarController *tabBarController;
 }

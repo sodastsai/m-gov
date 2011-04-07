@@ -1,0 +1,55 @@
+application: ntu-ecoliving
+version: dev
+runtime: python
+api_version: 1
+
+handlers:
+
+# Document
+# css
+- url: /css
+  static_dir: document/css
+# js
+- url: /js
+  static_dir: document/js
+# Script
+- url: /(|example/)
+  script: Root.py
+
+# Queue
+- url: /queue/fetchcase.*
+  script: queue/FetchCase.py
+  
+# Add Case
+- url: /case/add(|/)
+  script: case/add.py
+
+# HTML
+# Statistical
+- url: /html/statistical
+  script: html/Statistical.py
+# Case Detail
+- url: /html/casedetail
+  script: html/CaseDetail.py
+# CSS
+- url: /html/css
+  static_dir: html/css
+# JS
+- url: /html/js
+  static_dir: html/js
+# Image
+- url: /html/image
+  static_dir: html/image
+  
+# Tool
+# Memcache
+- url: /tool/memcache/
+  script: tool/ToolPage.py
+
+# Facebook
+- url: /facebook.*
+  script: facebook/facebook.py
+
+# Not Found Page
+- url: /.*
+  script: NotFound.py

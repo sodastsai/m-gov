@@ -26,7 +26,7 @@
 #import "AppMKAnnotation.h"
 #import "FBConnect.h"
 
-static NSString* kAppId = @"135605519806851";
+static NSString* kAppId = @"106524439416118"; //taipei1999
 #define ACCESS_TOKEN_KEY @"fb_access_token"
 #define EXPIRATION_DATE_KEY @"fb_expiration_date"
 
@@ -37,7 +37,7 @@ static NSString* kAppId = @"135605519806851";
 @synthesize myCase;
 @synthesize columnSaving;
 @synthesize ableToUpdateLocationCell;
-@synthesize facebook, postItemId, likeCount, commentCount, isFirstTimeSet;
+@synthesize facebook, postItemId, likeCount, commentCount, switchIsSet;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -84,9 +84,20 @@ static NSString* kAppId = @"135605519806851";
 		descriptionCell = [[DescriptionTableCell alloc] init];
 	}
     
+    if (facebookTextCell==nil) {
+        facebookTextCell = [[FacebookTableCell alloc] init];
+    }
+    
+    
     //Initial facebook app setting
     facebook = [[Facebook alloc] initWithAppId:kAppId];
     facebook.sessionDelegate = self;
+    facebookSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0.0, 0.0, 60.0, 26.0)];
+    self.switchIsSet = 0;
+    
+    NSLog(@"Initial switch:%@", [facebookSwitch isOn]);
+    [facebookSwitch addTarget:self action:@selector(facebookSwitchAction:) forControlEvents:UIControlEventValueChanged];
+    [facebookSwitch setBackgroundColor:[UIColor clearColor]];
 }
 
 - (void)viewDidUnload {
@@ -95,12 +106,15 @@ static NSString* kAppId = @"135605519806851";
 	[locationCell release];
 	[nameFieldCell release];
 	[descriptionCell release];
+    [facebookTextCell release];
     [facebook release];
+    [facebookSwitch release];
 	
 	photoCell = nil;
 	locationCell = nil;
 	nameFieldCell = nil;
 	descriptionCell = nil;
+    facebookTextCell = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -130,6 +144,37 @@ static NSString* kAppId = @"135605519806851";
 		}
 	}
 	
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"switchInSettingDidChange"] isEqualToString:@"YES"]){
+        self.switchIsSet = 0;
+        [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"switchInSettingDidChange"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+    
+    // Facebook Switch
+    if (self.switchIsSet==0){
+        self.switchIsSet = 1;
+        if( [[[NSUserDefaults standardUserDefaults] objectForKey:@"fbSwitchInSetting"] isEqualToString:@"YES"] ){
+            facebookSwitch.on = YES;
+            [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"fbSwitchInCase"];
+        }
+        else{
+            facebookSwitch.on = NO;
+            [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"fbSwitchInCase"];
+        }
+    }
+    else{
+        if( [[[NSUserDefaults standardUserDefaults] objectForKey:@"fbSwitchInCase"] isEqualToString:@"YES"] ){
+            facebookSwitch.on = YES;
+            [[NSUserDefaults standardUserDefaults] setObject:@"YES" forKey:@"fbSwitchInCase"];
+        }
+        else{
+            facebookSwitch.on = NO;
+            [[NSUserDefaults standardUserDefaults] setObject:@"NO" forKey:@"fbSwitchInCase"];
+        }
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    
 	// Type Cell
 	self.qid = [[self.columnSaving objectForKey:@"TypeID"] intValue];
 	self.selectedTypeTitle = [self.columnSaving valueForKey:@"TypeTitle"];
@@ -139,8 +184,11 @@ static NSString* kAppId = @"135605519806851";
 	
 	// Description Cell
 	[descriptionCell setPlaceholder:[self.columnSaving valueForKey:@"Description"]];
-	
-    self.isFirstTimeSet = 0;
+    
+    // Facebook text Cell
+    [facebookTextCell setPlaceholder:[self.columnSaving valueForKey:@"FacebookText"]];
+    
+    //self.switchIsSet = 1;
 	[self.tableView reloadData];
 }
 
@@ -149,7 +197,11 @@ static NSString* kAppId = @"135605519806851";
 	
 	// Temporary store the name & description info. to CaseAddTempInformation.plist
 	NSString *tempPlistPathInAppDocuments = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:@"CaseAddTempInformation.plist"];
-	if (![descriptionCell.descriptionField.text isEqualToString:@"請輸入描述及建議"]) [self.columnSaving setValue:descriptionCell.descriptionField.text forKey:@"Description"];
+	if (![descriptionCell.descriptionField.text isEqualToString:@"請輸入描述及建議"])
+        [self.columnSaving setValue:descriptionCell.descriptionField.text forKey:@"Description"];
+    if (![facebookTextCell.descriptionField.text isEqualToString:@"請輸入你想說的話"])
+        [self.columnSaving setValue:facebookTextCell.descriptionField.text forKey:@"FacebookText"];
+    
 	[self.columnSaving writeToFile:tempPlistPathInAppDocuments atomically:YES];
 }
 
@@ -213,6 +265,12 @@ static NSString* kAppId = @"135605519806851";
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
 	// The number has been discussed before.
+    if (section==5){
+        if ([facebookSwitch isOn]==YES)
+            return 2;
+        else if ([facebookSwitch isOn]==NO)
+            return 1;
+    }
 	return 1;
 }
 
@@ -247,8 +305,18 @@ static NSString* kAppId = @"135605519806851";
 	} else if (indexPath.section == 4 ){
 		return [DescriptionTableCell cellHeight];
 	} else if (indexPath.section == 5) {
+        if ([facebookSwitch isOn]==YES){
+            if (indexPath.row==1)   return 110;
+        }
         return 44;
-    } else if (indexPath.section == 6 ){
+    } 
+    /*else if (indexPath.section == 6) {
+        if ([facebookSwitch isOn]==YES)
+            //return [FacebookTableCell cellHeight];
+            return 110;
+        else if ([facebookSwitch isOn]==NO)
+            return 0;
+    }*/ else if (indexPath.section == 6 ){
 		return 44;
 	}
 	
@@ -270,8 +338,18 @@ static NSString* kAppId = @"135605519806851";
 	} else if (indexPath.section == 4) {
 		return descriptionCell;
 	} else if (indexPath.section == 5) {
-        // Do nothing since this is a normal cell. (switch)
-    } else if (indexPath.section == 6) {
+        // Do down
+    } 
+    /*else if (indexPath.section == 6) {
+        if ([facebookSwitch isOn]==YES){
+            facebookTextCell.hidden = NO;
+            [self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
+        else {
+            facebookTextCell.hidden = YES;
+        }
+        return facebookTextCell;
+    } */else if (indexPath.section == 6) {
 		// Do nothing since this is a normal cell.
 	}
 	
@@ -291,33 +369,18 @@ static NSString* kAppId = @"135605519806851";
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 	}
-	
-    if (indexPath.section == 5) {
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.text = @"分享至塗鴉牆";
-        cell.imageView.image = [UIImage imageNamed:@"next.png"];
-        UISwitch *facebookSwitch = [[UISwitch alloc] initWithFrame:CGRectMake(0.0, 0.0, 60.0, 26.0)];
-        [facebookSwitch addTarget:self action:@selector(facebookSwitchAction:) forControlEvents:UIControlEventValueChanged];
-        [facebookSwitch setBackgroundColor:[UIColor clearColor]];
-        
-        if (self.isFirstTimeSet==0){
-            self.isFirstTimeSet = 1;
-            if( [[[NSUserDefaults standardUserDefaults] objectForKey:@"fbSwitchInSetting"] isEqualToString:@"YES"] )
-                facebookSwitch.on = YES;
-            else
-                facebookSwitch.on = NO;
-        }
-        else{
-            if( [[[NSUserDefaults standardUserDefaults] objectForKey:@"fbSwitchInCase"] isEqualToString:@"YES"] )
-                facebookSwitch.on = YES;
-            else
-                facebookSwitch.on = NO;
-        }
-
-        cell.accessoryView = facebookSwitch;
-        [facebookSwitch release];
-    }
     
+    if (indexPath.section == 5) {
+        if (indexPath.row == 0) {
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.text = @"分享至塗鴉牆";
+            cell.imageView.image = [UIImage imageNamed:@"facebook.png"];
+            cell.accessoryView = facebookSwitch;
+        }
+        if (indexPath.row == 1) {
+            return facebookTextCell;
+        }
+    }
 	if (indexPath.section == 6) {
 		cell.selectionStyle = UITableViewCellSelectionStyleBlue;
 		cell.textLabel.textAlignment = UITextAlignmentCenter;
@@ -362,12 +425,15 @@ static NSString* kAppId = @"135605519806851";
 	nameFieldCell.nameField.text = [[NSUserDefaults standardUserDefaults] stringForKey:@"Name"];
 	[self.columnSaving setValue:@"" forKey:@"TypeTitle"];
 	[self.columnSaving setObject:[NSNumber numberWithInt:0] forKey:@"TypeID"];
+    [self.columnSaving setValue:@"" forKey:@"FacebookText"];
 	[self.columnSaving writeToFile:tempPlistPathInAppDocuments atomically:YES];
 	
 	MGOVGeocoder *shared = [MGOVGeocoder sharedVariable];
 	selectedCoord = shared.locationManager.location.coordinate;
 	[locationCell updatingCoordinate:selectedCoord];
 	ableToUpdateLocationCell = YES;
+    
+    [self.tableView reloadData];
 }
 
 - (void)submitCase {
@@ -437,6 +503,11 @@ static NSString* kAppId = @"135605519806851";
 			if ([descriptionCell.descriptionField.text isEqualToString:@"請輸入描述及建議"]) descriptionString = @" ";
 			else descriptionString = descriptionCell.descriptionField.text;
 			
+            // Process Facebook text
+            NSString *facebooktextString;
+            if ([facebookTextCell.descriptionField.text isEqualToString:@"請輸入你想說的話"]) facebooktextString = @"";
+            else facebooktextString = facebookTextCell.descriptionField.text;
+            
 			// Post the submt data to App Engine
 			ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:@"http://ntu-ecoliving.appspot.com/case/add"]];
 			request.delegate = self;
@@ -451,12 +522,11 @@ static NSString* kAppId = @"135605519806851";
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.longitude] forKey:@"coordx"];
 			[request setPostValue:[NSString stringWithFormat:@"%f", selectedCoord.latitude] forKey:@"coordy"];
 			[request setPostValue:[MGOVGeocoder returnFullAddress:selectedCoord] forKey:@"address"];
+            //facebook value
+            //[request setPostValue:[[NSUserDefaults standardUserDefaults] objectForKey:ACCESS_TOKEN_KEY] forKey:@""];
+            //[request setPostValue:[[NSUserDefaults standardUserDefaults] objectForKey:EXPIRATION_DATE_KEY] forKey:@""];
+            //[request setPostValue:facebooktextString forKey:@""];
             
-            //Facebook submit
-            NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                           [NSString stringWithFormat:@"%d", qid], @"message",
-                                           @"http://www.facebook.com/mgovTaipei1999",@"link",
-                                           @"路見不平1999",@"name", nil];
             
             //GAE submit
 			if (![[[[NSBundle mainBundle] infoDictionary] objectForKey:@"Develop Mode"] boolValue])
@@ -704,20 +774,21 @@ static NSString* kAppId = @"135605519806851";
     [[NSUserDefaults standardUserDefaults] setObject:isOn forKey:@"fbSwitchInCase"];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
-    if ([s isOn]==NO)
-        return;
-    
-    //Facebook Login
-    NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    facebook.accessToken = [prefs objectForKey:ACCESS_TOKEN_KEY];
-    facebook.expirationDate = [prefs objectForKey:EXPIRATION_DATE_KEY];
-    NSLog(@"acestkn: %@, expDate: %@", facebook.accessToken, facebook.expirationDate);
-    NSArray *permissions =  [NSArray arrayWithObjects:
-                     @"read_stream", @"publish_stream", @"offline_access",nil];
-    if (![facebook isSessionValid]){
-        [facebook authorize:permissions delegate:self];
+    if ([s isOn]==YES){
+        //Facebook Login
+        NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+        facebook.accessToken = [prefs objectForKey:ACCESS_TOKEN_KEY];
+        facebook.expirationDate = [prefs objectForKey:EXPIRATION_DATE_KEY];
+        NSArray *permissions =  [NSArray arrayWithObjects:
+                                 @"read_stream", @"publish_stream", @"offline_access",nil];
+        if (![facebook isSessionValid]){
+            [facebook authorize:permissions delegate:self];
+        }
     }
 
+    //[self.tableView beginUpdates];
+    //[self.tableView endUpdates];
+    [self.tableView reloadData];
 }
 
 - (void)fbDidLogin {
@@ -735,49 +806,6 @@ static NSString* kAppId = @"135605519806851";
 - (void)fbDidNotLogin:(BOOL)cancelled{
     NSLog(@"Fail to login");
 }
-
-#pragma mark -
-#pragma mark FBRequest Delegate
-
-- (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response {
-    NSLog(@"received response");
-}
-
-- (void)request:(FBRequest *)request didLoad:(id)result {
-    
-    NSLog(@"request.url: %@", request.url);
-    NSLog(@"result: %@", result);
-    
-    if ([result isKindOfClass:[NSArray class]]) {
-        result = [result objectAtIndex:0];
-        NSLog(@"parsing: %@", result);
-    }
-    
-    if ([result isKindOfClass:[NSDictionary class]]){
-        //if posting on a wall
-        if ([request.url isEqualToString:@"https://graph.facebook.com/me/feed"]){
-            self.postItemId = [result objectForKey:@"id"];
-            NSLog(@"id is: %@", self.postItemId);
-        }
-        
-        //if getting info from a post
-        if ([request.url isEqualToString:[NSString stringWithFormat:@"https://graph.facebook.com/%@",self.postItemId]]){
-            self.likeCount = [result objectForKey:@"likes"];
-            self.commentCount = [[result objectForKey:@"comments"] objectForKey:@"count"];
-            NSLog(@"It has %@ likes and %@ comments", self.likeCount, self.commentCount);
-        }
-    }
-    
-    if ([result isKindOfClass:[NSData class]]){
-        NSLog(@"data: %@", result);
-    }    
-    
-};
-
-- (void)request:(FBRequest *)request didFailWithError:(NSError *)error {
-    NSLog(@"Error: %@", [error localizedDescription]);
-};
-
 
 #pragma mark -
 #pragma mark UITextFieldDelegate
