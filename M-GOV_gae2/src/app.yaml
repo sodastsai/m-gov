@@ -18,7 +18,7 @@ handlers:
 
 # Queue
 - url: /queue/fetchcase.*
-  script: /queue/FetchCase.py
+  script: queue/FetchCase.py
   
 # Add Case
 - url: /case/add(|/)
@@ -45,6 +45,10 @@ handlers:
 # Memcache
 - url: /tool/memcache/
   script: tool/ToolPage.py
+
+# Facebook
+- url: /facebook.*
+  script: facebook/facebook.py
 
 # Not Found Page
 - url: /.*

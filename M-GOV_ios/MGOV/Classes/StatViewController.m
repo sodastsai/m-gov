@@ -52,7 +52,7 @@
 
 - (void)viewDidLoad
 {
-    NSURL *urlToLoad = [NSURL URLWithString:@"http://www.google.com"];
+    NSURL *urlToLoad = [NSURL URLWithString:@"http://dev.ntu-ecoliving.appspot.com/html/statistical"];
     NSURLRequest *requestObject = [NSURLRequest requestWithURL:urlToLoad];
     [statWebView loadRequest:requestObject];
     //[(UIScrollView*)[statWebView.subviews objectAtIndex:0] setScrollEnabled:NO];
