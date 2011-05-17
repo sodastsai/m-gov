@@ -12,4 +12,6 @@
 <string name="addcase_button_submit">送出</string>
 <string name="addcase_locationSelector_hint">點一下地圖以更換位置</string>
 <string name="addcase_locationSelector_addrNull">沒有網路連線 無法顯示地址</string>
+<string name="addcase_title_fb_msg">分享案件</string>
+<string name="addcase_hint_fb_msg">請輸入要分享的訊息</string>
 </resources>

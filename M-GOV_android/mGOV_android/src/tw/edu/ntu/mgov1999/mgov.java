@@ -45,6 +45,7 @@ import tw.edu.ntu.mgov1999.query.Query;
 public class mgov extends TabActivity {
 	private static final String myCaseTabID = "myCaseTab";
 	private static final String queryCaseTabID = "queryCaseTab";
+	public static final String APP_ID = "106524439416118"; 
     // Global Constant
 	public static final boolean DEBUG_MODE = true;
 	public static boolean firstTimeMyCase;

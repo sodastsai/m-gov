@@ -107,7 +107,7 @@ public class SelectLocationMap extends MapActivity {
 		
 		int latitudeE6  = bundle.getInt(BUNDLE_LATE6, -1);
 		int longitudeE6 = bundle.getInt(BUNDLE_LONE6, -1);
-		
+		Log.d("shou", Integer.toString(latitudeE6));
 		if (latitudeE6 != -1 && longitudeE6 != -1) {
 			previousGeoPoint = new GeoPoint(latitudeE6, longitudeE6);
 			addrLabel.setText(getAddress(previousGeoPoint, this));
@@ -202,6 +202,8 @@ public class SelectLocationMap extends MapActivity {
 			userLocationGeoPoint = new GeoPoint((int)(lastKnownLocation.getLatitude()*Math.pow(10, 6)), (int)(lastKnownLocation.getLongitude()*Math.pow(10, 6)));
 			mapView.getController().animateTo(userLocationGeoPoint);
 			userLocationGeoPoint=mapView.getMapCenter();
+		} else {
+			userLocationGeoPoint = new GeoPoint(25046283, 121517533);
 		}
 		locationManager.removeUpdates(locationListener);
 		locationListener = null;
